@@ -16,7 +16,7 @@
     <meta name="keyword" content="dynamicform,template">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>动态表单管理主页--用户登录</title>
+    <title>志愿者服务平台--用户登录</title>
 
     <!-- Bootstrap core CSS -->
     <link href="jslib/flatlab/css/bootstrap.min.css" rel="stylesheet">
@@ -39,22 +39,22 @@
     <div class="container">
 
       <form class="form-signin" action="login.action" method="post">
-        <h2 class="form-signin-heading">sign in now</h2>
+        <h2 class="form-signin-heading">登 录</h2>
         <div class="login-wrap">
             <input type="text" name="user.name" class="form-control" placeholder="User ID" autofocus>
             <input type="password" name="user.password" class="form-control" placeholder="Password">
             <label class="checkbox">
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> 记住我
                 <span class="pull-right">
-                    <a data-toggle="modal" href="#myModal"> Forgot Password?</a>
+                    <a data-toggle="modal" href="#myModal"> 忘记密码?</a>
 
                 </span>
             </label>
-            <button class="btn btn-lg btn-login btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
             <div class="registration">
-                Don't have an account yet?
+                还没有账号?
                 <a class="" href="">
-                    Create an account
+                    注册
                 </a>
             </div>
 
@@ -66,16 +66,16 @@
                   <div class="modal-content">
                       <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title">Forgot Password ?</h4>
+                          <h4 class="modal-title">忘记密码 ?</h4>
                       </div>
                       <div class="modal-body">
-                          <p>Enter your e-mail address below to reset your password.</p>
+                          <p>请输入邮箱.</p>
                           <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
 
                       </div>
                       <div class="modal-footer">
                           <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                          <button class="btn btn-success" type="button">Submit</button>
+                          <button class="btn btn-success" type="button">提交</button>
                       </div>
                   </div>
               </div>
