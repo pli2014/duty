@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/login.do" location="50,50" dimension="166,88" />
+  <StrutsActivity path="/AddEmp.do" location="650,250" dimension="206,88" />
+  <StrutsActivity path="/AddEmployee.do" location="50,250" dimension="222,88" />
+  <StrutsActivity path="/DepartmentEntrance.do" location="350,350" dimension="241,88" />
+  <StrutsActivity path="/DutyEntrance.do" location="1550,550" dimension="241,88" />
+  <StrutsActivity path="/getDutyDepartment2_2.do" location="1550,950" dimension="276,88" />
+  <StrutsActivity path="/getEmployeeDepartment2_3.do" location="950,450" dimension="246,88" />
+  <StrutsActivity path="/allSingleEmployeeDepartment.do" location="350,650" dimension="276,88" />
+  <StrutsActivity path="/amendEmployee.do" location="350,650" dimension="245,88" />
+  <StrutsActivity path="/getUpdateEmployee.do" location="50,750" dimension="238,88" />
+  <StrutsActivity path="/AddDut.do" location="950,750" dimension="79,62" />
+  <StrutsActivity path="/lookDut.do" location="1250,150" dimension="214,88" />
+  <StrutsActivity path="/deptmentlookDut.do" location="650,850" dimension="214,88" />
+  <StrutsActivity path="/allSingleDepartmentEmployeeDepartment.do" location="1250,950" dimension="241,88" />
+  <StrutsActivity path="/amendDuty.do" location="1250,650" dimension="202,88" />
+  <StrutsActivity path="/amendDepartmentDuty.do" location="50,950" dimension="202,88" />
+  <StrutsActivity path="/updateDepartmentDutyEmployee.do" location="350,1050" dimension="203,88" />
+  <StrutsActivity path="/updateDutyEmployee.do" location="350,850" dimension="158,88" />
+  <StrutsActivity path="/dutyDepartment.do" location="650,1050" dimension="158,88" />
+  <StrutsActivity path="/amendEmployeeDuty.do" location="950,1050" dimension="213,88" />
+  <StrutsActivity path="/updateEmployeeDutyEmployee.do" location="1250,1150" dimension="192,88" />
+  <StrutsActivity path="/user.jsp" location="350,50" dimension="72,49" />
+  <StrutsActivity path="/login.jsp" location="950,50" dimension="73,49" />
+  <StrutsActivity path="/admin.jsp" location="650,50" dimension="79,49" />
+  <StrutsActivity path="/department.jsp" location="350,150" dimension="107,49" />
+  <StrutsActivity path="/addEmployee.jsp" location="950,150" dimension="115,49" />
+  <StrutsActivity path="/employeeDepartment.jsp" location="650,450" dimension="154,49" />
+  <StrutsActivity path="/dutyDepartment.jsp" location="1550,850" dimension="130,49" />
+  <StrutsActivity path="/allSingleDutyDepartment.jsp" location="1550,450" dimension="169,49" />
+  <StrutsActivity path="/allSingleEmployeeDepartment.jsp" location="50,650" dimension="192,49" />
+  <StrutsActivity path="/updateEmployee.jsp" location="950,650" dimension="131,49" />
+  <StrutsActivity path="/userSingleDutyDepartment.jsp" location="1250,550" dimension="180,49" />
+  <StrutsActivity path="/userSingleDepartmentDutyDepartment.jsp" location="1250,850" dimension="237,49" />
+  <StrutsActivity path="/updateDutyUser.jsp" location="1250,450" dimension="130,49" />
+  <StrutsActivity path="/updateDepartmentDutyUser.jsp" location="950,950" dimension="187,49" />
+  <StrutsActivity path="/updateEmployeeDutyUser.jsp" location="50,1150" dimension="176,49" />
+  <StrutsActivity path="userSingleDutyDepartment.jsp" location="1250,350" dimension="176,49" />
+  <StrutsActivity path="/addEmployee" location="950,250" dimension="97,49" />
+  <StrutsActivity path="/DepartmentListEntrance.jsp" location="950,350" dimension="167,49" />
+  <StrutsActivity path="/departmentListEntrance.jsp" location="50,450" dimension="166,49" />
+  <StrutsActivity path="/allSingleDepartment.jsp" location="50,550" dimension="146,49" />
+  <StrutsActivity path="allSingleEmployeeDepartment.jsp" location="350,550" dimension="188,49" />
+  <StrutsActivity path="／allSingleEmployeeDepartment.jsp" location="650,550" dimension="200,49" />
+  <StrutsActivity path="" location="1550,750" dimension="29,49" />
+  <StrutsTransition id="/amendDepartmentDuty.do,updateDepartmentDutyUser,/updateDepartmentDutyUser.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="151,994" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.do,department,/department.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="133,94" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/getUpdateEmployee.do,admin,/admin.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="288,794" />
+      <AbsolutePoint location="901,794" />
+      <AbsolutePoint location="901,74" />
+      <AbsolutePoint location="729,74" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.do,login,/login.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="103,50" />
+      <AbsolutePoint location="103,-100" />
+      <AbsolutePoint location="1016,-100" />
+      <AbsolutePoint location="1016,50" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/AddEmployee.do,admin,/admin.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="272,314" />
+      <AbsolutePoint location="532,314" />
+      <AbsolutePoint location="532,74" />
+      <AbsolutePoint location="650,74" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/amendEmployeeDuty.do,updateEmployeeDutyUser,/updateEmployeeDutyUser.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1056,1138" />
+      <AbsolutePoint location="1056,1174" />
+      <AbsolutePoint location="226,1174" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.jsp,null,/login.do,2" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="986,50" />
+      <AbsolutePoint location="986,-25" />
+      <AbsolutePoint location="133,-25" />
+      <AbsolutePoint location="133,50" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/AddEmployee.do,adduser,/addEmployee.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="161,250" />
+      <AbsolutePoint location="161,214" />
+      <AbsolutePoint location="1007,214" />
+      <AbsolutePoint location="1007,199" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.do,user,/user.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="216,84" />
+      <AbsolutePoint location="350,84" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/AddEmp.do,addemployee,/addEmployee.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="753,250" />
+      <AbsolutePoint location="753,174" />
+      <AbsolutePoint location="950,174" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/amendDuty.do,updatedutyuser,/updateDutyUser.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1452,694" />
+      <AbsolutePoint location="1539,694" />
+      <AbsolutePoint location="1539,474" />
+      <AbsolutePoint location="1380,474" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/login.do,admin,/admin.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="216,114" />
+      <AbsolutePoint location="689,114" />
+      <AbsolutePoint location="689,99" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/getEmployeeDepartment2_3.do,allsingledepartment,/allSingleEmployeeDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="950,514" />
+      <AbsolutePoint location="211,514" />
+      <AbsolutePoint location="211,650" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/deptmentlookDut.do,userSingleDepartmentDutyDepartment,/userSingleDepartmentDutyDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="757,894" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/DutyEntrance.do,DutyListEntrance,/dutyDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1665,638" />
+      <AbsolutePoint location="1665,850" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/getDutyDepartment2_2.do,allsingledutydepartment,/allSingleDutyDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1688,994" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/amendEmployee.do,updateuser,/updateEmployee.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="595,714" />
+      <AbsolutePoint location="1015,714" />
+      <AbsolutePoint location="1015,699" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/DepartmentEntrance.do,DepartmentListEntrance,/employeeDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="470,438" />
+      <AbsolutePoint location="470,474" />
+      <AbsolutePoint location="650,474" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/lookDut.do,userSingleDutyDepartment,/userSingleDutyDepartment.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1445,238" />
+      <AbsolutePoint location="1445,574" />
+      <AbsolutePoint location="1430,574" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+</FlowViewLayout>
+
