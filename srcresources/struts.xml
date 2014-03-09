@@ -137,21 +137,16 @@
 		</action>
 	</package>
 
-    <package name="patient" namespace="/patient" extends="default">
-        <action name="index" class="actions.PatientAction" method="index"/>
-        <action name="initTable" class="actions.PatientAction" method="initTable"/>
-        <action name="queryTable" class="actions.PatientAction" method="queryTable"/>
-        <action name="add" class="actions.PatientAction" method="add">
-            <result name="success">/pages/patient/patientEdit.jsp</result>
+    <package name="volunteer" namespace="/volunteer" extends="default">
+        <action name="queryVolunteer" class="actions.VolunteerAction" method="query" >
+            <result name="success" type="freemarker">/ftl/volunteer/volunteerManagement.ftl</result>
         </action>
-        <action name="edit" class="actions.PatientAction" method="edit">
-            <result name="success">/pages/patient/patientEdit.jsp</result>
-        </action>
-        <action name="save" class="actions.PatientAction" method="save">
-            <result name="success" type="redirectAction">index</result>
-        </action>
-        <action name="delete" class="actions.PatientAction" method="delete">
-            <result name="success" type="redirectAction">index</result>
+    </package>
+
+    <package name="wechat" namespace="/wechat" extends="default">
+        <action name="access" class="actions.WeChatAction" method="checkAccess">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="success" type="freemarker">/ftl/wechat/accessSuccess.ftl</result>
         </action>
     </package>
 </struts>
