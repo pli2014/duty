@@ -15,34 +15,44 @@
 		<global-results>
 			<result name="error">/pages/generalError.jsp</result>
 			<result name="tableIndex">/pages/table/tableIndex.jsp</result>
-			<result name="login_failure" type="redirectAction">logout.action</result>
+			<result name="login_failure" type="redirect">/pages/menu_loginout/login.jsp</result>
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping exception="java.lang.Exception" result="error" />
 		</global-exception-mappings>
 		
-		
        <action name="login" class="actions.UserAction" method="login">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
-		   <result name="success" type="redirectAction">welcome</result>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/</param>
+              <param name="actionName">index</param>
+		   </result>
 		</action>
 		<action name="logout" class="actions.UserAction" method="logout">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
-		   <result name="success" type="redirect">/pages/menu_loginout/login.jsp</result>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/</param>
+              <param name="actionName">welcome</param>
+		   </result>
 		</action>
 		<action name="register" class="actions.UserAction" method="register">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
 		   <result name="failure" type="redirect">/pages/user/register.jsp</result>
-		   <result name="success" type="redirect">/welcome.jsp</result>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/</param>
+              <param name="actionName">index</param>
+		   </result>
 		</action>
-		<action name="index">
-		   <result name="success">/welcome.jsp</result>
-		</action>
-
-        <action name="welcome" class="com.opensymphony.xwork2.ActionSupport" method="execute">
+		
+        <action name="welcome">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success">/html/welcome.jsp</result>
         </action>
+        
+        <action name="index">
+           <interceptor-ref name="noLoginStack"></interceptor-ref>
+		   <result name="success">/pages/frontend_service/servicetile.jsp</result>
+		</action>
 	</package>
 	<package name="template" namespace="/template" extends="default">
 		<action name="templateFormlist" class="actions.FormAction" method="templateFormList">

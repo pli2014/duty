@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%--<%@ include file="pages/commonHeader.jsp"%>--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head><title>动态表单管理主页</title></head>
 <body>
