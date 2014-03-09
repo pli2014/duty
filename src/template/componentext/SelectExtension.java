@@ -1,11 +1,11 @@
-package core.componentext;
+package template.componentext;
 
-import dynamicschema.Checkbox;
+import dynamicschema.Select;
 
 /**
  * Created by wangronghua on 14-2-14.
  */
-public class CheckboxExtension extends Checkbox {
+public class SelectExtension extends Select {
 
   private NameValueBean[] options;
 

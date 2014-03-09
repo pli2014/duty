@@ -1,6 +1,6 @@
-package core.componentext;
+package template.componentext;
 
-import core.Constants;
+import template.Constants;
 
 /**
  * Created by wangronghua on 14-2-14.

@@ -1,4 +1,4 @@
-package core;
+package template;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
@@ -7,9 +7,6 @@ import freemarker.template.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Map;
 
 /**
  * Created by wangronghua on 14-1-27.

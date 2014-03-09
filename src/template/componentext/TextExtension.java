@@ -1,6 +1,5 @@
-package core.componentext;
+package template.componentext;
 
-import core.ComponentEnhancer;
 import dynamicschema.Text;
 
 /**
