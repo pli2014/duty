@@ -62,7 +62,6 @@
                <legend>志愿者注册</legend>
                <label>姓名</label>
                <div class="input-control text" data-role="input-control">
-                   <input name="user.id" type="hidden" value="${user.id}"/>
                    <input type="text" placeholder="请输入姓名" name="user.name" value="${user.name}"/>
                    <button class="btn-clear" tabindex="-1"></button>
                </div>

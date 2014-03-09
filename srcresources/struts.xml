@@ -30,7 +30,10 @@
 		</action>
 		<action name="logout" class="actions.UserAction" method="logout">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
-		   <result name="success">/html/welcome.jsp</result>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/</param>
+              <param name="actionName">welcome</param>
+		   </result>
 		</action>
 		<action name="register" class="actions.UserAction" method="register">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
@@ -41,12 +44,13 @@
 		   </result>
 		</action>
 		
-        <action name="welcome" class="com.opensymphony.xwork2.ActionSupport" method="execute">
+        <action name="welcome">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success">/html/welcome.jsp</result>
         </action>
         
         <action name="index">
+           <interceptor-ref name="noLoginStack"></interceptor-ref>
 		   <result name="success">/pages/frontend_service/servicetile.jsp</result>
 		</action>
 	</package>
