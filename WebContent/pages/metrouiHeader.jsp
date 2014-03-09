@@ -24,23 +24,26 @@
 
     <link rel="shortcut icon" href="jslib/flatlab/img/favicon.png">
 
-    <!-- Bootstrap core CSS -->
-    <link href="jslib/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="jslib/flatlab/css/bootstrap-reset.css" rel="stylesheet">
-    <!--external css-->
-    <!-- Custom styles for this template -->
-    <link href="jslib/jquery-ui-1.10.4.custom/css/start/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/metro-ui/min/metro-bootstrap.min.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/min/metro-bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/min/iconFont.min.css" rel="stylesheet">
+    <link href="jslib/flatlab/assets/metro-ui/css/metro-bootstrap.css" rel="stylesheet">
+    <link href="jslib/flatlab/assets/metro-ui/css/metro-bootstrap-responsive.css" rel="stylesheet">
+    <link href="jslib/flatlab/assets/metro-ui/css/iconFont.css" rel="stylesheet">
+    <link href="jslib/flatlab/assets/metro-ui/css/docs.css" rel="stylesheet">
+    <link href="jslib/flatlab/assets/metro-ui/js/prettify/prettify.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!-- Load JavaScript Libraries -->
+    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.min.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.mousewheel.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/prettify/prettify.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/holder/holder.js"></script>
 
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="jslib/flatlab/js/jquery.js"></script>
-    <script src="jslib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="jslib/flatlab/js/bootstrap.min.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/min/metro.min.js"></script>
+    <!-- Metro UI CSS JavaScript plugins -->
+    <script src="jslib/flatlab/assets/metro-ui/js/load-metro.js"></script>
+
+    <!-- Local JavaScript -->
+    <script src="jslib/flatlab/assets/metro-ui/js/docs.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/github.info.js"></script>
+
 </head>
 
 <body>

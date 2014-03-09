@@ -8,6 +8,7 @@
 		<pattern>/pages/menu_loginout/*</pattern>
 		<pattern>/panel/*.html</pattern>
 		<pattern>/pages/user/register.jsp</pattern>
+        <pattern>/personpicture/*</pattern>
 	</excludes>
 
 	<!-- 用来定义装饰器要过滤的页面 -->
