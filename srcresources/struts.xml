@@ -30,7 +30,11 @@
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
 		   <result name="success" type="redirect">/pages/menu_loginout/login.jsp</result>
 		</action>
-		
+		<action name="register" class="actions.UserAction" method="register">
+		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
+		   <result name="failure" type="redirect">/pages/user/register.jsp</result>
+		   <result name="success" type="redirect">/welcome.jsp</result>
+		</action>
 		<action name="index">
 		   <result name="success">/welcome.jsp</result>
 		</action>

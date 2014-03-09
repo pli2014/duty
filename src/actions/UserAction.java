@@ -67,7 +67,7 @@ public class UserAction extends BaseTableAction<UserBusiness> {
   @Override
   public String save() throws Exception {
     if (StringUtils.isBlank(user.getId())) {
-      user.set_id(new ObjectId(getSession().getAttribute("dataId").toString()));
+      user.set_id(ObjectId.get());
       getBusiness().createLeaf(user);
     } else {
       UserBean origUser = (UserBean) getBusiness().getLeaf(user.getId().toString()).getResponseData();
@@ -142,6 +142,18 @@ public class UserAction extends BaseTableAction<UserBusiness> {
       return SUCCESS;
   }
 
+  
+  public String register() throws Exception {
+    if (user == null) {
+      return FAILURE;
+    } else {
+      user.set_id(ObjectId.get());
+      getBusiness().createLeaf(user);
+      getSession().setAttribute(LOGIN_USER_SESSION_ID, user);
+      return SUCCESS;
+    }
+    
+  }
     private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null)
