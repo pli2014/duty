@@ -54,7 +54,7 @@
             <div class="registration">
                 还没有账号?
                 <a class="" href="<%=request.getContextPath() %>/register.action">
-                    注册1
+                    注册
                 </a>
             </div>
 
