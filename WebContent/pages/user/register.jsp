@@ -33,11 +33,11 @@
     <div class="example face" style="width: 30%;float: left;">
       <img id="personicon" src="${user.iconpath}" onerror="this.src='img/volunteer.png';">
       <div></div>
-      <span onclick="jQuery('#cameraDialog').css({display:''});jQuery('#cameraDialog').center();" style="float:left">打开</span>
-      <span onclick="jQuery('#cameraDialog').css({display:'none'});" style="float:left;margin-left:10px">关闭摄像头</span>
+      <span onclick="jQuery('#cameraDialog').css({'width':'320px','height':'240px'});jQuery('#cameraDialog').center();" style="float:left">打开</span>
+      <span onclick="jQuery('#cameraDialog').css({'width':'0px','height':'0px'});" style="float:left;margin-left:10px">关闭摄像头</span>
       <span style="clear: both"></span>
     </div>
-    <div style="display:none;position:absolute;left:30%;top:10%" id="cameraDialog">
+    <div style="position:absolute;width:0px;height:0px;" id="cameraDialog">
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
     <div class="example userinfo" style="width: 70%;float: left;">
