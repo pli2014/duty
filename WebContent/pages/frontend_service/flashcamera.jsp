@@ -24,20 +24,14 @@
             -moz-border-radius: 20px;
             border-radius: 20px;
         }
+        #bar{
+            position: relative;
+        }
 
         #webcam {
             position: relative;
             margin-top: 50px;
             margin-bottom: 50px;
-        }
-
-        #webcam > span {
-            z-index: 2;
-            position: absolute;
-            color: #eee;
-            font-size: 10px;
-            bottom: -16px;
-            left: 152px;
         }
 
         #webcam > img {
@@ -49,26 +43,23 @@
             left: 89px;
         }
 
-        #webcam > div {
-            border: 5px solid #333;
+        #webcam > img {
+            border: 0px none;
+        }
+        .icon.icon-camera{
+            border: 4px solid #1019c8;
             position: absolute;
-            right: -90px;
-            padding: 5px;
+            left: 258px;
+            top: 430px;
+            width:25px;
+            height:25px;
             -webkit-border-radius: 8px;
             -moz-border-radius: 8px;
             border-radius: 8px;
             cursor: pointer;
+            z-index:100;
+            background: #15ceff;
         }
-
-        #webcam a {
-            background: #fff;
-            font-weight: bold;
-        }
-
-        #webcam a > img {
-            border: 0px none;
-        }
-
         #canvas {
             border: 20px solid #ccc;
             background: #eee;
@@ -88,7 +79,7 @@
         object {
             display: block; /* HTML5 fix */
             position: relative;
-            z-index: 1000;
+            z-index: 1;
         }
 
     </style>
@@ -99,7 +90,9 @@
 <div id="bar" class="tile-area">
     <div id="webcam" style="display: inline-block">
         <img src="img/antenna.png" alt=""/>
-        <div class="icon icon-camera" style="width: 50px;height: 50px"><a href="javascript:webcam.capture();void(0);">志愿者拍照</a></div>
+    </div>
+
+    <div class="icon icon-camera" onclick="javascript:webcam.capture();">
     </div>
 
     <div style="display: inline-block">
@@ -232,6 +225,20 @@
 
                 if (pos >= 0x4B000) {
                     ctx.putImageData(img, 0, 0);
+                    var canvas = document.getElementById("canvas");
+                    jQuery.ajax({
+                        async:false,
+                        type: "POST",
+                        url: "savepbase64png.action",
+                        cache: false,
+                        data: {image:canvas.toDataURL("image/png")},
+                        success : function(data, status) {
+
+                        },
+                        error: function(){
+
+                        }
+                    });
                     pos = 0;
                 }
             },
