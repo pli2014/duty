@@ -1,13 +1,11 @@
-package core.componentext;
+package template.componentext;
 
-import core.Constants;
-import dynamicschema.Select;
+import dynamicschema.Radio;
 
 /**
  * Created by wangronghua on 14-2-14.
  */
-public class SelectExtension extends Select {
-
+public class RadioExtension extends Radio {
   private NameValueBean[] options;
 
   public void init() {

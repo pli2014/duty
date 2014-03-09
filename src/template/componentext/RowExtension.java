@@ -1,12 +1,11 @@
-package core.componentext;
+package template.componentext;
 
-import dynamicschema.Form;
+import dynamicschema.Row;
 
 /**
- * Created by wangronghua on 14-2-11.
+ * Created by wangronghua on 14-3-1.
  */
-public class FormExtension extends Form{
-
+public class RowExtension extends Row {
   public String getInnerHTML() {
     return innerHTML;
   }
@@ -16,6 +15,4 @@ public class FormExtension extends Form{
   }
 
   private String innerHTML;
-
-
 }

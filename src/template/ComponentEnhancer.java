@@ -1,6 +1,6 @@
-package core;
+package template;
 
-import core.componentext.*;
+import template.componentext.*;
 import dynamicschema.*;
 import org.apache.commons.beanutils.BeanUtils;
 

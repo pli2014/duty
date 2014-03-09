@@ -1,7 +1,10 @@
 package actions;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import org.apache.struts2.ServletActionContext;
+import wechat.AccessValidator;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
  * Created by wangronghua on 14-3-9.
  */
 public class WeChatAction  extends ActionSupport {
+  protected final static Logger LOG = LoggerFactory.getLogger(WeChatAction.class);
 
-  private String token = "wangronghua";
+  private static final String token = "wangronghua";
   private String signature;
   private String timestamp;
 
@@ -19,9 +23,21 @@ public class WeChatAction  extends ActionSupport {
 
   public String checkAccess(){
     HttpServletRequest request = ServletActionContext.getRequest();
-    echostr = request.getParameter("echostr");
-    if(echostr == null) echostr = "null";
-    return SUCCESS;
+    signature = request.getParameter("signature");
+    timestamp = request.getParameter("timestamp");
+    nonce = request.getParameter("nonce");
+
+    AccessValidator validator = new AccessValidator(signature, token, timestamp, nonce);
+    if(validator.validate()) {
+      echostr = request.getParameter("echostr");
+      if(echostr == null) echostr = "null";
+      return SUCCESS;
+    } else {
+      LOG.error("validate failed! signature:#0, token:#1, timestamp:#2, nonce:#3",
+                                        signature, token, timestamp, nonce);
+      return ERROR;
+    }
+
   }
 
 
@@ -33,14 +49,6 @@ public class WeChatAction  extends ActionSupport {
 
   public void setEchostr(String echostr) {
     this.echostr = echostr;
-  }
-
-  public String getToken() {
-    return token;
-  }
-
-  public void setToken(String token) {
-    this.token = token;
   }
 
   public String getSignature() {

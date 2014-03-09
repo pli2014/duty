@@ -15,7 +15,7 @@ import bl.mongobus.FormBusiness;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import core.componentext.NameValueBean;
+import template.componentext.NameValueBean;
 
 /**
  * Created by wangronghua on 14-2-9.

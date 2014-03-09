@@ -1,4 +1,4 @@
-package core;
+package template;
 
 /**
  * Created by wangronghua on 14-2-3.

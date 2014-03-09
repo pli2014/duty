@@ -1,11 +1,12 @@
-package core.componentext;
+package template.componentext;
 
-import dynamicschema.Row;
+import dynamicschema.FieldSet;
 
 /**
- * Created by wangronghua on 14-3-1.
+ * Created by wangronghua on 14-2-15.
  */
-public class RowExtension extends Row {
+public class FieldSetExtension extends FieldSet {
+
   public String getInnerHTML() {
     return innerHTML;
   }
@@ -15,4 +16,5 @@ public class RowExtension extends Row {
   }
 
   private String innerHTML;
+
 }

@@ -12,9 +12,9 @@ import bl.mongobus.PageBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import core.Constants;
-import core.TemplateGenerator;
-import core.TemplateHelper;
+import template.Constants;
+import template.TemplateGenerator;
+import template.TemplateHelper;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;

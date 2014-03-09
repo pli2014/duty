@@ -1,11 +1,8 @@
-package core;
+package template;
 
-import core.componentext.DFObjectFactory;
-import core.exception.XmlFileNotFoundException;
+import template.exception.XmlFileNotFoundException;
 import dynamicschema.Form;
 
-import javax.naming.Context;
-import javax.xml.bind.JAXB;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;

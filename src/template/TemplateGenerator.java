@@ -1,10 +1,10 @@
-package core;
+package template;
 
-import core.componentext.ComponentBase;
-import core.componentext.FieldSetExtension;
-import core.componentext.FormExtension;
-import core.componentext.RowExtension;
-import core.exception.XmlFileNotFoundException;
+import template.componentext.ComponentBase;
+import template.componentext.FieldSetExtension;
+import template.componentext.FormExtension;
+import template.componentext.RowExtension;
+import template.exception.XmlFileNotFoundException;
 import dynamicschema.*;
 
 import javax.xml.bind.JAXBException;
@@ -13,7 +13,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangronghua on 14-1-27.
