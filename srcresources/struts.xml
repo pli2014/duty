@@ -38,6 +38,11 @@
 		<action name="index">
 		   <result name="success">/welcome.jsp</result>
 		</action>
+
+        <action name="welcome" class="com.opensymphony.xwork2.ActionSupport" method="execute">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="success">/html/welcome.jsp</result>
+        </action>
 	</package>
 	<package name="template" namespace="/template" extends="default">
 		<action name="templateFormlist" class="actions.FormAction" method="templateFormList">
@@ -153,4 +158,5 @@
             <result name="success" type="freemarker">/ftl/wechat/accessSuccess.ftl</result>
         </action>
     </package>
+
 </struts>
