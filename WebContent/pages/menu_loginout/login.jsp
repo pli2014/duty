@@ -66,7 +66,7 @@
           </div>
           
           <input type="submit" value="登录"/>
-          <input type="submit" value="指纹登录"/>
+          <input type="button" value="指纹登录"/>
           <div style="margin-top: 20px">
           </div>
       </fieldset>

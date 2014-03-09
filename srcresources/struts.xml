@@ -24,7 +24,7 @@
 		
        <action name="login" class="actions.UserAction" method="login">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
-		   <result name="success" type="redirect">/welcome.jsp</result>
+		   <result name="success" type="redirectAction">welcome</result>
 		</action>
 		<action name="logout" class="actions.UserAction" method="logout">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
