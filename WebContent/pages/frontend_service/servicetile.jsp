@@ -29,7 +29,7 @@
 <body class="metro">
 <div id="bar" class="tile-area">
     <div class="tile-group three" style="">
-        <a data-click="transform" class="tile bg-darkOrange" href="#">
+        <a data-click="transform" class="tile bg-darkOrange" href="user/edit.action?id=${sessionUser.id}">
             <div class="tile-content icon">
                 <span class=" icon-clipboard-2"></span>
             </div>

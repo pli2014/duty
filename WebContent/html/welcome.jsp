@@ -81,10 +81,10 @@
                         </div>
                         <div class="row">
                             <div class="span4 bg-green padding20 text-center">
-                                <h2 class="fg-white">我要登录</h2>
+                                <h2 class="fg-white"><a href="<%=request.getContextPath()%>/login.action">我要登录</a></h2>
                             </div>
                             <div class="span4 bg-red padding20 text-center">
-                                <h2 class="fg-white">我要注册</h2>
+                                <h2 class="fg-white"><a href="<%=request.getContextPath()%>/register.action">我要注册</a></h2>
                             </div>
                         </div>
                     </div>
