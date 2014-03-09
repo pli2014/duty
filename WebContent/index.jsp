@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ include file="pages/commonHeader.jsp"%>
+<%--<%@ include file="pages/commonHeader.jsp"%>--%>
 <html lang="en">
 <head><title>动态表单管理主页</title></head>
 <body>
@@ -7,7 +7,7 @@
 <!--script for this page-->
 <script type="text/javascript">
 
-   window.location.href = "<%=request.getContextPath()%>/login.action";
+   window.location.href = "<%=request.getContextPath()%>/welcome.action";
 
 </script>
 
