@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1x
-    response.setHeader("Pragma", "no-cache"); //HTTP 1.0x
+<%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
     response.setDateHeader("Expires", 0); //prevents caching at the proxy server
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -53,8 +53,8 @@
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
             <div class="registration">
                 还没有账号?
-                <a class="" href="">
-                    注册
+                <a class="" href="<%=request.getContextPath() %>/register.action">
+                    注册1
                 </a>
             </div>
 

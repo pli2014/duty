@@ -7,6 +7,7 @@
 		<pattern>/pages/generalError.jsp</pattern>
 		<pattern>/pages/menu_loginout/*</pattern>
 		<pattern>/panel/*.html</pattern>
+		<pattern>/pages/user/register.jsp</pattern>
 	</excludes>
 
 	<!-- 用来定义装饰器要过滤的页面 -->
@@ -17,5 +18,6 @@
         <pattern>/datainput/data*.action</pattern>
         <pattern>/user/*.action</pattern>
         <pattern>/patient/*.action</pattern>
+        <pattern>/volunteer/*.action</pattern>
 	</decorator>
 </decorators>

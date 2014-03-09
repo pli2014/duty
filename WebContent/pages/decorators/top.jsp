@@ -5,7 +5,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.jsp" class="logo">Dynamic<span>Form</span></a>
+            <a href="index.jsp" class="logo"><span>志愿者管理</span></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -224,7 +224,7 @@
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
                             <img alt="" src="jslib/flatlab/img/avatar1_small.jpg">
-                            <span class="username">Jhon Doue</span>
+                            <span class="username">${sessionUser.name }</span>
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu extended logout">
