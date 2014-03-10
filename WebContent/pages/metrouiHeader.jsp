@@ -30,8 +30,9 @@
     <link href="jslib/flatlab/assets/metro-ui/css/docs.css" rel="stylesheet">
     <link href="jslib/flatlab/assets/metro-ui/js/prettify/prettify.css" rel="stylesheet">
 
+
     <!-- Load JavaScript Libraries -->
-    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.min.js"></script>
+    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.mousewheel.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/prettify/prettify.js"></script>
