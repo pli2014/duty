@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<%@ include file="../metrouiHeader.jsp" %>
 <html>
 
 <head>
@@ -89,13 +88,11 @@
 <body class="metro">
 <div id="bar" class="tile-area">
     <div id="webcam" style="display: inline-block">
-        <img src="img/antenna.png" alt=""/>
     </div>
 
     <div class="icon icon-camera" onclick="javascript:webcam.capture();">
     </div>
-
-    <div style="display: inline-block">
+    <div style="display: none">
         <canvas id="canvas" height="240" width="320"></canvas>
     </div>
     <div id="flash"></div>
@@ -229,11 +226,12 @@
                     jQuery.ajax({
                         async:false,
                         type: "POST",
-                        url: "savepbase64png.action",
+                        url: "personpicture/uploadpngdata.action",
                         cache: false,
                         data: {image:canvas.toDataURL("image/png")},
                         success : function(data, status) {
-
+                             jQuery("#personicon").attr("src",data);
+                             jQuery("#iconpath").val(data);
                         },
                         error: function(){
 
