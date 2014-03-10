@@ -1,45 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <%@ page trimDirectiveWhitespaces="true" %>
-	<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-	<%-- Listing of all the taglibs that we reference in this application. --%>
-	<%@ taglib uri="/struts-tags" prefix="s" %>
-	<%-- Force the pages to not be cached, so that they are always reloaded. --%>
-	<%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
-	    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-	    response.setDateHeader("Expires", 0); //prevents caching at the proxy server
-	    String path = request.getContextPath();
-	    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-	%>
-    <base href="<%=basePath%>">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="dynamic manager technique">
-    <meta name="author" content="LiLimin,GuDong,WangRonghua">
-    <meta name="keyword" content="dynamicform,template">
-    
-    <link href="jslib/flatlab/assets/metro-ui/css/metro-bootstrap.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/css/metro-bootstrap-responsive.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/css/iconFont.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/css/docs.css" rel="stylesheet">
-    <link href="jslib/flatlab/assets/metro-ui/js/prettify/prettify.css" rel="stylesheet">
+      <%@ include file="../metrouiHeader.jsp" %>
 
-    <!-- Load JavaScript Libraries -->
-    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.min.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.mousewheel.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/js/prettify/prettify.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/js/holder/holder.js"></script>
+     <script>
 
-    <!-- Metro UI CSS JavaScript plugins -->
-    <script src="jslib/flatlab/assets/metro-ui/js/load-metro.js"></script>
+         (function($) {
+             jQuery.fn.center = function () {
+                 this.css('position','absolute');
+                 this.css('top', ( $(window).height() - this.height() ) / +$(window).scrollTop() + 'px');
+                 this.css('left', ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + 'px');
+                 return this;
+             }
+         })(jQuery);
+         jQuery("#cameraDialog").css('display','');
+         jQuery("#cameraDialog").center();
 
-    <!-- Local JavaScript -->
-    <script src="jslib/flatlab/assets/metro-ui/js/docs.js"></script>
-    <script src="jslib/flatlab/assets/metro-ui/js/github.info.js"></script>
-     
-     
+     </script>
      
   
    <style type="text/css">
@@ -53,15 +30,24 @@
     <title>注册新用户</title>
 </head>
 <body  class="metro" style="padding: 10px;">
-    <div class="example face" style="width: 50%;float: left;">
-    fasfsafsafsaf
+    <div class="example face" style="width: 30%;float: left;">
+      <img id="personicon" src="${user.iconpath}" onerror="this.src='img/volunteer.png';">
+      <div></div>
+      <span onclick="jQuery('#cameraDialog').css({'width':'320px','height':'240px'});jQuery('#cameraDialog').center();" style="float:left">打开</span>
+      <span onclick="jQuery('#cameraDialog').css({'width':'0px','height':'0px'});" style="float:left;margin-left:10px">关闭摄像头</span>
+      <span style="clear: both"></span>
     </div>
-    <div class="example userinfo" style="width: 50%;float: left;">
+    <div style="position:absolute;width:0px;height:0px;" id="cameraDialog">
+        <%@ include file="../frontend_service/flashcamera.jsp" %>
+    </div>
+    <div class="example userinfo" style="width: 70%;float: left;">
        <form action="<%=request.getContextPath() %>/user/register.action">
+           <input name="user.iconpath" id="iconpath" type="hidden" value="${user.iconpath}"/>
            <fieldset>
                <legend>志愿者注册</legend>
                <label>姓名</label>
                <div class="input-control text" data-role="input-control">
+                   <input name="user.id" type="hidden" value="${user.id}"/>
                    <input type="text" placeholder="请输入姓名" name="user.name" value="${user.name}"/>
                    <button class="btn-clear" tabindex="-1"></button>
                </div>

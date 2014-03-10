@@ -1,4 +1,4 @@
-package core.componentext;
+package template.componentext;
 
 import dynamicschema.ObjectFactory;
 import dynamicschema.Text;

@@ -1,7 +1,7 @@
 package actions;
 
 import com.opensymphony.xwork2.ActionSupport;
-import core.TemplateHelper;
+import template.TemplateHelper;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -26,6 +26,12 @@
     </header>
      <form role="form" class="form-horizontal tasi-form" action="<%=request.getContextPath() %>/user/save.action">
          <div class="form-group has-success">
+             <label class="col-lg-2 control-label">个人照片</label>
+             <div class="col-lg-10">
+                 <img src="${user.iconpath}"/>
+             </div>
+         </div>
+         <div class="form-group has-success">
              <label class="col-lg-2 control-label">Username</label>
              <div class="col-lg-10">
                  <input name="user.id" type="hidden" value="${user.id}"/>

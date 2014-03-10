@@ -81,6 +81,12 @@
       <artifactId>commons-beanutils</artifactId>
       <version>1.6</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.3</version>
+    </dependency>
   </dependencies>
   <version>1.0.0</version>
   <build>

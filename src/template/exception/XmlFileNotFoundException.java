@@ -1,4 +1,4 @@
-package core.exception;
+package template.exception;
 
 import java.io.FileNotFoundException;
 

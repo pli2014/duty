@@ -1,11 +1,12 @@
-package core.componentext;
+package template.componentext;
 
-import dynamicschema.Radio;
+import dynamicschema.Checkbox;
 
 /**
  * Created by wangronghua on 14-2-14.
  */
-public class RadioExtension extends Radio {
+public class CheckboxExtension extends Checkbox {
+
   private NameValueBean[] options;
 
   public void init() {

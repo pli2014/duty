@@ -1,16 +1,10 @@
-package core;
+package template;
 
-import dynamicschema.Component;
 import dynamicschema.Input;
 import dynamicschema.Text;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by wangronghua on 14-1-27.

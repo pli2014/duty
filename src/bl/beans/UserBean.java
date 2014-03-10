@@ -19,8 +19,17 @@ public class UserBean extends Bean {
   private String email;
   private String cellPhone;
   private String wechat;
+  private String iconpath;
 
-  public int getSex() {
+    public String getIconpath() {
+        return iconpath;
+    }
+
+    public void setIconpath(String iconpath) {
+        this.iconpath = iconpath;
+    }
+
+    public int getSex() {
     return sex;
   }
 
