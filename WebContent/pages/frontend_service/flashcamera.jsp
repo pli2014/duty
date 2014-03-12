@@ -1,21 +1,5 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-
-    <title>志愿者服务</title>
-    <style>
-        body {
-            background: url('img/zhiyuanzhebackgroud.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative;
-            overflow: hidden;
-        }
-    </style>
-
     <style type="text/css">
-
         #webcam, #canvas {
             border: 20px solid #333;
             background: #eee;
@@ -48,8 +32,8 @@
         .icon.icon-camera{
             border: 4px solid #1019c8;
             position: absolute;
-            left: 258px;
-            top: 430px;
+            left: 150px;
+            top: 320px;
             width:25px;
             height:25px;
             -webkit-border-radius: 8px;
@@ -83,10 +67,8 @@
 
     </style>
     <script src="jslib/jquery-webcam-master/jquery.webcam.js"></script>
-</head>
 
-<body class="metro">
-<div id="bar" class="tile-area">
+<div id="bar">
     <div id="webcam" style="display: inline-block">
     </div>
 
@@ -283,6 +265,3 @@
 
     </script>
 </div>
-</body>
-
-</html>

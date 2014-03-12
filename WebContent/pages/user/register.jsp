@@ -32,12 +32,8 @@
 <body  class="metro" style="padding: 10px;">
     <div class="example face" style="width: 30%;float: left;">
       <img id="personicon" src="${user.iconpath}" onerror="this.src='img/volunteer.png';">
-      <div></div>
-      <span onclick="jQuery('#cameraDialog').css({'width':'320px','height':'240px'});jQuery('#cameraDialog').center();" style="float:left">打开</span>
-      <span onclick="jQuery('#cameraDialog').css({'width':'0px','height':'0px'});" style="float:left;margin-left:10px">关闭摄像头</span>
-      <span style="clear: both"></span>
     </div>
-    <div style="position:absolute;width:0px;height:0px;" id="cameraDialog">
+    <div id="cameraDialog" style="position:absolute;left:20px;top:260px">
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
     <div class="example userinfo" style="width: 70%;float: left;">
