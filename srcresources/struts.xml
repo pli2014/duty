@@ -175,4 +175,5 @@
         </action>
     </package>
 
+    <include file="struts-backend.xml"></include>
 </struts>

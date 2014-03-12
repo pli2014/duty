@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.custom.i18n.resources" value="resources/LocaleStrings" />
+
+	<package name="default-backend" namespace="/backend" extends="default" >
+	    <default-interceptor-ref name="bakcendDefaultStack"></default-interceptor-ref>
+		<global-results>
+			<result name="error">/pages/generalError.jsp</result>
+			<result name="tableIndex">/pages/table/tableIndex.jsp</result>
+			<result name="backend_login_failure" type="redirect">/pages/menu_loginout/backend_login.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception" result="error" />
+		</global-exception-mappings>
+		
+       <action name="login" class="actions.BackendUserAction" method="login">
+           <interceptor-ref name="noLoginStack"></interceptor-ref>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/backend/</param>
+              <param name="actionName">index</param>
+		   </result>
+		</action>
+		<action name="logout" class="actions.BackendUserAction" method="logout">
+		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/backend/</param>
+              <param name="actionName">welcome</param>
+		   </result>
+		</action>
+		<action name="register" class="actions.BackendUserAction" method="register">
+		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
+		   <result name="failure" type="redirect">/pages/user/backendRegister.jsp</result>
+		   <result name="success" type="redirectAction">
+		      <param name="namespace">/backend/</param>
+              <param name="actionName">index</param>
+		   </result>
+		</action>
+		
+        <action name="welcome">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="success">/html/welcome.jsp</result>
+        </action>
+        
+        <action name="index">
+           <interceptor-ref name="noLoginStack"></interceptor-ref>
+		   <result name="success">/pages/frontend_service/servicetile.jsp</result>
+		</action>
+	</package>
+</struts>
