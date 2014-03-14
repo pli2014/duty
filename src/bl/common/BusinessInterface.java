@@ -1,5 +1,9 @@
 package bl.common;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public interface BusinessInterface<F extends BeanContext, L extends BeanContext> {
 
     /**
@@ -62,5 +66,10 @@ public interface BusinessInterface<F extends BeanContext, L extends BeanContext>
      * @return The result of the business operation.
      */
     public BusinessResult getAllLeaves();
-    
+
+
+    public List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted);
+
+    public List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted, SpecPaginationContext spc);
+
 }

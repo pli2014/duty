@@ -15,8 +15,8 @@ public class Bean implements BeanContext, Cloneable {
 
     String name;
 
-    Date createTime = new Date(System.currentTimeMillis());
-    Date modifyTime = new Date(System.currentTimeMillis());
+    Date createTime = null;
+    Date modifyTime = null;
 
     /**
      * @return the name
@@ -80,7 +80,7 @@ public class Bean implements BeanContext, Cloneable {
     }
 
     /**
-     * @param modifyime the modifytime to set
+     * @param modifyTime the modifytime to set
      */
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
