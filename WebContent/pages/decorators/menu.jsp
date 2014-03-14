@@ -20,12 +20,10 @@
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-laptop"></i>
-                          <span>志愿服务管理</span>
+                          <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">服务内容</a></li>
-                          <li><a  href="boxed_page.html">服务地点</a></li>
-                          <li><a  href="boxed_page.html">服务计划</a></li>
+                          <li><a  href="serviceplace/serviceplacelist.action">服务地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -34,8 +32,8 @@
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">培训课程</a></li>
-                          <li><a  href="boxed_page.html">培训计划</a></li>
+                          <li><a  href="traincourse/traincourselist.action">培训课程</a></li>
+                          <li><a  href="traincourse/trainassignlist.action">培训安排</a></li>
                           <li><a  href="boxed_page.html">培训记录</a></li>
                       </ul>
                   </li>
