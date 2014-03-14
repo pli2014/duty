@@ -57,7 +57,7 @@ public class DataPageViewAction extends ActionSupport {
     BusinessResult br = fb.getAllLeaves();
     templates = (List<TemplateBean>) br.getResponseData();
     if(templates == null) {
-      templates = new ArrayList<>();
+      templates = new ArrayList<TemplateBean>();
     }
     return SUCCESS;
   }

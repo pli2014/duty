@@ -85,7 +85,10 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
       Type[] ts = t.getActualTypeArguments();
       try {
         business = (B) ((Class<B>) ts[0]).newInstance();
-      } catch (InstantiationException | IllegalAccessException e) {
+      } catch (InstantiationException e) {
+        e.printStackTrace();
+        business = null;
+      } catch (IllegalAccessException e) {
         e.printStackTrace();
         business = null;
       }

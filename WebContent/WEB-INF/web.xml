@@ -33,6 +33,16 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
+
+    <servlet>
+        <servlet-name>WeChat</servlet-name>
+        <servlet-class>wechat.WechatServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>WeChat</servlet-name>
+        <url-pattern>/wechat</url-pattern>
+    </servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>

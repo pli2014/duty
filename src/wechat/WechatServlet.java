@@ -31,6 +31,10 @@ public class WechatServlet extends HttpServlet {
     String timestamp = request.getParameter("timestamp");
     // 随机数
     String nonce = request.getParameter("nonce");
+
+    if(signature == null || timestamp == null || nonce == null) {
+      return;
+    }
     // 随机字符串
     String echostr = request.getParameter("echostr");
     PrintWriter out = response.getWriter();
@@ -53,6 +57,10 @@ public class WechatServlet extends HttpServlet {
     String timestamp = request.getParameter("timestamp");
     // 随机数
     String nonce = request.getParameter("nonce");
+
+    if(signature == null || timestamp == null || nonce == null) {
+      return;
+    }
     // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
     AccessValidator validator = new AccessValidator(signature, Property.APP_TOKEN, timestamp, nonce);
     if (validator.validate()) {

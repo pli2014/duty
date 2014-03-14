@@ -1,7 +1,9 @@
 package wechat.responsebean;
 
+import wechat.BaseMessage;
+
 /**
  * Created by wangronghua on 14-3-11.
  */
-public class Text {
+public class ImageResponse extends BaseMessage {
 }

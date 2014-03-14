@@ -1,6 +1,8 @@
 package wechat.requestbean;
 
 import wechat.BaseMessage;
+import wechat.Constants;
+import wechat.messagehandler.MessageHandler;
 
 import java.util.Map;
 
@@ -27,6 +29,10 @@ public class TextRequest extends BaseMessage {
 
   public void setContent(String content) {
     Content = content;
+  }
+
+  public BaseMessage accept(MessageHandler handler) {
+    return handler.handle(this);
   }
 
   public void fill(Map paraMap) {

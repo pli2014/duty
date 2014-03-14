@@ -1,0 +1,34 @@
+{
+    "button":[
+        {
+            "type":"click",
+            "name":"志愿者",
+            "key":"V1001_TODAY_MUSIC",
+            "url":"http://www.soso.com/"
+        },
+        {
+            "type":"click",
+            "name":"工时",
+            "key":"V1001_TODAY_SINGER",
+            "url":"http://www.soso.com/"
+        },
+        {
+            "name":"菜单",
+            "sub_button":[
+                {
+                    "type":"view",
+                    "name":"搜索",
+                    "url":"http://www.soso.com/"
+                },
+                {
+                    "type":"view",
+                    "name":"视频",
+                    "url":"http://v.qq.com/"
+                },
+                {
+                    "type":"click",
+                    "name":"赞一下我们",
+                    "key":"V1001_GOOD"
+                }]
+        }]
+}
