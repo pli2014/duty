@@ -13,7 +13,7 @@ import org.bson.types.ObjectId;
 
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
-import bl.UserBusiness;
+import bl.BackendUserBusiness;
 import bl.beans.BackendUserBean;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  * @author gudong
  * @since $Date:2014-02-10$
  */
-public class BackendUserAction extends BaseTableAction<UserBusiness> {
+public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendUserAction.class);
   public final static String LOGIN_BACKEND_USER_SESSION_ID = "backendSessionUser";
   private BackendUserBean user;
