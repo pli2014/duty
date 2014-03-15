@@ -4,10 +4,13 @@
  */
 package bl.beans;
 
+import org.mongodb.morphia.annotations.Entity;
+
 /**
  * @author gudong
  * 
  */
+@Entity(value = "backend_user")
 public class BackendUserBean extends Bean {
   
   private String password;
