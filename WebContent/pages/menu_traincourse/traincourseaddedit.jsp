@@ -20,6 +20,13 @@
                     </div>
                 </div>
                 <div class="form-group has-success">
+                    <label class="control-label col-lg-2 col-sm-3">课程状态</label>
+                    <div class="col-lg-10">
+                        <s:select name="trainCourse.status" list="#{0:'创建',1:'开始',2:'结束'}">
+                        </s:select>
+                    </div>
+                </div>
+                <div class="form-group has-success">
                     <label class="control-label col-lg-2 col-sm-3">课程描述</label>
                     <div class="col-lg-10">
                         <s:textarea name="trainCourse.description" cols="50" rows="10"></s:textarea>
@@ -32,16 +39,36 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="mt15 table table-striped table-advance table-hover table-bordered" id="userList">
                             <thead>
                             <tr>
-                                <th class="column-name">选项</th>
-                                <th class="column-name">地点名称</th>
+                                <th class="column-name">
+                                    <label><input type="checkbox" id="selectAll" onclick="selectedAll(this)" value="全选">全选</label>
+                                    </span>
+                                    <script>
+                                        function selectedAll(obj){
+                                            if(obj.checked){
+                                                jQuery(".selectedAll input[type='checkbox']").each(function(){
+                                                     this.checked=true;
+                                                });
+                                            }else{
+                                                jQuery(".selectedAll input[type='checkbox']").each(function(){
+                                                    this.checked=false;
+                                                });
+                                            }
+                                        }
+                                    </script>
+                                </th>
+                                <th class="column-name">服务地点</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <s:iterator value="servicePlaces" var="sp">
+                            <tbody class="selectedAll">
+                            <s:iterator value="servicePlaceBeans" var="sp" status="id">
+                                <s:set value="false" name="found"/>
+                                <s:iterator value="trainCourseServicePlaces" var="sub">
+                                    <s:if test="#sub.servicePlaceId==#sp.id">
+                                        <s:set value="true" name="found" id="found"/>
+                                    </s:if>
+                                </s:iterator>
                                 <tr>
-                                    <td><s:property value="%{#sp.name}"/> </td>
-                                </tr>
-                                <tr>
+                                    <td><input type="checkbox" <s:if test="#found">checked</s:if> name="trainCourseServicePlaces[<s:property value="%{#id.index}"/>].servicePlaceId" value="<s:property value="%{#sp.id}"/>"> </td>
                                     <td><s:property value="%{#sp.name}"/> </td>
                                 </tr>
                             </s:iterator>

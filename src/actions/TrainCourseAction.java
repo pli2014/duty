@@ -24,6 +24,14 @@ public class TrainCourseAction extends ActionSupport {
     List<TrainCourseServicePlaceBean> trainCourseServicePlaces = null;
     List<ServicePlaceBean> servicePlaceBeans = null;
 
+    public List<ServicePlaceBean> getServicePlaceBeans() {
+        return servicePlaceBeans;
+    }
+
+    public void setServicePlaceBeans(List<ServicePlaceBean> servicePlaceBeans) {
+        this.servicePlaceBeans = servicePlaceBeans;
+    }
+
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
     TrainCourseBusiness tc = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
     TrainCourseServicePlaceBusiness tcp = (TrainCourseServicePlaceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
@@ -83,8 +91,10 @@ public class TrainCourseAction extends ActionSupport {
 
             //insert data relationship table.
             for (int i = 0; i < this.trainCourseServicePlaces.size(); i++) {
-                this.trainCourseServicePlaces.get(i).setTrainCourseId(this.trainCourse.getId());
-                tcp.createLeaf(this.trainCourseServicePlaces.get(i));
+                if(this.trainCourseServicePlaces.get(i)!=null){
+                    this.trainCourseServicePlaces.get(i).setTrainCourseId(this.trainCourse.getId());
+                    tcp.createLeaf(this.trainCourseServicePlaces.get(i));
+                }
             }
 
         } catch (Exception e) {
