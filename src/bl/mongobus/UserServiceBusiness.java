@@ -18,8 +18,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by wangronghua on 14-3-15.
@@ -37,6 +37,29 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     this.clazz = UserServiceBean.class;
   }
 
+
+  public BusinessResult getOrderedLeavesByUserId(String userId, int size) {
+
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    BusinessResult br = new BusinessResult();
+
+    List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).order("-checkOutTime").limit(size).asList();
+
+    UserBean user = null;
+    if(StringUtils.isNotEmpty(userId)) {
+      user = (UserBean) userBus.getLeaf(userId).getResponseData();
+    }
+
+    for(UserServiceBean bean: beanList) {
+      bean.setUserBean(user);
+      String servicePlaceId = bean.getServicePlaceId();
+      if(StringUtils.isNotEmpty(servicePlaceId)) {
+        bean.setServicePlaceBean((ServicePlaceBean)servicePlaceBus.getLeaf(servicePlaceId).getResponseData());
+      }
+    }
+    br.setResponseData(beanList);
+    return br;
+  }
 
   public BusinessResult getLeavesByUserId(String userId) {
 
@@ -92,5 +115,62 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     //todo 根据userId和培训记录查询可展现的servicePlaces
     return servicePlaceBus.getAllLeaves();
 
+  }
+
+  public Map<String, Map> statisticTime(List<UserServiceBean> beanList){
+    Map<String, Map> resultMap = new HashMap<String, Map>();
+    SimpleDateFormat day_sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat month_sdf = new SimpleDateFormat("yyyy-MM");
+    SimpleDateFormat year_sdf = new SimpleDateFormat("yyyy");
+
+    Date now = new Date();
+    String baseDay = day_sdf.format(now);
+    String baseMonth = month_sdf.format(now);
+    String baseYear = year_sdf.format(now);
+
+    for(UserServiceBean bean: beanList) {
+      Map userMap = resultMap.get(bean.getUserId());
+      if(null == userMap) {
+        userMap = new HashMap<String, Map>();
+        userMap.put("user", bean.getUserBean());
+        userMap.put(Calendar.DAY_OF_MONTH, 0l);
+        userMap.put(Calendar.MONTH, 0l);
+        userMap.put(Calendar.YEAR, 0l);
+        userMap.put(Calendar.ALL_STYLES,0l);
+        userMap.put("user", bean.getUserBean());
+        userMap.put("user", bean.getUserBean());
+        resultMap.put(bean.getUserId(), userMap);
+      }
+
+      if(baseDay.equals(day_sdf.format(bean.getCheckOutTime()))){
+        long time = bean.getCheckOutTime().getTime() - bean.getCheckInTime().getTime();
+
+        userMap.put(Calendar.DAY_OF_MONTH, (long)userMap.get(Calendar.DAY_OF_MONTH) + time);
+        userMap.put(Calendar.MONTH, (long)userMap.get(Calendar.MONTH) + time);
+        userMap.put(Calendar.YEAR, (long)userMap.get(Calendar.YEAR) + time);
+        userMap.put(Calendar.ALL_STYLES, (long)userMap.get(Calendar.ALL_STYLES) + time);
+
+      } else if(baseMonth.equals(month_sdf.format(bean.getCheckOutTime()))) {
+        long time = bean.getCheckOutTime().getTime() - bean.getCheckInTime().getTime();
+
+        userMap.put(Calendar.MONTH, (long)userMap.get(Calendar.MONTH) + time);
+        userMap.put(Calendar.YEAR, (long)userMap.get(Calendar.YEAR) + time);
+        userMap.put(Calendar.ALL_STYLES, (long)userMap.get(Calendar.ALL_STYLES) + time);
+
+      } else if(baseYear.equals(year_sdf.format(bean.getCheckOutTime()))) {
+        long time = bean.getCheckOutTime().getTime() - bean.getCheckInTime().getTime();
+
+        userMap.put(Calendar.YEAR, (long)userMap.get(Calendar.YEAR) + time);
+        userMap.put(Calendar.ALL_STYLES, (long)userMap.get(Calendar.ALL_STYLES) + time);
+
+      } else {
+        long time = bean.getCheckOutTime().getTime() - bean.getCheckInTime().getTime();
+
+        userMap.put(Calendar.ALL_STYLES, (long)userMap.get(Calendar.ALL_STYLES) + time);
+
+      }
+    }
+
+    return resultMap;
   }
 }

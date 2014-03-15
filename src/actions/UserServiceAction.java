@@ -8,7 +8,9 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.UserServiceBusiness;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wangronghua on 14-3-15.
@@ -20,11 +22,15 @@ public class UserServiceAction extends BaseAction {
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   private String userId;
   private String servicePlaceId;
+  private long dayHours;
+  private long monthHours;
+  private long yearHours;
+  private long totalHours;
 
   public String getList(){
     UserBean user = (UserBean)getSession().getAttribute(UserAction.LOGIN_USER_SESSION_ID);
     if(null != user){
-      userServices = (List<UserServiceBean>)userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
+      userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
     }
     return SUCCESS;
   }
@@ -44,6 +50,20 @@ public class UserServiceAction extends BaseAction {
   public String checkOut() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
     UserBean user = (UserBean)getSession().getAttribute(UserAction.LOGIN_USER_SESSION_ID);
     userServiceBus.checkOut(user.getId());
+    return SUCCESS;
+  }
+
+  public String getMyTimeReport() {
+    UserBean user = (UserBean)getSession().getAttribute(UserAction.LOGIN_USER_SESSION_ID);
+    List<UserServiceBean> beanList = (List<UserServiceBean>)userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
+    Map<String, Map> resultMap = userServiceBus.statisticTime(beanList);
+    Map result = resultMap.get(user.getId());
+    if(null != result){
+      dayHours = (long)result.get(Calendar.DAY_OF_MONTH) / 3600000 ;
+      monthHours = (long)result.get(Calendar.MONTH) / 3600000 ;
+      yearHours = (long)result.get(Calendar.YEAR) / 3600000 ;
+      totalHours = (long)result.get(Calendar.ALL_STYLES) / 3600000 ;
+    }
     return SUCCESS;
   }
 
@@ -86,5 +106,22 @@ public class UserServiceAction extends BaseAction {
 
   public void setServicePlaces(List<ServicePlaceBean> servicePlaces) {
     this.servicePlaces = servicePlaces;
+  }
+
+
+  public long getDayHours() {
+    return dayHours;
+  }
+
+  public long getMonthHours() {
+    return monthHours;
+  }
+
+  public long getYearHours() {
+    return yearHours;
+  }
+
+  public long getTotalHours() {
+    return totalHours;
   }
 }
