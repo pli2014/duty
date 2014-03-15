@@ -87,6 +87,13 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
         return br;
     }
 
+    @Override
+    public void deleteByCondition(Map filter) {
+        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Query<L> query = this.constructQuery(filter, null, null);
+        dc.delete(query);
+    }
+
     /**
      * 一般的.filter(criteria, value)语法被支持。标准语法是属性名和操作("field >",
      * or "field in")的整合。所有的语法被逻辑"and" 暗暗的联系在一起。

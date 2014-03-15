@@ -16,7 +16,7 @@
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
-                    <a class="btn btn-success" href="serviceplace/serviceplaceaddedit.action">
+                    <a class="btn btn-success" href="backend/serviceplace/serviceplaceaddedit.action">
                         <i class="fa fa-plus"></i>
                         新服务地点
                     </a>
@@ -41,11 +41,11 @@
                         <td><s:date name="#sp.createTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td><s:date name="#sp.modifyTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td class="center">
-                            <a title="编辑服务地点" href="serviceplace/serviceplaceaddedit.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
+                            <a title="编辑服务地点" href="backend/serviceplace/serviceplaceaddedit.action?servicePlace.id=${sp.id}" class="btn btn-info  btn-xs">
                                 <i class="fa fa-edit"></i>
                             </a>
 
-                            <a title="删除服务地点" href="serviceplace/serviceplacedelete.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
+                            <a title="删除服务地点" href="backend/serviceplace/serviceplacedelete.action?servicePlace.id=${sp.id}" class="btn btn-info  btn-xs">
                                 <i class="fa fa-trash-o"></i>
                             </a>
 
