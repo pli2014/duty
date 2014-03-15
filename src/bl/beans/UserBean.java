@@ -1,5 +1,7 @@
 package bl.beans;
 
+import java.util.Date;
+
 import org.mongodb.morphia.annotations.Entity;
 
 /**
@@ -11,8 +13,16 @@ public class UserBean extends Bean {
   public static final int LOCK = 1;
   public static final int UN_LOCK = 0;
 
+  private String code;
+  private int registerFrom = 1; // 1=hospital,2=wechat.
+  private int status = 0; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
   private int sex; // 1=Male,2=Female
-  private int lock; // 1=lock,0=Unlock
+  private Date birthDate;
+  private String identityCard;
+  private String education;
+  private String politics;
+  private String occupation;
+  private String workAddress;
   private String password;
   private String address;
   private String qq;
@@ -21,15 +31,15 @@ public class UserBean extends Bean {
   private String wechat;
   private String iconpath;
 
-    public String getIconpath() {
-        return iconpath;
-    }
+  public String getIconpath() {
+    return iconpath;
+  }
 
-    public void setIconpath(String iconpath) {
-        this.iconpath = iconpath;
-    }
+  public void setIconpath(String iconpath) {
+    this.iconpath = iconpath;
+  }
 
-    public int getSex() {
+  public int getSex() {
     return sex;
   }
 
@@ -85,12 +95,76 @@ public class UserBean extends Bean {
     this.wechat = wechat;
   }
 
-  public int getLock() {
-    return lock;
+  public String getCode() {
+    return code;
   }
 
-  public void setLock(int lock) {
-    this.lock = lock;
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public int getRegisterFrom() {
+    return registerFrom;
+  }
+
+  public void setRegisterFrom(int registerFrom) {
+    this.registerFrom = registerFrom;
+  }
+
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
+  }
+
+  public Date getBirthDate() {
+    return birthDate;
+  }
+
+  public void setBirthDate(Date birthDate) {
+    this.birthDate = birthDate;
+  }
+
+  public String getIdentityCard() {
+    return identityCard;
+  }
+
+  public void setIdentityCard(String identityCard) {
+    this.identityCard = identityCard;
+  }
+
+  public String getEducation() {
+    return education;
+  }
+
+  public void setEducation(String education) {
+    this.education = education;
+  }
+
+  public String getPolitics() {
+    return politics;
+  }
+
+  public void setPolitics(String politics) {
+    this.politics = politics;
+  }
+
+  public String getOccupation() {
+    return occupation;
+  }
+
+  public void setOccupation(String occupation) {
+    this.occupation = occupation;
+  }
+
+  public String getWorkAddress() {
+    return workAddress;
+  }
+
+  public void setWorkAddress(String workAddress) {
+    this.workAddress = workAddress;
   }
 
 }

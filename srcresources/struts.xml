@@ -156,12 +156,6 @@
         </action>
     </package>
 
-    <package name="volunteer" namespace="/volunteer" extends="default">
-        <action name="queryVolunteer" class="actions.VolunteerAction" method="query" >
-            <result name="success" type="freemarker">/ftl/volunteer/volunteerManagement.ftl</result>
-        </action>
-    </package>
-
     <package name="userFront" namespace="/userFront" extends="default">
 
         <action name="getCheckInRecords" class="actions.UserServiceAction" method="getList">
