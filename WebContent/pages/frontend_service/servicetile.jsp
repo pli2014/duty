@@ -37,7 +37,7 @@
                 <div class="label">我的注册</div>
             </div>
         </a>
-        <a data-click="transform" class="tile bg-lightGreen" href="#">
+        <a data-click="transform" class="tile bg-lightGreen" href="userFront/getCheckInRecords.action">
             <div class="tile-content icon">
                 <span class="icon-pencil"></span>
             </div>
