@@ -70,6 +70,9 @@ public interface BusinessInterface<F extends BeanContext, L extends BeanContext>
 
     public List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted);
 
-    public List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted, SpecPaginationContext spc);
+    public abstract List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted, SpecPaginationContext spc);
+
+
+    public abstract void deleteByCondition(Map<String,String> filter);
 
 }
