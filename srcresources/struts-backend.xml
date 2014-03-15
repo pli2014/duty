@@ -92,17 +92,21 @@
     </package>
 
     <package name="traincourse" namespace="/backend/traincourse" extends="default">
-        <action name="traincourselist" class="actions.TrainCourseAction" method="trainCourseList">
-            <result name="success">/pages/menu_traincourse/traincourselist.jsp</result>
+        <action name="index" class="actions.TrainCourseAction" method="index"/>
+        <action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
+
+        <action name="delete" class="actions.TrainCourseAction" method="delete">
+            <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
-        <action name="traincoursedelete" class="actions.TrainCourseAction" method="trainCourseDelete">
-            <result name="success" type="redirectAction">/backend/traincourse/traincourselist</result>
-        </action>
-        <action name="traincourseaddedit" class="actions.TrainCourseAction" method="trainCourseAddEdit">
+        <action name="add" class="actions.TrainCourseAction" method="add">
             <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
         </action>
-        <action name="traincoursesubmit" class="actions.TrainCourseAction" method="trainCourseSubmit">
-            <result name="success" type="redirectAction">/backend/traincourse/traincourselist</result>
+        <action name="edit" class="actions.TrainCourseAction" method="edit">
+            <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
+        </action>
+        <action name="save" class="actions.TrainCourseAction" method="save">
+            <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
     </package>
 

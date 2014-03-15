@@ -35,7 +35,7 @@
             <header class="panel-heading">
                培训课程管理
             </header>
-            <form role="form" method="post" class="form-horizontal tasi-form" action="backend/traincourse/traincoursesubmit.action">
+            <form role="form" method="post" class="form-horizontal tasi-form" action="backend/traincourse/save.action">
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">课程名称</label>
                     <div class="col-lg-10">
