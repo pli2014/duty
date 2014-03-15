@@ -4,6 +4,30 @@
 <html>
 <head>
     <title>服务地点</title>
+    <script type="text/javascript" src="jslib/flatlab/assets/ckeditor/ckeditor.js"></script>
+    <script>
+        jQuery(document).ready(function()
+        {
+            CKEDITOR.replace( 'trainCourse.description',{
+                language:'zh-cn',//简体中文
+                width : "100%", //宽度
+                height:400,  //高度
+                toolbar ://工具栏设置
+                        [
+                            ['Maximize','-','Save','NewPage','Preview','-','Templates'],
+                            ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+                            ['Undo','Redo','-','Find','Replace','-',,'Table','HorizontalRule','-','SelectAll','RemoveFormat'],
+                            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                            ['Link','Unlink','Anchor'],
+                            ['Image','Flash','Smiley','SpecialChar','PageBreak'],
+                            ['Styles','Format','Font','FontSize'],
+                            ['TextColor','BGColor']
+                        ]
+            });
+        });
+    </script>
 </head>
 <body>
         <!--main content start-->
@@ -26,10 +50,11 @@
                         </s:select>
                     </div>
                 </div>
+
                 <div class="form-group has-success">
-                    <label class="control-label col-lg-2 col-sm-3">课程描述</label>
-                    <div class="col-lg-10">
-                        <s:textarea name="trainCourse.description" cols="50" rows="10"></s:textarea>
+                    <label class="col-sm-2 control-label col-sm-2">课程描述</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control ckeditor" name="trainCourse.description" rows="20">${trainCourse.description}</textarea>
                     </div>
                 </div>
 
