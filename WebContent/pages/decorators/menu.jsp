@@ -6,6 +6,17 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
+                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
+                  <li class="sub-menu">
+                      <a href="javascript:;">
+                          <i class="fa fa-laptop"></i>
+                          <span>后台用户管理</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="backend/user/index.action">后台用户管理</a></li>
+                      </ul>
+                  </li>
+                  </s:if>
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-laptop"></i>
@@ -23,7 +34,7 @@
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="serviceplace/serviceplacelist.action">服务地点</a></li>
+                          <li><a  href="backend/serviceplace/serviceplacelist.action">服务地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -32,8 +43,7 @@
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="traincourse/traincourselist.action">培训课程</a></li>
-                          <li><a  href="traincourse/trainassignlist.action">培训安排</a></li>
+                          <li><a  href="backend/traincourse/traincourselist.action">培训课程</a></li>
                           <li><a  href="boxed_page.html">培训记录</a></li>
                       </ul>
                   </li>
@@ -58,7 +68,7 @@
                       </ul>
                   </li>
                   <li>
-                      <a  href="logout.action">
+                      <a  href="backend/logout.action">
                           <i class="fa fa-user"></i>
                           <span>用户退出</span>
                       </a>

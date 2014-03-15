@@ -7,9 +7,10 @@
 		<pattern>/pages/generalError.jsp</pattern>
 		<pattern>/pages/menu_loginout/*</pattern>
 		<pattern>/panel/*.html</pattern>
-		<pattern>/pages/user/register.jsp</pattern>
-		<pattern>/pages/user/backendRegister.jsp</pattern>
         <pattern>/personpicture/*</pattern>
+        <pattern>/backend/login.action</pattern>
+        <pattern>/backend/logout.action</pattern>
+        <pattern>/backend/register.action</pattern>
 	</excludes>
 
 	<!-- 用来定义装饰器要过滤的页面 -->
@@ -23,6 +24,7 @@
         <pattern>/volunteer/*.action</pattern>
         <pattern>/serviceplace/*.action</pattern>
         <pattern>/traincourse/*.action</pattern>
+        <!--========= backend start====== -->
         <pattern>/backend/*.action</pattern>
 	</decorator>
 </decorators>

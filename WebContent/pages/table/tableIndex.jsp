@@ -56,13 +56,13 @@
      var cellFormatter = {};
      var actions = [
               {
-                  "sButtonText":"Add",
+                  "sButtonText":"添加",
                   "sExtends":"text",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       window.location.href = actionPrex + "/add.action";
                   }
               },{
-                  "sButtonText":"Edit",
+                  "sButtonText":"修改",
                   "sExtends":"select_single",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       if($(nButton).hasClass("DTTT_disabled")){
@@ -71,14 +71,14 @@
                       var tableObj = $('#'+tableId).dataTable();
                       var selectedRows = tableObj.$('tr.DTTT_selected');
                       if(selectedRows.length != 1){
-                          alert("Please select one record!");
+                          alert("请选择一行记录!");
                       }else{
                          var selectRowData =  tableObj.fnGetData( selectedRows[0] );
                           window.location.href = actionPrex + "/edit.action?id=" + selectRowData[idName];
                       }
                   }
               },{
-                  "sButtonText":"Delete",
+                  "sButtonText":"删除",
                   "sExtends":"select",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       if($(nButton).hasClass("DTTT_disabled")){
@@ -87,11 +87,11 @@
                       var tableObj = $('#'+tableId).dataTable();
                       var selectedRows = tableObj.$('tr.DTTT_selected');
                       if(selectedRows.length == 0){
-                          alert("Please select records!");
+                          alert("请选择行记录!");
                       }else{
-                         if (confirm("Are you sure delete selected records?")){
+                         if (confirm("您确定要删除"+ selectedRows.length +"条记录吗?")){
 						    var par = "";
-						    tableObj.$('tr.row_selected').each(function(i){
+						    tableObj.$('tr.DTTT_selected').each(function(i){
 						        par = par + "ids="+tableObj.fnGetData(this)[idName] + "&";
 						    });
                             window.location.href = actionPrex + "/delete.action?" + par;

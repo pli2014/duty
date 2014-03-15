@@ -26,7 +26,7 @@ public class BackendLoginInterceptor extends AbstractInterceptor {
   @Override
   public String intercept(ActionInvocation invocation) throws Exception {
     if (ActionContext.getContext().getSession().get(BackendUserAction.LOGIN_BACKEND_USER_SESSION_ID) == null) {
-      return "backend_login_failure";
+      return "backend_tologin";
     }
     String result;
     try {

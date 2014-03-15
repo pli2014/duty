@@ -10,94 +10,103 @@ import bl.common.BeanContext;
 
 @Index(value = "name")
 public class Bean implements BeanContext, Cloneable {
-    @Id
-    ObjectId _id;
+  @Id
+  ObjectId _id;
 
-    String name;
+  String name;
 
-    Date createTime = null;
-    Date modifyTime = null;
+  Date createTime = null;
+  Date modifyTime = null;
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+  /**
+   * @param name
+   *          the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    /**
-     * @return the _id
-     */
-    public ObjectId get_id() {
-        return _id;
-    }
+  /**
+   * @return the _id
+   */
+  public ObjectId get_id() {
+    return _id;
+  }
 
-    /**
-     * @return the _id
-     */
-    public String getId() {
-        return _id != null ? _id.toString() : "";
-    }
+  /**
+   * @return the _id
+   */
+  public String getId() {
+    return _id != null ? _id.toString() : "";
+  }
 
-    /**
-     * @param _id the _id to set
-     */
-    public void set_id(ObjectId _id) {
-        this._id = _id;
-    }
-    /**
-     * @param _id the _id to set
-     */
-    public void setId(String _id) {
-        this._id = new ObjectId(_id);
-    }
-    /**
-     * @return the createTime
-     */
-    public Date getCreateTime() {
-        return createTime;
-    }
+  /**
+   * @param _id
+   *          the _id to set
+   */
+  public void set_id(ObjectId _id) {
+    this._id = _id;
+  }
 
-    /**
-     * @param createTime the createTime to set
-     */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+  /**
+   * @param _id
+   *          the _id to set
+   */
+  public void setId(String _id) {
+    if (_id != null && _id.length() > 0) {
+      this._id = new ObjectId(_id);
     }
+  }
 
-    /**
-     * @return the modifytime
-     */
-    public Date getModifyTime() {
-        return modifyTime;
-    }
+  /**
+   * @return the createTime
+   */
+  public Date getCreateTime() {
+    return createTime;
+  }
 
-    /**
-     * @param modifyTime the modifytime to set
-     */
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
+  /**
+   * @param createTime
+   *          the createTime to set
+   */
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
 
-    /**
-     * Clone (create a deep copy of) this instance.
-     *
-     * @return A clone of this instance.
-     */
-    public Object clone() {
-        // It's necessary to provide a default clone() method in this base class in
-        // order to allow public access to it, because Object.clone() is protected.
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException cnse) {
-            throw new RuntimeException("Error cloning in Bean", cnse);
-        }
+  /**
+   * @return the modifytime
+   */
+  public Date getModifyTime() {
+    return modifyTime;
+  }
+
+  /**
+   * @param modifyTime
+   *          the modifytime to set
+   */
+  public void setModifyTime(Date modifyTime) {
+    this.modifyTime = modifyTime;
+  }
+
+  /**
+   * Clone (create a deep copy of) this instance.
+   * 
+   * @return A clone of this instance.
+   */
+  public Object clone() {
+    // It's necessary to provide a default clone() method in this base class in
+    // order to allow public access to it, because Object.clone() is protected.
+    try {
+      return super.clone();
+    } catch (CloneNotSupportedException cnse) {
+      throw new RuntimeException("Error cloning in Bean", cnse);
     }
+  }
 }

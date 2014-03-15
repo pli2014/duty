@@ -1,51 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-      <%@ include file="../metrouiHeader.jsp" %>
- 
-  
-   <style type="text/css">
-	.metro .userinfo:before {
-       content: "个人信息";
-     }
-    </style>
-    <title>后台用户注册</title>
+<head>
+    <%@ include file="../commonHeader.jsp" %>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="dynamic manager technique">
+    <meta name="author" content="LiLimin,GuDong,WangRonghua">
+    <meta name="keyword" content="dynamicform,template">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>志愿者后台注册</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="jslib/flatlab/css/bootstrap.min.css" rel="stylesheet">
+    <link href="jslib/flatlab/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="jslib/flatlab/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="jslib/flatlab/css/style.css" rel="stylesheet">
+    <link href="jslib/flatlab/css/style-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
+    <!--[if lt IE 9]>
+    <script src="jslib/flatlab/js/html5shiv.js"></script>
+    <script src="jslib/flatlab/js/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body  class="metro" style="padding: 10px;">
-    <div class="example userinfo" style="width: 100%;">
-       <form action="<%=request.getContextPath() %>/backend/register.action">
-           <fieldset>
-               <legend>后台用户注册</legend>
-               <label>用户名</label>
-               <div class="input-control text" data-role="input-control">
-                   <input type="text" placeholder="请输入用户名" name="user.name" value="${user.name}"/>
-                   <button class="btn-clear" tabindex="-1"></button>
-               </div>
-               
-               <label>密码</label>
-               <div class="input-control password" data-role="input-control">
-                   <input type="password" placeholder="请输入密码" name="user.password" autofocus/>
-                   <button class="btn-reveal" tabindex="-1"></button>
-               </div>
-               <div class="input-control password" data-role="input-control">
-                   <input type="password" placeholder="请再次输入密码" autofocus/>
-                   <button class="btn-reveal" tabindex="-1"></button>
-               </div>
 
-               <input type="submit" value="注册"/>
-               <input type="button" onclick="history.go(-1);" value="取消"/>
+  <body class="login-body">
+    <div class="container">
+      <form id="registerForm" class="form-signin" action="backend/register.action" method="post">
+        <h2 class="form-signin-heading">后台注册</h2>
+        <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+        <div class="login-wrap">
+            <input type="text" name="user.name" class="form-control" placeholder="用户名" autofocus required="required">
+            <input type="password" id="password" name="user.password" class="form-control" placeholder="密码" required="required">
+            <input type="password" name="confirm_password" class="form-control" placeholder="再次输入密码" required="required">
+            <button class="btn btn-lg btn-login btn-block" type="submit">注册</button>
+        </div> 
+      </form>
+    </div> 
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="jslib/flatlab/js/jquery.js"></script>
+    <script src="jslib/flatlab/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="jslib/flatlab/js/jquery.validate.min.js"></script>
 
-               <div style="margin-top: 20px">
-               </div>
-           </fieldset>
-       </form>
-    </div>
-   
-   <footer class="site-footer" style="position:fixed;bottom:1px;width:100%;z-index:-1">
-       <div class="text-center">
-           2014-01 &copy; 版权所有
-       </div>
-   </footer>
-   <script src="jslib/flatlab/assets/metro-ui/js/hitua.js"></script>
+    <script type="text/javascript">
+    //please refer to form-validation-script.js
+    $(document).ready(function() {
+        $("#registerForm").validate({
+            rules: {
+                confirm_password: {
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                'user.name': {
+                    required: "请输入用户名"
+                },
+                'user.password': {
+                    required: "请输入密码"
+                },
+                confirm_password: {
+                    required: "请再次输入密码",
+                    equalTo: "两次输入密码不一致"
+                },
+            }
+        }); 
+    });
+    </script>
   </body>
 </html>

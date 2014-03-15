@@ -1,14 +1,7 @@
 <!DOCTYPE html>
-<%  response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
-    response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-    response.setDateHeader("Expires", 0); //prevents caching at the proxy server
-    String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-<base href="<%=basePath%>">
-
 <html lang="en">
 <head>
+    <%@ include file="../commonHeader.jsp" %>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="dynamic manager technique">
@@ -35,14 +28,13 @@
 </head>
 
   <body class="login-body">
-
     <div class="container">
-
-      <form class="form-signin" action="backend/login.action" method="post">
+      <form id="loginForm" class="form-signin" action="backend/login.action" method="post">
         <h2 class="form-signin-heading">后台登录</h2>
+        <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
         <div class="login-wrap">
-            <input type="text" name="user.name" class="form-control" placeholder="用户名" autofocus>
-            <input type="password" name="user.password" class="form-control" placeholder="密码">
+            <input type="text" name="user.name" class="form-control" placeholder="用户名" autofocus required="required">
+            <input type="password" name="user.password" class="form-control" placeholder="密码" required="required">
             <label class="checkbox">
                 <input type="checkbox" value="remember-me"> 记住我
                 <span class="pull-right">
@@ -51,10 +43,27 @@
             </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div> 
-      </form> 
+      </form>
     </div> 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="jslib/flatlab/js/jquery.js"></script>
     <script src="jslib/flatlab/js/bootstrap.min.js"></script> 
+    <script type="text/javascript" src="jslib/flatlab/js/jquery.validate.min.js"></script>
+
+    <script type="text/javascript">
+    //please refer to form-validation-script.js
+    $(document).ready(function() {
+        $("#loginForm").validate({
+            messages: {
+                'user.name': {
+                    required: "请输入用户名"
+                },
+                'user.password': {
+                    required: "请输入密码"
+                }
+            }
+        }); 
+    });
+    </script>
   </body>
 </html>

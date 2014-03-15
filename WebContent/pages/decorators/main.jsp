@@ -7,7 +7,7 @@
     <meta name="description" content="dynamic manager technique">
     <meta name="author" content="LiLimin,GuDong,WangRonghua">
     <meta name="keyword" content="dynamicform,template">
-    <title>志愿者管理系统服务端</title>
+    <title>志愿者服务平台-后台系统</title>
     
     <link rel="shortcut icon" href="jslib/flatlab/img/favicon.png">
 
@@ -55,6 +55,7 @@
       <script src="jslib/flatlab/assets/advanced-datatable/extras/TableTools/media/js/ZeroClipboard.js" type="text/javascript" charset="utf-8" ></script>
       <script src="jslib/flatlab/assets/advanced-datatable/extras/TableTools/media/js/TableTools.js" type="text/javascript" charset="utf-8" ></script>
       <script src="jslib/flatlab/assets/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript" charset="utf-8" ></script>
+      <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script>
       <decorator:head/>
   </head>
 

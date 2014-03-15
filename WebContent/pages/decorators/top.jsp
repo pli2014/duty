@@ -229,10 +229,10 @@
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
-                            <li><a href="/backend/user/edit.action?id=${backendSessionUser.id}"><i class=" fa fa-suitcase"></i>Profile</a></li>
+                            <li><a href="backend/user/changePassword.action"><i class=" fa fa-suitcase"></i>修改密码</a></li>
                             <li><a href=""><i class="fa fa-cog"></i> Settings</a></li>
                             <li><a href=""><i class="fa fa-bell-o"></i> Notification</a></li>
-                            <li><a href="logout.action"><i class="fa fa-key"></i> Log Out</a></li>
+                            <li><a href="backend/logout.action"><i class="fa fa-key"></i> Log Out</a></li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
