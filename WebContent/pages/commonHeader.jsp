@@ -14,3 +14,10 @@
    // }
 %>
     <base href="<%=basePath%>">
+
+<style type="text/css">
+    .mt15 {
+        margin-top: 15px;
+    }
+
+</style>

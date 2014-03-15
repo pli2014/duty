@@ -5,45 +5,45 @@
 
 <struts>
 
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<constant name="struts.custom.i18n.resources" value="resources/LocaleStrings" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.custom.i18n.resources" value="resources/LocaleStrings" />
 
-	<package name="default" namespace="/" extends="struts-default" >
-		<default-action-ref name="index" />
-		<global-results>
-			<result name="error">/pages/generalError.jsp</result>
-			<result name="tableIndex">/pages/table/tableIndex.jsp</result>
-			<result name="login_failure" type="redirect">/pages/menu_loginout/login.jsp</result>
-		</global-results>
-		<global-exception-mappings>
-			<exception-mapping exception="java.lang.Exception" result="error" />
-		</global-exception-mappings>
-		
+    <package name="default" namespace="/" extends="struts-default" >
+        <default-action-ref name="index" />
+        <global-results>
+            <result name="error">/pages/generalError.jsp</result>
+            <result name="tableIndex">/pages/table/tableIndex.jsp</result>
+            <result name="login_failure" type="redirect">/pages/menu_loginout/login.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error" />
+        </global-exception-mappings>
+        
        <action name="login" class="actions.UserAction" method="login">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
-		   <result name="success" type="redirectAction">
-		      <param name="namespace">/</param>
+           <result name="success" type="redirectAction">
+              <param name="namespace">/</param>
               <param name="actionName">index</param>
-		   </result>
-		</action>
-		<action name="logout" class="actions.UserAction" method="logout">
-		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
-		   <result name="success" type="redirectAction">
-		      <param name="namespace">/</param>
+           </result>
+        </action>
+        <action name="logout" class="actions.UserAction" method="logout">
+           <interceptor-ref name="noLoginStack"></interceptor-ref> 
+           <result name="success" type="redirectAction">
+              <param name="namespace">/</param>
               <param name="actionName">welcome</param>
-		   </result>
-		</action>
-		<action name="register" class="actions.UserAction" method="register">
-		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
-		   <result name="failure" type="redirect">/pages/user/register.jsp</result>
-		   <result name="success" type="redirectAction">
-		      <param name="namespace">/</param>
+           </result>
+        </action>
+        <action name="register" class="actions.UserAction" method="register">
+           <interceptor-ref name="noLoginStack"></interceptor-ref> 
+           <result name="failure" type="redirect">/pages/user/register.jsp</result>
+           <result name="success" type="redirectAction">
+              <param name="namespace">/</param>
               <param name="actionName">index</param>
-		   </result>
-		</action>
-		
+           </result>
+        </action>
+        
         <action name="welcome">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success">/html/welcome.jsp</result>
@@ -51,36 +51,36 @@
         
         <action name="index">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
-		   <result name="success">/pages/frontend_service/servicetile.jsp</result>
-		</action>
-	</package>
-	<package name="template" namespace="/template" extends="default">
-		<action name="templateFormlist" class="actions.FormAction" method="templateFormList">
-			<result name="success">/pages/menu_template/templateFormList.jsp
-			</result>
-		</action>
-		<action name="dynamicform" class="actions.FormAction">
-			<result name="success">/pages/menu_template/dynamicform.jsp
-			</result>
-		</action>
-		<action name="savexml" class="actions.FormAction" method="savexml">
-			<result name="success">/pages/menu_template/saveresult.jsp</result>
-		</action>
-		<action name="getxml" class="actions.FormAction" method="getxml">
+           <result name="success">/pages/frontend_service/servicetile.jsp</result>
+        </action>
+    </package>
+    <package name="template" namespace="/template" extends="default">
+        <action name="templateFormlist" class="actions.FormAction" method="templateFormList">
+            <result name="success">/pages/menu_template/templateFormList.jsp
+            </result>
+        </action>
+        <action name="dynamicform" class="actions.FormAction">
+            <result name="success">/pages/menu_template/dynamicform.jsp
+            </result>
+        </action>
+        <action name="savexml" class="actions.FormAction" method="savexml">
+            <result name="success">/pages/menu_template/saveresult.jsp</result>
+        </action>
+        <action name="getxml" class="actions.FormAction" method="getxml">
             <result name="success" type="stream">  
                 <param name="contentType">text/xml;charset=UTF-8</param>  
                 <param name="inputName">xmlStream</param>  
             </result> 
         </action>
-		<action name="deletetemplate" class="actions.FormAction" method="deleteTemplate">
-			<result name="success">/pages/menu_template/saveresult.jsp
-			</result>
-		</action>
-	</package>
-	<package name="page" namespace="/page" extends="default">
-		<action name="pagelist" class="actions.PageAction" method="pageList">
-			<result name="success">/pages/menu_page/pagelist.jsp</result>
-		</action>
+        <action name="deletetemplate" class="actions.FormAction" method="deleteTemplate">
+            <result name="success">/pages/menu_template/saveresult.jsp
+            </result>
+        </action>
+    </package>
+    <package name="page" namespace="/page" extends="default">
+        <action name="pagelist" class="actions.PageAction" method="pageList">
+            <result name="success">/pages/menu_page/pagelist.jsp</result>
+        </action>
         <action name="pagedelete" class="actions.PageAction" method="pageDelete">
             <result name="success">/page/pagelist.action
             </result>
@@ -88,25 +88,25 @@
         <action name="pageedit" class="actions.PageAction" method="pageEdit">
             <result name="success">/pages/menu_page/pageedit.jsp</result>
         </action>
-		<action name="pagesave" class="actions.PageAction" method="pageSave">
+        <action name="pagesave" class="actions.PageAction" method="pageSave">
             <result name="success">/page/pagelist.action </result>
         </action>
         <action name="decorateform" class="actions.PageAction" method="templateDecorator">
             <result name="success">/pages/menu_page/template.jsp</result>
         </action>
-	</package>
-	<package name="datainput" namespace="/datainput" extends="default">
-		<action name="deleteuserdata" class="actions.FormAction" method="deleteuserdata">
-			<result name="success" type="redirect">/template/templateFileList.action
-			</result>
-		</action>
-		<action name="edituserdata" class="actions.FormAction" method="edituserdata">
-			<result name="success">/html/editUserDataPage.jsp</result>
-		</action>
-		<action name="storeuserdata" class="actions.FormAction" method="storeuserdata">
-			<result name="success" type="redirect">/template/templateFileList.action
-			</result>
-		</action>
+    </package>
+    <package name="datainput" namespace="/datainput" extends="default">
+        <action name="deleteuserdata" class="actions.FormAction" method="deleteuserdata">
+            <result name="success" type="redirect">/template/templateFileList.action
+            </result>
+        </action>
+        <action name="edituserdata" class="actions.FormAction" method="edituserdata">
+            <result name="success">/html/editUserDataPage.jsp</result>
+        </action>
+        <action name="storeuserdata" class="actions.FormAction" method="storeuserdata">
+            <result name="success" type="redirect">/template/templateFileList.action
+            </result>
+        </action>
 
         <action name="dataView" class="actions.DataPageViewAction" method="loadPaients">
             <result name="success" type="freemarker">/ftl/datainput/patientView.ftl</result>
@@ -127,34 +127,34 @@
         <action name="dataPageInput" class="actions.DataPageInputAction" method="loadPage">
             <result name="success" type="freemarker">/ftl/html.ftl</result>
         </action>
-	</package>
-	<package name="report" namespace="/report" extends="default">
+    </package>
+    <package name="report" namespace="/report" extends="default">
 
-	</package>
-	<package name="loginout" namespace="/loginout" extends="default">
+    </package>
+    <package name="loginout" namespace="/loginout" extends="default">
 
-	</package>
-	
-	<package name="user" namespace="/user" extends="default">
+    </package>
+    
+    <package name="user" namespace="/user" extends="default">
         <action name="index" class="actions.UserAction" method="index"/>
-		<action name="initTable" class="actions.UserAction" method="initTable"/>
-		<action name="queryTable" class="actions.UserAction" method="queryTable"/>
-		<action name="add" class="actions.UserAction" method="add">
-		   <result name="success">/pages/user/userEdit.jsp</result>
-		</action>
-		<action name="edit" class="actions.UserAction" method="edit">
-		   <result name="success">/pages/user/userEdit.jsp</result>
-		</action>
-		<action name="save" class="actions.UserAction" method="save">
-		   <result name="success" type="redirectAction">/user/index</result>
-		</action>
-		<action name="delete" class="actions.UserAction" method="delete">
-		   <result name="success" type="redirectAction">/user/index</result>
-		</action>
-		<action name="lock" class="actions.UserAction" method="lock">
-		   <result name="success" type="redirectAction">/user/index</result>
-		</action>
-	</package>
+        <action name="initTable" class="actions.UserAction" method="initTable"/>
+        <action name="queryTable" class="actions.UserAction" method="queryTable"/>
+        <action name="add" class="actions.UserAction" method="add">
+           <result name="success">/pages/user/userEdit.jsp</result>
+        </action>
+        <action name="edit" class="actions.UserAction" method="edit">
+           <result name="success">/pages/user/userEdit.jsp</result>
+        </action>
+        <action name="save" class="actions.UserAction" method="save">
+           <result name="success" type="redirectAction">/user/index</result>
+        </action>
+        <action name="delete" class="actions.UserAction" method="delete">
+           <result name="success" type="redirectAction">/user/index</result>
+        </action>
+        <action name="lock" class="actions.UserAction" method="lock">
+           <result name="success" type="redirectAction">/user/index</result>
+        </action>
+    </package>
 
     <package name="volunteer" namespace="/volunteer" extends="default">
         <action name="queryVolunteer" class="actions.VolunteerAction" method="query" >
@@ -162,10 +162,19 @@
         </action>
     </package>
 
-    <package name="wechat" namespace="/wechat" extends="default">
-        <action name="access" class="actions.WeChatAction" method="checkAccess">
-            <interceptor-ref name="noLoginStack"></interceptor-ref>
-            <result name="success" type="freemarker">/ftl/wechat/accessSuccess.ftl</result>
+    <package name="userFront" namespace="/userFront" extends="default">
+
+        <action name="getCheckInRecords" class="actions.UserServiceAction" method="getList">
+            <result name="success">/pages/menu_volunteer/checkInRecords.jsp</result>
+        </action>
+        <action name="checkIn" class="actions.UserServiceAction" method="checkIn">
+            <result name="success">/pages/menu_volunteer/checkIn.jsp</result>
+        </action>
+        <action name="checkInSubmit" class="actions.UserServiceAction" method="checkInSubmit">
+            <result name="success" type="redirectAction">getCheckInRecords</result>
+        </action>
+        <action name="checkOut" class="actions.UserServiceAction" method="checkOut">
+            <result name="success" type="redirectAction">getCheckInRecords</result>
         </action>
     </package>
 

@@ -135,11 +135,11 @@ public class UserAction extends BaseTableAction<UserBusiness> {
    * @return
    */
   public String logout() {
-      getSession().removeAttribute(LOGIN_USER_SESSION_ID);
-      HttpServletRequest req = (HttpServletRequest) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
-      HttpServletResponse resp = (HttpServletResponse) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
-      eraseCookie(req, resp);
-      return SUCCESS;
+    getSession().removeAttribute(LOGIN_USER_SESSION_ID);
+    HttpServletRequest req = (HttpServletRequest) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
+    HttpServletResponse resp = (HttpServletResponse) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
+    eraseCookie(req, resp);
+    return SUCCESS;
   }
 
   
@@ -154,13 +154,13 @@ public class UserAction extends BaseTableAction<UserBusiness> {
     }
     
   }
-    private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
-        Cookie[] cookies = req.getCookies();
-        if (cookies != null)
-            for (int i = 0; i < cookies.length; i++) {
-                cookies[i].setValue("");
-                cookies[i].setMaxAge(0);
-                resp.addCookie(cookies[i]);
-            }
-    }
+  private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
+    Cookie[] cookies = req.getCookies();
+    if (cookies != null)
+        for (int i = 0; i < cookies.length; i++) {
+            cookies[i].setValue("");
+            cookies[i].setMaxAge(0);
+            resp.addCookie(cookies[i]);
+        }
+  }
 }
