@@ -28,7 +28,6 @@
                 <tr>
                     <th class="column-name">课程名称</th>
                     <th class="column-name">课程状态</th>
-                    <th class="column-name">课程描述</th>
                     <th class="column-datetime">创建日期</th>
                     <th class="column-datetime">更新日期</th>
                     <th style="width: 120px;" class="center">操作</th>
@@ -39,7 +38,6 @@
                     <tr>
                         <td><s:property value="%{#sp.name}"/> </td>
                         <td><s:if test="%{#sp.status==0}">创建</s:if><s:elseif test="%{#sp.status==1}">开始</s:elseif><s:else>结束</s:else></td>
-                        <td><s:property value="%{#sp.description}"/></td>
                         <td><s:date name="#sp.createTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td><s:date name="#sp.modifyTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td class="center">
