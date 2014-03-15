@@ -175,35 +175,5 @@
         </action>
     </package>
 
-    <package name="serviceplace" namespace="/serviceplace" extends="default">
-        <action name="serviceplacelist" class="actions.ServicePlaceAction" method="servicePlaceList">
-            <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
-        </action>
-        <action name="serviceplacedelete" class="actions.ServicePlaceAction" method="servicePlaceDelete">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
-        </action>
-        <action name="serviceplaceaddedit" class="actions.ServicePlaceAction" method="servicePlaceAddEdit">
-            <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
-        </action>
-        <action name="serviceplacesubmit" class="actions.ServicePlaceAction" method="servicePlaceSubmit">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
-        </action>
-    </package>
-
-    <package name="traincourse" namespace="/traincourse" extends="default">
-        <action name="traincourselist" class="actions.TrainCourseAction" method="trainCourseList">
-            <result name="success">/pages/menu_traincourse/traincourselist.jsp</result>
-        </action>
-        <action name="traincoursedelete" class="actions.TrainCourseAction" method="trainCourseDelete">
-            <result name="success" type="redirectAction">/traincourse/traincourselist</result>
-        </action>
-        <action name="traincourseaddedit" class="actions.TrainCourseAction" method="trainCourseAddEdit">
-            <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
-        </action>
-        <action name="traincoursesubmit" class="actions.TrainCourseAction" method="trainCourseSubmit">
-            <result name="success" type="redirectAction">/traincourse/traincourselist</result>
-        </action>
-    </package>
-
     <include file="struts-backend.xml"></include>
 </struts>

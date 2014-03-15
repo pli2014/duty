@@ -11,7 +11,7 @@
             <header class="panel-heading">
                 服务地点管理
             </header>
-            <form role="form" method="post" class="form-horizontal tasi-form" action="serviceplace/serviceplacesubmit.action">
+            <form role="form" method="post" class="form-horizontal tasi-form" action="backend/serviceplace/serviceplacesubmit.action">
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">地点名称</label>
                     <div class="col-lg-10">

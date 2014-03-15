@@ -23,7 +23,7 @@
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="serviceplace/serviceplacelist.action">服务地点</a></li>
+                          <li><a  href="backend/serviceplace/serviceplacelist.action">服务地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -32,8 +32,7 @@
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="traincourse/traincourselist.action">培训课程</a></li>
-                          <li><a  href="traincourse/trainassignlist.action">培训安排</a></li>
+                          <li><a  href="backend/traincourse/traincourselist.action">培训课程</a></li>
                           <li><a  href="boxed_page.html">培训记录</a></li>
                       </ul>
                   </li>

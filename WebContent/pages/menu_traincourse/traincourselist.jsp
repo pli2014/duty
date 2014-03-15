@@ -16,7 +16,7 @@
 
             <div class="row">
                 <div class="col-lg-6 col-md-6">
-                    <a class="btn btn-success" href="traincourse/traincourseaddedit.action">
+                    <a class="btn btn-success" href="backend/traincourse/traincourseaddedit.action">
                         <i class="fa fa-plus"></i>
                         新培训课程
                     </a>
@@ -43,11 +43,11 @@
                         <td><s:date name="#sp.createTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td><s:date name="#sp.modifyTime" format="yyyy-MM-dd HH:mm:ss"></s:date></td>
                         <td class="center">
-                            <a title="编辑培训课程" href="traincourse/traincourseaddedit.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
+                            <a title="编辑培训课程" href="backend/traincourse/traincourseaddedit.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
                                 <i class="fa fa-edit"></i>
                             </a>
 
-                            <a title="删除培训课程" href="traincourse/traincoursedelete.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
+                            <a title="删除培训课程" href="backend/traincourse/traincoursedelete.action?trainCourse.id=${sp.id}" class="btn btn-info  btn-xs">
                                 <i class="fa fa-trash-o"></i>
                             </a>
 
