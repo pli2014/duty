@@ -3,23 +3,22 @@
  */
 package actions;
 
-import com.opensymphony.xwork2.ActionContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-
 import org.bson.types.ObjectId;
+
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import bl.UserBusiness;
 import bl.beans.UserBean;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author gudong
@@ -94,24 +93,6 @@ public class UserAction extends BaseTableAction<UserBusiness> {
     return SUCCESS;
   }
 
-  /**
-   * lock or unlock
-   * 
-   * @return
-   * @throws Exception
-   */
-  public String lock() throws Exception {
-    user = (UserBean) getBusiness().getLeaf(getId()).getResponseData();
-    if (user != null) {
-      if (user.getLock() == UserBean.LOCK) {
-        user.setLock(UserBean.UN_LOCK);
-      } else {
-        user.setLock(UserBean.LOCK);
-      }
-      getBusiness().updateLeaf(user, user);
-    }
-    return SUCCESS;
-  }
 
   /**
    * login

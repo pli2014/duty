@@ -11,6 +11,8 @@ import bl.mongobus.TrainCourseServicePlaceBusiness;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
+import vo.table.TableHeaderVo;
+import vo.table.TableInitVo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,11 +20,16 @@ import java.util.List;
 /**
  * Created by peter on 14-3-14.
  */
-public class TrainCourseAction extends ActionSupport {
+public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
     List<TrainCourseBean> trainCourses = null;
     TrainCourseBean trainCourse = null;
     List<TrainCourseServicePlaceBean> trainCourseServicePlaces = null;
     List<ServicePlaceBean> servicePlaceBeans = null;
+
+    ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+    TrainCourseBusiness tc = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
+    TrainCourseServicePlaceBusiness tcp = (TrainCourseServicePlaceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
+
 
     public List<ServicePlaceBean> getServicePlaceBeans() {
         return servicePlaceBeans;
@@ -31,10 +38,6 @@ public class TrainCourseAction extends ActionSupport {
     public void setServicePlaceBeans(List<ServicePlaceBean> servicePlaceBeans) {
         this.servicePlaceBeans = servicePlaceBeans;
     }
-
-    ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
-    TrainCourseBusiness tc = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
-    TrainCourseServicePlaceBusiness tcp = (TrainCourseServicePlaceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
 
     public List<TrainCourseServicePlaceBean> getTrainCourseServicePlaces() {
         return trainCourseServicePlaces;
@@ -49,17 +52,24 @@ public class TrainCourseAction extends ActionSupport {
         return ActionSupport.SUCCESS;
     }
 
-    public String trainCourseDelete() {
-        if (this.trainCourse.get_id() != null) {
-            tc.deleteLeaf(this.trainCourse.getId());
+    public String delete() {
+        if (getIds() != null) {
+            for (String id : getIds()) {
+                getBusiness().deleteLeaf(id);
+            }
         }
         return ActionSupport.SUCCESS;
     }
 
-    public String trainCourseAddEdit() {
+    public String add() {
         servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
-        if (this.trainCourse != null) {
-            String id = this.trainCourse.getId();
+        return ActionSupport.SUCCESS;
+    }
+
+    public String edit() {
+        servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+        String id = this.getId();
+        if (id != null) {
             this.trainCourse = (TrainCourseBean) this.tc.getLeaf(id).getResponseData();
             if(this.trainCourse!=null){
                 HashMap<String,Object> filter = new HashMap<String,Object>();
@@ -70,7 +80,7 @@ public class TrainCourseAction extends ActionSupport {
         return ActionSupport.SUCCESS;
     }
 
-    public String trainCourseSubmit() {
+    public String save() {
         String id = this.trainCourse.getId();
         try {
             if (id != null && !id.isEmpty()) {
@@ -118,4 +128,22 @@ public class TrainCourseAction extends ActionSupport {
     public void setTrainCourse(TrainCourseBean trainCourse) {
         this.trainCourse = trainCourse;
     }
+
+    @Override
+    public String getActionPrex() {
+        return getRequest().getContextPath() + "/backend/traincourse";
+    }
+
+    @Override
+    public TableInitVo getTableInit() {
+        TableInitVo init = new TableInitVo();
+        init.getAoColumns().add(new TableHeaderVo("name", "课程名称"));
+        init.getAoColumns().add(new TableHeaderVo("status", "状态").hidePhone().addSearchOptions(new String[][]{{"-1", "0", "1", "2"}, {"----", "创建", "开始", "完成"}}));
+        return init;
+    }
+
+    public String getCustomJs(){
+        return "pages/menu_traincourse/traincourselist.js";
+    }
+    
 }
