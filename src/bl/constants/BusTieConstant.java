@@ -16,7 +16,7 @@ public interface BusTieConstant {
 
     public static final String BUS_CPATH_ACTIVEUSER = "bl.mongobus.ActiveUserBusiness";
 
-    public static final String BUS_CPATH_USER = "bl.UserBusiness";
+    public static final String BUS_CPATH_VOLUNTEER = "bl.mongobus.VolunteerBusiness";
 
     public static final String BUS_CPATH_TRAINCOURSESERVICEPLACE = "bl.mongobus.TrainCourseServicePlaceBusiness";
 

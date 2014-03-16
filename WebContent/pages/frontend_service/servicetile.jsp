@@ -70,12 +70,12 @@
                 <div class="label">谁在这里</div>
             </div>
         </a>
-        <a data-click="transform" class="tile bg-lightOrange" href="#">
+        <a data-click="transform" class="tile bg-lightOrange" href="logout.action">
             <div class="tile-content icon">
                 <span class="icon-libreoffice"></span>
             </div>
             <div class="brand">
-                <div class="label">我的建议</div>
+                <div class="label">退出</div>
             </div>
         </a>
     </div>

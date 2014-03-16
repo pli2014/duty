@@ -5,11 +5,14 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
 import bl.beans.UserServiceBean;
 import bl.beans.VolunteerBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.ActiveUserBusiness;
+import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
 
 import common.Constants;
@@ -22,6 +25,8 @@ public class UserServiceAction extends BaseAction {
 
   List<ServicePlaceBean> servicePlaces = null;
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
+  ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
+  ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
   private String userId;
   private String servicePlaceId;
   private long dayHours;
@@ -29,10 +34,18 @@ public class UserServiceAction extends BaseAction {
   private long yearHours;
   private long totalHours;
 
+  ActiveUserBean aub = null;
+
   public String getList(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
     if(null != user){
       userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
+      aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
+      if (aub != null) {
+         ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+         if (spb != null)
+            super.addActionMessage("你现在在这里服务:" + spb.getName());
+      }
     }
     return SUCCESS;
   }
@@ -45,6 +58,16 @@ public class UserServiceAction extends BaseAction {
 
   public String checkInSubmit(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+      aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
+      if (aub != null) {
+          ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+          if (spb != null){
+              //initialize data for checkin page.
+              checkIn();
+              super.addActionError("你已经在" + spb.getName()+"服务,同一时刻只允许签入一个服务地点");
+          }
+          return ERROR;
+      }
     userServiceBus.checkIn(user.getId(), servicePlaceId);
     return SUCCESS;
   }
