@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class UserServiceAction extends BaseAction {
     List<UserServiceBean> userServices = null;
-
+    ActiveUserBean  aub = null;
     List<ServicePlaceBean> servicePlaces = null;
     UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
