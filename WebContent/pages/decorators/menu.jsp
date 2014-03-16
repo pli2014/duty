@@ -5,6 +5,16 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
+              <style type="text/css">
+                  ul.sidebar-menu li ul.sub li a{
+                      color:none;
+                      backgroud-color:yellow;
+                  }
+                  ul.sidebar-menu li ul.sub li a.active{
+                      color:red;
+                      backgroud-color:yellow;
+                  }
+              </style>
               <ul class="sidebar-menu" id="nav-accordion">
                   <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                   <li class="sub-menu">
@@ -53,7 +63,9 @@
                           <span>工时管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">工时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">工时实时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">志愿者工时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">服务地点工时统计</a></li>
                           <li><a  href="boxed_page.html">工时排名</a></li>
                       </ul>
                   </li>

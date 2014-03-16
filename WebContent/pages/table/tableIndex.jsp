@@ -27,7 +27,7 @@
 		    margin: 0px !important;
 		 }
     </style>
-    
+
     <title>Data Table</title>
   </head>
 <body>
@@ -161,12 +161,12 @@
 			                 } );
 		                }
 		                var nCloneTd = document.createElement( 'td' );
-		                nCloneTd.innerHTML = '<img src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
+		                nCloneTd.innerHTML = '<img class="operation" src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
 		                nCloneTd.className = "center";
 			            $('#${tableId} tbody tr').each( function (i) {
 			                this.insertBefore(  nCloneTd.cloneNode( true ) , this.childNodes[0] );
 			            } );
-			            $('#${tableId} tbody td').on('click','img',function(){
+			            $('#${tableId} tbody td').on('click','img.operation',function(){
 			                var nTr = $(this).parents('tr')[0];
 			                if ( oTable.fnIsOpen(nTr) ){
 			                    // This row is already open - close it 
@@ -242,7 +242,37 @@
  } );
   </script>
   <% if(request.getAttribute("customJs")!= null && request.getAttribute("customJs").toString().length() > 0 ){%>
-     <script src="${customJs}" type="text/javascript"></script> 
+     <script src="${customJs}" type="text/javascript"></script>
   <%} %>
+       <script>
+
+           // 格式化js时间
+           var formatDateTime = function (obj, IsMi) {
+               var myDate = new Date(obj);
+               var year = myDate.getFullYear();
+               var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+               var day = ("0" + myDate.getDate()).slice(-2);
+               var h = ("0" + myDate.getHours()).slice(-2);
+               var m = ("0" + myDate.getMinutes()).slice(-2);
+               var s = ("0" + myDate.getSeconds()).slice(-2);
+               var mi = ("00" + myDate.getMilliseconds()).slice(-3);
+               if (IsMi == true) {
+                   return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s;
+               }
+               else {
+                   return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;
+               }
+           };
+
+           //格式化createTime  modifyTime
+           cellFormatter["modifyTime"]=cellFormatter["createTime"] = function ( data, type, full ) {
+               if(data!=null){
+                return formatDateTime(data.time,true);
+               }else{
+                   return "";
+               }
+           }
+
+       </script>
   </body>
 </html>
