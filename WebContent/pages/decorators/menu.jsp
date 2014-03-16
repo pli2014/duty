@@ -5,6 +5,16 @@
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
+              <style type="text/css">
+                  ul.sidebar-menu li ul.sub li a{
+                      color:none;
+                      backgroud-color:yellow;
+                  }
+                  ul.sidebar-menu li ul.sub li a.active{
+                      color:red;
+                      backgroud-color:yellow;
+                  }
+              </style>
               <ul class="sidebar-menu" id="nav-accordion">
                   <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                   <li class="sub-menu">
