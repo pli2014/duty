@@ -171,6 +171,10 @@
         <action name="checkOut" class="actions.UserServiceAction" method="checkOut">
             <result name="success" type="redirectAction">getCheckInRecords</result>
         </action>
+
+        <action name="myTimeReport" class="actions.UserServiceAction" method="getMyTimeReport">
+            <result name="success">/pages/menu_volunteer/myTimeReport.jsp</result>
+        </action>
     </package>
 
     <package name="uploadpng" namespace="/personpicture" extends="default">

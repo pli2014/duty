@@ -54,7 +54,7 @@
             </div>
         </a>
 
-        <a data-click="transform" class="tile bg-lightBlue" href="#">
+        <a data-click="transform" class="tile bg-lightBlue" href="userFront/myTimeReport.action">
             <div class="tile-content icon">
                 <span class="icon-chronometer"></span>
             </div>
