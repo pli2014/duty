@@ -165,6 +165,10 @@
         <action name="myTimeReport" class="actions.UserServiceAction" method="getMyTimeReport">
             <result name="success">/pages/menu_volunteer/myTimeReport.jsp</result>
         </action>
+
+        <action name="whoishere" class="actions.UserServiceAction" method="whoIsHere">
+            <result name="success">/pages/menu_whoishere/whoishere.jsp</result>
+        </action>
     </package>
 
     <package name="uploadpng" namespace="/personpicture" extends="default">

@@ -43,6 +43,7 @@
       <script src="jslib/flatlab/js/jquery.js"></script>
       <script src="jslib/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>
       <script src="jslib/flatlab/js/bootstrap.min.js"></script>
+      <script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.cookie.js"></script>
       <script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.dcjqaccordion.2.7.js"></script>
       <script src="jslib/flatlab/js/jquery.scrollTo.min.js"></script>
       <script src="jslib/flatlab/js/jquery.nicescroll.js" type="text/javascript"></script>

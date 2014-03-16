@@ -161,12 +161,12 @@
 			                 } );
 		                }
 		                var nCloneTd = document.createElement( 'td' );
-		                nCloneTd.innerHTML = '<img src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
+		                nCloneTd.innerHTML = '<img class="operation" src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
 		                nCloneTd.className = "center";
 			            $('#${tableId} tbody tr').each( function (i) {
 			                this.insertBefore(  nCloneTd.cloneNode( true ) , this.childNodes[0] );
 			            } );
-			            $('#${tableId} tbody td').on('click','img',function(){
+			            $('#${tableId} tbody td').on('click','img.operation',function(){
 			                var nTr = $(this).parents('tr')[0];
 			                if ( oTable.fnIsOpen(nTr) ){
 			                    // This row is already open - close it 

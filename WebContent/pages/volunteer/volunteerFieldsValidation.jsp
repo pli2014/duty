@@ -16,6 +16,9 @@
                 'volunteer.password': {
                     required: "请输入密码"
                 },
+                'volunteer.identityCard': {
+                    required: "请输入身份证号"
+                },
                 confirm_password: {
                     required: "请再次输入密码",
                     equalTo: "密码两次输入不一致"

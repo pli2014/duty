@@ -14,9 +14,9 @@ public class VolunteerBean extends Bean {
   public static final int UN_LOCK = 0;
 
   private String code;
-  private int registerFrom = 1; // 1=hospital,2=wechat.
-  private int status = 0; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
-  private int sex; // 1=Male,2=Female
+  private Integer registerFrom = 1; // 1=hospital,2=wechat.
+  private Integer status = 0; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
+  private Integer sex; // 1=Male,2=Female
   private Date birthDate;
   private String identityCard;
   private String education;
@@ -39,11 +39,27 @@ public class VolunteerBean extends Bean {
     this.iconpath = iconpath;
   }
 
-  public int getSex() {
+  public Integer getRegisterFrom() {
+    return registerFrom;
+  }
+
+  public void setRegisterFrom(Integer registerFrom) {
+    this.registerFrom = registerFrom;
+  }
+
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
+  }
+
+  public Integer getSex() {
     return sex;
   }
 
-  public void setSex(int sex) {
+  public void setSex(Integer sex) {
     this.sex = sex;
   }
 
@@ -101,22 +117,6 @@ public class VolunteerBean extends Bean {
 
   public void setCode(String code) {
     this.code = code;
-  }
-
-  public int getRegisterFrom() {
-    return registerFrom;
-  }
-
-  public void setRegisterFrom(int registerFrom) {
-    this.registerFrom = registerFrom;
-  }
-
-  public int getStatus() {
-    return status;
-  }
-
-  public void setStatus(int status) {
-    this.status = status;
   }
 
   public Date getBirthDate() {

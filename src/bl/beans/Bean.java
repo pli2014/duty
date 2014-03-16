@@ -109,4 +109,21 @@ public class Bean implements BeanContext, Cloneable {
       throw new RuntimeException("Error cloning in Bean", cnse);
     }
   }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Bean that = (Bean) o;
+
+        if (this.getId() != null ? !this.getId().equals(that.getId()) : that.getId() != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getId() != null ? this.getId().hashCode() : 0;
+    }
 }

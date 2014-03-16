@@ -3,6 +3,8 @@
 <label>姓名</label>
 <div class="input-control text" data-role="input-control">
     <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
+    <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
+    <input name="volunteer.status" type="hidden" value="${volunteer.status}"/>
     <input type="text" placeholder="请输入姓名" name="volunteer.name" value="${volunteer.name}" autofocus required="required"/>
     <button class="btn-clear" tabindex="-1"></button>
 </div>
@@ -42,6 +44,13 @@
         女
     </label>
 </div>
+
+<label>身份证号</label>
+<div class="input-control text" data-role="input-control">
+    <input type="text" placeholder="请输入身份证号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
+    <button class="btn-clear" tabindex="-1"></button>
+</div>
+
 <label>手机</label>
 <div class="input-control text" data-role="input-control">
     <input type="text" placeholder="请输入手机" name="volunteer.cellPhone" value="${volunteer.cellPhone}" required="required"/>
@@ -50,13 +59,13 @@
 
 <label>微信</label>
 <div class="input-control text" data-role="input-control">
-    <input type="text" placeholder="请输入微信" name="volunteer.wechat" value="${volunteer.wechat}" required="required"/>
+    <input type="text" placeholder="请输入微信" name="volunteer.wechat" value="${volunteer.wechat}" />
     <button class="btn-clear" tabindex="-1"></button>
 </div>
 
 <label>邮箱</label>
 <div class="input-control text" data-role="input-control">
-    <input type="text" placeholder="请输入邮箱" name="volunteer.email" value="${volunteer.email}" required="required"/>
+    <input type="text" placeholder="请输入邮箱" name="volunteer.email" value="${volunteer.email}" />
     <button class="btn-clear" tabindex="-1"></button>
 </div>
 

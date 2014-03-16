@@ -1,29 +1,9 @@
 <!DOCTYPE html>
-<%@ include file="../commonHeader.jsp"%>
+<%@ include file="../bootstrapHeader.jsp"%>
 <html lang="en">
 <html>
 <head>
     <title>签到管理</title>
-
-    <link href="jslib/flatlab/css/bootstrap.min.css" rel="stylesheet">
-    <link href="jslib/flatlab/css/bootstrap-reset.css" rel="stylesheet">
-    <!--external css-->
-    <link href="jslib/flatlab/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/advanced-datatable/media/css/demo_page.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/advanced-datatable/media/css/demo_table.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/data-tables/DT_bootstrap.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/advanced-datatable/extras/TableTools/media/css/TableTools.css" rel="stylesheet" />
-    <link href="jslib/flatlab/assets/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
-    <!-- Custom styles for this template -->
-    <link href="jslib/flatlab/css/style.css" rel="stylesheet">
-    <link href="jslib/flatlab/css/style-responsive.css" rel="stylesheet" />
-    <link href="jslib/jquery-ui-1.10.4.custom/css/start/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-    <style type="text/css">
-        .mt15 {
-            margin-top: 15px;
-        }
-
-    </style>
 </head>
 <body>
 <section class="panel">

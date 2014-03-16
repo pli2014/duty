@@ -1,9 +1,7 @@
 package actions;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
@@ -15,6 +13,7 @@ import bl.mongobus.ActiveUserBusiness;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
 
+import bl.mongobus.VolunteerBusiness;
 import common.Constants;
 
 /**
@@ -27,6 +26,7 @@ public class UserServiceAction extends BaseAction {
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
   ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+  VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
   private String userId;
   private String servicePlaceId;
   private long dayHours;
@@ -35,8 +35,18 @@ public class UserServiceAction extends BaseAction {
   private long totalHours;
 
   ActiveUserBean aub = null;
+  List<ServicePlaceBean> servicePlaceBeans = null;
+  HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
-  public String getList(){
+    public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
+        return servicePlaceVolunteer;
+    }
+
+    public List<ServicePlaceBean> getServicePlaceBeans() {
+        return servicePlaceBeans;
+    }
+
+    public String getList(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
     if(null != user){
       userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
@@ -90,6 +100,38 @@ public class UserServiceAction extends BaseAction {
       totalHours = (long)result.get(Calendar.ALL_STYLES) / 3600000 ;
     }
     return SUCCESS;
+  }
+
+  public String whoIsHere(){
+      List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.getAllLeaves().getResponseData();
+      servicePlaceVolunteer = new HashMap<ServicePlaceBean,HashSet<VolunteerBean>>();
+      // Because serviceplace isn't huge, loading all data one time.
+      List<ServicePlaceBean> sb = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+      for (ActiveUserBean ub : beanList) {
+         String spId = ub.getServicePlaceId();
+         String volunteerId = ub.getUserId();
+          ServicePlaceBean sbFetch = null;
+          for(int i=0;i<sb.size();i++){
+              if(sb.get(i).getId().equals(spId)){
+                  sbFetch = sb.get(i);
+                  break;
+              }
+          }
+          VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
+          if(!servicePlaceVolunteer.containsKey(sbFetch)){
+              if(vtb!=null){
+                  HashSet<VolunteerBean> hv = new HashSet<VolunteerBean>();
+                  hv.add(vtb);
+                  servicePlaceVolunteer.put(sbFetch,hv);
+              }
+          }else{
+              HashSet<VolunteerBean> hv = servicePlaceVolunteer.get(sbFetch);
+              if(vtb!=null && !hv.contains(vtb)){
+                  hv.add(vtb);
+              }
+          }
+      }
+      return SUCCESS;
   }
 
   public List<UserServiceBean> getUserServices() {

@@ -42,6 +42,8 @@
              <label class="col-lg-2 control-label">志愿者名</label>
              <div class="col-lg-10">
                  <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
+                 <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
+                 <input name="volunteer.status" type="hidden" value="${volunteer.status}"/>
                  <input type="text" placeholder="志愿者名" name="volunteer.name" class="form-control" 
                         required="required" value="${volunteer.name}"/>
              </div>
@@ -88,6 +90,13 @@
              </div>
          </div>
          
+        <div class="form-group has-success">
+             <label class="col-lg-2 control-label">身份证号</label>
+             <div class="col-lg-10">
+                 <input type="text" class="form-control" placeholder="请输入身份证号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
+             </div>
+         </div>
+
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">手机</label>
              <div class="col-lg-10">
@@ -99,7 +108,7 @@
              <label class="col-lg-2 control-label">微信</label>
              <div class="col-lg-10">
                  <input type="text" class="form-control" placeholder="微信" name="volunteer.wechat" class="form-control" 
-                        required="required" value="${volunteer.wechat}"/>
+                        value="${volunteer.wechat}"/>
              </div>
          </div>
          
@@ -107,7 +116,7 @@
              <label class="col-lg-2 control-label">邮箱</label>
              <div class="col-lg-10">
                  <input type="text" placeholder="邮箱" name="volunteer.email" class="form-control" 
-                        required="required" value="${volunteer.email}"/>
+                         value="${volunteer.email}"/>
              </div>
          </div>
          
