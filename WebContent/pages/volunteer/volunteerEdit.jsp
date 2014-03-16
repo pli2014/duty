@@ -27,7 +27,7 @@
 </head>
 <body class="metro" style="padding-left: 50%;padding-top: 20px;">
    <div class="example volunteerinfo" style="width: 500px;margin-left: -250px;">
-    <form action="volunteer/save.action" method="post">
+    <form id="volunteerForm" action="volunteer/save.action" method="post">
       <fieldset>
           <legend>个人信息</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
@@ -48,8 +48,6 @@
 	     $("form input[name='volunteer.name']").attr("readonly","readonly");
 	     $("form input[name='volunteer.name']").next("button").attr("disabled","disabled");
 	 });
-	 
-	 
     </script>
   </s:if>
 </body>

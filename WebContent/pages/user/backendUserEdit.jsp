@@ -42,7 +42,7 @@
              <label class="col-lg-2 control-label">用户名</label>
              <div class="col-lg-10">
                  <input name="user.id" type="hidden" value="${user.id}"/>
-                 <input type="text" placeholder="用户名" name="user.name" class="form-control" 
+                 <input type="text" placeholder="用户名" name="user.name" class="form-control" autofocus="autofocus"
                         required="required" value="${user.name}"
                         <s:if test="user.id != null">readonly="readonly"</s:if>
                         />

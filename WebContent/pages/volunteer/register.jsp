@@ -43,7 +43,7 @@
                <legend>志愿者注册</legend>
                <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
                
-               <%@ include file="volunteerFieldsAndPwd.jsp"%>
+               <%@ include file="volunteerFields.jsp"%>
                
                <input type="submit" value="注册"/>
                <input type="button" onclick="history.go(-1);" value="取消"/>

@@ -63,6 +63,7 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
       getBusiness().createLeaf(volunteer);
     } else {
       VolunteerBean origUser = (VolunteerBean) getBusiness().getLeaf(volunteer.getId().toString()).getResponseData();
+      volunteer.setPassword(origUser.getPassword());
       BeanUtils.copyProperties(origUser, volunteer);
       getBusiness().updateLeaf(origUser, origUser);
     }
@@ -85,7 +86,4 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
     }
     return SUCCESS;
   }
-
-
-  
 }

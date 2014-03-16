@@ -3,7 +3,7 @@
 <script type="text/javascript">
     //please refer to form-validation-script.js
     $(document).ready(function() {
-        $("#registerForm").validate({
+        $("#volunteerForm").validate({
             rules: {
                 confirm_password: {
                     equalTo: "#password"

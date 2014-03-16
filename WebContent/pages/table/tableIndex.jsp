@@ -135,7 +135,7 @@
 	 		 "aoColumns": initParam.aoColumns,
 	 		 "sAjaxSource": "${actionPrex}/queryTable.action",
 	 		 //"sDom": '<"H"lT><"clear">rt<"F"ip>',
-	 		 "sDom": '<"H"T><"clear">rt<"F"p>',
+	 		 "sDom": '<"H"lT><"clear">rt<"F"ip>',
 	 		 "oTableTools": {
 	 		   "sRowSelect": "multi",
 		       "aButtons": actions
@@ -145,9 +145,9 @@
 			        "sPrevious": "上一页",
 			        "sNext":"下一页"
 			    },
-	            "sLengthMenu": "Display _MENU_ records per page",
+	            "sLengthMenu": "每页显示 _MENU_ 条",
 	            "sZeroRecords": "无数据",
-	            "sInfo": "显示_START_到_END_,共_TOTAL_",
+	            "sInfo": "显示第 _START_ 到 _END_ , 共 _TOTAL_ 条.",
 	            "sInfoEmpty": "无数据",
 	            "sInfoFiltered": "(filtered from _MAX_ total records)"
 	         },
