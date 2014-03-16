@@ -18,6 +18,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
@@ -63,10 +64,22 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     return br;
   }
 
-  public BusinessResult getLeavesByUserId(String userId) {
-
+  public List<UserServiceBean> getLeavesByUserIds(List<String> userIdList, List<String> serviceIdList) {
     Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Query query = dc.createQuery(this.clazz);
+    if(null != userIdList && userIdList.size() > 0) {
+      query = query.filter("userId in", userIdList);
+    }
+    if(null != serviceIdList && serviceIdList.size() > 0) {
+      query = query.filter("servicePlaceId in", serviceIdList);
+    }
+    List<UserServiceBean> beanList = query.asList();
+    return beanList;
+  }
+
+  public BusinessResult getLeavesByUserId(String userId) {
     BusinessResult br = new BusinessResult();
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
 
     List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).asList();
 

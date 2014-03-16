@@ -53,7 +53,9 @@
                           <span>工时管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="boxed_page.html">工时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">工时实时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">志愿者工时统计</a></li>
+                          <li><a  href="backend/report/activeTimeReport.action">服务地点工时统计</a></li>
                           <li><a  href="boxed_page.html">工时排名</a></li>
                       </ul>
                   </li>

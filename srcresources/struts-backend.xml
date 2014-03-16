@@ -129,4 +129,12 @@
         </action>
     </package>
 
+
+    <package name="report" namespace="/backend/report" extends="default-backend">
+        <action name="activeTimeReport" class="actions.TimeReportAction" method="getActiveReport">
+            <result name="success">/pages/menu_report/activeTimeReport.jsp</result>
+        </action>
+        <action name="activeTimeReportData" class="actions.TimeReportAction" method="getActiveReportData">
+        </action>
+    </package>
 </struts>

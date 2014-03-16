@@ -124,9 +124,6 @@
             <result name="success" type="freemarker">/ftl/html.ftl</result>
         </action>
     </package>
-    <package name="report" namespace="/report" extends="default">
-
-    </package>
     <package name="loginout" namespace="/loginout" extends="default">
 
     </package>
