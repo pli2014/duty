@@ -15,42 +15,38 @@
         <global-results>
             <result name="error">/pages/generalError.jsp</result>
             <result name="tableIndex">/pages/table/tableIndex.jsp</result>
-            <result name="login_failure" type="redirect">/pages/menu_loginout/login.jsp</result>
+            <result name="tologin" type="redirect">/html/welcome.jsp</result>
         </global-results>
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error" />
         </global-exception-mappings>
         
-       <action name="login" class="actions.UserAction" method="login">
+       <action name="login" class="actions.VolunteerAction" method="login">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
            <result name="success" type="redirectAction">
               <param name="namespace">/</param>
               <param name="actionName">index</param>
            </result>
+           <result name="failure">/pages/menu_loginout/login.jsp</result>
         </action>
-        <action name="logout" class="actions.UserAction" method="logout">
+        <action name="logout" class="actions.VolunteerAction" method="logout">
            <interceptor-ref name="noLoginStack"></interceptor-ref> 
            <result name="success" type="redirectAction">
               <param name="namespace">/</param>
-              <param name="actionName">welcome</param>
+              <param name="actionName">tologin</param>
            </result>
         </action>
-        <action name="register" class="actions.UserAction" method="register">
+        
+        <action name="register" class="actions.VolunteerAction" method="register">
            <interceptor-ref name="noLoginStack"></interceptor-ref> 
-           <result name="failure" type="redirect">/pages/user/register.jsp</result>
+           <result name="failure">/pages/volunteer/register.jsp</result>
            <result name="success" type="redirectAction">
               <param name="namespace">/</param>
               <param name="actionName">index</param>
            </result>
-        </action>
-        
-        <action name="welcome">
-            <interceptor-ref name="noLoginStack"></interceptor-ref>
-            <result name="success">/html/welcome.jsp</result>
         </action>
         
         <action name="index">
-           <interceptor-ref name="noLoginStack"></interceptor-ref>
            <result name="success">/pages/frontend_service/servicetile.jsp</result>
         </action>
     </package>
@@ -135,24 +131,21 @@
 
     </package>
     
-    <package name="user" namespace="/user" extends="default">
-        <action name="index" class="actions.UserAction" method="index"/>
-        <action name="initTable" class="actions.UserAction" method="initTable"/>
-        <action name="queryTable" class="actions.UserAction" method="queryTable"/>
-        <action name="add" class="actions.UserAction" method="add">
-           <result name="success">/pages/user/userEdit.jsp</result>
+    <package name="volunteer" namespace="/volunteer" extends="default">
+        <action name="view" class="actions.VolunteerAction" method="view">
+           <result name="success">/pages/volunteer/volunteerView.jsp</result>
         </action>
-        <action name="edit" class="actions.UserAction" method="edit">
-           <result name="success">/pages/user/userEdit.jsp</result>
+        <action name="add" class="actions.VolunteerAction" method="add">
+           <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
-        <action name="save" class="actions.UserAction" method="save">
-           <result name="success" type="redirectAction">/user/index</result>
+        <action name="edit" class="actions.VolunteerAction" method="edit">
+           <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
-        <action name="delete" class="actions.UserAction" method="delete">
-           <result name="success" type="redirectAction">/user/index</result>
-        </action>
-        <action name="lock" class="actions.UserAction" method="lock">
-           <result name="success" type="redirectAction">/user/index</result>
+        <action name="save" class="actions.VolunteerAction" method="save">
+           <result name="success" type="redirectAction">
+              <param name="namespace">/</param>
+              <param name="actionName">index</param>
+           </result>
         </action>
     </package>
 
@@ -166,6 +159,7 @@
         </action>
         <action name="checkInSubmit" class="actions.UserServiceAction" method="checkInSubmit">
             <result name="success" type="redirectAction">getCheckInRecords</result>
+            <result name="error">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
         <action name="checkOut" class="actions.UserServiceAction" method="checkOut">
             <result name="success" type="redirectAction">getCheckInRecords</result>

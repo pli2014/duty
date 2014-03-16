@@ -59,11 +59,11 @@ public class UserServiceBean extends Bean{
     this.servicePlaceBean = servicePlaceBean;
   }
 
-  public UserBean getUserBean() {
+  public VolunteerBean getUserBean() {
     return userBean;
   }
 
-  public void setUserBean(UserBean userBean) {
+  public void setUserBean(VolunteerBean userBean) {
     this.userBean = userBean;
   }
 
@@ -74,7 +74,7 @@ public class UserServiceBean extends Bean{
   private Date checkOutTime;
 
   @Transient
-  private UserBean userBean;
+  private VolunteerBean userBean;
   @Transient
   private ServicePlaceBean servicePlaceBean;
 }

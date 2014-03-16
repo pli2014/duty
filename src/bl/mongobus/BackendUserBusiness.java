@@ -1,11 +1,10 @@
 /**
  * 
  */
-package bl;
+package bl.mongobus;
 
 import bl.beans.BackendUserBean;
 import bl.common.BeanContext;
-import bl.mongobus.MongoCommonBusiness;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;

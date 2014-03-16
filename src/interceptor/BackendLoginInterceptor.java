@@ -6,7 +6,6 @@ package interceptor;
 
 import util.WrappedRuntimeException;
 import webapps.WebappsConstants;
-import actions.BackendUserAction;
 import bl.exceptions.MiServerException;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -15,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import common.Constants;
 
 /**
  * @author gudong
@@ -25,7 +25,7 @@ public class BackendLoginInterceptor extends AbstractInterceptor {
 
   @Override
   public String intercept(ActionInvocation invocation) throws Exception {
-    if (ActionContext.getContext().getSession().get(BackendUserAction.LOGIN_BACKEND_USER_SESSION_ID) == null) {
+    if (ActionContext.getContext().getSession().get(Constants.LOGIN_BACKEND_USER_SESSION_ID) == null) {
       return "backend_tologin";
     }
     String result;

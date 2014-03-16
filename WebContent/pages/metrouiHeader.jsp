@@ -32,7 +32,7 @@
 
 
     <!-- Load JavaScript Libraries -->
-    <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
+    <script src="jslib/flatlab/js/jquery.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.widget.min.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/jquery/jquery.mousewheel.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/prettify/prettify.js"></script>
@@ -44,7 +44,7 @@
     <!-- Local JavaScript -->
     <script src="jslib/flatlab/assets/metro-ui/js/docs.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/github.info.js"></script>
-
+    <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script>
 </head>
 
 <body>

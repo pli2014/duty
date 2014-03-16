@@ -8,8 +8,8 @@ import org.mongodb.morphia.annotations.Entity;
  * @author gudong
  * 
  */
-@Entity(value = "user")
-public class UserBean extends Bean {
+@Entity(value = "volunteer")
+public class VolunteerBean extends Bean {
   public static final int LOCK = 1;
   public static final int UN_LOCK = 0;
 

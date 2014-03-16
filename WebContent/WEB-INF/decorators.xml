@@ -13,18 +13,16 @@
         <pattern>/backend/register.action</pattern>
 	</excludes>
 
-	<!-- 用来定义装饰器要过滤的页面 -->
-	<decorator name="main" page="/pages/decorators/main.jsp">
+	<!-- 后台管理 装饰器页面 -->
+	<decorator name="backend_decorator" page="/pages/decorators/main.jsp">
 		<pattern>/welcome.jsp</pattern>
 		<pattern>/template/dynamicform.action</pattern>
 		<pattern>/page/*.action</pattern>
         <pattern>/datainput/data*.action</pattern>
         <pattern>/user/*.action</pattern>
         <pattern>/patient/*.action</pattern>
-        <pattern>/volunteer/*.action</pattern>
         <pattern>/serviceplace/*.action</pattern>
         <pattern>/traincourse/*.action</pattern>
-        <!--========= backend start====== -->
         <pattern>/backend/*.action</pattern>
 	</decorator>
 </decorators>

@@ -93,7 +93,7 @@
                 confirm_password: {
                     required: "请再次输入密码",
                     equalTo: "密码两次输入不一致"
-                },
+                }
             }
         }); 
     });

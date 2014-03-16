@@ -1,20 +1,42 @@
 package actions;
 
-import bl.beans.UserBean;
-import com.opensymphony.xwork2.ActionSupport;
-
 import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+
+import bl.beans.VolunteerBean;
+import bl.mongobus.VolunteerBusiness;
+
+import com.opensymphony.xwork2.ActionContext;
+
+import common.Constants;
 
 /**
  * Created by wangronghua on 14-3-8.
  */
-public class VolunteerAction extends ActionSupport {
+public class VolunteerAction extends BaseAction {
   private String code;
   private String name;
   private String state;
-  private List<UserBean> volunteers;
+  private List<VolunteerBean> volunteers;
+  private VolunteerBean volunteer;
+  private VolunteerBusiness business;
 
-  public String query(){
+  public VolunteerBean getVolunteer() {
+    return volunteer;
+  }
+
+  public void setVolunteer(VolunteerBean volunteer) {
+    this.volunteer = volunteer;
+  }
+
+  public String query() {
     return SUCCESS;
   }
 
@@ -42,12 +64,120 @@ public class VolunteerAction extends ActionSupport {
     this.state = state;
   }
 
-  public List<UserBean> getVolunteers() {
+  public List<VolunteerBean> getVolunteers() {
     return volunteers;
   }
 
-  public void setVolunteers(List<UserBean> volunteers) {
+  public void setVolunteers(List<VolunteerBean> volunteers) {
     this.volunteers = volunteers;
   }
 
+  public VolunteerBusiness getBusiness() {
+    if (business == null) {
+      business = new VolunteerBusiness();
+    }
+    return business;
+  }
+
+  /**
+   * login
+   * 
+   * @return
+   */
+  public String login() {
+    if (volunteer != null) {
+      VolunteerBean userTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
+      if (userTmp != null && userTmp.getPassword().equals(volunteer.getPassword())) {
+        getSession().setAttribute(Constants.LOGIN_USER_SESSION_ID, userTmp);
+        return SUCCESS;
+      } else {
+        addActionError("密码错误");
+      }
+    }
+    return FAILURE;
+  }
+
+  /**
+   * login
+   * 
+   * @return
+   */
+  public String logout() {
+    getSession().removeAttribute(Constants.LOGIN_USER_SESSION_ID);
+    HttpServletRequest req = (HttpServletRequest) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
+    HttpServletResponse resp = (HttpServletResponse) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
+    eraseCookie(req, resp);
+    return SUCCESS;
+  }
+
+  /**
+   * Register
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String register() throws Exception {
+    if (volunteer != null) {
+      VolunteerBean volunteerTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
+      if (volunteerTmp != null) {
+        addActionError("志愿者已经存在");
+      } else {
+        volunteer.set_id(ObjectId.get());
+        getBusiness().createLeaf(volunteer);
+        getSession().setAttribute(Constants.LOGIN_USER_SESSION_ID, volunteer);
+        return SUCCESS;
+      }
+    }
+    return FAILURE;
+  }
+
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String view() throws Exception {
+    volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    return SUCCESS;
+  }
+  
+  
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String save() throws Exception {
+    if (StringUtils.isBlank(volunteer.getId())) {
+      volunteer.set_id(ObjectId.get());
+      getBusiness().createLeaf(volunteer);
+    } else {
+      VolunteerBean origUser = (VolunteerBean) getBusiness().getLeaf(volunteer.getId().toString()).getResponseData();
+      volunteer.setPassword(origUser.getPassword());
+      BeanUtils.copyProperties(origUser, volunteer);
+      getBusiness().updateLeaf(origUser, origUser);
+    }
+    return SUCCESS;
+  }
+
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String edit() throws Exception {
+    volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    getSession().setAttribute("dataId", volunteer.getId());
+    return SUCCESS;
+  }
+
+  private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
+    Cookie[] cookies = req.getCookies();
+    if (cookies != null)
+      for (int i = 0; i < cookies.length; i++) {
+        cookies[i].setValue("");
+        cookies[i].setMaxAge(0);
+        resp.addCookie(cookies[i]);
+      }
+  }
 }

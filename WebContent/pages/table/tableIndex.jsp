@@ -41,7 +41,7 @@
                        <thead>
                        </thead>
                       <tbody>
-                          <tr><td colspan="4" class="dataTables_empty">Loading data from server</td></tr>
+                          <tr><td colspan="4" class="dataTables_empty">正在加载数据...</td></tr>
                       </tbody>
                           
                      </table>
@@ -134,11 +134,23 @@
 	 		 "aLengthMenu": initParam.aLengthMenu,
 	 		 "aoColumns": initParam.aoColumns,
 	 		 "sAjaxSource": "${actionPrex}/queryTable.action",
-	 		 "sDom": '<"H"lT><"clear">rt<"F"ip>',
+	 		 //"sDom": '<"H"lT><"clear">rt<"F"ip>',
+	 		 "sDom": '<"H"T><"clear">rt<"F"p>',
 	 		 "oTableTools": {
 	 		   "sRowSelect": "multi",
 		       "aButtons": actions
 	 		 },
+	 		 "oLanguage": {
+	 		     "oPaginate": {
+			        "sPrevious": "上一页",
+			        "sNext":"下一页"
+			    },
+	            "sLengthMenu": "Display _MENU_ records per page",
+	            "sZeroRecords": "无数据",
+	            "sInfo": "显示_START_到_END_,共_TOTAL_",
+	            "sInfoEmpty": "无数据",
+	            "sInfoFiltered": "(filtered from _MAX_ total records)"
+	         },
 		     "fnDrawCallback": function ( oSettings ) {
 		            if(initParam.hasDetails > 0){
 		                if($('#${tableId} thead tr th:first[arias="showDetails"]').length == 0){
@@ -168,8 +180,6 @@
 			                 }
 			            } );
 		            }
-		            
-		           
 		     }, 
 	         "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
 	             /* //======= method one===========

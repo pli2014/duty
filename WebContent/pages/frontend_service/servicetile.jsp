@@ -29,7 +29,7 @@
 <body class="metro">
 <div id="bar" class="tile-area">
     <div class="tile-group three" style="">
-        <a data-click="transform" class="tile bg-darkOrange" href="user/edit.action?id=${sessionUser.id}">
+        <a data-click="transform" class="tile bg-darkOrange" href="volunteer/view.action?id=${sessionUser.id}">
             <div class="tile-content icon">
                 <span class=" icon-clipboard-2"></span>
             </div>
@@ -67,7 +67,7 @@
                 <span class="icon-thumbs-up"></span>
             </div>
             <div class="brand">
-                <div class="label">我的荣誉</div>
+                <div class="label">谁在这里</div>
             </div>
         </a>
         <a data-click="transform" class="tile bg-lightOrange" href="#">

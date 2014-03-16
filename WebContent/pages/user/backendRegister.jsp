@@ -64,7 +64,7 @@
                 confirm_password: {
                     required: "请再次输入密码",
                     equalTo: "两次输入密码不一致"
-                },
+                }
             }
         }); 
     });

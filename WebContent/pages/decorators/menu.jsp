@@ -23,7 +23,7 @@
                           <span>志愿者管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/volunteer/queryVolunteer.action">志愿者</a></li>
+                          <li><a  href="backend/volunteer/index.action">志愿者管理</a></li>
                           <li><a  href="horizontal_menu.html">审核</a></li>
                           <li><a  href="language_switch_bar.html">面试</a></li>
                       </ul>

@@ -29,8 +29,25 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
   protected final static String JSON_RESULT = "json_result";
   protected final static String FAILURE = "failure";
   private HttpServletRequest request;
-
   private ServletResponse response;
+  private String id;
+  private String[] ids;
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String[] getIds() {
+    return ids;
+  }
+
+  public void setIds(String[] ids) {
+    this.ids = ids;
+  }
 
   public void setServletRequest(HttpServletRequest request) {
     this.request = request;

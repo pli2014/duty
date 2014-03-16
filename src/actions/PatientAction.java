@@ -1,7 +1,7 @@
 package actions;
 
 import bl.beans.PatientBean;
-import bl.beans.UserBean;
+import bl.beans.VolunteerBean;
 import bl.mongobus.PatientBusiness;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;

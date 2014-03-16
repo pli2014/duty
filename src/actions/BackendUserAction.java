@@ -13,12 +13,13 @@ import org.bson.types.ObjectId;
 
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
-import bl.BackendUserBusiness;
 import bl.beans.BackendUserBean;
+import bl.mongobus.BackendUserBusiness;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import common.Constants;
 
 /**
  * @author gudong
@@ -30,7 +31,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
    */
   private static final long serialVersionUID = -5222876000116738224L;
   private static Logger log = LoggerFactory.getLogger(BackendUserAction.class);
-  public final static String LOGIN_BACKEND_USER_SESSION_ID = "backendSessionUser";
+  
   private BackendUserBean user;
 
   public BackendUserBean getUser() {
@@ -66,7 +67,8 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
       }
     } else {
       BackendUserBean origUser = (BackendUserBean) getBusiness().getLeaf(user.getId().toString()).getResponseData();
-      origUser.setName(user.getName());
+      user.setPassword(origUser.getPassword());
+      BeanUtils.copyProperties(origUser, user);
       getBusiness().updateLeaf(origUser, origUser);
     }
     return SUCCESS;
@@ -98,7 +100,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
     if (user != null) {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();
       if (userTmp != null && userTmp.getPassword().equals(user.getPassword())) {
-        getSession().setAttribute(LOGIN_BACKEND_USER_SESSION_ID, userTmp);
+        getSession().setAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {
         addActionError("用户名或者密码错误");
@@ -113,7 +115,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
    * @return
    */
   public String logout() {
-    getSession().removeAttribute(LOGIN_BACKEND_USER_SESSION_ID);
+    getSession().removeAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID);
     HttpServletRequest req = (HttpServletRequest) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
     HttpServletResponse resp = (HttpServletResponse) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
     eraseCookie(req, resp);
@@ -134,7 +136,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
       } else {
         user.set_id(ObjectId.get());
         getBusiness().createLeaf(user);
-        getSession().setAttribute(LOGIN_BACKEND_USER_SESSION_ID, user);
+        getSession().setAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID, user);
         return SUCCESS;
       }
     }
@@ -149,11 +151,11 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
    */
   public String changePassword() throws Exception {
     if (user != null) {
-      BackendUserBean sessionUser = (BackendUserBean) getSession().getAttribute(LOGIN_BACKEND_USER_SESSION_ID);
+      BackendUserBean sessionUser = (BackendUserBean) getSession().getAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID);
       if (sessionUser != null && sessionUser.getPassword().equals(user.getPassword())) {
         sessionUser.setPassword(getRequest().getParameter("newPassword"));
         getBusiness().updateLeaf(sessionUser, sessionUser);
-        getSession().setAttribute(LOGIN_BACKEND_USER_SESSION_ID, sessionUser);
+        getSession().setAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID, sessionUser);
         return SUCCESS;
       } else {
         addActionError("原始密码错误");

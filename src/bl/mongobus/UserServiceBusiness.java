@@ -1,17 +1,19 @@
 package bl.mongobus;
 
-import bl.UserBusiness;
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
-import bl.beans.UserBean;
+import bl.beans.VolunteerBean;
 import bl.beans.UserServiceBean;
 import bl.common.BeanContext;
 import bl.common.BusinessResult;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
+
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+
 import dao.MongoDBConnectionFactory;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
@@ -30,7 +32,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
-  UserBusiness userBus = (UserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USER);
+  VolunteerBusiness userBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USER);
 
   private static Logger LOG = LoggerFactory.getLogger(UserServiceBusiness.class);
   public UserServiceBusiness() {
@@ -45,9 +47,9 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
     List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).order("-checkOutTime").limit(size).asList();
 
-    UserBean user = null;
+    VolunteerBean user = null;
     if(StringUtils.isNotEmpty(userId)) {
-      user = (UserBean) userBus.getLeaf(userId).getResponseData();
+      user = (VolunteerBean) userBus.getLeaf(userId).getResponseData();
     }
 
     for(UserServiceBean bean: beanList) {
@@ -68,9 +70,9 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
     List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).asList();
 
-    UserBean user = null;
+    VolunteerBean user = null;
     if(StringUtils.isNotEmpty(userId)) {
-      user = (UserBean) userBus.getLeaf(userId).getResponseData();
+      user = (VolunteerBean) userBus.getLeaf(userId).getResponseData();
     }
 
     for(UserServiceBean bean: beanList) {

@@ -7,7 +7,7 @@
 <!--script for this page-->
 <script type="text/javascript">
 
-   window.location.href = "<%=request.getContextPath()%>/welcome.action";
+   window.location.href = "<%=request.getContextPath()%>/index.action";
 
 </script>
 

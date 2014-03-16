@@ -72,7 +72,7 @@
                 confirm_password: {
                     required: "请再次输入新密码",
                     equalTo: "新密码两次输入不一致"
-                },
+                }
             }
         }); 
     });
