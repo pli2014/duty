@@ -58,6 +58,8 @@
     <header class="panel-heading">
         签到管理
     </header>
+    <%-- 消息引用 --%>
+    <s:include value="../strutsMessage.jsp"/>
 
     <div class="panel-body">
         <form id="dataForm" action="userFront/checkInSubmit.action" class="form-horizontal">
