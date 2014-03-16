@@ -12,9 +12,9 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity(value = "backend_user")
 public class BackendUserBean extends Bean {
-  
+
   private String password;
-  private int type = 0; // 1=admin
+  private Integer type = 0; // 1=admin
 
   public String getPassword() {
     return password;
@@ -24,11 +24,11 @@ public class BackendUserBean extends Bean {
     this.password = password;
   }
 
-  public int getType() {
+  public Integer getType() {
     return type;
   }
 
-  public void setType(int type) {
+  public void setType(Integer type) {
     this.type = type;
   }
 

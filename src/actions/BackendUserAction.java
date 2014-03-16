@@ -99,7 +99,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   public String login() {
     if (user != null) {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();
-      if (userTmp != null && userTmp.getPassword().equals(user.getPassword())) {
+      if (userTmp != null && user.getPassword().equals(userTmp.getPassword())) {
         getSession().setAttribute(Constants.LOGIN_BACKEND_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {

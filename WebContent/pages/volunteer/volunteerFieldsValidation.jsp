@@ -3,7 +3,7 @@
 <script type="text/javascript">
     //please refer to form-validation-script.js
     $(document).ready(function() {
-        $("#registerForm").validate({
+        $("#volunteerForm").validate({
             rules: {
                 confirm_password: {
                     equalTo: "#password"
@@ -15,6 +15,9 @@
                 },
                 'volunteer.password': {
                     required: "请输入密码"
+                },
+                'volunteer.identityCard': {
+                    required: "请输入身份证号"
                 },
                 confirm_password: {
                     required: "请再次输入密码",

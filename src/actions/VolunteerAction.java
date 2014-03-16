@@ -87,7 +87,7 @@ public class VolunteerAction extends BaseAction {
   public String login() {
     if (volunteer != null) {
       VolunteerBean userTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
-      if (userTmp != null && userTmp.getPassword().equals(volunteer.getPassword())) {
+      if (userTmp != null && volunteer.getPassword().equals(userTmp.getPassword())) {
         getSession().setAttribute(Constants.LOGIN_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {

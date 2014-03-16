@@ -4,18 +4,18 @@
  */
 cellFormatter["sex"] = function ( data, type, full ) {
     if(data == 1){
-        return 'Male';
+        return '男';
     }else if(data == 2){
-        return 'Female';
+        return '女';
     }else{
-       return 'Unkown';
-    } 
+       return '未知';
+    }  
 }
 cellFormatter["lock"] = function ( data, type, full ) {
     if(data == 1){
-        return 'Lock';
+        return '已锁';
     }else{
-       return 'UnLock';
+       return '正常';
     } 
 }
 
@@ -32,7 +32,7 @@ actions.unshift({
           var tableObj = $('#'+tableId).dataTable();
           var selectedRows = tableObj.$('tr.DTTT_selected');
           if(selectedRows.length != 1){
-              alert("Please select one record!");
+              alert("请选择一行记录!");
           }else{
              var selectRowData =  tableObj.fnGetData( selectedRows[0] );
              window.location.href = actionPrex + "/lock.action?id=" + selectRowData[idName];
