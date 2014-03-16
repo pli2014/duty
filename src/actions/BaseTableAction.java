@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import org.bson.types.ObjectId;
 import vo.table.TableDataVo;
+import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
 import bl.common.TableBusinessInterface;
@@ -106,7 +107,14 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     // json
     JsonConfig config = new JsonConfig();
     config.setExcludes(new String[] { "searchOptions" });
-    JSONObject jsonObject = JSONObject.fromObject(getTableInit(), config);
+    TableInitVo  ti = getTableInit();
+    TableHeaderVo createTime = new TableHeaderVo("createTime", "创建时间");
+    createTime.setbSearchable(false);
+    ti.getAoColumns().add(createTime);
+    TableHeaderVo modifyTime = new TableHeaderVo("modifyTime", "更新时间");
+    modifyTime.setbSearchable(false);
+    ti.getAoColumns().add(modifyTime);
+    JSONObject jsonObject = JSONObject.fromObject(ti, config);
     writeJson(jsonObject);
     return null;
   }
