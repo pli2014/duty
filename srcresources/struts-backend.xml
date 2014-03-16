@@ -100,13 +100,13 @@
             <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
         </action>
         <action name="serviceplacedelete" class="actions.ServicePlaceAction" method="servicePlaceDelete">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
+            <result name="success" type="redirectAction">/backend/serviceplace/serviceplacelist</result>
         </action>
         <action name="serviceplaceaddedit" class="actions.ServicePlaceAction" method="servicePlaceAddEdit">
             <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
         </action>
         <action name="serviceplacesubmit" class="actions.ServicePlaceAction" method="servicePlaceSubmit">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
+            <result name="success" type="redirectAction">/backend/serviceplace/serviceplacelist</result>
         </action>
     </package>
 
@@ -135,6 +135,18 @@
             <result name="success">/pages/menu_report/activeTimeReport.jsp</result>
         </action>
         <action name="activeTimeReportData" class="actions.TimeReportAction" method="getActiveReportData">
+        </action>
+        <action name="volunteerDailyReport" class="actions.TimeReportAction" method="getUserDailyReport">
+            <result name="success">/pages/menu_report/volunteerDailyReport.jsp</result>
+        </action>
+        <action name="volunteerMonthlyReport" class="actions.TimeReportAction" method="getUserMonthlyReport">
+            <result name="success">/pages/menu_report/volunteerMonthlyReport.jsp</result>
+        </action>
+        <action name="serviceDailyReport" class="actions.TimeReportAction" method="getServiceDailyReport">
+            <result name="success">/pages/menu_report/serviceDailyReport.jsp</result>
+        </action>
+        <action name="serviceMonthlyReport" class="actions.TimeReportAction" method="getServiceMonthlyReport">
+            <result name="success">/pages/menu_report/serviceMonthlyReport.jsp</result>
         </action>
     </package>
 </struts>

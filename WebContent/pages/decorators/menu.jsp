@@ -64,9 +64,11 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="backend/report/activeTimeReport.action">工时实时统计</a></li>
-                          <li><a  href="backend/report/activeTimeReport.action">志愿者工时统计</a></li>
-                          <li><a  href="backend/report/activeTimeReport.action">服务地点工时统计</a></li>
-                          <li><a  href="boxed_page.html">工时排名</a></li>
+                          <li><a  href="backend/report/volunteerDailyReport.action">志愿者日工时统计</a></li>
+                          <li><a  href="backend/report/volunteerMonthlyReport.action">志愿者月工时统计</a></li>
+                          <%--<li><a  href="backend/report/serviceDailyReport.action">服务地点日工时统计</a></li>--%>
+                          <%--<li><a  href="backend/report/serviceMonthlyReport.action">服务地点月工时统计</a></li>--%>
+                          <%--<li><a  href="boxed_page.html">工时排名</a></li>--%>
                       </ul>
                   </li>
                   <li class="sub-menu">

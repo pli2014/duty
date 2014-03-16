@@ -65,6 +65,10 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   }
 
   public List<UserServiceBean> getLeavesByUserIds(List<String> userIdList, List<String> serviceIdList) {
+    return queryUserServices(userIdList, serviceIdList, null, null);
+  }
+
+  public List<UserServiceBean> queryUserServices(List<String> userIdList, List<String> serviceIdList, Date start, Date end) {
     Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
     Query query = dc.createQuery(this.clazz);
     if(null != userIdList && userIdList.size() > 0) {
@@ -72,6 +76,12 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     }
     if(null != serviceIdList && serviceIdList.size() > 0) {
       query = query.filter("servicePlaceId in", serviceIdList);
+    }
+    if(null != start) {
+      query = query.filter("checkInTime >=", start);
+    }
+    if(null != end) {
+      query = query.filter("checkOutTime <", end);
     }
     List<UserServiceBean> beanList = query.asList();
     return beanList;

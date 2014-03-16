@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-    "http://struts.apache.org/dtds/struts-2.3.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
 
@@ -20,34 +20,34 @@
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error" />
         </global-exception-mappings>
-        
-       <action name="login" class="actions.VolunteerAction" method="login">
-           <interceptor-ref name="noLoginStack"></interceptor-ref>
-           <result name="success" type="redirectAction">
-              <param name="namespace">/</param>
-              <param name="actionName">index</param>
-           </result>
-           <result name="failure">/pages/menu_loginout/login.jsp</result>
+
+        <action name="login" class="actions.VolunteerAction" method="login">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">index</param>
+            </result>
+            <result name="failure">/pages/menu_loginout/login.jsp</result>
         </action>
         <action name="logout" class="actions.VolunteerAction" method="logout">
-           <interceptor-ref name="noLoginStack"></interceptor-ref> 
-           <result name="success" type="redirectAction">
-              <param name="namespace">/</param>
-              <param name="actionName">tologin</param>
-           </result>
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">tologin</param>
+            </result>
         </action>
-        
+
         <action name="register" class="actions.VolunteerAction" method="register">
-           <interceptor-ref name="noLoginStack"></interceptor-ref> 
-           <result name="failure">/pages/volunteer/register.jsp</result>
-           <result name="success" type="redirectAction">
-              <param name="namespace">/</param>
-              <param name="actionName">index</param>
-           </result>
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
+            <result name="failure">/pages/volunteer/register.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">index</param>
+            </result>
         </action>
-        
+
         <action name="index">
-           <result name="success">/pages/frontend_service/servicetile.jsp</result>
+            <result name="success">/pages/frontend_service/servicetile.jsp</result>
         </action>
     </package>
     <package name="template" namespace="/template" extends="default">
@@ -63,10 +63,10 @@
             <result name="success">/pages/menu_template/saveresult.jsp</result>
         </action>
         <action name="getxml" class="actions.FormAction" method="getxml">
-            <result name="success" type="stream">  
-                <param name="contentType">text/xml;charset=UTF-8</param>  
-                <param name="inputName">xmlStream</param>  
-            </result> 
+            <result name="success" type="stream">
+                <param name="contentType">text/xml;charset=UTF-8</param>
+                <param name="inputName">xmlStream</param>
+            </result>
         </action>
         <action name="deletetemplate" class="actions.FormAction" method="deleteTemplate">
             <result name="success">/pages/menu_template/saveresult.jsp
@@ -127,22 +127,22 @@
     <package name="loginout" namespace="/loginout" extends="default">
 
     </package>
-    
+
     <package name="volunteer" namespace="/volunteer" extends="default">
         <action name="view" class="actions.VolunteerAction" method="view">
-           <result name="success">/pages/volunteer/volunteerView.jsp</result>
+            <result name="success">/pages/volunteer/volunteerView.jsp</result>
         </action>
         <action name="add" class="actions.VolunteerAction" method="add">
-           <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
+            <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
         <action name="edit" class="actions.VolunteerAction" method="edit">
-           <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
+            <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
         <action name="save" class="actions.VolunteerAction" method="save">
-           <result name="success" type="redirectAction">
-              <param name="namespace">/</param>
-              <param name="actionName">index</param>
-           </result>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">index</param>
+            </result>
         </action>
     </package>
 
@@ -179,15 +179,15 @@
 
     <package name="trainCourse" namespace="/trainCourse" extends="default">
         <action name="index" class="actions.TrainCourseAction" method="index">
-          <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
+            <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
         </action>
-		<action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
-		<action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
-		<action name="queryMyTrainCourse" class="actions.TrainCourseAction" method="queryMyTrainCourse"/>
-		<action name="receive" class="actions.TrainCourseAction" method="receive">
-		   <result name="success" type="redirectAction">index</result>
+        <action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
+        <action name="queryMyTrainCourse" class="actions.TrainCourseAction" method="queryMyTrainCourse"/>
+        <action name="receive" class="actions.TrainCourseAction" method="receive">
+            <result name="success" type="redirectAction">index</result>
         </action>
-	</package>
-	
+    </package>
+
     <include file="struts-backend.xml"></include>
 </struts>
