@@ -1,6 +1,9 @@
 /** 
  * cellFormatter
  */
+cellFormatter["name"] = function ( data, type, full ) {
+   return '<img disable style="margin-right:10px" src="'+full.iconpath+'" width="60px" height="50px" onerror="this.src=\'img/volunteer.png\'"/>' + data;
+}
 cellFormatter["sex"] = function ( data, type, full ) {
     if(data == 1){
         return '男';
