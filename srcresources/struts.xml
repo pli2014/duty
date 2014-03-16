@@ -166,6 +166,7 @@
         </action>
         <action name="checkInSubmit" class="actions.UserServiceAction" method="checkInSubmit">
             <result name="success" type="redirectAction">getCheckInRecords</result>
+            <result name="error">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
         <action name="checkOut" class="actions.UserServiceAction" method="checkOut">
             <result name="success" type="redirectAction">getCheckInRecords</result>

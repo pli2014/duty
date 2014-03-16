@@ -67,7 +67,7 @@
                 <span class="icon-thumbs-up"></span>
             </div>
             <div class="brand">
-                <div class="label">我的荣誉</div>
+                <div class="label">谁在这里</div>
             </div>
         </a>
         <a data-click="transform" class="tile bg-lightOrange" href="#">

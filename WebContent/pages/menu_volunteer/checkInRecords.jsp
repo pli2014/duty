@@ -53,6 +53,9 @@
                 </div>
             </div>
 
+            <%-- 消息引用 --%>
+            <s:include value="../strutsMessage.jsp"/>
+
             <table cellspacing="0" cellpadding="0" border="0" class="mt15 table table-striped table-advance table-hover table-bordered" id="userList">
                 <thead>
                 <tr>
