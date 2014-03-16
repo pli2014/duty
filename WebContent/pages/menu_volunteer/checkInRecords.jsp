@@ -51,6 +51,10 @@
                     </a>
                 </div>
             </div>
+
+            <%-- 消息引用 --%>
+            <s:include value="../strutsMessage.jsp"/>
+
             <section class="panel">
                 <div class="panel-body">
                     <div class="row state-overview">
