@@ -9,7 +9,7 @@
         body {
             background: url('img/zhiyuanzhebackgroud.jpg');
             background-size:cover;
-            background-repeat: no-repeat;
+            background-repeat: repeat;
             position: relative;
             overflow:hidden;
         }
@@ -45,7 +45,7 @@
                 <div class="label">我的签到</div>
             </div>
         </a>
-        <a data-click="transform" class="tile bg-darkViolet" href="#">
+        <a data-click="transform" class="tile bg-darkViolet" href="trainCourse/index.action">
             <div class="tile-content icon">
                 <span class="icon-headphones"></span>
             </div>
@@ -62,7 +62,7 @@
                 <div class="label">我的工时</div>
             </div>
         </a>
-        <a data-click="transform" class="tile bg-darkPink" href="#">
+        <a data-click="transform" class="tile bg-darkPink" href="userFront/whoishere.action">
             <div class="tile-content icon">
                 <span class="icon-thumbs-up"></span>
             </div>

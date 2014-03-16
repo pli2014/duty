@@ -111,22 +111,30 @@
     </package>
 
     <package name="traincourse" namespace="/backend/traincourse" extends="default-backend">
-        <action name="index" class="actions.TrainCourseAction" method="index"/>
-        <action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
-        <action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
+        <action name="index" class="actions.BackendTrainCourseAction" method="index"/>
+        <action name="initTable" class="actions.BackendTrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.BackendTrainCourseAction" method="queryTable"/>
 
-        <action name="delete" class="actions.TrainCourseAction" method="delete">
+        <action name="delete" class="actions.BackendTrainCourseAction" method="delete">
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
-        <action name="add" class="actions.TrainCourseAction" method="add">
+        <action name="add" class="actions.BackendTrainCourseAction" method="add">
             <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
         </action>
-        <action name="edit" class="actions.TrainCourseAction" method="edit">
+        <action name="edit" class="actions.BackendTrainCourseAction" method="edit">
             <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
         </action>
-        <action name="save" class="actions.TrainCourseAction" method="save">
+        <action name="save" class="actions.BackendTrainCourseAction" method="save">
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
     </package>
 
+
+    <package name="report" namespace="/backend/report" extends="default-backend">
+        <action name="activeTimeReport" class="actions.TimeReportAction" method="getActiveReport">
+            <result name="success">/pages/menu_report/activeTimeReport.jsp</result>
+        </action>
+        <action name="activeTimeReportData" class="actions.TimeReportAction" method="getActiveReportData">
+        </action>
+    </package>
 </struts>

@@ -1,19 +1,28 @@
 package bl.mongobus;
 
-import java.beans.PropertyDescriptor;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import bl.common.*;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
-
 import org.mongodb.morphia.query.Query;
+
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
 import bl.beans.Bean;
+import bl.common.BeanContext;
+import bl.common.BusinessInterface;
+import bl.common.BusinessResult;
+import bl.common.SpecPaginationContext;
+import bl.common.TableBusinessInterface;
 import bl.exceptions.MiServerException;
 
 import com.mongodb.WriteResult;
@@ -126,7 +135,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
         return queryDataByCondition(filter, sorted, null);
     }
 
-    private Query<L> constructQuery(Map<String,String> filter, Set<String> sorted, SpecPaginationContext spc) {
+    private Query<L> constructQuery(Map filter, Set<String> sorted, SpecPaginationContext spc) {
         Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
         Query query = dc.createQuery(this.clazz);
         if (filter != null && !filter.isEmpty()) {
@@ -139,8 +148,8 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
             }
             while (iterator.hasNext()) {
                 String key = iterator.next();
-                String value = filter.get(key);
-                if (value != null && !value.isEmpty() && !value.equals("-1")) {
+                Object value = filter.get(key);
+                if (value != null && !value.equals("-1")) {
                     try {
                         BeanUtils.setProperty(obj,key,value);
                         query.filter(key, PropertyUtils.getProperty(obj, key));

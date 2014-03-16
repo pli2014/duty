@@ -1,149 +1,122 @@
 package actions;
 
-import bl.beans.ServicePlaceBean;
-import bl.beans.TrainCourseBean;
-import bl.beans.TrainCourseServicePlaceBean;
-import bl.constants.BusTieConstant;
-import bl.instancepool.SingleBusinessPoolManager;
-import bl.mongobus.ServicePlaceBusiness;
-import bl.mongobus.TrainCourseBusiness;
-import bl.mongobus.TrainCourseServicePlaceBusiness;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.commons.beanutils.BeanUtils;
-import org.bson.types.ObjectId;
-import vo.table.TableHeaderVo;
-import vo.table.TableInitVo;
-
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+
+import org.bson.types.ObjectId;
+
+import vo.table.TableDataVo;
+import vo.table.TableHeaderVo;
+import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
+import bl.beans.TrainCourseBean;
+import bl.beans.VolunteerBean;
+import bl.beans.VolunteerTrainCourseBean;
+import bl.common.BusinessResult;
+import bl.mongobus.TrainCourseBusiness;
+import bl.mongobus.VolunteerTrainCourseBusiness;
+
+import common.Constants;
 
 /**
  * Created by peter on 14-3-14.
  */
 public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
-    List<TrainCourseBean> trainCourses = null;
-    TrainCourseBean trainCourse = null;
-    List<TrainCourseServicePlaceBean> trainCourseServicePlaces = null;
-    List<ServicePlaceBean> servicePlaceBeans = null;
 
-    ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
-    TrainCourseBusiness tc = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
-    TrainCourseServicePlaceBusiness tcp = (TrainCourseServicePlaceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
+  @Override
+  public String getActionPrex() {
+    return getRequest().getContextPath() + "/trainCourse";
+  }
 
+  @Override
+  public String getCustomJs() {
+    return getRequest().getContextPath() + "/js/trainCourse.js";
+  }
 
-    public List<ServicePlaceBean> getServicePlaceBeans() {
-        return servicePlaceBeans;
-    }
+  @Override
+  public TableInitVo getTableInit() {
+    TableInitVo init = new TableInitVo();
+    init.getAoColumns().add(new TableHeaderVo("name", "课程名称").disableSearch());
+    init.getAoColumns().add(
+        new TableHeaderVo("status", "状态").addSearchOptions(new String[][] { { "-1", "0", "1", "2" }, { "----", "创建", "开始", "完成" } }).disableSearch());
+    init.getAoColumns().add(new TableHeaderVo("description", "描述", false).disableSearch());
+    return init;
+  }
 
-    public void setServicePlaceBeans(List<ServicePlaceBean> servicePlaceBeans) {
-        this.servicePlaceBeans = servicePlaceBeans;
-    }
+  @Override
+  public TableQueryVo getModel() {
+    TableQueryVo model = super.getModel();
+    model.getFilter().put("status", TrainCourseBean.STATUS_START + "");
+    return model;
+  }
 
-    public List<TrainCourseServicePlaceBean> getTrainCourseServicePlaces() {
-        return trainCourseServicePlaces;
-    }
+  /**
+   * queryTable
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String queryMyTrainCourse() throws Exception {
+    TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
+    VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
+    VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
 
-    public void setTrainCourseServicePlaces(List<TrainCourseServicePlaceBean> trainCourseServicePlaces) {
-        this.trainCourseServicePlaces = trainCourseServicePlaces;
-    }
+    TableQueryVo volunteerTrainCourseModel = new TableQueryVo();
+    volunteerTrainCourseModel.getFilter().put("volunteerId", volunteer.get_id());
 
-    public String trainCourseList() {
-        this.trainCourses = (List<TrainCourseBean>) tc.getAllLeaves().getResponseData();
-        return ActionSupport.SUCCESS;
-    }
-
-    public String delete() {
-        if (getIds() != null) {
-            for (String id : getIds()) {
-                getBusiness().deleteLeaf(id);
-            }
+    long count = volunteerCourseBusiness.getCount(volunteerTrainCourseModel);
+    TableDataVo table = volunteerCourseBusiness.query(volunteerTrainCourseModel);
+    List<VolunteerTrainCourseBean> volunteerTrainCourseList = table.getAaData();
+    BusinessResult result;
+    if (volunteerTrainCourseList != null) {
+      for (VolunteerTrainCourseBean volunteerTrainCourseBean : volunteerTrainCourseList) {
+        if (volunteerTrainCourseBean.getTraincourseId() != null) {
+          result = trainCourseBusiness.getLeaf(volunteerTrainCourseBean.getTraincourseId().toString());
+          if (result != null && result.getResponseData() != null) {
+            volunteerTrainCourseBean.setTrainCourse((TrainCourseBean) result.getResponseData());
+          }
         }
-        return ActionSupport.SUCCESS;
+      }
     }
 
-    public String add() {
-        servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
-        return ActionSupport.SUCCESS;
-    }
+    table.setsEcho(getModel().getSEcho());
+    table.setiTotalDisplayRecords(count);
+    table.setiTotalRecords(count);
 
-    public String edit() {
-        servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
-        String id = this.getId();
-        if (id != null) {
-            this.trainCourse = (TrainCourseBean) this.tc.getLeaf(id).getResponseData();
-            if(this.trainCourse!=null){
-                HashMap<String,Object> filter = new HashMap<String,Object>();
-                filter.put("trainCourseId",this.trainCourse.get_id().toString());
-                this.trainCourseServicePlaces = tcp.queryDataByCondition(filter,null);
-            }
+    // json
+    JSONObject jsonObject = JSONObject.fromObject(table);
+    writeJson(jsonObject);
+    return null;
+  }
+
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String receive() throws Exception {
+    String[] trainCourseIds = getIds();
+    if (trainCourseIds != null) {
+      VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
+      VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+
+      VolunteerTrainCourseBean volunteerTrainCourseBean;
+      Map filterMap = new HashMap();
+      for (String trainCourseId : trainCourseIds) {
+        filterMap.put("volunteerId", volunteer.get_id());
+        filterMap.put("traincourseId", new ObjectId(trainCourseId));
+        List list = volunteerCourseBusiness.queryDataByCondition(filterMap, null);
+        if (list.size() == 0) {
+          volunteerTrainCourseBean = new VolunteerTrainCourseBean();
+          volunteerTrainCourseBean.setVolunteerId(volunteer.get_id());
+          volunteerTrainCourseBean.setTraincourseId(new ObjectId(trainCourseId));
+          volunteerCourseBusiness.createLeaf(volunteerTrainCourseBean);
         }
-        return ActionSupport.SUCCESS;
+      }
     }
-
-    public String save() {
-        String id = this.trainCourse.getId();
-        try {
-            if (id != null && !id.isEmpty()) {
-                TrainCourseBean originalBean = (TrainCourseBean) this.tc.getLeaf(id).getResponseData();
-                TrainCourseBean newBean = (TrainCourseBean) originalBean.clone();
-                BeanUtils.copyProperties(newBean, this.trainCourse);
-                tc.updateLeaf(originalBean, newBean);
-
-                //update data relationship table.
-                HashMap<String,Object> filter = new HashMap<String,Object>();
-                filter.put("trainCourseId",this.trainCourse.get_id().toString());
-                tcp.deleteByCondition(filter);
-
-            } else {
-                this.trainCourse.set_id(ObjectId.get());
-                this.tc.createLeaf(this.trainCourse);
-            }
-
-            //insert data relationship table.
-            for (int i = 0; i < this.trainCourseServicePlaces.size(); i++) {
-                if(this.trainCourseServicePlaces.get(i)!=null){
-                    this.trainCourseServicePlaces.get(i).setTrainCourseId(this.trainCourse.getId());
-                    tcp.createLeaf(this.trainCourseServicePlaces.get(i));
-                }
-            }
-
-        } catch (Exception e) {
-            LOG.error("this exception [#0]", e.getMessage());
-        }
-        return ActionSupport.SUCCESS;
-    }
-
-    public List<TrainCourseBean> getTrainCourses() {
-        return trainCourses;
-    }
-
-    public void setTrainCourses(List<TrainCourseBean> trainCourses) {
-        this.trainCourses = trainCourses;
-    }
-
-    public TrainCourseBean getTrainCourse() {
-        return trainCourse;
-    }
-
-    public void setTrainCourse(TrainCourseBean trainCourse) {
-        this.trainCourse = trainCourse;
-    }
-
-    @Override
-    public String getActionPrex() {
-        return getRequest().getContextPath() + "/backend/traincourse";
-    }
-
-    @Override
-    public TableInitVo getTableInit() {
-        TableInitVo init = new TableInitVo();
-        init.getAoColumns().add(new TableHeaderVo("name", "课程名称"));
-        init.getAoColumns().add(new TableHeaderVo("status", "状态").hidePhone().addSearchOptions(new String[][]{{"-1", "0", "1", "2"}, {"----", "创建", "开始", "完成"}}));
-        return init;
-    }
-
-    public String getCustomJs(){
-        return "pages/menu_traincourse/traincourselist.js";
-    }
-    
+    return SUCCESS;
+  }
 }

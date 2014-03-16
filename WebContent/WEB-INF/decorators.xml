@@ -22,7 +22,6 @@
         <pattern>/user/*.action</pattern>
         <pattern>/patient/*.action</pattern>
         <pattern>/serviceplace/*.action</pattern>
-        <pattern>/traincourse/*.action</pattern>
         <pattern>/backend/*.action</pattern>
 	</decorator>
 </decorators>

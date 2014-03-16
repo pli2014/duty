@@ -124,9 +124,6 @@
             <result name="success" type="freemarker">/ftl/html.ftl</result>
         </action>
     </package>
-    <package name="report" namespace="/report" extends="default">
-
-    </package>
     <package name="loginout" namespace="/loginout" extends="default">
 
     </package>
@@ -168,6 +165,10 @@
         <action name="myTimeReport" class="actions.UserServiceAction" method="getMyTimeReport">
             <result name="success">/pages/menu_volunteer/myTimeReport.jsp</result>
         </action>
+
+        <action name="whoishere" class="actions.UserServiceAction" method="whoIsHere">
+            <result name="success">/pages/menu_whoishere/whoishere.jsp</result>
+        </action>
     </package>
 
     <package name="uploadpng" namespace="/personpicture" extends="default">
@@ -176,5 +177,17 @@
         </action>
     </package>
 
+    <package name="trainCourse" namespace="/trainCourse" extends="default">
+        <action name="index" class="actions.TrainCourseAction" method="index">
+          <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
+        </action>
+		<action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
+		<action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
+		<action name="queryMyTrainCourse" class="actions.TrainCourseAction" method="queryMyTrainCourse"/>
+		<action name="receive" class="actions.TrainCourseAction" method="receive">
+		   <result name="success" type="redirectAction">index</result>
+        </action>
+	</package>
+	
     <include file="struts-backend.xml"></include>
 </struts>

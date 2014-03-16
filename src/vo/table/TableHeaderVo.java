@@ -106,6 +106,11 @@ public class TableHeaderVo {
     return bSearchable;
   }
 
+  public TableHeaderVo disableSearch() {
+    this.setbSearchable(false);
+    return this;
+  }
+  
   public void setbSearchable(boolean bSearchable) {
     this.bSearchable = bSearchable;
   }
