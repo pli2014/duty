@@ -3,12 +3,12 @@
   Date: 14-3-18
   Time: 上午7:08
 --%>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=URs4GQ1uMjGhGK4kfub7lXUt"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=${applicationScope.GLOBALCONF.maptoken}"></script>
 <div style="clear:both;"></div>
 <div id="allmap"></div>
 <script type="text/javascript">
       try{
-        window.city = "南京市";
+        window.city = "${applicationScope.GLOBALCONF.city}";
         // 百度地图API功能
         var map = new BMap.Map("allmap");
         var contextMenu = new BMap.ContextMenu();

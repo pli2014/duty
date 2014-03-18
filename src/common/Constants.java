@@ -11,4 +11,5 @@ package common;
 public class Constants {
   public final static String LOGIN_USER_SESSION_ID = "sessionUser";
   public final static String LOGIN_BACKEND_USER_SESSION_ID = "backendSessionUser";
+  public final static String GLOBALSETTING = "GLOBALCONF";
 }

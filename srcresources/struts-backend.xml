@@ -48,6 +48,13 @@
         <action name="index">
 		   <result name="success">/backendHome.jsp</result>
 		</action>
+
+        <action name="systemsetting" class="actions.SystemSettingAction" method="modify">
+            <result name="success">/pages/menu_system/systemsetting.jsp</result>
+        </action>
+        <action name="systemsettingsave" class="actions.SystemSettingAction" method="save">
+            <result name="success">/pages/menu_system/systemsetting.jsp</result>
+        </action>
 	</package>
 	
 	<package name="backendUser" namespace="/backend/user" extends="default-backend">
