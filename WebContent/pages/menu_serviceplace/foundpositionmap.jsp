@@ -41,21 +41,24 @@
         map.addContextMenu(contextMenu);
 
 
-        // 创建地址解析器实例
-        var myGeo = new BMap.Geocoder();
         window.marker = null;
         function mapPosition(destination,clear,callBackFunction){
-            if(false)
-              map.clearOverlays();
+            // 创建地址解析器实例
+            var myGeo = new BMap.Geocoder();
+            if(clear){
+              map.removeOverlay(window.marker);
+              window.marker = null;
+              map.reset();
+            }
             // 将地址解析结果显示在地图上,并调整地图视野
             myGeo.getPoint(destination, function(point){
                 if (point) {
-                    map.centerAndZoom(point, 16);
+                    map.centerAndZoom(point, 15);
                     if(window.marker==null)
                       window.marker = new BMap.Marker(point);
+                    map.addOverlay(window.marker);
                     window.marker.enableDragging();//允许拖动
                     window.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-                    map.addOverlay(window.marker);
                     var label = new BMap.Label(destination,{offset:new BMap.Size(20,-10)});
                     window.marker.setLabel(label);
                     if(typeof callBackFunction =='function'){
@@ -63,6 +66,8 @@
                     }
                 }
             }, window.city);
+            window.marker.enableDragging();//允许拖动
+            window.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
         }
         function refreshPosition(callBackFunction){
             if(window.marker!=null){
