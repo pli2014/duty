@@ -12,14 +12,13 @@ import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
+import webapps.WebappsConstants;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;
 import bl.beans.VolunteerTrainCourseBean;
 import bl.common.BusinessResult;
 import bl.mongobus.TrainCourseBusiness;
 import bl.mongobus.VolunteerTrainCourseBusiness;
-
-import common.Constants;
 
 /**
  * Created by peter on 14-3-14.
@@ -62,7 +61,7 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
   public String queryMyTrainCourse() throws Exception {
     TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
     VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-    VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
     TableQueryVo volunteerTrainCourseModel = new TableQueryVo();
     volunteerTrainCourseModel.getFilter().put("volunteerId", volunteer.get_id());
@@ -101,7 +100,7 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
     String[] trainCourseIds = getIds();
     if (trainCourseIds != null) {
       VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-      VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+      VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
       VolunteerTrainCourseBean volunteerTrainCourseBean;
       Map filterMap = new HashMap();

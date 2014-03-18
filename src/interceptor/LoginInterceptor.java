@@ -14,7 +14,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import common.Constants;
 
 /**
  * @author gudong
@@ -25,7 +24,7 @@ public class LoginInterceptor extends AbstractInterceptor {
 
   @Override
   public String intercept(ActionInvocation invocation) throws Exception {
-    if (ActionContext.getContext().getSession().get(Constants.LOGIN_USER_SESSION_ID) == null) {
+    if (ActionContext.getContext().getSession().get(WebappsConstants.LOGIN_USER_SESSION_ID) == null) {
       return "tologin";
     }
     String result;
