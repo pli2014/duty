@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<label>工号</label>
+<div class="input-control text" data-role="input-control">
+    <input type="text" name="volunteer.code" value="${volunteer.code}" readonly="readonly"/>
+</div>
+
 <label>姓名</label>
 <div class="input-control text" data-role="input-control">
     <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
@@ -28,7 +33,7 @@
     <label class="inline-block">
         <input type="radio" name="volunteer.sex" value="1" checked
           <s:if test="volunteer.sex==1">
-            checked
+            checked = "checked"
           </s:if>
          />
         <span class="check"></span>
@@ -37,7 +42,7 @@
     <label class="inline-block">
         <input type="radio" name="volunteer.sex" value="2"
           <s:if test="volunteer.sex==2">
-            checked
+            checked = "checked"
           </s:if>
         />
         <span class="check"></span>

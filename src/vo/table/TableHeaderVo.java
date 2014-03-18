@@ -17,7 +17,7 @@ public class TableHeaderVo {
   private String sTitle = null; // head title
   private String sClass = ""; // if you want to support mobile, please use 'hidden-phone';
   private String[] asSorting = new String[] { "asc", "desc" }; // [ "desc", "asc","asc", null ]
-  private boolean bSortable = true;
+  private boolean bSortable = false;
   private boolean bSearchable = true;
   private boolean bVisible = true;
   
@@ -50,35 +50,6 @@ public class TableHeaderVo {
   }
 
   public String getsTitle() {
-    String filterHtml = "";
-    if (bVisible && bSearchable) {
-      if (searchOptions == null) {
-        filterHtml += "<input type='text' name='" + mData + "' />";
-      } else if (searchOptions.length == 1) {
-        filterHtml += "<select name='" + mData + "'>";
-
-        for (int i = 0; i < searchOptions[0].length; i++) {
-          filterHtml += "<option value='" + searchOptions[0][i] + "'>" + searchOptions[0][i] + "</option>";
-        }
-
-        filterHtml = filterHtml + "</select>";
-      } else if (searchOptions.length >= 2) {
-        filterHtml += "<select name='" + mData + "'>";
-        for (int i = 0; i < searchOptions[0].length; i++) {
-          filterHtml += "<option value='" + searchOptions[0][i] + "'>";
-          if (i < searchOptions[1].length) {
-            filterHtml += searchOptions[1][i] + "</option>";
-          } else {
-            filterHtml += searchOptions[0][i] + "</option>";
-          }
-        }
-
-        filterHtml += "</select>";
-      }
-    }
-    if (filterHtml.length() > 0) {
-      return filterHtml + "<br/>" + sTitle;
-    }
     return sTitle;
   }
 

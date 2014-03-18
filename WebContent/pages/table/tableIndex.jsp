@@ -26,27 +26,67 @@
 		    padding: 5px 0 !important;
 		    margin: 0px !important;
 		 }
+		 .btn {
+		  color: #ffffff !important;
+		  border-color: #c5c5c5 !important;
+		  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25) !important;
+		}
+		.btn-me {
+		  color: #ffffff !important;
+		  padding:8px 15px !important;
+		  font-size: 120% !important;
+		  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+		  background-color: #5bb75b !important;
+		  background-image: -moz-linear-gradient(top, #62c462, #51a351) !important;
+		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351)) !important;
+		  background-image: -webkit-linear-gradient(top, #62c462, #51a351) !important;
+		  background-image: -o-linear-gradient(top, #62c462, #51a351) !important;
+		  background-image: linear-gradient(to bottom, #62c462, #51a351) !important;
+		  background-repeat: repeat-x !important;
+		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0) !important;
+		  border-color: #51a351 #51a351 #387038 !important;
+		  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+		  *background-color: #51a351 !important;
+		  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+		
+		  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
+		}
+		.btn-me:hover,
+		.btn-me:active,
+		.btn-me.active,
+		.btn-me.disabled,
+		.btn-me[disabled] {
+		  color: #ffffff !important;
+		  background-color: #51a351 !important;
+		  *background-color: #499249 !important;
+		}
+		.btn-me.active {
+		  background-color: #408140 \9 !important;
+		}
     </style>
 
     <title>Data Table</title>
   </head>
 <body>
        <!-- page start-->
-            <% if(request.getAttribute("tableTitle")!= null && request.getAttribute("tableTitle").toString().length() > 0 ){%>
-		     <header class="panel-heading" style="text-align: center;">${tableTitle}</header>
-		  <%} %>
-           <div class="panel-body">
-                 <div class="adv-table">
-                     <table  id="${tableId}" cellpadding="0" cellspacing="0" border="0" class="display table table-bordered">
-                       <thead>
-                       </thead>
-                      <tbody>
-                          <tr><td colspan="4" class="dataTables_empty">正在加载数据...</td></tr>
-                      </tbody>
-                          
-                     </table>
-                </div>
-          </div>
+  <s:if test="tableTitle != null && tableTitle.length() > 0">
+  <header class="panel-heading">${tableTitle}</header>
+  </s:if>
+  <div class="panel-body">
+        
+  
+  
+        <div class="adv-table">
+            <table  id="${tableId}" cellpadding="0" cellspacing="0" border="0" class="display table table-bordered">
+              <thead>
+              </thead>
+             <tbody>
+                 <tr><td colspan="4" class="dataTables_empty">正在加载数据...</td></tr>
+             </tbody>
+                 
+            </table>
+       </div>
+ </div>
      <!-- page end-->
     
 <script type="text/javascript">
@@ -56,14 +96,16 @@
      var cellFormatter = {};
      var actions = [
               {
-                  "sButtonText":"添加",
+                  "sButtonText":"<span style='color:white;'><i class='fa fa-plus' style='margin-right:8px;'></i>添加</span>",
                   "sExtends":"text",
+                  "sButtonClass": "btn btn-me",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       window.location.href = actionPrex + "/add.action";
                   }
               },{
-                  "sButtonText":"修改",
+                  "sButtonText":"<span style='color:white;'><i class='fa fa-edit' style='margin-right:8px;'></i>修改</span>",
                   "sExtends":"select_single",
+                  "sButtonClass": "btn btn-me",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       if($(nButton).hasClass("DTTT_disabled")){
 			              return;
@@ -78,8 +120,9 @@
                       }
                   }
               },{
-                  "sButtonText":"删除",
+                  "sButtonText":"<span style='color:white;'><i class='fa fa-trash-o' style='margin-right:8px;'></i>删除</span>",
                   "sExtends":"select",
+                  "sButtonClass": "btn btn-me",
                   "fnClick": function ( nButton, oConfig, oFlash ) {
                       if($(nButton).hasClass("DTTT_disabled")){
 			              return;
@@ -135,7 +178,7 @@
 	 		 "aoColumns": initParam.aoColumns,
 	 		 "sAjaxSource": "${actionPrex}/queryTable.action",
 	 		 //"sDom": '<"H"lT><"clear">rt<"F"ip>',
-	 		 "sDom": '<"H"lT><"clear">rt<"F"ip>',
+	 		 "sDom": '<"H"T><"clear">rt<"F"ip>',
 	 		 "oTableTools": {
 	 		   "sRowSelect": "multi",
 		       "aButtons": actions
@@ -147,7 +190,7 @@
 			    },
 	            "sLengthMenu": "每页显示 _MENU_ 条",
 	            "sZeroRecords": "无数据",
-	            "sInfo": "显示第 _START_ 到 _END_ , 共 _TOTAL_ 条.",
+	            "sInfo": "显示第 _START_ 到 _END_ 条, 共 _TOTAL_ 条.",
 	            "sInfoEmpty": "无数据",
 	            "sInfoFiltered": "(filtered from _MAX_ total records)"
 	         },
@@ -241,9 +284,9 @@
  	} );
  } );
   </script>
-  <% if(request.getAttribute("customJs")!= null && request.getAttribute("customJs").toString().length() > 0 ){%>
+  <s:if test="customJs != null && customJs.length() > 0">
      <script src="${customJs}" type="text/javascript"></script>
-  <%} %>
+  </s:if>
        <script>
 
            // 格式化js时间
