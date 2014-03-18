@@ -47,6 +47,8 @@
 	 $(document).ready(function() {
 	     $("form input[name='volunteer.name']").attr("readonly","readonly");
 	     $("form input[name='volunteer.name']").next("button").attr("disabled","disabled");
+	     $("form input[name='volunteer.identityCard']").attr("readonly","readonly");
+	     $("form input[name='volunteer.identityCard']").next("button").attr("disabled","disabled");
 	 });
     </script>
   </s:if>

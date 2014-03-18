@@ -10,12 +10,13 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
+import util.ServerContext;
+import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
+import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.VolunteerBusiness;
 
 import com.opensymphony.xwork2.ActionContext;
-
-import common.Constants;
 
 /**
  * Created by wangronghua on 14-3-8.
@@ -88,7 +89,7 @@ public class VolunteerAction extends BaseAction {
     if (volunteer != null) {
       VolunteerBean userTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
       if (userTmp != null && volunteer.getPassword().equals(userTmp.getPassword())) {
-        getSession().setAttribute(Constants.LOGIN_USER_SESSION_ID, userTmp);
+        getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {
         addActionError("密码错误");
@@ -103,7 +104,7 @@ public class VolunteerAction extends BaseAction {
    * @return
    */
   public String logout() {
-    getSession().removeAttribute(Constants.LOGIN_USER_SESSION_ID);
+    getSession().removeAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     HttpServletRequest req = (HttpServletRequest) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_REQUEST);
     HttpServletResponse resp = (HttpServletResponse) ActionContext.getContext().get(org.apache.struts2.StrutsStatics.HTTP_RESPONSE);
     eraseCookie(req, resp);
@@ -121,14 +122,18 @@ public class VolunteerAction extends BaseAction {
       VolunteerBean volunteerTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
       if (volunteerTmp != null) {
         addActionError("志愿者已经存在");
+        return FAILURE;
       } else {
         volunteer.set_id(ObjectId.get());
         getBusiness().createLeaf(volunteer);
-        getSession().setAttribute(Constants.LOGIN_USER_SESSION_ID, volunteer);
+        getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
         return SUCCESS;
       }
+    }else{
+      volunteer = new VolunteerBean();
+      volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY)+SequenceUidGenerator.getNewUid());
+      return FAILURE;
     }
-    return FAILURE;
   }
 
   /**

@@ -37,7 +37,7 @@
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
     <div class="example volunteerinfo" style="width: 70%;float: left;">
-       <form  id="registerForm" action="register.action" method="post">
+       <form  id="volunteerForm" action="register.action" method="post">
            <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
            <fieldset>
                <legend>志愿者注册</legend>

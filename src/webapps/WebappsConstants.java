@@ -20,4 +20,9 @@ public interface WebappsConstants {
     public static final String CTX_TOKEN_WARNING_MSG_SESSION = "WARNING_MSG_SESSION";
     public static final String CTX_TOKEN_STATUS_MSG_SESSION = "STATUS_MSG_SESSION";
     public static final String CTX_TOKEN_WARNING_STATUS_MSG_SESSION = "WARNING_STATUS_MSG_SESSION";
+    
+    public final static String LOGIN_USER_SESSION_ID = "sessionUser";
+    public final static String LOGIN_BACKEND_USER_SESSION_ID = "backendSessionUser";
+    
+    public final static String ID_PREFIX_KEY = "id_prefix";
 }

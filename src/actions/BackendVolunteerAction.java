@@ -46,6 +46,11 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
   }
 
   @Override
+  public String getTableTitle() {
+    return "志愿者管理";
+  }
+  
+  @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("name", "志愿者"));
