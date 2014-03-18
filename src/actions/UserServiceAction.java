@@ -1,8 +1,13 @@
 package actions;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
+import webapps.WebappsConstants;
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
 import bl.beans.UserServiceBean;
@@ -12,9 +17,7 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ActiveUserBusiness;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
-
 import bl.mongobus.VolunteerBusiness;
-import common.Constants;
 
 /**
  * Created by wangronghua on 14-3-15.
@@ -47,7 +50,7 @@ public class UserServiceAction extends BaseAction {
     }
 
     public String getList(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     if(null != user){
       userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
@@ -61,13 +64,13 @@ public class UserServiceAction extends BaseAction {
   }
 
   public String checkIn(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     servicePlaces = (List<ServicePlaceBean>)userServiceBus.getAvailableServicePlaces(user.getId()).getResponseData();
     return SUCCESS;
   }
 
   public String checkInSubmit(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
       if (aub != null) {
           ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
@@ -83,13 +86,13 @@ public class UserServiceAction extends BaseAction {
   }
 
   public String checkOut() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     userServiceBus.checkOut(user.getId());
     return SUCCESS;
   }
 
   public String getMyTimeReport() {
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(Constants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     List<UserServiceBean> beanList = (List<UserServiceBean>)userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
     Map<String, Map> resultMap = userServiceBus.statisticTime(beanList);
     Map result = resultMap.get(user.getId());

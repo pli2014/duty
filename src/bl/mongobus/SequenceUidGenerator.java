@@ -18,8 +18,15 @@ public class SequenceUidGenerator {
     /** The list of maximum UIDs that can be used. */
     private static Map<String, UidHashItemInner> uidHash = new HashMap<String, UidHashItemInner>();
     /** The number of UIDs to allocate at a time. */
-    private static long UID_ALLOCATION_SIZE = 100000;
+    private static long UID_ALLOCATION_SIZE = 7;
 
+    /**
+     * 
+     * @return
+     */
+    public static long getNewUid(){
+      return getNewUid("form");
+    }
     /**
      * Gets a new unique ID.
      * 
@@ -59,7 +66,7 @@ public class SequenceUidGenerator {
             DBCollection dc = db.getCollection(collectionName);
             DBObject dob = dc.findOne();
             if (dob == null) {
-                dob = new BasicDBObject("uid", 20140118l);
+                dob = new BasicDBObject("uid", 00000L);
                 dc.save(dob);
             }
             long oldMax = Long.parseLong(String.valueOf(dob.get("uid")));

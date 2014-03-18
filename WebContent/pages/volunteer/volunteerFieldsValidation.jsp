@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<script type="text/javascript" src="js/checkUtil.js"></script>
 <script type="text/javascript">
     //please refer to form-validation-script.js
     $(document).ready(function() {
@@ -7,7 +8,19 @@
             rules: {
                 confirm_password: {
                     equalTo: "#password"
-                }
+                },
+                'volunteer.email':{ 
+				   required:true, 
+                   email:true 
+				}, 
+				'volunteer.identityCard':{ 
+				   required:true, 
+                   idCardNo:true 
+				}, 
+				'volunteer.cellPhone':{ 
+				   required:true, 
+                   cellPhone:true 
+				}
             },
             messages: {
                 'volunteer.name': {
@@ -17,20 +30,23 @@
                     required: "请输入密码"
                 },
                 'volunteer.identityCard': {
-                    required: "请输入身份证号"
+                    required: "请输入身份证号",
+                    idCardNo: "请输入正确的身份证号"
                 },
                 confirm_password: {
                     required: "请再次输入密码",
                     equalTo: "密码两次输入不一致"
                 },
                 'volunteer.cellPhone': {
-                    required: "请输入手机"
+                    required: "请输入手机",
+                    cellPhone: "请输入正确的手机号"
                 },
                 'volunteer.wechat': {
                     required: "请输入微信"
                 },
                 'volunteer.email': {
-                    required: "请输入邮箱"
+                    required: "请输入邮箱",
+                    email: "请输入正确的邮箱"
                 }
             }
         }); 
