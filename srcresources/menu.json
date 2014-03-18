@@ -1,34 +1,70 @@
 {
     "button":[
         {
-            "type":"click",
-            "name":"志愿者",
-            "key":"V1001_TODAY_MUSIC",
-            "url":"http://www.soso.com/"
-        },
-        {
-            "type":"click",
-            "name":"工时",
-            "key":"V1001_TODAY_SINGER",
-            "url":"http://www.soso.com/"
-        },
-        {
-            "name":"菜单",
+            "name":"志愿服务",
             "sub_button":[
                 {
                     "type":"view",
-                    "name":"搜索",
+                    "name":"服务签入",
+                    "url":"http://www.baidu.com"
+                },
+                {
+                    "type":"view",
+                    "name":"服务签出",
+                    "url":"http://www.baidu.com"
+                },
+                {
+                    "type":"view",
+                    "name":"谁在这里",
+                    "url":"http://www.baidu.com"
+                }]
+        },
+        {
+            "name":"我",
+            "sub_button":[
+                {
+                    "type":"click",
+                    "name":"我的工时",
+                    "key":"ME_TIMECARD"
+                },
+                {
+                    "type":"view",
+                    "name":"我的荣誉",
+                    "url":"http://v.qq.com/"
+                },
+                {
+                    "type":"view",
+                    "name":"我的培训",
+                    "url":"http://v.qq.com/"
+                },
+                {
+                    "type":"view",
+                    "name":"我的资料",
+                    "url":"http://v.qq.com/"
+                }]
+        },
+        {
+            "name":"志愿动态",
+            "sub_button":[
+                {
+                    "type":"view",
+                    "name":"志愿者招募",
                     "url":"http://www.soso.com/"
                 },
                 {
                     "type":"view",
-                    "name":"视频",
+                    "name":"我的建议",
+                    "url":"http://www.soso.com/"
+                },
+                {
+                    "type":"view",
+                    "name":"当前活动",
                     "url":"http://v.qq.com/"
                 },
                 {
-                    "type":"click",
-                    "name":"赞一下我们",
-                    "key":"V1001_GOOD"
+                    "type":"view",
+                    "name":"服务介绍",
+                    "url":"http://v.qq.com/"
                 }]
         }]
 }

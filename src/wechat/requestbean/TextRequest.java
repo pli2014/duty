@@ -1,7 +1,6 @@
 package wechat.requestbean;
 
 import wechat.BaseMessage;
-import wechat.Constants;
 import wechat.messagehandler.MessageHandler;
 
 import java.util.Map;

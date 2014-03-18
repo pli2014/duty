@@ -3,13 +3,19 @@ package wechat;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import net.sf.json.JSONObject;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +46,27 @@ public class HttpClientHelper {
     return resultMap;
   }
 
-  public static void post(String url) {
+  public static Map post(String url, InputStream inputStream) {
+    Map resultMap = new HashMap();
+    CloseableHttpClient client = HttpClients.createDefault();
+    HttpPost post = new HttpPost(url);
+    HttpEntity entity = new InputStreamEntity(inputStream);
 
+    try {
+      post.setEntity(entity);
+      HttpResponse response = client.execute(post);
+      String resultStr = EntityUtils.toString(response.getEntity());
+      JSONObject object = JSONObject.fromObject(resultStr);
+      resultMap = (Map)JSONObject.toBean(object, Map.class);
+    } catch (IOException e) {
+      LOG.error(e.getMessage());
+    } finally {
+      try {
+        client.close();
+      } catch (IOException e) {
+        LOG.error(e.getMessage());
+      }
+      return resultMap;
+    }
   }
 }

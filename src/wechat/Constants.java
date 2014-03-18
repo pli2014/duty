@@ -5,9 +5,17 @@ package wechat;
  */
 public class Constants {
 
+  // for app access
+  public static final String APP_TOKEN = "apptoken";
+
+  //for access token
   public static final String ERR_CODE = "errcode";
   public static final String ACCESS_TOKEN = "access_token" ;
   public static final String EXPIRES_IN = "expires_in";
+  public static final String APP_ID = "appID";
+  public static final String APP_SECRET = "appsecret";
+
+
   public static final String MSG_TYPE = "MsgType";
   public static final String EVENT_TYPE = "Event";
 
