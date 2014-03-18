@@ -6,9 +6,10 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <style type="text/css">
-                  ul.sidebar-menu li ul.sub li a{
-                      color:none;
+                  ul.sidebar-menu li a{
+                      color:'';
                       backgroud-color:yellow;
+                      font-size:15px;
                   }
                   ul.sidebar-menu li ul.sub li a.active{
                       color:red;
@@ -44,7 +45,8 @@
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/serviceplace/serviceplacelist.action">服务地点</a></li>
+                          <li><a  href="backend/serviceplace/serviceplacelist.action?type=0">院内服务地点</a></li>
+                          <li><a  href="backend/serviceplace/serviceplacelist.action?type=1">院外服务地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

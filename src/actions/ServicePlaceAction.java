@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,9 +18,20 @@ public class ServicePlaceAction extends ActionSupport {
     List<ServicePlaceBean> servicePlaces = null;
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+    private int type = 0;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String servicePlaceList() {
-        this.servicePlaces = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+        HashMap<String,Integer> filterByType = new HashMap<String,Integer>();
+        filterByType.put("type",this.type);
+        this.servicePlaces = (List<ServicePlaceBean>) sp.queryDataByCondition(filterByType, null);
         return ActionSupport.SUCCESS;
     }
 

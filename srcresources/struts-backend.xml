@@ -100,13 +100,13 @@
             <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
         </action>
         <action name="serviceplacedelete" class="actions.ServicePlaceAction" method="servicePlaceDelete">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
+            <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
         </action>
         <action name="serviceplaceaddedit" class="actions.ServicePlaceAction" method="servicePlaceAddEdit">
             <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
         </action>
         <action name="serviceplacesubmit" class="actions.ServicePlaceAction" method="servicePlaceSubmit">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist</result>
+            <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
         </action>
     </package>
 
