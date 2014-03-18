@@ -1,8 +1,11 @@
 package bl.beans;
 
+import org.mongodb.morphia.annotations.Entity;
+
 /**
  * Created by Administrator on 14-3-18.
  */
+@Entity(value = "systemsetting")
 public class SystemSettingBean extends Bean {
     private String maptoken="URs4GQ1uMjGhGK4kfub7lXUt";
     private String city="南京";
