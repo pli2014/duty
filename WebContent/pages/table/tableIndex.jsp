@@ -8,85 +8,68 @@
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
-    
-    <style type="text/css">
-		 div.dataTables_length{
-		    padding: 5px 0 !important;
-		    margin: 0px !important;
-		 }
-		 div.DTTT_container{
-		    padding: 5px 0 !important;
-		    margin: 0px !important;
-		 }
-		 div.dataTables_info{
-		    padding: 5px 0 !important;
-		    margin: 0px !important;
-		 }
-		 div.dataTables_paginate{
-		    padding: 5px 0 !important;
-		    margin: 0px !important;
-		 }
-		 .btn {
-		  color: #ffffff !important;
-		  border-color: #c5c5c5 !important;
-		  border-color: rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.15) rgba(0, 0, 0, 0.25) !important;
-		}
-		.btn-me {
-		  color: #ffffff !important;
-		  padding:8px 15px !important;
-		  font-size: 120% !important;
-		  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
-		  background-color: #5bb75b !important;
-		  background-image: -moz-linear-gradient(top, #62c462, #51a351) !important;
-		  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351)) !important;
-		  background-image: -webkit-linear-gradient(top, #62c462, #51a351) !important;
-		  background-image: -o-linear-gradient(top, #62c462, #51a351) !important;
-		  background-image: linear-gradient(to bottom, #62c462, #51a351) !important;
-		  background-repeat: repeat-x !important;
-		  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff62c462', endColorstr='#ff51a351', GradientType=0) !important;
-		  border-color: #51a351 #51a351 #387038 !important;
-		  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
-		  *background-color: #51a351 !important;
-		  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
-		
-		  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false) !important;
-		}
-		.btn-me:hover,
-		.btn-me:active,
-		.btn-me.active,
-		.btn-me.disabled,
-		.btn-me[disabled] {
-		  color: #ffffff !important;
-		  background-color: #51a351 !important;
-		  *background-color: #499249 !important;
-		}
-		.btn-me.active {
-		  background-color: #408140 \9 !important;
-		}
-    </style>
 
     <title>Data Table</title>
   </head>
 <body>
+<section class="panel">
        <!-- page start-->
   <s:if test="tableTitle != null && tableTitle.length() > 0">
   <header class="panel-heading">${tableTitle}</header>
   </s:if>
   <div class="panel-body">
-        
+       <div class="row">
+            <div class="col-lg-6 col-md-6" style="width: 150px; margin-bottom: 15px;">
+                <a class="btn btn-success" href="window.location.href = '${actionPrex}/add.action'">
+                    <i class="fa fa-plus"></i>
+                    添加
+                </a>
+            </div>
+            
+           <form class="form-inline" style="">
+               <div class="form-group">
+                   <label class="pull-left control-label"  >名称</label>
+                   <div class="col-lg-9 col-md-9 filter-component-column">
+                       <input type="text" class="form-control input-sm filter-component" >
+                   </div>
+               </div>
+               <div class="form-group"  >
+                   <label class="pull-left control-label" >创建时间</label>
+                   <div class="col-lg-9 col-md-9 filter-component-column">
+                       <input type="text" class="form-control input-sm filter-component" >
+                   </div>
+               </div>
+               <div class="form-group" >
+                   <label class="pull-left control-label" >~</label>
+                   <div class="col-lg-9 col-md-9 filter-component-column">
+                       <input type="text" class="form-control input-sm filter-component" >
+                   </div>
+               </div>
+              <div class="form-group"  >
+                   <label class="pull-left control-label" >更新时间</label>
+                   <div class="col-lg-9 col-md-9 filter-component-column">
+                       <input type="text" class="form-control input-sm filter-component" >
+                   </div>
+               </div>
+               <div class="form-group" >
+                   <label class="pull-left control-label" >~</label>
+                   <div class="col-lg-9 col-md-9 filter-component-column">
+                       <input type="text" class="form-control input-sm filter-component" >
+                   </div>
+               </div>
+                <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; ">
+                    <i class="fa fa-check"></i>
+                    查询
+                </a>
+           </form>
+          
+        </div>
   
-  
-        <div class="adv-table">
-            <table  id="${tableId}" cellpadding="0" cellspacing="0" border="0" class="display table table-bordered">
-              <thead>
-              </thead>
-             <tbody>
-                 <tr><td colspan="4" class="dataTables_empty">正在加载数据...</td></tr>
-             </tbody>
-                 
-            </table>
+        <div class="adv-table dataTables_wrapper form-inline">
+            <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
        </div>
  </div>
+</section>
      <!-- page end-->
     
 <script type="text/javascript">
@@ -94,55 +77,31 @@
      var tableId = "${tableId}";
 	 var actionPrex = "${actionPrex}";
      var cellFormatter = {};
-     var actions = [
-              {
-                  "sButtonText":"<span style='color:white;'><i class='fa fa-plus' style='margin-right:8px;'></i>添加</span>",
-                  "sExtends":"text",
-                  "sButtonClass": "btn btn-me",
-                  "fnClick": function ( nButton, oConfig, oFlash ) {
-                      window.location.href = actionPrex + "/add.action";
-                  }
-              },{
-                  "sButtonText":"<span style='color:white;'><i class='fa fa-edit' style='margin-right:8px;'></i>修改</span>",
-                  "sExtends":"select_single",
-                  "sButtonClass": "btn btn-me",
-                  "fnClick": function ( nButton, oConfig, oFlash ) {
-                      if($(nButton).hasClass("DTTT_disabled")){
-			              return;
-			          }
-                      var tableObj = $('#'+tableId).dataTable();
-                      var selectedRows = tableObj.$('tr.DTTT_selected');
-                      if(selectedRows.length != 1){
-                          alert("请选择一行记录!");
-                      }else{
-                         var selectRowData =  tableObj.fnGetData( selectedRows[0] );
-                          window.location.href = actionPrex + "/edit.action?id=" + selectRowData[idName];
-                      }
-                  }
-              },{
-                  "sButtonText":"<span style='color:white;'><i class='fa fa-trash-o' style='margin-right:8px;'></i>删除</span>",
-                  "sExtends":"select",
-                  "sButtonClass": "btn btn-me",
-                  "fnClick": function ( nButton, oConfig, oFlash ) {
-                      if($(nButton).hasClass("DTTT_disabled")){
-			              return;
-			          }
-                      var tableObj = $('#'+tableId).dataTable();
-                      var selectedRows = tableObj.$('tr.DTTT_selected');
-                      if(selectedRows.length == 0){
-                          alert("请选择行记录!");
-                      }else{
-                         if (confirm("您确定要删除"+ selectedRows.length +"条记录吗?")){
-						    var par = "";
-						    tableObj.$('tr.DTTT_selected').each(function(i){
-						        par = par + "ids="+tableObj.fnGetData(this)[idName] + "&";
-						    });
-                            window.location.href = actionPrex + "/delete.action?" + par;
-						 }
-                      }
-                  }
-              }
-      ];
+      /*ALL OPTIONS*/
+     var options = {
+        'edit':{
+	       'title':'修改', 
+	       'html': '<button title="修改" class="btn btn-primary btn-xs" onclick="options[\'edit\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
+	       'onClick' : function(button){
+	           var tableObj = $('#'+tableId).dataTable();
+	           var nTr = $(button).parents('tr')[0];
+	           var selectRowData =  tableObj.fnGetData( nTr );
+	           window.location.href = actionPrex + "/edit.action?id=" + selectRowData[idName];
+	       }     
+        },
+        'delete': {
+	       'title':'删除',
+	       'html' : '<button title="删除" class="btn btn-danger btn-xs" onclick="options[\'delete\'].onClick(this)"><i class="fa fa-trash-o "></i></button>',
+	       'onClick' : function(button){
+	           if (confirm("您确定要删除吗?")){
+		           var tableObj = $('#'+tableId).dataTable();
+		           var nTr = $(button).parents('tr')[0];
+		           var selectRowData =  tableObj.fnGetData( nTr );
+		           window.location.href = actionPrex + "/delete.action?id=" + selectRowData[idName];
+	           }
+	       }
+        }  
+    }
       /* Formating function for row details */
       function fnFormatDetails ( oTable, nTr ){
           var aData = oTable.fnGetData( nTr );
@@ -178,11 +137,7 @@
 	 		 "aoColumns": initParam.aoColumns,
 	 		 "sAjaxSource": "${actionPrex}/queryTable.action",
 	 		 //"sDom": '<"H"lT><"clear">rt<"F"ip>',
-	 		 "sDom": '<"H"T><"clear">rt<"F"ip>',
-	 		 "oTableTools": {
-	 		   "sRowSelect": "multi",
-		       "aButtons": actions
-	 		 },
+	 		 "sDom": 'rt<"F"ip>',
 	 		 "oLanguage": {
 	 		     "oPaginate": {
 			        "sPrevious": "上一页",
@@ -196,6 +151,7 @@
 	         },
 		     "fnDrawCallback": function ( oSettings ) {
 		            if(initParam.hasDetails > 0){
+		                // show details
 		                if($('#${tableId} thead tr th:first[arias="showDetails"]').length == 0){
 		                    $('#${tableId} thead tr').each( function () {
 		                          var thObj =document.createElement( 'th' );
@@ -203,6 +159,7 @@
 			                      this.insertBefore(thObj , this.childNodes[0] );
 			                 } );
 		                }
+		                
 		                var nCloneTd = document.createElement( 'td' );
 		                nCloneTd.innerHTML = '<img class="operation" src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
 		                nCloneTd.className = "center";
@@ -223,6 +180,22 @@
 			                 }
 			            } );
 		            }
+		             // add options
+	            if($('#${tableId} thead tr th:last[arias="options"]').length == 0){
+                    $('#${tableId} thead tr').each( function () {
+                          var thObj =document.createElement( 'th' );
+                          thObj.setAttribute("arias","options");
+                          $(this).append(thObj);
+	                 } );
+                    
+	                 $('#${tableId} tbody tr').each( function (i) {
+	                    var nCloneTd = document.createElement( 'td' );
+	                    $(this).append(nCloneTd);
+	                    for(var p in options){
+	                      $(nCloneTd).append(options[p].html);
+	                    }
+		            });
+                }
 		     }, 
 	         "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
 	             /* //======= method one===========
