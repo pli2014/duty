@@ -189,5 +189,13 @@
         </action>
     </package>
 
+    <package name="wechat" namespace="/wechat" extends="default">
+        <action name="userBinding" class="actions.wechat.WechatUserAction" method="binding">
+            <result name="success">/pages/wechat/userBinding.jsp</result>
+        </action>
+        <action name="userBindingSubmit" class="actions.wechat.WechatUserAction" method="bindingSubmit">
+            <result name="success">/pages/wechat/userBinding.jsp</result>
+        </action>
+    </package>
     <include file="struts-backend.xml"></include>
 </struts>
