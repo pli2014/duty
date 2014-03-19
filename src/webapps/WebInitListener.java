@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import actions.SystemSettingAction;
+import common.Constants;
 import util.ServerContext;
 
 import com.opensymphony.xwork2.util.logging.Logger;
@@ -30,6 +32,10 @@ public class WebInitListener implements ServletContextListener {
         }
         LOG.info("init MongoDB");
         MongoDBConnectionFactory.initDb();
+
+        //init Global Setting
+        Object global = SystemSettingAction.init();
+        sce.getServletContext().setAttribute(Constants.GLOBALSETTING,global);
     }
 
     @Override

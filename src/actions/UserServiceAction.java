@@ -36,8 +36,17 @@ public class UserServiceAction extends BaseAction {
   private long monthHours;
   private long yearHours;
   private long totalHours;
+  private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
 
-  ActiveUserBean aub = null;
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    ActiveUserBean aub = null;
   List<ServicePlaceBean> servicePlaceBeans = null;
   HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
@@ -120,21 +129,24 @@ public class UserServiceAction extends BaseAction {
                   break;
               }
           }
+          //only display service places by type.
+          if(sbFetch!=null && sbFetch.getType()==this.type){
           VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
-          if(!servicePlaceVolunteer.containsKey(sbFetch)){
-              if(vtb!=null){
-                  HashSet<VolunteerBean> hv = new HashSet<VolunteerBean>();
-                  hv.add(vtb);
-                  servicePlaceVolunteer.put(sbFetch,hv);
-              }
-          }else{
-              HashSet<VolunteerBean> hv = servicePlaceVolunteer.get(sbFetch);
-              if(vtb!=null && !hv.contains(vtb)){
-                  hv.add(vtb);
+              if(!servicePlaceVolunteer.containsKey(sbFetch)){
+                  if(vtb!=null){
+                      HashSet<VolunteerBean> hv = new HashSet<VolunteerBean>();
+                      hv.add(vtb);
+                      servicePlaceVolunteer.put(sbFetch,hv);
+                  }
+              }else{
+                  HashSet<VolunteerBean> hv = servicePlaceVolunteer.get(sbFetch);
+                  if(vtb!=null && !hv.contains(vtb)){
+                      hv.add(vtb);
+                  }
               }
           }
       }
-      return SUCCESS;
+      return SUCCESS+this.type;
   }
 
   public List<UserServiceBean> getUserServices() {

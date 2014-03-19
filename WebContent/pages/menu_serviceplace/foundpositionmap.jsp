@@ -3,12 +3,12 @@
   Date: 14-3-18
   Time: 上午7:08
 --%>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=URs4GQ1uMjGhGK4kfub7lXUt"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=${applicationScope.GLOBALCONF.maptoken}"></script>
 <div style="clear:both;"></div>
 <div id="allmap"></div>
 <script type="text/javascript">
       try{
-        window.city = "南京市";
+        window.city = "${applicationScope.GLOBALCONF.city}";
         // 百度地图API功能
         var map = new BMap.Map("allmap");
         var contextMenu = new BMap.ContextMenu();
@@ -41,21 +41,24 @@
         map.addContextMenu(contextMenu);
 
 
-        // 创建地址解析器实例
-        var myGeo = new BMap.Geocoder();
         window.marker = null;
         function mapPosition(destination,clear,callBackFunction){
-            if(false)
-              map.clearOverlays();
+            // 创建地址解析器实例
+            var myGeo = new BMap.Geocoder();
+            if(clear){
+              map.removeOverlay(window.marker);
+              window.marker = null;
+              map.reset();
+            }
             // 将地址解析结果显示在地图上,并调整地图视野
             myGeo.getPoint(destination, function(point){
                 if (point) {
-                    map.centerAndZoom(point, 16);
+                    map.centerAndZoom(point, 15);
                     if(window.marker==null)
                       window.marker = new BMap.Marker(point);
+                    map.addOverlay(window.marker);
                     window.marker.enableDragging();//允许拖动
                     window.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-                    map.addOverlay(window.marker);
                     var label = new BMap.Label(destination,{offset:new BMap.Size(20,-10)});
                     window.marker.setLabel(label);
                     if(typeof callBackFunction =='function'){
@@ -63,6 +66,8 @@
                     }
                 }
             }, window.city);
+            window.marker.enableDragging();//允许拖动
+            window.marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
         }
         function refreshPosition(callBackFunction){
             if(window.marker!=null){
@@ -89,6 +94,20 @@
           }
 
        }
+
+      //whoisheremap.jsp will call this function.
+      function mapMutiplePosition(destination,lng,lat){
+          if(lng!="" && lat!=""){
+              var point = new BMap.Point(lng, lat);
+              map.centerAndZoom(point,15);
+              var marker = new BMap.Marker(point);
+              //marker.enableDragging();//允许拖动
+              marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+              map.addOverlay(marker);
+              var label = new BMap.Label(destination,{offset:new BMap.Size(20,-10)});
+              marker.setLabel(label);
+          }
+      }
 
       }catch(error){
           jQuery("#dialog_message").html('<span style="color:red">请检查电脑的网络状况，确保可以访问百度地图</span>');

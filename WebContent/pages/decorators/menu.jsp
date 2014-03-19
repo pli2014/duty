@@ -17,17 +17,6 @@
                   }
               </style>
               <ul class="sidebar-menu" id="nav-accordion">
-                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
-                  <li class="sub-menu">
-                      <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
-                          <span>后台用户管理</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="backend/user/index.action">后台用户管理</a></li>
-                      </ul>
-                  </li>
-                  </s:if>
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-laptop"></i>
@@ -83,6 +72,18 @@
                           <li><a  href="boxed_page.html">打印。。。</a></li>
                       </ul>
                   </li>
+                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
+                      <li class="sub-menu">
+                          <a href="javascript:;">
+                              <i class="fa fa-laptop"></i>
+                              <span>后台系统管理</span>
+                          </a>
+                          <ul class="sub">
+                              <li><a  href="backend/user/index.action">后台用户管理</a></li>
+                              <li><a  href="backend/systemsetting.action">系统参数设定</a></li>
+                          </ul>
+                      </li>
+                  </s:if>
                   <li>
                       <a  href="backend/logout.action">
                           <i class="fa fa-user"></i>

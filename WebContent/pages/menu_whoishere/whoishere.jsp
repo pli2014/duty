@@ -7,54 +7,59 @@
 <html lang="en">
 <html>
 <head>
-    <title>签到管理</title>
+    <title>院内服务地点</title>
     <%@ include file="../bootstrapHeader.jsp" %>
 </head>
 <body>
 <section class="panel">
     <header class="panel-heading">
-        谁在这里
+        院内服务地点
     </header>
 
     <section class="container">
 
-            <div class="row state-overview">
-                <div class="col-lg-2 col-md-2 col-sm-3">
-                    <a class="btn btn-success btn-block" href="index.action">
-                        返回主页
-                    </a>
-                </div>
+        <div class="row state-overview" style="margin-bottom:50px">
+            <div class="col-lg-2 col-md-2 col-sm-3">
+                <a class="btn btn-success btn-block" href="pages/menu_whoishere/serviceplaceview.jsp">
+                    返回谁在这里
+                </a>
             </div>
-
-            <%-- 消息引用 --%>
-            <s:include value="../strutsMessage.jsp"/>
-
-            <s:iterator value="servicePlaceVolunteer">
-                    <div class="col-lg-3">
-                        <label class="control-label" style="background:#7edfdf;font:bold"><s:property value="key.name"/></label>
-                        <table cellspacing="0" cellpadding="0" border="0" class="mt15 table table-striped table-advance table-hover table-bordered" id="userList">
-                            <thead>
-                            <tr>
-                                <th class="column-name">
-                                    志愿者姓名
-                                </th>
-                                <th class="column-name">
-                                    志愿者照片
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <s:iterator value="value" var="volunteer" status="id">
-                                <tr>
-                                    <td><s:property value="#volunteer.name"/></td>
-                                    <td><img src="<s:property value="#volunteer.iconpath"/>" width="80px" height="60px" onerror="this.src='img/volunteer.png';"/></td>
-                                </tr>
-                            </s:iterator>
-                            </tbody>
-                        </table>
+        </div>
+        <s:if test="servicePlaceVolunteer.size()==0">
+            <p style="color:red">院内服务地点没有志愿者服务！</p>
+        </s:if>
+        <%-- 消息引用 --%>
+        <s:include value="../strutsMessage.jsp"/>
+        <s:iterator value="servicePlaceVolunteer">
+            <ul class="nav top-menu" style="float:left;margin:20px">
+                <!-- settings start -->
+                <li class="dropdown">
+                    <div class="dropdown-toggle" data-toggle="dropdown">
+                        <div style="width:150px;height:100px;border:1px solid #62ad14">
+                            <div>地点编码：<s:property value="key.code"/></div>
+                            <div>地点名称：<s:property value="key.name"/></div>
+                            <div>服务人数：<span class="badge bg-success"><s:property value="value.size"/></span></div>
+                            <div style="idth:150px;height:40px;background-color:${key.color}"></div>
+                        </div>
                     </div>
-                  </div>
-            </s:iterator>
+                    <ul class="dropdown-menu extended tasks-bar">
+                        <div class="notify-arrow notify-arrow-green"></div>
+                        <li>
+                            <p class="green">总共<s:property value="value.size"/>个志愿者在此服务</p>
+                        </li>
+                        <s:iterator value="value" var="volunteer" status="id">
+                            <li>
+                                <span class="photo"><img src="<s:property value="#volunteer.iconpath"/>"
+                                                         width="50px" height="50px"
+                                                         onerror="this.src='img/volunteer.png';"/></span>
+                                    <span><s:property value="#volunteer.name"/></span>
+                                    <span>手机：<s:property value="#volunteer.cellPhone"/></span>
+                            </li>
+                        </s:iterator>
+                    </ul>
+                </li>
+            </ul>
+        </s:iterator>
     </section>
 </section>
 </body>

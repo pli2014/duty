@@ -167,7 +167,8 @@
         </action>
 
         <action name="whoishere" class="actions.UserServiceAction" method="whoIsHere">
-            <result name="success">/pages/menu_whoishere/whoishere.jsp</result>
+            <result name="success0">/pages/menu_whoishere/whoishere.jsp</result>
+            <result name="success1">/pages/menu_whoishere/whoisheremap.jsp</result>
         </action>
     </package>
 
