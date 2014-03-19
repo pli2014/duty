@@ -11,7 +11,7 @@
 <!--main content start-->
 <section class="panel">
     <header class="panel-heading">
-        服务地点管理
+        系统参数设定
     </header>
     <form role="form" method="post" class="form-horizontal tasi-form" action="backend/systemsettingsave.action">
         <%@ include file="../strutsMessage.jsp"%>
