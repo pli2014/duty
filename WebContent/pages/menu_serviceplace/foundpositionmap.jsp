@@ -95,6 +95,20 @@
 
        }
 
+      //whoisheremap.jsp will call this function.
+      function mapMutiplePosition(destination,lng,lat){
+          if(lng!="" && lat!=""){
+              var point = new BMap.Point(lng, lat);
+              map.centerAndZoom(point,15);
+              var marker = new BMap.Marker(point);
+              //marker.enableDragging();//允许拖动
+              marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+              map.addOverlay(marker);
+              var label = new BMap.Label(destination,{offset:new BMap.Size(20,-10)});
+              marker.setLabel(label);
+          }
+      }
+
       }catch(error){
           jQuery("#dialog_message").html('<span style="color:red">请检查电脑的网络状况，确保可以访问百度地图</span>');
           jQuery("#dialog_message").dialog();

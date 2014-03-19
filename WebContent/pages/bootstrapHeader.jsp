@@ -21,7 +21,6 @@
 
 <script src="jslib/flatlab/js/html5shiv.js"></script>
 <script src="jslib/flatlab/js/respond.min.js"></script>
-<![endif]-->
 
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="jslib/flatlab/js/jquery.js"></script>

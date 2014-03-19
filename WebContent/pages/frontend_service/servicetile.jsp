@@ -62,7 +62,7 @@
                 <div class="label">我的工时</div>
             </div>
         </a>
-        <a data-click="transform" class="tile bg-darkPink" href="userFront/whoishere.action">
+        <a data-click="transform" class="tile bg-darkPink" href="pages/menu_whoishere/serviceplaceview.jsp">
             <div class="tile-content icon">
                 <span class="icon-thumbs-up"></span>
             </div>

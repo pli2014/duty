@@ -29,6 +29,7 @@
                         <input id="servicePlacename" name="servicePlace.name" type="text" class="form-control" value="${servicePlace.name}"/>
                     </div>
                 </div>
+                <s:if test="#request.type==0">
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">地点颜色编码</label>
                     <div class="col-lg-3">
@@ -41,6 +42,8 @@
                         </script>
                     </div>
                 </div>
+                </s:if>
+
                 <s:if test="#request.type==1">
                     <div class="form-group has-success">
                         <label class="control-label col-lg-2 col-sm-3">地理坐标</label>
