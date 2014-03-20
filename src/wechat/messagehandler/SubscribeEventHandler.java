@@ -5,7 +5,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import util.ServerContext;
 import wechat.BaseEvent;
 import wechat.BaseMessage;
-import wechat.URLManager;
+import wechat.utils.URLManager;
 import wechat.servicemessage.ServiceMessage;
 import wechat.servicemessage.ServiceMessageUtils;
 import wechat.servicemessage.TextServiceMessage;

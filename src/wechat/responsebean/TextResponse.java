@@ -1,7 +1,7 @@
 package wechat.responsebean;
 
 import wechat.BaseMessage;
-import wechat.Constants;
+import wechat.utils.Constants;
 
 /**
  * Created by wangronghua on 14-3-11.

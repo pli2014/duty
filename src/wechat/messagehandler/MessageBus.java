@@ -40,7 +40,7 @@ public class MessageBus {
   class ThreadDispacther implements Runnable {
     @Override
     public void run() {
-      while(true) {
+      while(!Thread.interrupted()) {
         try {
           BaseMessage message = queue.take();
           TaskRunner runner = new TaskRunner(eventHandlers, message);
@@ -48,6 +48,10 @@ public class MessageBus {
         } catch (Exception e) {
           e.printStackTrace();
         }
+      }
+
+      if(Thread.interrupted()) {
+        throw new RuntimeException("Thread[MessageBusMain] is interruptted.");
       }
     }
   }

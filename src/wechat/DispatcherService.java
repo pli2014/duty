@@ -8,6 +8,7 @@ import wechat.messagehandler.DefaultMessageHandler;
 import wechat.messagehandler.MessageBus;
 import wechat.messagehandler.MessageHandler;
 import wechat.requestbean.*;
+import wechat.utils.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package wechat;
+package wechat.utils;
 
 import wechat.messagehandler.EventHandler;
 import wechat.messagehandler.MessageBus;
