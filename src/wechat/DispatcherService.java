@@ -5,6 +5,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import wechat.messagehandler.DefaultMessageHandler;
+import wechat.messagehandler.MessageBus;
 import wechat.messagehandler.MessageHandler;
 import wechat.requestbean.*;
 
@@ -61,6 +62,7 @@ public class DispatcherService {
     if(request != null) {
       request.fill(rMap);
       BaseMessage response = request.accept(handler);
+      MessageBus.get().add(request);
       result = response.toXml();
     }
     return result;

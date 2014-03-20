@@ -25,6 +25,10 @@ import java.util.Map;
 public class WechatServlet extends HttpServlet {
   protected final static Logger LOG = LoggerFactory.getLogger(WechatServlet.class);
 
+  public void init() throws ServletException{
+    WechatContext.init();
+  }
+
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // 微信加密签名
     String signature = request.getParameter("signature");

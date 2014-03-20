@@ -16,6 +16,7 @@ public class URLManager {
 
   private static final String URL_OAUTH_REDIRECT = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%s&redirect_uri=%s&response_type=code&scope=%s&state=STATE#wechat_redirect";
 
+  private static final String URL_SERVICE_MESSAGE = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=%s";
 
   public static String getUrl_Accesstoken(String appID, String appSecret) {
     return String.format(URL_ACCESSTOKEN, appID, appSecret);
@@ -39,5 +40,9 @@ public class URLManager {
 
   public static String getUrl_OauthRedirect(String url, String appID, String scope) throws UnsupportedEncodingException {
     return String.format(URL_OAUTH_REDIRECT, appID, URLEncoder.encode(url, "utf-8"), scope);
+  }
+
+  public static  String getUrl_ServiceMessage(String accessToken) {
+    return String.format(URL_SERVICE_MESSAGE, accessToken);
   }
 }
