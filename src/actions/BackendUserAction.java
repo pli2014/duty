@@ -11,6 +11,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
+import util.StringUtil;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import webapps.WebappsConstants;
@@ -104,7 +105,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   public String login() {
     if (user != null) {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();
-      if (userTmp != null && user.getPassword().equals(userTmp.getPassword())) {
+      if (userTmp != null && StringUtil.toMD5(user.getPassword()).equals(userTmp.getPassword())) {
         getSession().setAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {
@@ -140,6 +141,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
         addActionError("用户已经存在");
       } else {
         user.set_id(ObjectId.get());
+        user.setPassword(StringUtil.toMD5(user.getPassword()));
         getBusiness().createLeaf(user);
         getSession().setAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID, user);
         return SUCCESS;
@@ -157,8 +159,8 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   public String changePassword() throws Exception {
     if (user != null) {
       BackendUserBean sessionUser = (BackendUserBean) getSession().getAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID);
-      if (sessionUser != null && sessionUser.getPassword().equals(user.getPassword())) {
-        sessionUser.setPassword(getRequest().getParameter("newPassword"));
+      if (sessionUser != null && sessionUser.getPassword().equals(StringUtil.toMD5(user.getPassword()))) {
+        sessionUser.setPassword(StringUtil.toMD5(getRequest().getParameter("newPassword")));
         getBusiness().updateLeaf(sessionUser, sessionUser);
         getSession().setAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID, sessionUser);
         return SUCCESS;
