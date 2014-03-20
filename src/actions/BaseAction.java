@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSON;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -42,6 +43,13 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
   }
 
   public String[] getIds() {
+    if (ids == null) {
+      if (id != null && id.length() > 0) {
+        ids = new String[] { id };
+      }
+    } else {
+      ids = ArrayUtils.add(ids, id);
+    }
     return ids;
   }
 

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 import util.ServerContext;
+import util.StringUtil;
 import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
 import bl.mongobus.SequenceUidGenerator;
@@ -88,7 +89,7 @@ public class VolunteerAction extends BaseAction {
   public String login() {
     if (volunteer != null) {
       VolunteerBean userTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
-      if (userTmp != null && volunteer.getPassword().equals(userTmp.getPassword())) {
+      if (userTmp != null && StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
         getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
         return SUCCESS;
       } else {
@@ -125,6 +126,7 @@ public class VolunteerAction extends BaseAction {
         return FAILURE;
       } else {
         volunteer.set_id(ObjectId.get());
+        volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
         getBusiness().createLeaf(volunteer);
         getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
         return SUCCESS;

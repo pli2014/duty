@@ -30,6 +30,7 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
   public void setVolunteer(VolunteerBean volunteer) {
     this.volunteer = volunteer;
   }
+
   /**
    * 
    */
@@ -49,16 +50,16 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
   public String getTableTitle() {
     return "志愿者管理";
   }
-  
+
   @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("name", "志愿者"));
-    init.getAoColumns().add(new TableHeaderVo("status", "状态").addSearchOptions(new String[][] { { "-1", "0", "1","2", "3" ,"4" }, { "----", "已注册","已审核","已面试","正在服务期","已注销" } }));
-    init.getAoColumns().add(new TableHeaderVo("registerFrom", "注册来源").addSearchOptions(new String[][] { { "-1", "1", "2" }, { "----", "医院", "微信" } }));
-    init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone().addSearchOptions(new String[][] { { "-1", "1", "2" }, { "----", "男", "女" } }));
-    init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机").hidePhone());
-    init.getAoColumns().add(new TableHeaderVo("wechat", "微信").hidePhone());
+    init.getAoColumns().add(new TableHeaderVo("status", "状态"));
+    init.getAoColumns().add(new TableHeaderVo("registerFrom", "注册来源"));
+    init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
+    init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
+    init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
     init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
     return init;
   }

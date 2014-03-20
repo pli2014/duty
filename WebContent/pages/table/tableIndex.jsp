@@ -17,58 +17,70 @@
   <s:if test="tableTitle != null && tableTitle.length() > 0">
   <header class="panel-heading">${tableTitle}</header>
   </s:if>
-  <div class="panel-body">
-       <div class="row">
-            <div class="col-lg-6 col-md-6" style="width: 150px; margin-bottom: 15px;">
-                <a class="btn btn-success" href="window.location.href = '${actionPrex}/add.action'">
-                    <i class="fa fa-plus"></i>
-                    添加
-                </a>
-            </div>
-            
-           <form class="form-inline" style="">
+           <form class="form-horizontal tasi-form">
+
                <div class="form-group">
-                   <label class="pull-left control-label"  >名称</label>
-                   <div class="col-lg-9 col-md-9 filter-component-column">
-                       <input type="text" class="form-control input-sm filter-component" >
+                   <div class="col-lg-3">
+                       <a class="btn btn-success" href="${actionPrex}/add.action">
+                           <i class="fa fa-plus"></i>
+                           添加
+                       </a>
                    </div>
                </div>
-               <div class="form-group"  >
-                   <label class="pull-left control-label" >创建时间</label>
-                   <div class="col-lg-9 col-md-9 filter-component-column">
-                       <input type="text" class="form-control input-sm filter-component" >
+           <section class="panel">
+               <header class="panel-heading" onclick="$('#panelbody').toggle();" style="cursor: pointer">
+                   查询区域
+                      <span class="tools pull-right">
+                        <span class="fa fa-chevron-up" style="cursor: pointer"></span>
+                      </span>
+               </header>
+               <div class="panel-body" id="panelbody" style="display: none">
+                   <div class="form-group">
+                       <label class="col-lg-1 control-label">名称</label>
+                       <div class="col-lg-2">
+                           <input id="search_name" type="text" class="form-control">
+                       </div>
                    </div>
-               </div>
-               <div class="form-group" >
-                   <label class="pull-left control-label" >~</label>
-                   <div class="col-lg-9 col-md-9 filter-component-column">
-                       <input type="text" class="form-control input-sm filter-component" >
+                   <div class="form-group">
+                       <label class="col-lg-1 control-label">创建时间</label>
+                       <div class="col-lg-2">
+                           <input id="createTimeStart"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
+                           <script>
+                               $("#createTimeStart").datepicker();
+                           </script>
+                       </div>
+                       <div class="col-lg-2">
+                           <input id="createTimeEnd"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
+                           <script>
+                               $("#createTimeEnd").datepicker();
+                           </script>
+                       </div>
+
+                       <label class="col-lg-1 control-label">更新时间</label>
+                       <div class="col-lg-2">
+                           <input id="modifyTimeStart"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
+                           <script>
+                               $("#modifyTimeStart").datepicker();
+                           </script>
+                       </div>
+                       <div class="col-lg-2">
+                           <input id="modifyTimeEnd"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
+                           <script>
+                               $("#modifyTimeEnd").datepicker();
+                           </script>
+                       </div>
+                       <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; " onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                           <i class="fa fa-check"></i>
+                           查询
+                       </a>
                    </div>
-               </div>
-              <div class="form-group"  >
-                   <label class="pull-left control-label" >更新时间</label>
-                   <div class="col-lg-9 col-md-9 filter-component-column">
-                       <input type="text" class="form-control input-sm filter-component" >
-                   </div>
-               </div>
-               <div class="form-group" >
-                   <label class="pull-left control-label" >~</label>
-                   <div class="col-lg-9 col-md-9 filter-component-column">
-                       <input type="text" class="form-control input-sm filter-component" >
-                   </div>
-               </div>
-                <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; ">
-                    <i class="fa fa-check"></i>
-                    查询
-                </a>
+              </div>
+            </section>
            </form>
           
-        </div>
-  
         <div class="adv-table dataTables_wrapper form-inline">
             <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
        </div>
- </div>
 </section>
      <!-- page end-->
     
@@ -81,7 +93,7 @@
      var options = {
         'edit':{
 	       'title':'修改', 
-	       'html': '<button title="修改" class="btn btn-primary btn-xs" onclick="options[\'edit\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
+	       'html': '<button title="修改" style="margin-left:5px" class="btn btn-primary btn-xs" onclick="options[\'edit\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
 	       'onClick' : function(button){
 	           var tableObj = $('#'+tableId).dataTable();
 	           var nTr = $(button).parents('tr')[0];
@@ -91,7 +103,7 @@
         },
         'delete': {
 	       'title':'删除',
-	       'html' : '<button title="删除" class="btn btn-danger btn-xs" onclick="options[\'delete\'].onClick(this)"><i class="fa fa-trash-o "></i></button>',
+	       'html' : '<button title="删除" style="margin-left:5px" class="btn btn-danger btn-xs" onclick="options[\'delete\'].onClick(this)"><i class="fa fa-trash-o "></i></button>',
 	       'onClick' : function(button){
 	           if (confirm("您确定要删除吗?")){
 		           var tableObj = $('#'+tableId).dataTable();
@@ -106,7 +118,7 @@
       function fnFormatDetails ( oTable, nTr ){
           var aData = oTable.fnGetData( nTr );
           var aoColumns = oTable.fnSettings().aoColumns;
-          var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">';
+          var sOut = '<table cellpadding="5" cellspacing="0" border="0">';
           for(var i=0;i<aoColumns.length;i++){
               if(aoColumns[i].bVisible == false){
                   sOut += '<tr><td>'+ aoColumns[i].sTitle+':</td><td>'+aData[aoColumns[i].mData]+'</td></tr>';
@@ -161,7 +173,7 @@
 		                }
 		                
 		                var nCloneTd = document.createElement( 'td' );
-		                nCloneTd.innerHTML = '<img class="operation" src="<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
+		                nCloneTd.innerHTML = '<img class="operation" src="jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
 		                nCloneTd.className = "center";
 			            $('#${tableId} tbody tr').each( function (i) {
 			                this.insertBefore(  nCloneTd.cloneNode( true ) , this.childNodes[0] );
@@ -170,21 +182,26 @@
 			                var nTr = $(this).parents('tr')[0];
 			                if ( oTable.fnIsOpen(nTr) ){
 			                    // This row is already open - close it 
-			                     $(this).attr("src" , "<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png");
+			                     $(this).attr("src" , "jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png");
 			                     oTable.fnClose( nTr );
 			                }else{
 			                   //   Open this row 
-			                     $(this).attr("src" , "<%=request.getContextPath()%>/jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_close.png");
+			                     $(this).attr("src" , "jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_close.png");
 			                     oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
 			                     $('td.details',$(nTr).next()).attr("colspan",nTr.childNodes.length);
 			                 }
 			            } );
 		            }
 		             // add options
-	            if($('#${tableId} thead tr th:last[arias="options"]').length == 0){
+		        var totalOptions = 0;
+		        for(var p in options){
+		            totalOptions++;
+		        }
+	            if(totalOptions > 0 && $('#${tableId} thead tr th:last[arias="options"]').length == 0){
                     $('#${tableId} thead tr').each( function () {
                           var thObj =document.createElement( 'th' );
                           thObj.setAttribute("arias","options");
+                          thObj.innerHTML ="操作";
                           $(this).append(thObj);
 	                 } );
                     
@@ -235,12 +252,21 @@
 	 			for(var p in sortObj){
 	 			    aoData.push( { "name": "sort['"+p+"']", "value": sortObj[p] } );
 	 			}
-	 			$('#${tableId} thead tr th input[type="text"]').each( function (i) {
-	 			  aoData.push( { "name": "filter['"+this.name+"']", "value": this.value } );
-	 			});
-	 			$('#${tableId} thead tr th select[name]').each( function (i) {
-	 			  aoData.push( { "name": "filter['"+this.name+"']", "value": $(this).val() } );
-		 		});
+	 			if($('#search_name').val() != ''){
+	 			 aoData.push( { "name": "filter['name']", "value": $('#search_name').val() } ); 
+	 		    }
+	 			if($('#createTimeStart').val() != ''){
+	 			 aoData.push( { "name": "filter['createTime_gteq']", "value": $('#createTimeStart').val() } );
+	 			}
+	 		    if($('#createTimeEnd').val() != ''){
+	 			 aoData.push( { "name": "filter['createTime_lteq']", "value": $('#createTimeEnd').val() } );
+	 		    }
+	 		    if($('#modifyTimeStart').val() != ''){
+	 			 aoData.push( { "name": "filter['modifyTime_gteq']", "value": $('#modifyTimeStart').val() } );
+	 			}
+	 		    if($('#modifyTimeEnd').val() != ''){
+	 			 aoData.push( { "name": "filter['modifyTime_lteq']", "value": $('#modifyTimeEnd').val() } );
+	 		    }
 	 			 oSettings.jqXHR = $.ajax( {
 	                 "dataType": 'json',
 	                 "type": "POST",
@@ -273,7 +299,7 @@
                var s = ("0" + myDate.getSeconds()).slice(-2);
                var mi = ("00" + myDate.getMilliseconds()).slice(-3);
                if (IsMi == true) {
-                   return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s;
+                   return year + "-" + month + "-" + day;
                }
                else {
                    return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;

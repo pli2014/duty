@@ -156,4 +156,16 @@
             <result name="success">/pages/menu_report/serviceMonthlyReport.jsp</result>
         </action>
     </package>
+    
+    <package name="volunterTrainCourse" namespace="/backend/volunterTrainCourse" extends="default-backend">
+        <action name="index" class="actions.BackendVolunterTrainCourseAction" method="index"/>
+        <action name="initTable" class="actions.BackendVolunterTrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.BackendVolunterTrainCourseAction" method="queryTable"/>
+        <action name="add" class="actions.BackendVolunterTrainCourseAction" method="add">
+            <result name="success">/pages/volunteerTrainCourse/backendVolunteerTrainCourse.jsp</result>
+        </action>
+        <action name="save" class="actions.BackendVolunterTrainCourseAction" method="save">
+            <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+        </action>
+    </package>
 </struts>
