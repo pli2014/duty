@@ -193,7 +193,11 @@
 			            } );
 		            }
 		             // add options
-	            if($('#${tableId} thead tr th:last[arias="options"]').length == 0){
+		        var totalOptions = 0;
+		        for(var p in options){
+		            totalOptions++;
+		        }
+	            if(totalOptions > 0 && $('#${tableId} thead tr th:last[arias="options"]').length == 0){
                     $('#${tableId} thead tr').each( function () {
                           var thObj =document.createElement( 'th' );
                           thObj.setAttribute("arias","options");

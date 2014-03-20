@@ -45,7 +45,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="backend/traincourse/traincourselist.action">培训课程</a></li>
-                          <li><a  href="boxed_page.html">培训记录</a></li>
+                          <li><a  href="backend/volunterTrainCourse/index.action">培训记录</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
