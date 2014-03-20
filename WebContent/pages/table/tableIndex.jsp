@@ -28,29 +28,29 @@
                    </div>
                </div>
            <section class="panel">
-               <header class="panel-heading">
+               <header class="panel-heading" onclick="$('#panelbody').toggle();" style="cursor: pointer">
                    查询区域
                       <span class="tools pull-right">
-                        <span class="fa fa-chevron-up" onclick="$('#panelbody').toggle();"></span>
+                        <span class="fa fa-chevron-up" style="cursor: pointer"></span>
                       </span>
                </header>
                <div class="panel-body" id="panelbody" style="display: none">
                    <div class="form-group">
                        <label class="col-lg-1 control-label">名称</label>
                        <div class="col-lg-2">
-                           <input name="name" type="text" class="form-control">
+                           <input id="search_name" type="text" class="form-control">
                        </div>
                    </div>
                    <div class="form-group">
                        <label class="col-lg-1 control-label">创建时间</label>
                        <div class="col-lg-2">
-                           <input id="createTimeStart" name="createTime >=" data-date-format="yyyy-mm-dd" type="text" class="form-control" >
+                           <input id="createTimeStart"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
                            <script>
                                $("#createTimeStart").datepicker();
                            </script>
                        </div>
                        <div class="col-lg-2">
-                           <input id="createTimeEnd" name="createTime <=" data-date-format="yyyy-mm-dd" type="text" class="form-control" >
+                           <input id="createTimeEnd"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
                            <script>
                                $("#createTimeEnd").datepicker();
                            </script>
@@ -58,18 +58,18 @@
 
                        <label class="col-lg-1 control-label">更新时间</label>
                        <div class="col-lg-2">
-                           <input id="modifyTimeStart" name="modifyTime >=" data-date-format="yyyy-mm-dd" type="text" class="form-control" >
+                           <input id="modifyTimeStart"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
                            <script>
                                $("#modifyTimeStart").datepicker();
                            </script>
                        </div>
                        <div class="col-lg-2">
-                           <input id="modifyTimeEnd" name="modifyTime <=" data-date-format="yyyy-mm-dd" type="text" class="form-control" >
+                           <input id="modifyTimeEnd"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
                            <script>
                                $("#modifyTimeEnd").datepicker();
                            </script>
                        </div>
-                       <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; ">
+                       <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; " onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
                            <i class="fa fa-check"></i>
                            查询
                        </a>
@@ -248,12 +248,21 @@
 	 			for(var p in sortObj){
 	 			    aoData.push( { "name": "sort['"+p+"']", "value": sortObj[p] } );
 	 			}
-	 			$('#${tableId} thead tr th input[type="text"]').each( function (i) {
-	 			  aoData.push( { "name": "filter['"+this.name+"']", "value": this.value } );
-	 			});
-	 			$('#${tableId} thead tr th select[name]').each( function (i) {
-	 			  aoData.push( { "name": "filter['"+this.name+"']", "value": $(this).val() } );
-		 		});
+	 			if($('#search_name').val() != ''){
+	 			 aoData.push( { "name": "filter['name']", "value": $('#search_name').val() } ); 
+	 		    }
+	 			if($('#createTimeStart').val() != ''){
+	 			 aoData.push( { "name": "filter['createTime_gteq']", "value": $('#createTimeStart').val() } );
+	 			}
+	 		    if($('#createTimeEnd').val() != ''){
+	 			 aoData.push( { "name": "filter['createTime_lteq']", "value": $('#createTimeEnd').val() } );
+	 		    }
+	 		    if($('#modifyTimeStart').val() != ''){
+	 			 aoData.push( { "name": "filter['modifyTime_gteq']", "value": $('#modifyTimeStart').val() } );
+	 			}
+	 		    if($('#modifyTimeEnd').val() != ''){
+	 			 aoData.push( { "name": "filter['modifyTime_lteq']", "value": $('#modifyTimeEnd').val() } );
+	 		    }
 	 			 oSettings.jqXHR = $.ajax( {
 	                 "dataType": 'json',
 	                 "type": "POST",
