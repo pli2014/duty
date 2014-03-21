@@ -17,9 +17,9 @@
       <fieldset>
           <legend>志愿者登录</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
-          <label>姓名</label>
+          <label>工号</label>
           <div class="input-control text" data-role="input-control">
-              <input type="text" placeholder="请输入姓名" name="volunteer.name" value="${volunteer.name}" autofocus required="required"/>
+              <input type="text" placeholder="请输入工号,不是姓名" name="volunteer.code" autofocus required="required"/>
               <button class="btn-clear" tabindex="-1"></button>
           </div>
           

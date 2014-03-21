@@ -7,15 +7,18 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Index;
 
 import bl.common.BeanContext;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Indexes;
 
-@Index(value = "name")
+
 public class Bean implements BeanContext, Cloneable {
   @Id
   ObjectId _id;
-
+  @Indexed
   String name;
-
+  @Indexed
   Date createTime = null;
+  @Indexed
   Date modifyTime = null;
 
   /**
@@ -97,7 +100,7 @@ public class Bean implements BeanContext, Cloneable {
 
   /**
    * Clone (create a deep copy of) this instance.
-   * 
+   *
    * @return A clone of this instance.
    */
   public Object clone() {

@@ -16,6 +16,11 @@
          jQuery("#cameraDialog").css('display','');
          jQuery("#cameraDialog").center();
 
+         
+         function submitConfirm(){
+        	 var s = '请牢记你的工号：' + $("input[name='volunteer.code']").val() + ',这将做为你的登录凭证！';
+        	 return confirm(s);
+         }
      </script>
      
   
@@ -37,7 +42,7 @@
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
     <div class="example volunteerinfo" style="width: 70%;float: left;">
-       <form  id="volunteerForm" action="register.action" method="post">
+       <form  id="volunteerForm" action="register.action" method="post" onsubmit="return submitConfirm();">
            <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
            <fieldset>
                <legend>志愿者注册</legend>

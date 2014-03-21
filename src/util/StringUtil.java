@@ -46,4 +46,8 @@ public class StringUtil {
       return str;
     }
   }
+
+  public static void main(String[] args){
+      System.out.println(StringUtil.toMD5("admin"));
+  }
 }

@@ -1,10 +1,14 @@
 package dao;
 
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import bl.beans.VolunteerBean;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.SqlDateConverter;
 import org.mongodb.morphia.Datastore;
@@ -26,7 +30,7 @@ public class MongoDBConnectionFactory {
 
     public static void initDb() {
         //注册sql.date的转换器，即允许BeanUtils.copyProperties时的源目标的sql类型的值允许为空
-        ConvertUtils.register(new DateConverter(null), java.util.Date.class);
+        ConvertUtils.register(new MyDateConvert(), java.util.Date.class);
 
         try {
             mongoClient = new MongoClient(ServerContext.getValue("mongodbip"));
@@ -43,7 +47,9 @@ public class MongoDBConnectionFactory {
                 if (dbRef.containsKey(dbName)) {
                     return dbRef.get(dbName);
                 } else {
-                    Datastore ds = new Morphia().createDatastore(mongoClient, dbName);
+                    Morphia mophi = new Morphia();
+                    Datastore ds = mophi.createDatastore(mongoClient, dbName);
+                   // mophi.mapPackage("bl.beans", true);
                     ds.ensureIndexes();
                     ds.ensureCaps();
                     dbRef.put(dbName, ds);
@@ -72,5 +78,22 @@ public class MongoDBConnectionFactory {
     }
 
     public static void main(String[] args) {
+    }
+
+    static class MyDateConvert implements Converter {
+
+        public Date convert(Class arg0, Object arg1) {
+            String p = (String)arg1;
+            if(p== null || p.trim().length()==0){
+                return null;
+            }
+            try{
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                return df.parse(p.trim());
+            }
+            catch(Exception e){
+                return null;
+            }
+        }
     }
 }
