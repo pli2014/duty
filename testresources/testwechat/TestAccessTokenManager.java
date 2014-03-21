@@ -1,7 +1,7 @@
 package testwechat;
 
 import util.ServerContext;
-import wechat.AccessTokenManager;
+import wechat.accessmanagement.AccessTokenManager;
 
 import java.io.File;
 import java.io.FileInputStream;

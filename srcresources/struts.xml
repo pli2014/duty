@@ -192,9 +192,11 @@
 
     <package name="wechat" namespace="/wechat" extends="default">
         <action name="userBinding" class="actions.wechat.WechatUserAction" method="binding">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success">/pages/wechat/userBinding.jsp</result>
         </action>
         <action name="userBindingSubmit" class="actions.wechat.WechatUserAction" method="bindingSubmit">
+            <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success">/pages/wechat/userBinding.jsp</result>
         </action>
     </package>

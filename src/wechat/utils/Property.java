@@ -1,4 +1,4 @@
-package wechat;
+package wechat.utils;
 
 /**
  * Created by wangronghua on 14-3-10.

@@ -1,8 +1,12 @@
-package wechat;
+package wechat.accessmanagement;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import net.sf.json.JSONObject;
 import util.ServerContext;
+import wechat.utils.Constants;
+import wechat.HttpClientHelper;
+import wechat.utils.URLManager;
 
 import java.util.Map;
 
@@ -33,5 +37,18 @@ public class AccessTokenManager {
       }
     }
     return TOKEN;
+  }
+
+  public synchronized static AccessToken getAccessToken(String code) {
+    AccessToken token = null;
+    String url = URLManager.getUrl_OAuthAccesstoken(ServerContext.getValue(Constants.APP_ID), ServerContext.getValue(Constants.APP_SECRET), code);
+    String resultString = HttpClientHelper.getResponseAsJSONString(url);
+    JSONObject object = JSONObject.fromObject(resultString);
+    if(null != object.get(Constants.ERR_CODE)) {
+      LOG.error("Error while getting token from server, errcode:#0;#1", String.valueOf(object.get(Constants.ERR_CODE)), String.valueOf(object.get(Constants.ERR_CODE)));
+    } else {
+      token = (AccessToken)JSONObject.toBean(object, AccessToken.class);
+    }
+    return token;
   }
 }

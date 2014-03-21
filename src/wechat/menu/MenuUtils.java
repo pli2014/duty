@@ -2,11 +2,10 @@ package wechat.menu;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import util.ServerContext;
-import wechat.AccessTokenManager;
-import wechat.Constants;
+import wechat.accessmanagement.AccessTokenManager;
+import wechat.utils.Constants;
 import wechat.HttpClientHelper;
-import wechat.URLManager;
+import wechat.utils.URLManager;
 
 import java.io.*;
 import java.util.Map;

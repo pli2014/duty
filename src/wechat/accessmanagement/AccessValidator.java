@@ -1,4 +1,4 @@
-package wechat;
+package wechat.accessmanagement;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
