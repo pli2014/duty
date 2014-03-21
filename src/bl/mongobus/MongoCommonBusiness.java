@@ -1,15 +1,13 @@
 package bl.mongobus;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Pattern;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
+import bl.beans.TrainCourseBean;
+import bl.beans.VolunteerBean;
+import org.apache.commons.beanutils.*;
+import org.apache.commons.beanutils.converters.DateConverter;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
@@ -135,6 +133,13 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
         return queryDataByCondition(filter, sorted, null);
     }
 
+    /**
+     * following with filter, sorted ,spec as query parameters.
+     * @param filter
+     * @param sorted
+     * @param spc
+     * @return
+     */
     private Query<L> constructQuery(Map filter, Set<String> sorted, SpecPaginationContext spc) {
         Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
         Query query = dc.createQuery(this.clazz);
@@ -149,10 +154,33 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
             while (iterator.hasNext()) {
                 String key = iterator.next();
                 Object value = filter.get(key);
-                if (value != null && !value.equals("-1")) {
+                if (value != null && !value.equals("-1") && !value.equals("")) {
                     try {
-                        BeanUtils.setProperty(obj,key,value);
-                        query.filter(key, PropertyUtils.getProperty(obj, key));
+                        /**
+                         * Because in the front page,form name refuses space,<,> as name,
+                         * so here, we need convert this format "name_gt" "name_lt" name_eq",etc
+                         * to "name >" "name <" name =",etc.
+                         */
+                        String[] splits = key.split("_");
+                        if(splits.length==2){
+                            String token = splits[1];
+                            token = token.replace("lt","<").replace("gt",">").replace("eq","=");
+                            BeanUtils.setProperty(obj,splits[0],value);
+                            query = query.filter(splits[0]+" "+token, PropertyUtils.getProperty(obj, splits[0]));
+                        }else{
+                            BeanUtils.setProperty(obj,key,value);
+                            Object judgeValue = PropertyUtils.getProperty(obj, key);
+                            /**
+                             * if this property of bean is string type, here it is be considered as
+                             * a wildcard match.
+                             */
+                            if(judgeValue instanceof String){
+                                Pattern pattern = Pattern.compile("^.*"+judgeValue+".*$");
+                                query = query.filter(key, pattern);
+                            }else{
+                                query = query.filter(key, judgeValue);
+                            }
+                        }
                     }catch (Exception e){
                         LOG.error("this exception [#0]", e.getMessage());
                     }
@@ -164,13 +192,13 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
             Iterator<String> iterator = sorted.iterator();
             while (iterator.hasNext()) {
                 String key = iterator.next();
-                query.order(key);
+                query = query.order(key);
             }
         }
 
         if(spc!=null){
-            query.offset(spc.getLimitOffset());
-            query.limit(spc.getLimitSize());
+            query = query.offset(spc.getLimitOffset());
+            query = query.limit(spc.getLimitSize());
         }
         return query;
     }
@@ -236,4 +264,14 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface, TableBusine
         return dc.getCount(query);
     }
 
+    public static void main(String[] args){
+        MongoDBConnectionFactory.initDb();
+        MongoCommonBusiness<BeanContext, VolunteerBean> mc = new MongoCommonBusiness<BeanContext, VolunteerBean>();
+        mc.clazz = VolunteerBean.class;
+        HashMap<String,String> map = new HashMap<String,String>();
+        map.put("name","adm");
+        map.put("modifyTime_gt","2015-03-16");
+        List<VolunteerBean> list = mc.queryDataByCondition(map,null);
+        System.out.println(list.size());
+    }
 }

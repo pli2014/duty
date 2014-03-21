@@ -52,7 +52,7 @@
                     buffer.push('width="50px" height="50px"');
                     buffer.push('onerror=\'this.src="img/volunteer.png;"\'/></span>');
                     buffer.push('<span><s:property value="#volunteer.name"/></span>');
-                    buffer.push('<span>手机：<s:property value="#volunteer.cellPhone"/></span>');
+                    buffer.push('<span>&nbsp;手机：<s:property value="#volunteer.cellPhone"/></span>');
                     buffer.push('</li>');
                     buffer.push('</s:iterator>');
                     buffer.push('</ul>');
