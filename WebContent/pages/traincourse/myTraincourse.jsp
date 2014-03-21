@@ -67,6 +67,10 @@
 	     .metro .unreceived:before {
 	       content: "未接受的培训";
 	     }
+	     
+	     .DTTT_selected{
+	       background-color: yellow !important;
+	     }
     </style>
     <title>我的培训</title>
   </head>
@@ -104,6 +108,25 @@
   
   <script type="text/javascript"> 
    
+//格式化js时间
+  var formatDateTime = function (obj, IsMi) {
+      var myDate = new Date(obj);
+      var year = myDate.getFullYear();
+      var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+      var day = ("0" + myDate.getDate()).slice(-2);
+      var h = ("0" + myDate.getHours()).slice(-2);
+      var m = ("0" + myDate.getMinutes()).slice(-2);
+      var s = ("0" + myDate.getSeconds()).slice(-2);
+      var mi = ("00" + myDate.getMilliseconds()).slice(-3);
+      if (IsMi == true) {
+          return year + "-" + month + "-" + day;
+      }
+      else {
+          return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;
+      }
+  };
+ 
+  
    $(document).ready(function() {
        
      var cellFormatter = {};
@@ -170,6 +193,14 @@
 		        return '未知状态';
 		    }
 		}
+	   //格式化createTime  modifyTime
+	     cellFormatter["modifyTime"]=cellFormatter["createTime"] = function ( data, type, full ) {
+	         if(data!=null){
+	          return formatDateTime(data.time,true);
+	         }else{
+	             return "";
+	         }
+	     }
 	     
 	     for(var i=0;i<initParam.aoColumns.length ; i++){
              if(typeof cellFormatter[initParam.aoColumns[i].mData] == "function"){
@@ -216,6 +247,6 @@
 	        });
          });
      });
-   </script>  
+   </script>
   </body>
 </html>

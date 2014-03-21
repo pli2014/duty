@@ -1,6 +1,8 @@
 package actions;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -88,12 +90,18 @@ public class VolunteerAction extends BaseAction {
    */
   public String login() {
     if (volunteer != null) {
-      VolunteerBean userTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
-      if (userTmp != null && StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
-        getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
-        return SUCCESS;
-      } else {
-        addActionError("密码错误");
+      Map filter = new HashMap();
+      filter.put("code", volunteer.getCode());
+
+      List<VolunteerBean> result = getBusiness().queryDataByCondition(filter, null);
+      if (result != null && result.size() > 0) {
+        VolunteerBean userTmp = result.get(0);
+        if (userTmp != null && StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
+          getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+          return SUCCESS;
+        } else {
+          addActionError("密码错误");
+        }
       }
     }
     return FAILURE;
@@ -120,20 +128,23 @@ public class VolunteerAction extends BaseAction {
    */
   public String register() throws Exception {
     if (volunteer != null) {
-      VolunteerBean volunteerTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
-      if (volunteerTmp != null) {
-        addActionError("志愿者已经存在");
+      Map filter = new HashMap();
+      filter.put("identityCard", volunteer.getIdentityCard());
+
+      List<VolunteerBean> result = getBusiness().queryDataByCondition(filter, null);
+      if (result != null && result.size() > 0) {
+        addActionError("身份证已经被注册!");
         return FAILURE;
-      } else {
-        volunteer.set_id(ObjectId.get());
-        volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-        getBusiness().createLeaf(volunteer);
-        getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
-        return SUCCESS;
       }
-    }else{
+
+      volunteer.set_id(ObjectId.get());
+      volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
+      getBusiness().createLeaf(volunteer);
+      getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
+      return SUCCESS;
+    } else {
       volunteer = new VolunteerBean();
-      volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY)+SequenceUidGenerator.getNewUid());
+      volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
       return FAILURE;
     }
   }
@@ -147,8 +158,7 @@ public class VolunteerAction extends BaseAction {
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     return SUCCESS;
   }
-  
-  
+
   /**
    * 
    * @return

@@ -3,6 +3,10 @@
  */
 package actions;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -66,6 +70,22 @@ public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
 
   @Override
   public String save() throws Exception {
+    if (volunteer != null) {
+      VolunteerBean volunteerTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
+      if (volunteerTmp != null) {
+        addActionError(getText("volunteerExsited"));
+        return FAILURE;
+      } else {
+        Map filter = new HashMap();
+        filter.put("identityCard", volunteer.getIdentityCard());
+
+        List result = getBusiness().queryDataByCondition(filter, null);
+        if (result != null && result.size() > 0 && !volunteerTmp.getName().equals(volunteer.getName())) {
+          addActionError(getText("idregistered"));
+          return FAILURE;
+        }
+      }
+    }
     if (StringUtils.isBlank(volunteer.getId())) {
       volunteer.set_id(ObjectId.get());
       getBusiness().createLeaf(volunteer);

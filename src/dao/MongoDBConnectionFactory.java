@@ -49,7 +49,7 @@ public class MongoDBConnectionFactory {
                 } else {
                     Morphia mophi = new Morphia();
                     Datastore ds = mophi.createDatastore(mongoClient, dbName);
-                    mophi.mapPackage("bl.beans", true);
+                   // mophi.mapPackage("bl.beans", true);
                     ds.ensureIndexes();
                     ds.ensureCaps();
                     dbRef.put(dbName, ds);
