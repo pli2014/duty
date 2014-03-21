@@ -46,7 +46,7 @@ public class URLManager {
     return String.format(URL_OAUTH_REDIRECT, appID, URLEncoder.encode(url, "utf-8"), "snsapi_base");
   }
 
-  public static String getUrl_OauthRedirect(String url, String appID, String scope) throws UnsupportedEncodingException {
+  public static String getUrl_OAuthRedirect(String url, String appID, String scope) throws UnsupportedEncodingException {
     return String.format(URL_OAUTH_REDIRECT, appID, URLEncoder.encode(url, "utf-8"), scope);
   }
 

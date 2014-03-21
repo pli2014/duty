@@ -197,7 +197,8 @@
         </action>
         <action name="userBindingSubmit" class="actions.wechat.WechatUserAction" method="bindingSubmit">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
-            <result name="success">/pages/wechat/userBinding.jsp</result>
+            <result name="success">/pages/wechat/userBindingSuccess.jsp</result>
+            <result name="error">/pages/wechat/userBinding.jsp</result>
         </action>
     </package>
     <include file="struts-backend.xml"></include>

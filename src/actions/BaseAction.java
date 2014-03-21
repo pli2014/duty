@@ -4,6 +4,7 @@
 package actions;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;

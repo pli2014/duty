@@ -38,27 +38,27 @@ public class UserServiceAction extends BaseAction {
   private long totalHours;
   private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
 
-    public int getType() {
-        return type;
-    }
+  public int getType() {
+      return type;
+  }
 
-    public void setType(int type) {
-        this.type = type;
-    }
+  public void setType(int type) {
+      this.type = type;
+  }
 
-    ActiveUserBean aub = null;
+  ActiveUserBean aub = null;
   List<ServicePlaceBean> servicePlaceBeans = null;
   HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
-    public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
-        return servicePlaceVolunteer;
-    }
+  public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
+      return servicePlaceVolunteer;
+  }
 
-    public List<ServicePlaceBean> getServicePlaceBeans() {
-        return servicePlaceBeans;
-    }
+  public List<ServicePlaceBean> getServicePlaceBeans() {
+      return servicePlaceBeans;
+  }
 
-    public String getList(){
+  public String getList(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     if(null != user){
       userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();

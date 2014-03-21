@@ -1,5 +1,7 @@
 package wechat.usermanagement;
 
+import java.util.List;
+
 /**
  * Created by wangronghua on 14-3-20.
  */
@@ -14,6 +16,7 @@ public class UserInfo {
   private String country;
   private long subscribe_time;
   private String headimgurl;
+  private List privilege;
 
   public String getHeadimgurl() {
     return headimgurl;
@@ -93,6 +96,15 @@ public class UserInfo {
 
   public void setSubscribe_time(long subscribe_time) {
     this.subscribe_time = subscribe_time;
+  }
+
+
+  public List getPrivilege() {
+    return privilege;
+  }
+
+  public void setPrivilege(List privilege) {
+    this.privilege = privilege;
   }
 
 

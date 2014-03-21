@@ -28,6 +28,8 @@ public class VolunteerBean extends Bean {
   private String qq;
   private String email;
   private String cellPhone;
+
+  private String openID;
   private String wechat;
   private String iconpath;
 
@@ -167,4 +169,12 @@ public class VolunteerBean extends Bean {
     this.workAddress = workAddress;
   }
 
+
+  public String getOpenID() {
+    return openID;
+  }
+
+  public void setOpenID(String openID) {
+    this.openID = openID;
+  }
 }

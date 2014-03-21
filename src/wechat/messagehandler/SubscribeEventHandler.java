@@ -38,7 +38,7 @@ public class SubscribeEventHandler implements EventHandler {
   public void handle(BaseMessage message) {
     try {
       ServiceMessage response = new TextServiceMessage(message.getFromUserName(),
-          String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"))));
+          String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo")));
       ServiceMessageUtils.sendMessage(response);
     } catch (UnsupportedEncodingException e) {
       LOG.error(e.getMessage());

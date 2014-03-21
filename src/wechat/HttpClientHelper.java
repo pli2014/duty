@@ -37,7 +37,7 @@ public class HttpClientHelper {
     HttpGet httpget = new HttpGet(url);
     try {
       HttpResponse response = httpclient.execute(httpget);
-      String resultStr = EntityUtils.toString(response.getEntity());
+      String resultStr = EntityUtils.toString(response.getEntity(), "UTF-8");
       JSONObject object = JSONObject.fromObject(resultStr);
       resultMap = (Map)JSONObject.toBean(object, Map.class);
     } catch (IOException e) {
@@ -58,7 +58,7 @@ public class HttpClientHelper {
     HttpGet httpget = new HttpGet(url);
     try {
       HttpResponse response = httpclient.execute(httpget);
-      resultStr = EntityUtils.toString(response.getEntity());
+      resultStr = EntityUtils.toString(response.getEntity(), "UTF-8");
     } catch (IOException e) {
       LOG.error(e.getMessage());
     } finally {
