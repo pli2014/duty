@@ -108,6 +108,18 @@
 		</action>
 	</package>
     
+    <package name="backendVerify" namespace="/backend/volunteerVerify" extends="default-backend">
+        <action name="index" class="actions.backend.BackendVolunteerVerifyAction" method="index"/>
+		<action name="initTable" class="actions.backend.BackendVolunteerVerifyAction" method="initTable"/>
+		<action name="queryTable" class="actions.backend.BackendVolunteerVerifyAction" method="queryTable"/>
+	</package>
+	
+	<package name="backendInterview" namespace="/backend/volunteerInterview" extends="default-backend">
+        <action name="index" class="actions.backend.BackendVolunteerInterviewAction" method="index"/>
+		<action name="initTable" class="actions.backend.BackendVolunteerInterviewAction" method="initTable"/>
+		<action name="queryTable" class="actions.backend.BackendVolunteerInterviewAction" method="queryTable"/>
+	</package>
+	
     <package name="serviceplace" namespace="/backend/serviceplace" extends="default-backend">
         <action name="serviceplacelist" class="actions.backend.BackendServicePlaceAction" method="servicePlaceList">
             <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
