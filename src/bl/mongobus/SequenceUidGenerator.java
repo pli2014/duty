@@ -18,7 +18,7 @@ public class SequenceUidGenerator {
     /** The list of maximum UIDs that can be used. */
     private static Map<String, UidHashItemInner> uidHash = new HashMap<String, UidHashItemInner>();
     /** The number of UIDs to allocate at a time. */
-    private static long UID_ALLOCATION_SIZE = 3;
+    private static long UID_ALLOCATION_SIZE = 100;
 
     /**
      * 

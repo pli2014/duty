@@ -19,6 +19,7 @@
    </h1>
    <h2 id="__table__">登录</h2>
   <div  class="example logininfo" >
+    <label id="console_message" style="color:red;font-size:20px"></label>
     <form id="loginForm" action="<%=request.getContextPath() %>/login.action" method="post">
       <fieldset>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
@@ -35,7 +36,7 @@
           </div>
           
           <input type="submit" value="登录"/>
-          <input type="button" value="指纹登录"/>
+          <input type="button" value="指纹登录" onclick="beginVerify()"/>
           <div style="margin-top: 20px">
           </div>
       </fieldset>
@@ -47,7 +48,7 @@
     $(document).ready(function() {
         $("#loginForm").validate({
             messages:{
-                'volunteer.name': {
+                'volunteer.code': {
                     required: "请输入姓名"
                 },
                 'volunteer.password': {
@@ -57,5 +58,21 @@
         }); 
     });
     </script>
+
+   <script>
+       window.figureNumber = [];
+      <s:iterator value="volunteerCodes" var="index">
+       window.figureNumber.push({code:"<s:property value="#index[0]"/>",md5:"<s:property value="#index[1]"/>"});
+      </s:iterator>
+      function  printMessage(message){
+          jQuery("#console_message").html(message);
+      }
+      function callBackSubmit(code,md5){
+          jQuery("[name='volunteer.code']").val(code);
+          jQuery("[name='volunteer.password']").val(md5);
+          jQuery("form").submit();
+      }
+   </script>
+   <%@include file="../finger_function/fingerverification.jsp"%>
 </body>
 </html>

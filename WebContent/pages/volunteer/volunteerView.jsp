@@ -10,14 +10,18 @@
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="img/favicon.png">
 
-   <style type="text/css">
-	.metro .volunteerinfo:before {
-       content: "个人信息";
-     }
+    <style type="text/css">
+        .metro .volunteerinfo:before {
+            content: "个人信息";
+        }
+        .metro .face:before {
+            content: "个人头像";
+        }
     </style>
 <!--external css-->
 <title>我的注册</title>
 </head>
+
 <body class="metro">
   <div class="container">
    <h1>

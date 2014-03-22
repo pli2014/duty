@@ -10,10 +10,13 @@
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="img/favicon.png">
 
-   <style type="text/css">
-	.metro .volunteerinfo:before {
-       content: "个人信息";
-     }
+    <style type="text/css">
+        .metro .volunteerinfo:before {
+            content: "个人信息";
+        }
+        .metro .face:before {
+            content: "个人头像";
+        }
     </style>
 <!--external css-->
 <title>
@@ -37,8 +40,17 @@
       </s:else><small class="on-right"></small>
    </h1>
    <h2 id="__table__">个人信息</h2>
-   <div class="example volunteerinfo">
+    <div  style="width: 360px;margin-right:10px; float: left;">
+    <div class="example face" >
+        <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
+    </div>
+    <div id="cameraDialog"  style="margin-top: -30px;">
+        <%@ include file="../frontend_service/flashcamera.jsp" %>
+    </div>
+    </div>
+    <div class="example volunteerinfo" style=" float: left;">
     <form id="volunteerForm" action="volunteer/save.action" method="post">
+      <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
       <fieldset>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
 
@@ -50,7 +62,7 @@
           </div>
       </fieldset>
   </form>
- </div>
+  </div>
  </div>
  <%@ include file="volunteerFieldsValidation.jsp"%> 
   <s:if test="volunteer.id.length() > 0">

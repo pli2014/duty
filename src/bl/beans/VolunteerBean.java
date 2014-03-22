@@ -32,8 +32,17 @@ public class VolunteerBean extends Bean {
   private String openID;
   private String wechat;
   private String iconpath;
+  private String fingerpath;
 
-  public String getIconpath() {
+    public String getFingerpath() {
+        return fingerpath;
+    }
+
+    public void setFingerpath(String fingerpath) {
+        this.fingerpath = fingerpath;
+    }
+
+    public String getIconpath() {
     return iconpath;
   }
 

@@ -29,8 +29,17 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
   private static final long serialVersionUID = 2565111276150636692L;
   private VolunteerBean volunteer;
   private String oldPassword;
+  private String[][] volunteerCodes = null;
 
-  public VolunteerBean getVolunteer() {
+    public String[][] getVolunteerCodes() {
+        return volunteerCodes;
+    }
+
+    public void setVolunteerCodes(String[][] volunteerCodes) {
+        this.volunteerCodes = volunteerCodes;
+    }
+
+    public VolunteerBean getVolunteer() {
     return volunteer;
   }
 
@@ -57,9 +66,23 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
       if (userTmp != null && StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
         getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
         return SUCCESS;
-      } else {
+      } else if(userTmp != null && volunteer.getPassword().equals(userTmp.getPassword())){
+          //这是通过指纹的方式拿到MD5密码然后登陆，类似于token
+          getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+          return SUCCESS;
+      }else {
         addActionError("密码错误");
       }
+    }else{
+        List<VolunteerBean> volunteers = (List<VolunteerBean>)getBusiness().getAllLeaves().getResponseData();
+        String[][] vols = new String[volunteers.size()][2];
+        int i=0;
+        for(VolunteerBean vt:volunteers){
+            vols[i][0]= vt.getCode();
+            vols[i][1]= vt.getPassword();
+            i++;
+        }
+        this.volunteerCodes = vols;
     }
     return FAILURE;
   }
