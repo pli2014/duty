@@ -85,7 +85,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     if (model == null) {
       model = new TableQueryVo();
     }
-    model.getFilter().put("isDeleted", false);
+    model.getFilter().put("isDeleted_!=", true);
     return model;
   }
 
