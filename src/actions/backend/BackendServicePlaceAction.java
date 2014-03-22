@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by peter on 14-3-14.
  */
-public class BackendServicePlaceAction extends ActionSupport {
+public class BackendServicePlaceAction extends BaseBackendAction {
     List<ServicePlaceBean> servicePlaces = null;
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);

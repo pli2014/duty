@@ -81,6 +81,9 @@
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		   <result name="failure">/pages/user/backendChangePwd.jsp</result>
 		</action>
+		<action name="resetPassword" class="actions.backend.BackendUserAction" method="resetPassword">
+		   <result name="success">/pages/user/backendUserEdit.jsp</result>
+		</action>
 	</package>
 
     <package name="backendVolunteer" namespace="/backend/volunteer" extends="default-backend">
@@ -99,6 +102,9 @@
 		</action>
 		<action name="delete" class="actions.backend.BackendVolunteerAction" method="delete">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+		</action>
+		<action name="resetPassword" class="actions.backend.BackendVolunteerAction" method="resetPassword">
+		   <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
 	</package>
     

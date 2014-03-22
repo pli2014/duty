@@ -62,16 +62,6 @@
                           <%--<li><a  href="boxed_page.html">工时排名</a></li>--%>
                       </ul>
                   </li>
-                  <li class="sub-menu">
-                      <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
-                          <span>打印</span>
-                      </a>
-                      <ul class="sub">
-                          <li><a  href="boxed_page.html">打印临时工牌</a></li>
-                          <li><a  href="boxed_page.html">打印。。。</a></li>
-                      </ul>
-                  </li>
                   <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                       <li class="sub-menu">
                           <a href="javascript:;">

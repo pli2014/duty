@@ -17,6 +17,7 @@ import vo.table.TableInitVo;
 import webapps.WebappsConstants;
 import actions.BaseTableAction;
 import bl.beans.BackendUserBean;
+import bl.beans.VolunteerBean;
 import bl.mongobus.BackendUserBusiness;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -27,7 +28,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  * @author gudong
  * @since $Date:2014-02-10$
  */
-public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
+public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   /**
    * 
    */
@@ -70,6 +71,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
         return FAILURE;
       } else {
         user.set_id(ObjectId.get());
+        user.setPassword(StringUtil.toMD5(user.getPassword()));
         getBusiness().createLeaf(user);
       }
     } else {
@@ -84,7 +86,6 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   @Override
   public String edit() throws Exception {
     user = (BackendUserBean) getBusiness().getLeaf(getId()).getResponseData();
-    getSession().setAttribute("dataId", user.getId());
     return SUCCESS;
   }
 
@@ -172,6 +173,22 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
     return FAILURE;
   }
 
+  /**
+   * 
+   * @return
+   */
+  public String resetPassword() {
+    user = (BackendUserBean) getBusiness().getLeaf(getId()).getResponseData();
+    if (user != null) {
+      user.setPassword(StringUtil.toMD5(user.getName()));
+      getBusiness().updateLeaf(user, user);
+      addActionMessage("密码重置成功！");
+    } else {
+      addActionMessage("获取用户失败！重置密码失败！");
+    }
+    return SUCCESS;
+  }
+  
   private void eraseCookie(HttpServletRequest req, HttpServletResponse resp) {
     Cookie[] cookies = req.getCookies();
     if (cookies != null)

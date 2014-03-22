@@ -48,6 +48,12 @@
                         required="required" value="${volunteer.name}"/>
              </div>
          </div> 
+         <div class="form-group has-success">
+             <label class="col-lg-2 control-label">工号</label>
+             <div class="col-lg-10">
+                 <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="readonly" class="form-control" />
+             </div>
+         </div>
          <s:if test="volunteer.id.length() > 0">
          </s:if>
         <s:else>
@@ -123,7 +129,10 @@
          <div class="form-group">
              <div class="col-lg-offset-2 col-lg-10">
                  <button class="btn btn-danger" type="submit">保存</button>
-                 <button class="btn btn-danger" type="button" onclick="history.go(-1);">取消</button>
+                 <s:if test="volunteer.id.length() > 0">
+                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
+                 </s:if>
+                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
              </div>
          </div>
          

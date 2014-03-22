@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by peter on 14-3-14.
  */
-public class BackendTrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
+public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusiness> {
   List<TrainCourseBean> trainCourses = null;
   TrainCourseBean trainCourse = null;
   List<TrainCourseServicePlaceBean> trainCourseServicePlaces = null;
