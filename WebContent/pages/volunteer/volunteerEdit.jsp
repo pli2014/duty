@@ -10,10 +10,13 @@
 	content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 <link rel="shortcut icon" href="img/favicon.png">
 
-   <style type="text/css">
-	.metro .volunteerinfo:before {
-       content: "个人信息";
-     }
+    <style type="text/css">
+        .metro .volunteerinfo:before {
+            content: "个人信息";
+        }
+        .metro .face:before {
+            content: "个人头像";
+        }
     </style>
 <!--external css-->
 <title>
@@ -25,9 +28,16 @@
       </s:else>
 </title>
 </head>
-<body class="metro" style="padding-left: 50%;padding-top: 20px;">
-   <div class="example volunteerinfo" style="width: 500px;margin-left: -250px;">
+<body class="metro" style="padding: 10px;">
+    <div class="example face" style="width: 30%;float: left;">
+        <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
+    </div>
+    <div id="cameraDialog" style="position:absolute;left:3px;top:260px">
+        <%@ include file="../frontend_service/flashcamera.jsp" %>
+    </div>
+   <div class="example volunteerinfo" style="width: 60%;float: left;margin-left: 40px;">
     <form id="volunteerForm" action="volunteer/save.action" method="post">
+      <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
       <fieldset>
           <legend>个人信息</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>

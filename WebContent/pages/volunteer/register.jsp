@@ -5,18 +5,6 @@
 
      <script>
 
-         (function($) {
-             jQuery.fn.center = function () {
-                 this.css('position','absolute');
-                 this.css('top', ( $(window).height() - this.height() ) / +$(window).scrollTop() + 'px');
-                 this.css('left', ( $(window).width() - this.width() ) / 2+$(window).scrollLeft() + 'px');
-                 return this;
-             }
-         })(jQuery);
-         jQuery("#cameraDialog").css('display','');
-         jQuery("#cameraDialog").center();
-
-         
          function submitConfirm(){
         	 var s = '请牢记你的工号：' + $("input[name='volunteer.code']").val() + ',这将做为你的登录凭证！';
         	 return confirm(s);
@@ -29,7 +17,7 @@
        content: "个人信息";
      }
      .metro .face:before {
-       content: "上传头像";
+       content: "个人头像";
      }
     </style>
     <title>注册新用户</title>
@@ -38,10 +26,10 @@
     <div class="example face" style="width: 30%;float: left;">
       <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
     </div>
-    <div id="cameraDialog" style="position:absolute;left:20px;top:260px">
+    <div id="cameraDialog" style="position:absolute;left:3px;top:260px">
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
-    <div class="example volunteerinfo" style="width: 70%;float: left;">
+    <div class="example volunteerinfo" style="width: 60%;float: left;margin-left: 40px;">
        <form  id="volunteerForm" action="register.action" method="post" onsubmit="return submitConfirm();">
            <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
            <fieldset>

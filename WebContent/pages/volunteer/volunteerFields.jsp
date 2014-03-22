@@ -17,7 +17,7 @@
     </script>
     <%@include file="../finger_function/fingerregister.jsp"%>
 </div>
-<input id="fingerpath" name="volunteer.fingerpath" type="hidden">
+<input id="fingerpath" name="volunteer.fingerpath" type="hidden" value="${volunteer.fingerpath}">
 <input name="volunteer.id" class="btn-reveal" type="button" value="指纹录入" onclick="beginRegister()">
 
 <label>姓名</label>
