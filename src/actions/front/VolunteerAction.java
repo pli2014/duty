@@ -14,6 +14,7 @@ import util.ServerContext;
 import util.StringUtil;
 import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
+import bl.common.BusinessResult;
 import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.VolunteerBusiness;
 
@@ -118,15 +119,18 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String save() throws Exception {
-    if (StringUtils.isBlank(volunteer.getId())) {
-      volunteer.set_id(ObjectId.get());
-      volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-      getBusiness().createLeaf(volunteer);
-    } else {
-      VolunteerBean origUser = (VolunteerBean) getBusiness().getLeaf(volunteer.getId().toString()).getResponseData();
-      volunteer.setPassword(origUser.getPassword());
-      BeanUtils.copyProperties(origUser, volunteer);
-      getBusiness().updateLeaf(origUser, origUser);
+    BusinessResult result = getBusiness().save(volunteer);
+    if (result.getErrors().size() > 0) {
+      for (Object error : result.getErrors()) {
+        addActionError(error.toString());
+      }
+      return FAILURE;
+    }
+    if (result.getMessages().size() > 0) {
+      for (Object message : result.getMessages()) {
+        addActionMessage(message.toString());
+      }
+      return SUCCESS;
     }
     return SUCCESS;
   }

@@ -3,18 +3,18 @@
  */
 package actions.backend;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
+import util.ServerContext;
+import util.StringUtil;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
-import actions.BaseTableAction;
+import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
+import bl.common.BusinessResult;
+import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.VolunteerBusiness;
 
 import com.opensymphony.xwork2.util.logging.Logger;
@@ -60,6 +60,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("name", "志愿者"));
+    init.getAoColumns().add(new TableHeaderVo("code", "工号"));
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
     init.getAoColumns().add(new TableHeaderVo("registerFrom", "注册来源"));
     init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
@@ -71,30 +72,18 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String save() throws Exception {
-    if (volunteer != null) {
-      VolunteerBean volunteerTmp = (VolunteerBean) getBusiness().getLeafByName(volunteer.getName()).getResponseData();
-      if (volunteerTmp != null) {
-        addActionError(getText("volunteerExsited"));
-        return FAILURE;
-      } else {
-        Map filter = new HashMap();
-        filter.put("identityCard", volunteer.getIdentityCard());
-
-        List result = getBusiness().queryDataByCondition(filter, null);
-        if (result != null && result.size() > 0 && !volunteerTmp.getName().equals(volunteer.getName())) {
-          addActionError(getText("idregistered"));
-          return FAILURE;
-        }
+    BusinessResult result = getBusiness().save(volunteer);
+    if (result.getErrors().size() > 0) {
+      for (Object error : result.getErrors()) {
+        addActionError(error.toString());
       }
+      return FAILURE;
     }
-    if (StringUtils.isBlank(volunteer.getId())) {
-      volunteer.set_id(ObjectId.get());
-      getBusiness().createLeaf(volunteer);
-    } else {
-      VolunteerBean origUser = (VolunteerBean) getBusiness().getLeaf(volunteer.getId().toString()).getResponseData();
-      volunteer.setPassword(origUser.getPassword());
-      BeanUtils.copyProperties(origUser, volunteer);
-      getBusiness().updateLeaf(origUser, origUser);
+    if (result.getMessages().size() > 0) {
+      for (Object message : result.getMessages()) {
+        addActionMessage(message.toString());
+      }
+      return SUCCESS;
     }
     return SUCCESS;
   }
@@ -102,7 +91,6 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   @Override
   public String edit() throws Exception {
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
-    getSession().setAttribute("dataId", volunteer.getId());
     return SUCCESS;
   }
 
@@ -113,6 +101,29 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
         getBusiness().deleteLeaf(id);
       }
     }
+    return SUCCESS;
+  }
+
+  /**
+   * 
+   * @return
+   */
+  public String resetPassword() {
+    volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    if (volunteer != null) {
+      volunteer.setPassword(StringUtil.toMD5(volunteer.getCode()));
+      getBusiness().updateLeaf(volunteer, volunteer);
+      addActionMessage("密码重置成功！");
+    } else {
+      addActionMessage("获取用户失败！重置密码失败！");
+    }
+    return SUCCESS;
+  }
+
+  @Override
+  public String add() {
+    volunteer = new VolunteerBean();
+    volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
     return SUCCESS;
   }
 }
