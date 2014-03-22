@@ -1,7 +1,7 @@
 package wechat.servicemessage;
 
 import net.sf.json.JSONObject;
-import wechat.accessmanagement.AccessTokenManager;
+import wechat.access.AccessTokenManager;
 import wechat.HttpClientHelper;
 import wechat.utils.URLManager;
 

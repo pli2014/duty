@@ -2,12 +2,14 @@ package wechat.menu;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
-import wechat.accessmanagement.AccessTokenManager;
+import util.ServerContext;
+import wechat.access.AccessTokenManager;
 import wechat.utils.Constants;
 import wechat.HttpClientHelper;
 import wechat.utils.URLManager;
 
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -15,6 +17,10 @@ import java.util.Map;
  */
 public class MenuUtils {
   protected final static Logger LOG = LoggerFactory.getLogger(HttpClientHelper.class);
+
+  public static String getRedirectUrl(String url) throws UnsupportedEncodingException {
+    return ServerContext.getValue("domainname") + "/wechat/redirect.action?url=" + URLEncoder.encode(url, "UTF-8");
+  }
 
   public static boolean create(InputStream in) {
     Map resultMap = HttpClientHelper.post(URLManager.getUrl_MenuCreate(AccessTokenManager.getToken()), in);

@@ -1,8 +1,8 @@
 package wechat.utils;
 
-import wechat.messagehandler.EventHandler;
-import wechat.messagehandler.MessageBus;
-import wechat.messagehandler.SubscribeEventHandler;
+import wechat.message.EventHandler;
+import wechat.message.MessageBus;
+import wechat.message.SubscribeEventHandler;
 
 /**
  * Created by wangronghua on 14-3-19.

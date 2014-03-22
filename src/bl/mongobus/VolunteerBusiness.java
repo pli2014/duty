@@ -45,6 +45,24 @@ public class VolunteerBusiness extends
 			return null;
 		}
 	}
-	
+
+  /**
+   * 通过工号获取志愿者
+   *
+   * @param openID
+   *            工号
+   * @return
+   */
+  public VolunteerBean getVolunteerBeanByOpenID(String openID) {
+    Map filter = new HashMap();
+    filter.put("openID", openID);
+
+    List<VolunteerBean> result = super.queryDataByCondition(filter, null);
+    if (result != null && result.size() > 0) {
+      return result.get(0);
+    } else {
+      return null;
+    }
+  }
 	
 }

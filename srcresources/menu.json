@@ -6,17 +6,17 @@
                 {
                     "type":"view",
                     "name":"服务签入",
-                    "url":"http://www.baidu.com"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FcheckIn.action"
                 },
                 {
                     "type":"view",
                     "name":"服务签出",
-                    "url":"http://www.baidu.com"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FcheckOut.action"
                 },
                 {
                     "type":"view",
                     "name":"谁在这里",
-                    "url":"http://www.baidu.com"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FpeopleHere.action"
                 }]
         },
         {
@@ -25,22 +25,22 @@
                 {
                     "type":"click",
                     "name":"我的工时",
-                    "key":"ME_TIMECARD"
+                    "key":"MY_TIMECARD"
                 },
                 {
                     "type":"view",
                     "name":"我的荣誉",
-                    "url":"http://v.qq.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyHonour.action"
                 },
                 {
                     "type":"view",
                     "name":"我的培训",
-                    "url":"http://v.qq.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyTraining.action"
                 },
                 {
                     "type":"view",
                     "name":"我的资料",
-                    "url":"http://v.qq.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyData.action"
                 }]
         },
         {
@@ -49,22 +49,22 @@
                 {
                     "type":"view",
                     "name":"志愿者招募",
-                    "url":"http://www.soso.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FvolunteerRecruit.action"
                 },
                 {
                     "type":"view",
                     "name":"我的建议",
-                    "url":"http://www.soso.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyAdvise.action"
                 },
                 {
                     "type":"view",
                     "name":"当前活动",
-                    "url":"http://v.qq.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FcurrentActivity.action"
                 },
                 {
                     "type":"view",
                     "name":"服务介绍",
-                    "url":"http://v.qq.com/"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FserviceDescription.action"
                 }]
         }]
 }

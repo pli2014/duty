@@ -4,10 +4,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import wechat.messagehandler.DefaultMessageHandler;
-import wechat.messagehandler.MessageBus;
-import wechat.messagehandler.MessageHandler;
-import wechat.requestbean.*;
+import wechat.message.DefaultMessageHandler;
+import wechat.message.MessageBus;
+import wechat.message.MessageHandler;
+import wechat.request.*;
 import wechat.utils.Constants;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package wechat;
 
-import wechat.messagehandler.MessageHandler;
+import wechat.message.MessageHandler;
 
 import java.util.Map;
 

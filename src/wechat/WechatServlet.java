@@ -7,7 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import util.ServerContext;
-import wechat.accessmanagement.AccessValidator;
+import wechat.access.AccessValidator;
 import wechat.utils.Constants;
 import wechat.utils.WechatContext;
 

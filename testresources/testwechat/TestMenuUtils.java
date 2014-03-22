@@ -4,10 +4,13 @@ import util.ServerContext;
 import wechat.menu.MenuUtils;
 import wechat.menu.WechatButton;
 import wechat.menu.WechatMenu;
+import wechat.utils.URLManager;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +18,7 @@ import java.util.List;
  * Created by wangronghua on 14-3-18.
  */
 public class TestMenuUtils {
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
     FileInputStream f = new FileInputStream(new File("/Users/wangronghua/workspace/duty/srcresources/server.properties"));
     ServerContext.init(f);
 
@@ -26,12 +29,12 @@ public class TestMenuUtils {
     WechatButton subbutton11 = new WechatButton();
     subbutton11.setName("服务签入");
     subbutton11.setType("view");
-    subbutton11.setUrl("http://www.baidu.com");
+    subbutton11.setUrl(MenuUtils.getRedirectUrl("/wechat/checkIn.action"));
 
     WechatButton subbutton12 = new WechatButton();
     subbutton12.setName("服务签出");
     subbutton12.setType("view");
-    subbutton12.setUrl("http://www.baidu.com");
+    subbutton11.setUrl(MenuUtils.getRedirectUrl("/wechat/checkOut.action"));
 
     WechatButton subbutton13 = new WechatButton();
     subbutton13.setName("谁在这里");
@@ -80,7 +83,7 @@ public class TestMenuUtils {
     subbutton33.setUrl("http://www.baidu.com");
 
     WechatButton subbutton34 = new WechatButton();
-    subbutton34.setName("服务介绍1");
+    subbutton34.setName("服务介绍");
     subbutton34.setType("view");
     subbutton34.setUrl("http://www.baidu.com");
 
@@ -104,6 +107,6 @@ public class TestMenuUtils {
     buttonList.add(button3);
 
     menu.setButton(buttonList);
-    MenuUtils.create(menu);
+    MenuUtils.create(new File("/Users/wangronghua/workspace/duty/srcresources/menu.json"));
   }
 }

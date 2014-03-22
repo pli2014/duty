@@ -6,11 +6,10 @@ import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.VolunteerBusiness;
 import util.StringUtil;
-import webapps.WebappsConstants;
-import wechat.accessmanagement.AccessTokenManager;
-import wechat.accessmanagement.AccessToken;
-import wechat.usermanagement.UerManager;
-import wechat.usermanagement.UserInfo;
+import wechat.access.AccessTokenManager;
+import wechat.access.AccessToken;
+import wechat.user.UerManager;
+import wechat.user.UserInfo;
 
 /**
  * Created by wangronghua on 14-3-19.
@@ -39,7 +38,7 @@ public class WechatUserAction extends BaseAction {
   }
 
   public String bindingSubmit() {
-    VolunteerBean userTmp = (VolunteerBean) vb.getLeafByName(userName).getResponseData();
+    VolunteerBean userTmp = vb.getVolunteerBeanByCode(userName);
     if (userTmp != null && password != null && identityCardNumber != null
             && StringUtil.toMD5(password).equals(userTmp.getPassword())
             && identityCardNumber.equals(userTmp.getIdentityCard())) {
