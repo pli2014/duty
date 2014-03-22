@@ -49,7 +49,7 @@
         $("#loginForm").validate({
             messages:{
                 'volunteer.code': {
-                    required: "请输入姓名"
+                    required: "请输入工号"
                 },
                 'volunteer.password': {
                     required: "请输入密码"
