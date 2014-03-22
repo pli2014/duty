@@ -1,4 +1,4 @@
-package actions;
+package actions.backend;
 
 import java.util.List;
 
@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
+import actions.BaseTableAction;
 import bl.beans.ServicePlaceBean;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;

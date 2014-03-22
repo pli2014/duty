@@ -21,7 +21,7 @@
             <exception-mapping exception="java.lang.Exception" result="error" />
         </global-exception-mappings>
 
-        <action name="login" class="actions.VolunteerAction" method="login">
+        <action name="login" class="actions.front.VolunteerAction" method="login">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success" type="redirectAction">
                 <param name="namespace">/</param>
@@ -29,7 +29,7 @@
             </result>
             <result name="failure">/pages/menu_loginout/login.jsp</result>
         </action>
-        <action name="logout" class="actions.VolunteerAction" method="logout">
+        <action name="logout" class="actions.front.VolunteerAction" method="logout">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success" type="redirectAction">
                 <param name="namespace">/</param>
@@ -37,7 +37,7 @@
             </result>
         </action>
 
-        <action name="register" class="actions.VolunteerAction" method="register">
+        <action name="register" class="actions.front.VolunteerAction" method="register">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="failure">/pages/volunteer/register.jsp</result>
             <result name="success" type="redirectAction">
@@ -129,16 +129,16 @@
     </package>
 
     <package name="volunteer" namespace="/volunteer" extends="default">
-        <action name="view" class="actions.VolunteerAction" method="view">
+        <action name="view" class="actions.front.VolunteerAction" method="view">
             <result name="success">/pages/volunteer/volunteerView.jsp</result>
         </action>
-        <action name="add" class="actions.VolunteerAction" method="add">
+        <action name="add" class="actions.front.VolunteerAction" method="add">
             <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
-        <action name="edit" class="actions.VolunteerAction" method="edit">
+        <action name="edit" class="actions.front.VolunteerAction" method="edit">
             <result name="success">/pages/volunteer/volunteerEdit.jsp</result>
         </action>
-        <action name="save" class="actions.VolunteerAction" method="save">
+        <action name="save" class="actions.front.VolunteerAction" method="save">
             <result name="success" type="redirectAction">
                 <param name="namespace">/</param>
                 <param name="actionName">index</param>
@@ -148,25 +148,25 @@
 
     <package name="userFront" namespace="/userFront" extends="default">
 
-        <action name="getCheckInRecords" class="actions.UserServiceAction" method="getList">
+        <action name="getCheckInRecords" class="actions.front.UserServiceAction" method="getList">
             <result name="success">/pages/menu_volunteer/checkInRecords.jsp</result>
         </action>
-        <action name="checkIn" class="actions.UserServiceAction" method="checkIn">
+        <action name="checkIn" class="actions.front.UserServiceAction" method="checkIn">
             <result name="success">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
-        <action name="checkInSubmit" class="actions.UserServiceAction" method="checkInSubmit">
+        <action name="checkInSubmit" class="actions.front.UserServiceAction" method="checkInSubmit">
             <result name="success" type="redirectAction">getCheckInRecords</result>
             <result name="error">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
-        <action name="checkOut" class="actions.UserServiceAction" method="checkOut">
+        <action name="checkOut" class="actions.front.UserServiceAction" method="checkOut">
             <result name="success" type="redirectAction">getCheckInRecords</result>
         </action>
 
-        <action name="myTimeReport" class="actions.UserServiceAction" method="getMyTimeReport">
+        <action name="myTimeReport" class="actions.front.UserServiceAction" method="getMyTimeReport">
             <result name="success">/pages/menu_volunteer/myTimeReport.jsp</result>
         </action>
 
-        <action name="whoishere" class="actions.UserServiceAction" method="whoIsHere">
+        <action name="whoishere" class="actions.front.UserServiceAction" method="whoIsHere">
             <result name="success0">/pages/menu_whoishere/whoishere.jsp</result>
             <result name="success1">/pages/menu_whoishere/whoisheremap.jsp</result>
         </action>
@@ -179,13 +179,13 @@
     </package>
 
     <package name="trainCourse" namespace="/trainCourse" extends="default">
-        <action name="index" class="actions.TrainCourseAction" method="index">
+        <action name="index" class="actions.front.TrainCourseAction" method="index">
             <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
         </action>
-        <action name="initTable" class="actions.TrainCourseAction" method="initTable"/>
-        <action name="queryTable" class="actions.TrainCourseAction" method="queryTable"/>
-        <action name="queryMyTrainCourse" class="actions.TrainCourseAction" method="queryMyTrainCourse"/>
-        <action name="receive" class="actions.TrainCourseAction" method="receive">
+        <action name="initTable" class="actions.front.TrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.front.TrainCourseAction" method="queryTable"/>
+        <action name="queryMyTrainCourse" class="actions.front.TrainCourseAction" method="queryMyTrainCourse"/>
+        <action name="receive" class="actions.front.TrainCourseAction" method="receive">
             <result name="success" type="redirectAction">index</result>
         </action>
     </package>

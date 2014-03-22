@@ -1,4 +1,4 @@
-package actions;
+package actions.front;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +23,7 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
 /**
  * Created by peter on 14-3-14.
  */
-public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
+public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
 
 	@Override
 	public String getActionPrex() {
@@ -38,14 +38,9 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
 	@Override
 	public TableInitVo getTableInit() {
 		TableInitVo init = new TableInitVo();
-		init.getAoColumns().add(
-				new TableHeaderVo("name", "课程名称").disableSearch());
-		init.getAoColumns()
-				.add(new TableHeaderVo("status", "状态").addSearchOptions(
-						new String[][] { { "-1", "0", "1", "2" },
-								{ "----", "创建", "开始", "完成" } }).disableSearch());
-		init.getAoColumns().add(
-				new TableHeaderVo("description", "描述", false).disableSearch());
+		init.getAoColumns().add(new TableHeaderVo("name", "课程名称"));
+		init.getAoColumns().add(new TableHeaderVo("status", "状态"));
+		init.getAoColumns().add(new TableHeaderVo("description", "描述", false));
 		return init;
 	}
 
@@ -65,8 +60,7 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
 	public String queryMyTrainCourse() throws Exception {
 		TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
 		VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-		VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(
-				WebappsConstants.LOGIN_USER_SESSION_ID);
+		VolunteerBean volunteer = getLoginedVolunteer();
 
 		TableQueryVo volunteerTrainCourseModel = new TableQueryVo();
 		volunteerTrainCourseModel.getFilter().put("volunteerId",
@@ -155,7 +149,8 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
 			ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList
 					.size()];
 			for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
-				trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
+				trainCourseId[i] = volunteerTrainCourseList.get(i)
+						.getTraincourseId();
 			}
 			getModel().getFilter().put("_id_nin", trainCourseId);
 		}

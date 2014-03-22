@@ -1,4 +1,4 @@
-package actions;
+package actions.front;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +15,7 @@ import org.bson.types.ObjectId;
 import util.ServerContext;
 import util.StringUtil;
 import webapps.WebappsConstants;
+import actions.BaseAction;
 import bl.beans.VolunteerBean;
 import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.VolunteerBusiness;
@@ -89,16 +90,18 @@ public class VolunteerAction extends BaseAction {
 	 * @return
 	 */
 	public String login() {
-		VolunteerBean userTmp = getBusiness().getVolunteerBeanByCode(
-				volunteer.getCode());
-		if (userTmp != null
-				&& StringUtil.toMD5(volunteer.getPassword()).equals(
-						userTmp.getPassword())) {
-			getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID,
-					userTmp);
-			return SUCCESS;
-		} else {
-			addActionError("密码错误");
+		if (volunteer != null) {
+			VolunteerBean userTmp = getBusiness().getVolunteerBeanByCode(
+					volunteer.getCode());
+			if (userTmp != null
+					&& StringUtil.toMD5(volunteer.getPassword()).equals(
+							userTmp.getPassword())) {
+				getSession().setAttribute(
+						WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+				return SUCCESS;
+			} else {
+				addActionError("密码错误");
+			}
 		}
 		return FAILURE;
 	}

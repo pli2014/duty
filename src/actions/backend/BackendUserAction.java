@@ -1,7 +1,7 @@
 /**
  * 
  */
-package actions;
+package actions.backend;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +15,7 @@ import util.StringUtil;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import webapps.WebappsConstants;
+import actions.BaseTableAction;
 import bl.beans.BackendUserBean;
 import bl.mongobus.BackendUserBusiness;
 

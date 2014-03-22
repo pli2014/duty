@@ -1,5 +1,6 @@
-package actions;
+package actions.backend;
 
+import actions.BaseTableAction;
 import bl.beans.ServicePlaceBean;
 import bl.beans.TrainCourseBean;
 import bl.beans.TrainCourseServicePlaceBean;

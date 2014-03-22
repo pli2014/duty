@@ -74,13 +74,10 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 	public BusinessResult deleteLeaf(String objectId) {
 		Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
 		BusinessResult br = new BusinessResult();
-		Object obj = this.getLeaf(objectId).getResponseData();
+		Bean obj = (Bean)this.getLeaf(objectId).getResponseData();
 		if (obj != null) {
-			WriteResult wr = dc.delete(obj);
-			if (wr.getError() != null) {
-				throw new MiServerException.General("error.mongodb.writedata",
-						wr.getError());
-			}
+			obj.setIsDeleted(true);
+			updateLeaf(obj, obj);
 		}
 
 		return br;

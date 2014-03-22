@@ -18,7 +18,7 @@ public class TableHeaderVo {
   private String sClass = ""; // if you want to support mobile, please use 'hidden-phone';
   private String[] asSorting = new String[] { "asc", "desc" }; // [ "desc", "asc","asc", null ]
   private boolean bSortable = false;
-  private boolean bSearchable = true;
+  private boolean bSearchable = false;
   private boolean bVisible = true;
   
   // // additional properties

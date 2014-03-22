@@ -24,20 +24,20 @@
 			<exception-mapping exception="java.lang.Exception" result="error" />
 		</global-exception-mappings>
 		
-       <action name="login" class="actions.BackendUserAction" method="login">
+       <action name="login" class="actions.backend.BackendUserAction" method="login">
            <interceptor-ref name="noLoginStack"></interceptor-ref>
 		   <result name="success" type="redirectAction">
               <param name="actionName">index</param>
 		   </result>
 		   <result name="failure">/pages/menu_loginout/backend_login.jsp</result>
 		</action>
-		<action name="logout" class="actions.BackendUserAction" method="logout">
+		<action name="logout" class="actions.backend.BackendUserAction" method="logout">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
 		   <result name="success" type="redirectAction">
               <param name="actionName">index</param>
 		   </result>
 		</action>
-		<action name="register" class="actions.BackendUserAction" method="register">
+		<action name="register" class="actions.backend.BackendUserAction" method="register">
 		   <interceptor-ref name="noLoginStack"></interceptor-ref> 
 		   <result name="failure">/pages/user/backendRegister.jsp</result>
 		   <result name="success" type="redirectAction">
@@ -58,113 +58,113 @@
 	</package>
 	
 	<package name="backendUser" namespace="/backend/user" extends="default-backend">
-        <action name="index" class="actions.BackendUserAction" method="index"/>
-		<action name="initTable" class="actions.BackendUserAction" method="initTable"/>
-		<action name="queryTable" class="actions.BackendUserAction" method="queryTable"/>
-		<action name="add" class="actions.BackendUserAction" method="add">
+        <action name="index" class="actions.backend.BackendUserAction" method="index"/>
+		<action name="initTable" class="actions.backend.BackendUserAction" method="initTable"/>
+		<action name="queryTable" class="actions.backend.BackendUserAction" method="queryTable"/>
+		<action name="add" class="actions.backend.BackendUserAction" method="add">
 		   <result name="success">/pages/user/backendUserEdit.jsp</result>
 		</action>
-		<action name="edit" class="actions.BackendUserAction" method="edit">
+		<action name="edit" class="actions.backend.BackendUserAction" method="edit">
 		   <result name="success">/pages/user/backendUserEdit.jsp</result>
 		</action>
-		<action name="save" class="actions.BackendUserAction" method="save">
+		<action name="save" class="actions.backend.BackendUserAction" method="save">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		   <result name="failure">/pages/user/backendUserEdit.jsp</result>
 		</action>
-		<action name="delete" class="actions.BackendUserAction" method="delete">
+		<action name="delete" class="actions.backend.BackendUserAction" method="delete">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		</action>
-		<action name="lock" class="actions.BackendUserAction" method="lock">
+		<action name="lock" class="actions.backend.BackendUserAction" method="lock">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		</action>
-		<action name="changePassword" class="actions.BackendUserAction" method="changePassword">
+		<action name="changePassword" class="actions.backend.BackendUserAction" method="changePassword">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		   <result name="failure">/pages/user/backendChangePwd.jsp</result>
 		</action>
 	</package>
 
     <package name="backendVolunteer" namespace="/backend/volunteer" extends="default-backend">
-        <action name="index" class="actions.BackendVolunteerAction" method="index"/>
-		<action name="initTable" class="actions.BackendVolunteerAction" method="initTable"/>
-		<action name="queryTable" class="actions.BackendVolunteerAction" method="queryTable"/>
-		<action name="add" class="actions.BackendVolunteerAction" method="add">
+        <action name="index" class="actions.backend.BackendVolunteerAction" method="index"/>
+		<action name="initTable" class="actions.backend.BackendVolunteerAction" method="initTable"/>
+		<action name="queryTable" class="actions.backend.BackendVolunteerAction" method="queryTable"/>
+		<action name="add" class="actions.backend.BackendVolunteerAction" method="add">
 		   <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
-		<action name="edit" class="actions.BackendVolunteerAction" method="edit">
+		<action name="edit" class="actions.backend.BackendVolunteerAction" method="edit">
 		   <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
-		<action name="save" class="actions.BackendVolunteerAction" method="save">
+		<action name="save" class="actions.backend.BackendVolunteerAction" method="save">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		   <result name="failure">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
-		<action name="delete" class="actions.BackendVolunteerAction" method="delete">
+		<action name="delete" class="actions.backend.BackendVolunteerAction" method="delete">
 		   <result name="success" type="redirectAction"><param name="actionName">index</param></result>
 		</action>
 	</package>
     
     <package name="serviceplace" namespace="/backend/serviceplace" extends="default-backend">
-        <action name="serviceplacelist" class="actions.ServicePlaceAction" method="servicePlaceList">
+        <action name="serviceplacelist" class="actions.backend.BackendServicePlaceAction" method="servicePlaceList">
             <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
         </action>
-        <action name="serviceplacedelete" class="actions.ServicePlaceAction" method="servicePlaceDelete">
+        <action name="serviceplacedelete" class="actions.backend.BackendServicePlaceAction" method="servicePlaceDelete">
             <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
         </action>
-        <action name="serviceplaceaddedit" class="actions.ServicePlaceAction" method="servicePlaceAddEdit">
+        <action name="serviceplaceaddedit" class="actions.backend.BackendServicePlaceAction" method="servicePlaceAddEdit">
             <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
         </action>
-        <action name="serviceplacesubmit" class="actions.ServicePlaceAction" method="servicePlaceSubmit">
+        <action name="serviceplacesubmit" class="actions.backend.BackendServicePlaceAction" method="servicePlaceSubmit">
             <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
         </action>
     </package>
 
     <package name="traincourse" namespace="/backend/traincourse" extends="default-backend">
-        <action name="index" class="actions.BackendTrainCourseAction" method="index"/>
-        <action name="initTable" class="actions.BackendTrainCourseAction" method="initTable"/>
-        <action name="queryTable" class="actions.BackendTrainCourseAction" method="queryTable"/>
+        <action name="index" class="actions.backend.BackendTrainCourseAction" method="index"/>
+        <action name="initTable" class="actions.backend.BackendTrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.backend.BackendTrainCourseAction" method="queryTable"/>
 
-        <action name="delete" class="actions.BackendTrainCourseAction" method="delete">
+        <action name="delete" class="actions.backend.BackendTrainCourseAction" method="delete">
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
-        <action name="add" class="actions.BackendTrainCourseAction" method="add">
+        <action name="add" class="actions.backend.BackendTrainCourseAction" method="add">
             <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
         </action>
-        <action name="edit" class="actions.BackendTrainCourseAction" method="edit">
+        <action name="edit" class="actions.backend.BackendTrainCourseAction" method="edit">
             <result name="success">/pages/menu_traincourse/traincourseaddedit.jsp</result>
         </action>
-        <action name="save" class="actions.BackendTrainCourseAction" method="save">
+        <action name="save" class="actions.backend.BackendTrainCourseAction" method="save">
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
     </package>
 
 
     <package name="report" namespace="/backend/report" extends="default-backend">
-        <action name="activeTimeReport" class="actions.TimeReportAction" method="getActiveReport">
+        <action name="activeTimeReport" class="actions.backend.BackendTimeReportAction" method="getActiveReport">
             <result name="success">/pages/menu_report/activeTimeReport.jsp</result>
         </action>
-        <action name="activeTimeReportData" class="actions.TimeReportAction" method="getActiveReportData">
+        <action name="activeTimeReportData" class="actions.backend.BackendTimeReportAction" method="getActiveReportData">
         </action>
-        <action name="volunteerDailyReport" class="actions.TimeReportAction" method="getUserDailyReport">
+        <action name="volunteerDailyReport" class="actions.backend.BackendTimeReportAction" method="getUserDailyReport">
             <result name="success">/pages/menu_report/volunteerDailyReport.jsp</result>
         </action>
-        <action name="volunteerMonthlyReport" class="actions.TimeReportAction" method="getUserMonthlyReport">
+        <action name="volunteerMonthlyReport" class="actions.backend.BackendTimeReportAction" method="getUserMonthlyReport">
             <result name="success">/pages/menu_report/volunteerMonthlyReport.jsp</result>
         </action>
-        <action name="serviceDailyReport" class="actions.TimeReportAction" method="getServiceDailyReport">
+        <action name="serviceDailyReport" class="actions.backend.BackendTimeReportAction" method="getServiceDailyReport">
             <result name="success">/pages/menu_report/serviceDailyReport.jsp</result>
         </action>
-        <action name="serviceMonthlyReport" class="actions.TimeReportAction" method="getServiceMonthlyReport">
+        <action name="serviceMonthlyReport" class="actions.backend.BackendTimeReportAction" method="getServiceMonthlyReport">
             <result name="success">/pages/menu_report/serviceMonthlyReport.jsp</result>
         </action>
     </package>
     
     <package name="volunterTrainCourse" namespace="/backend/volunterTrainCourse" extends="default-backend">
-        <action name="index" class="actions.BackendVolunterTrainCourseAction" method="index"/>
-        <action name="initTable" class="actions.BackendVolunterTrainCourseAction" method="initTable"/>
-        <action name="queryTable" class="actions.BackendVolunterTrainCourseAction" method="queryTable"/>
-        <action name="add" class="actions.BackendVolunterTrainCourseAction" method="add">
+        <action name="index" class="actions.backend.BackendVolunterTrainCourseAction" method="index"/>
+        <action name="initTable" class="actions.backend.BackendVolunterTrainCourseAction" method="initTable"/>
+        <action name="queryTable" class="actions.backend.BackendVolunterTrainCourseAction" method="queryTable"/>
+        <action name="add" class="actions.backend.BackendVolunterTrainCourseAction" method="add">
             <result name="success">/pages/volunteerTrainCourse/backendVolunteerTrainCourse.jsp</result>
         </action>
-        <action name="save" class="actions.BackendVolunterTrainCourseAction" method="save">
+        <action name="save" class="actions.backend.BackendVolunterTrainCourseAction" method="save">
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
     </package>

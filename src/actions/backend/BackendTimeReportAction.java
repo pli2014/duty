@@ -1,5 +1,6 @@
-package actions;
+package actions.backend;
 
+import actions.BaseAction;
 import bl.beans.ServicePlaceBean;
 import bl.beans.UserServiceBean;
 import bl.beans.VolunteerBean;
@@ -8,10 +9,14 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
 import bl.mongobus.VolunteerBusiness;
+
 import com.opensymphony.xwork2.ModelDriven;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
+
 import vo.report.ActiveTimeReportVo;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
@@ -23,7 +28,7 @@ import java.util.*;
 /**
  * Created by wangronghua on 14-3-16.
  */
-public class TimeReportAction extends BaseAction implements ModelDriven<TableQueryVo> {
+public class BackendTimeReportAction extends BaseAction implements ModelDriven<TableQueryVo> {
   ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);

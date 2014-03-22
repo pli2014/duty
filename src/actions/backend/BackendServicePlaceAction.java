@@ -1,4 +1,4 @@
-package actions;
+package actions.backend;
 
 import bl.beans.ServicePlaceBean;
 import bl.constants.BusTieConstant;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by peter on 14-3-14.
  */
-public class ServicePlaceAction extends ActionSupport {
+public class BackendServicePlaceAction extends ActionSupport {
     List<ServicePlaceBean> servicePlaces = null;
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
