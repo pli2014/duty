@@ -5,6 +5,21 @@
     <input type="text" name="volunteer.code" value="${volunteer.code}" readonly="readonly"/>
 </div>
 
+<label>指纹录入</label>
+<label id="console_message" style="color:red;"></label>
+<div class="input-control text" data-role="input-control">
+    <img id="fingerjpg" src="${volunteer.fingerpath}" style="width:100px;height:80px;margin-bottom:120px" onerror="this.src='img/notfound.png';">
+    <script>
+        window.figureNumber = "${volunteer.code}";
+        function  printMessage(message){
+            jQuery("#console_message").html(message);
+        }
+    </script>
+    <%@include file="../finger_function/fingerregister.jsp"%>
+</div>
+<input id="fingerpath" name="volunteer.fingerpath" type="hidden">
+<input name="volunteer.id" class="btn-reveal" type="button" value="指纹录入" onclick="beginRegister()">
+
 <label>姓名</label>
 <div class="input-control text" data-role="input-control">
     <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>

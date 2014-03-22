@@ -1,6 +1,7 @@
 package bl.beans;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Transient;
 
 import java.util.Date;
@@ -66,8 +67,9 @@ public class UserServiceBean extends Bean{
   public void setUserBean(VolunteerBean userBean) {
     this.userBean = userBean;
   }
-
+  @Indexed
   private String userId;
+  @Indexed
   private String servicePlaceId;
   private String checkInMethod; //0:普通签入, 1:微信签入
   private Date checkInTime;

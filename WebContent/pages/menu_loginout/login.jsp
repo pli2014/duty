@@ -13,6 +13,7 @@
 
 <body class="metro" style="padding-left: 50%;padding-top: 20px;">
   <div  class="example logininfo" style="width: 500px;margin-left: -250px;">
+    <label id="console_message" style="color:red;font-size:20px"></label>
     <form id="loginForm" action="<%=request.getContextPath() %>/login.action" method="post">
       <fieldset>
           <legend>志愿者登录</legend>
@@ -30,7 +31,7 @@
           </div>
           
           <input type="submit" value="登录"/>
-          <input type="button" value="指纹登录"/>
+          <input type="button" value="指纹登录" onclick="beginVerify()"/>
           <div style="margin-top: 20px">
           </div>
       </fieldset>
@@ -51,5 +52,21 @@
         }); 
     });
     </script>
+
+   <script>
+       window.figureNumber = [];
+      <s:iterator value="volunteerCodes" var="index">
+       window.figureNumber.push({code:"<s:property value="#index[0]"/>",md5:"<s:property value="#index[1]"/>"});
+      </s:iterator>
+      function  printMessage(message){
+          jQuery("#console_message").html(message);
+      }
+      function callBackSubmit(code,md5){
+          jQuery("[name='volunteer.code']").val(code);
+          jQuery("[name='volunteer.password']").val(md5);
+          jQuery("form").submit();
+      }
+   </script>
+   <%@include file="../finger_function/fingerverification.jsp"%>
 </body>
 </html>
