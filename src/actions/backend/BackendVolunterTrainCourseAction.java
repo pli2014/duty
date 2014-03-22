@@ -27,7 +27,7 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  * @author gudong
  * @since $Date:2013-03-20$
  */
-public class BackendVolunterTrainCourseAction extends BaseTableAction<VolunteerTrainCourseBusiness> {
+public class BackendVolunterTrainCourseAction extends BaseBackendAction<VolunteerTrainCourseBusiness> {
   private VolunteerTrainCourseBean volunteerTrainCourse;
 
   public VolunteerTrainCourseBean getVolunteerTrainCourse() {

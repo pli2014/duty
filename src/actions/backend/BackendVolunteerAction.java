@@ -24,7 +24,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  * @author gudong
  * @since $Date:2014-02-10$
  */
-public class BackendVolunteerAction extends BaseTableAction<VolunteerBusiness> {
+public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
   private VolunteerBean volunteer;
 

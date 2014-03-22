@@ -144,6 +144,9 @@
                 <param name="actionName">index</param>
             </result>
         </action>
+        <action name="changePassword" class="actions.front.VolunteerAction" method="changePassword">
+		   <result name="success">/pages/volunteer/changePwd.jsp</result>
+		</action>
     </package>
 
     <package name="userFront" namespace="/userFront" extends="default">

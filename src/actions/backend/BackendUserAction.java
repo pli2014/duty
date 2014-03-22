@@ -27,7 +27,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  * @author gudong
  * @since $Date:2014-02-10$
  */
-public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
+public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   /**
    * 
    */
@@ -70,6 +70,7 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
         return FAILURE;
       } else {
         user.set_id(ObjectId.get());
+        user.setPassword(StringUtil.toMD5(user.getPassword()));
         getBusiness().createLeaf(user);
       }
     } else {
@@ -84,7 +85,6 @@ public class BackendUserAction extends BaseTableAction<BackendUserBusiness> {
   @Override
   public String edit() throws Exception {
     user = (BackendUserBean) getBusiness().getLeaf(getId()).getResponseData();
-    getSession().setAttribute("dataId", user.getId());
     return SUCCESS;
   }
 

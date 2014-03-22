@@ -45,6 +45,24 @@ public class VolunteerBusiness extends
 			return null;
 		}
 	}
-	
-	
+
+	/**
+	 * 通过身份证号码获取志愿者
+	 * 
+	 * @param code
+	 *            工号
+	 * @return
+	 */
+	public VolunteerBean getVolunteerBeanByIdentityCard(String identityCard) {
+		Map filter = new HashMap();
+		filter.put("identityCard", identityCard);
+
+		List<VolunteerBean> result = super.queryDataByCondition(filter, null);
+		if (result != null && result.size() > 0) {
+			return result.get(0);
+		} else {
+			return null;
+		}
+	}
+
 }

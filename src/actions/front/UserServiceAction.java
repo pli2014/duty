@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import webapps.WebappsConstants;
-import actions.BaseAction;
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
 import bl.beans.UserServiceBean;
@@ -23,7 +22,7 @@ import bl.mongobus.VolunteerBusiness;
 /**
  * Created by wangronghua on 14-3-15.
  */
-public class UserServiceAction extends BaseAction {
+public class UserServiceAction extends BaseFrontAction {
   List<UserServiceBean> userServices = null;
 
   List<ServicePlaceBean> servicePlaces = null;

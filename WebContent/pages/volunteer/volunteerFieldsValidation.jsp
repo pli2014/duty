@@ -39,15 +39,18 @@
                 },
                 'volunteer.cellPhone': {
                     required: "请输入手机",
-                    cellPhone: "请输入正确的手机号"
+                    cellPhone: "请输入正确的手机号, 例如：13912332122"
                 },
                 'volunteer.wechat': {
                     required: "请输入微信"
                 },
                 'volunteer.email': {
                     required: "请输入邮箱",
-                    email: "请输入正确的邮箱"
-                }
+                    email: "请输入正确的邮箱, 例如：test@qq.com"
+                },
+                'oldPassword': {
+ 	               required: "请输入旧密码"
+ 	            }
             }
         }); 
     });

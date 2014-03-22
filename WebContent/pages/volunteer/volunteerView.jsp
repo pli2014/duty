@@ -33,6 +33,7 @@
           <%@ include file="volunteerFields.jsp"%> 
           
           <button type="button" onclick="window.location.href='volunteer/edit.action?id=${volunteer.id}'">修改</button>
+          <button type="button" onclick="window.location.href='volunteer/changePassword.action'">修改密码</button>
           <button type="button" onclick="window.location.href='index.action'">取消</button>
           <div style="margin-top: 20px">
           </div>

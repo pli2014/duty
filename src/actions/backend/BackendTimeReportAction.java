@@ -1,16 +1,13 @@
 package actions.backend;
 
-import actions.BaseAction;
-import bl.beans.ServicePlaceBean;
-import bl.beans.UserServiceBean;
-import bl.beans.VolunteerBean;
-import bl.constants.BusTieConstant;
-import bl.instancepool.SingleBusinessPoolManager;
-import bl.mongobus.ServicePlaceBusiness;
-import bl.mongobus.UserServiceBusiness;
-import bl.mongobus.VolunteerBusiness;
-
-import com.opensymphony.xwork2.ModelDriven;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -20,15 +17,19 @@ import org.apache.commons.lang.StringUtils;
 import vo.report.ActiveTimeReportVo;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import bl.beans.ServicePlaceBean;
+import bl.beans.UserServiceBean;
+import bl.beans.VolunteerBean;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.ServicePlaceBusiness;
+import bl.mongobus.UserServiceBusiness;
+import bl.mongobus.VolunteerBusiness;
 
 /**
  * Created by wangronghua on 14-3-16.
  */
-public class BackendTimeReportAction extends BaseAction implements ModelDriven<TableQueryVo> {
+public class BackendTimeReportAction extends BaseBackendAction{
   ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
@@ -36,7 +37,6 @@ public class BackendTimeReportAction extends BaseAction implements ModelDriven<T
   List<ServicePlaceBean> servicePlaces = null;
   List<ActiveTimeReportVo> activeTimeReportVos;
 
-  private TableQueryVo model;
   private String name;
   private String servicePlaceId;
   private boolean day = true;
@@ -288,16 +288,6 @@ public class BackendTimeReportAction extends BaseAction implements ModelDriven<T
     this.servicePlaceId = servicePlaceId;
   }
 
-  public TableQueryVo getModel() {
-    if (model == null) {
-      model = new TableQueryVo();
-    }
-    return model;
-  }
-
-  public void setModel(TableQueryVo model) {
-    this.model = model;
-  }
 
   public void setServicePlaces(List<ServicePlaceBean> servicePlaces) {
     this.servicePlaces = servicePlaces;
