@@ -11,11 +11,16 @@
    <title>志愿者登录</title>
 </head>
 
-<body class="metro" style="padding-left: 50%;padding-top: 20px;">
-  <div  class="example logininfo" style="width: 500px;margin-left: -250px;">
+<body class="metro" >
+<div class="container">
+   <h1>
+       <a href="html/welcome.jsp"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+       志愿者登录<small class="on-right"></small>
+   </h1>
+   <h2 id="__table__">登录</h2>
+  <div  class="example logininfo" >
     <form id="loginForm" action="<%=request.getContextPath() %>/login.action" method="post">
       <fieldset>
-          <legend>志愿者登录</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
           <label>工号</label>
           <div class="input-control text" data-role="input-control">
@@ -35,6 +40,7 @@
           </div>
       </fieldset>
   </form>
+ </div>
  </div>
  <script type="text/javascript">
     //please refer to form-validation-script.js

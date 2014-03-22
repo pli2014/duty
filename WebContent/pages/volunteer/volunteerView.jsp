@@ -18,11 +18,16 @@
 <!--external css-->
 <title>我的注册</title>
 </head>
-<body class="metro" style="padding-left: 50%;padding-top: 20px;">
-   <div class="example volunteerinfo" style="width: 500px;margin-left: -250px;">
+<body class="metro">
+  <div class="container">
+   <h1>
+       <a href="index.action"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+       我的注册<small class="on-right"></small>
+   </h1>
+   <h2 id="__table__">个人信息</h2>
+   <div class="example volunteerinfo">
     <form>
       <fieldset>
-          <legend>个人信息</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
           
           <label>个人照片</label>
@@ -39,6 +44,7 @@
           </div>
       </fieldset>
   </form>
+ </div>
  </div>
  <script type="text/javascript">
  $(document).ready(function() {

@@ -5,17 +5,22 @@
  
    <style type="text/css">
 	.metro .volunteerinfo:before {
-       content: "修改密码";
+       content: "密码修改";
      }
     
     </style>
-    <title>修改密码</title>
+    <title>密码修改</title>
 </head>
-<body class="metro" style="padding-left: 50%;padding-top: 20px;">
-   <div class="example volunteerinfo" style="width: 500px;margin-left: -250px;">
+<body class="metro"  >
+<div class="container">
+   <h1>
+       <a href="index.action"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+       密码修改<small class="on-right"></small>
+   </h1>
+   <h2 id="__table__">密码修改</h2>
+   <div class="example volunteerinfo" >
      <form  id="volunteerForm" action="volunteer/changePassword.action" method="post">
            <fieldset>
-               <legend>修改密码</legend>
                <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
                
                <label>旧密码</label>
@@ -42,7 +47,7 @@
            </fieldset>
        </form>
     </div>
-   
+   </div>
    <footer class="site-footer" style="position:fixed;bottom:1px;width:100%;z-index:-1">
        <div class="text-center">
            2014-01 &copy; 版权所有

@@ -18,18 +18,28 @@
 <!--external css-->
 <title>
    <s:if test="volunteer.id.length() > 0">
-        修改志愿者
+        志愿者修改
       </s:if>
       <s:else>
-        添加志愿者
+        志愿者添加
       </s:else>
 </title>
 </head>
-<body class="metro" style="padding-left: 50%;padding-top: 20px;">
-   <div class="example volunteerinfo" style="width: 500px;margin-left: -250px;">
+<body class="metro">
+<div class="container">
+   <h1>
+       <a href="index.action"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
+       <s:if test="volunteer.id.length() > 0">
+        志愿者修改
+      </s:if>
+      <s:else>
+        志愿者添加
+      </s:else><small class="on-right"></small>
+   </h1>
+   <h2 id="__table__">个人信息</h2>
+   <div class="example volunteerinfo">
     <form id="volunteerForm" action="volunteer/save.action" method="post">
       <fieldset>
-          <legend>个人信息</legend>
           <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
 
           <%@ include file="volunteerFields.jsp"%> 
@@ -40,6 +50,7 @@
           </div>
       </fieldset>
   </form>
+ </div>
  </div>
  <%@ include file="volunteerFieldsValidation.jsp"%> 
   <s:if test="volunteer.id.length() > 0">
