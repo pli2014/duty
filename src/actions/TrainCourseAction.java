@@ -152,12 +152,12 @@ public class TrainCourseAction extends BaseTableAction<TrainCourseBusiness> {
 				.queryDataByCondition(filter, null);
 		if (volunteerTrainCourseList != null
 				&& volunteerTrainCourseList.size() > 0) {
-			String[] trainCourseId = new String[volunteerTrainCourseList
+			ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList
 					.size()];
 			for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
-				trainCourseId[i] = volunteerTrainCourseList.get(i).getId();
+				trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
 			}
-			getModel().getFilter().put("id_nin", trainCourseId);
+			getModel().getFilter().put("_id_nin", trainCourseId);
 		}
 
 		long count = getBusiness().getCount(getModel());

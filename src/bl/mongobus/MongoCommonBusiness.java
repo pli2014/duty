@@ -1,13 +1,18 @@
 package bl.mongobus;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
-import bl.beans.TrainCourseBean;
-import bl.beans.VolunteerBean;
-import org.apache.commons.beanutils.*;
-import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
@@ -16,6 +21,8 @@ import org.mongodb.morphia.query.Query;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
 import bl.beans.Bean;
+import bl.beans.VolunteerBean;
+import bl.beans.VolunteerTrainCourseBean;
 import bl.common.BeanContext;
 import bl.common.BusinessInterface;
 import bl.common.BusinessResult;
@@ -210,6 +217,12 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 								query = query.filter(splits[0] + " " + token,
 										value);
 							}
+						} else if (splits.length > 2) {
+							String token = splits[splits.length - 1];
+							token = token.replace("lt", "<").replace("gt", ">")
+									.replace("eq", "=");
+							key = StringUtils.remove(key, "_" + token);
+							query = query.filter(key + " " + token, value);
 						} else {
 							BeanUtils.setProperty(obj, key, value);
 							Object judgeValue = PropertyUtils.getProperty(obj,
@@ -313,12 +326,12 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
 	public static void main(String[] args) {
 		MongoDBConnectionFactory.initDb();
-		MongoCommonBusiness<BeanContext, VolunteerBean> mc = new MongoCommonBusiness<BeanContext, VolunteerBean>();
-		mc.clazz = VolunteerBean.class;
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("name", "adm");
-		map.put("modifyTime_gt", "2015-03-16");
-		List<VolunteerBean> list = mc.queryDataByCondition(map, null);
-		System.out.println(list.size());
+		MongoCommonBusiness<BeanContext, VolunteerTrainCourseBean> mc = new MongoCommonBusiness<BeanContext, VolunteerTrainCourseBean>();
+		mc.clazz = VolunteerTrainCourseBean.class;
+
+		Datastore dc = MongoDBConnectionFactory.getDatastore(mc.dbName);
+		Query query = dc.createQuery(mc.clazz);
+		query.filter("_id nin", new ObjectId[] { ObjectId.get() });
+		System.out.println(dc.getCount(query));
 	}
 }
