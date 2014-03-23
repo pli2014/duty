@@ -48,7 +48,7 @@
         <%@ include file="../frontend_service/flashcamera.jsp" %>
     </div>
     </div>
-    <div class="example volunteerinfo" style=" float: left;">
+    <div class="example volunteerinfo" style=" float: left;width: 550px;">
     <form id="volunteerForm" action="volunteer/save.action" method="post">
       <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
       <fieldset>

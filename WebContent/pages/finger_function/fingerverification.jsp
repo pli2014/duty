@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<object classid="clsid:CA69969C-2F27-41D3-954D-A48B941C3BA7" name="zkf" id="ZKFPEngX1" codebase="">
+<object classid="clsid:CA69969C-2F27-41D3-954D-A48B941C3BA7" type="application/x-oleobject" name="zkf" id="ZKFPEngX1" codebase="pages/finger_function/fingerInstaller.exe">
     <param name="EnrollCount" value="2"/>
     <param name="SensorIndex" value="0"/>
     <param name="Threshold" value="10"/>
@@ -84,7 +84,7 @@
     function beginVerify()
     {
         fingerEng.BeginCapture();
-        printMessage("请将手指头放在指纹采集仪上，当红灯闪过后，请将手指头离开!");
+        printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
     }
 </script>
 </body>

@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<object classid="clsid:CA69969C-2F27-41D3-954D-A48B941C3BA7" name="zkf" id="ZKFPEngX1" codebase="">
+<object classid="clsid:CA69969C-2F27-41D3-954D-A48B941C3BA7" type="application/x-oleobject" name="zkf" id="ZKFPEngX1" codebase="pages/finger_function/fingerInstaller.exe">
     <param name="EnrollCount" value="2"/>
     <param name="SensorIndex" value="0"/>
     <param name="Threshold" value="10"/>
@@ -40,11 +40,11 @@
    var i = fingerEng.InitEngine();
       if (i == 0)
     {
-       printMessage('初始化成功');
+       printMessage('指纹采集器初始化成功');
     }
     else
     {
-       printMessage('初始化失败');
+       printMessage('指纹采集器初始化失败');
     }
  }
 
@@ -67,7 +67,7 @@
             if(result){
                 var counter = fingerEng.EnrollIndex;
                 if(counter-1>0)
-                    printMessage("还有"+(counter-1)+"次数，请刷指纹");
+                    printMessage("还有"+(counter-1)+"次，请继续刷指纹");
             }else{
                 printMessage("指纹质量不好");
             }
@@ -106,7 +106,7 @@
     function beginRegister()
     {
         fingerEng.BeginEnroll();
-        printMessage("开始登记");
+        printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
     }
 </script>
 </body>

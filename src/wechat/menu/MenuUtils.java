@@ -24,7 +24,7 @@ public class MenuUtils {
 
   public static boolean create(InputStream in) {
     Map resultMap = HttpClientHelper.post(URLManager.getUrl_MenuCreate(AccessTokenManager.getToken()), in);
-    if(null != resultMap && resultMap.get(Constants.ERR_CODE) == 0) {
+    if(null != resultMap && (Integer)(resultMap.get(Constants.ERR_CODE)) == 0) {
       return true;
     }
     return false;
