@@ -37,59 +37,41 @@
                         </a>
                     </div>
                 </div>
+
+                <%-- 消息引用 --%>
+                <s:include value="../strutsMessage.jsp"/>
+
+
                 <section class="panel">
                     <div class="panel-body">
                         <div class="row state-overview">
                             <div class="col-lg-4 col-sm-6">
-                                <section class="panel">
-                                    <div class="symbol terques">
-                                        <h4>今日</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="dayHours"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
+                                <a href="userFront/myMonthlyTimeReport.action?year=<s:property value='yearValues.thisYear'/>">
+                                    <section class="panel">
+                                        <div class="symbol terques">
+                                            <h4>今年</h4>
+                                        </div>
+                                        <div class="value">
+                                            <h1 class="count"><s:property value="yearValues.thisYearValue"/></h1>
+                                            <p>小时</p>
+                                        </div>
+                                    </section>
+                                </a>
                             </div>
                             <div class="col-lg-1 col-sm-0">
                             </div>
                             <div class="col-lg-4 col-sm-6">
-                                <section class="panel">
-                                    <div class="symbol red">
-                                        <h4>本月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count2"><s:property value="monthHours"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-
-                        <div class="row state-overview">
-                            <div class="col-lg-4 col-sm-6">
-                                <section class="panel">
-                                    <div class="symbol yellow">
-                                        <h4>本年度</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count3"><s:property value="yearHours"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </div>
-                            <div class="col-lg-1 col-sm-0">
-                            </div>
-                            <div class="col-lg-4 col-sm-6">
-                                <section class="panel">
-                                    <div class="symbol blue">
-                                        <h4>总计</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count4"><s:property value="totalHours"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
+                                <a href="userFront/myMonthlyTimeReport.action?year=<s:property value='yearValues.lastYear'/>">
+                                    <section class="panel">
+                                        <div class="symbol red">
+                                            <h4>去年</h4>
+                                        </div>
+                                        <div class="value">
+                                            <h1 class="count"><s:property value="yearValues.lastYearValue"/></h1>
+                                            <p>小时</p>
+                                        </div>
+                                    </section>
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,14 @@
 package actions.front;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import vo.NameValueVo;
+import vo.report.DailyTimeReportVo;
+import vo.report.MonthlyTimeReportVo;
+import vo.report.YearlyTimeReportVo;
 import webapps.WebappsConstants;
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
@@ -36,6 +38,11 @@ public class UserServiceAction extends BaseFrontAction {
   private long monthHours;
   private long yearHours;
   private long totalHours;
+
+  private YearlyTimeReportVo yearValues;
+  private MonthlyTimeReportVo monthValues;
+  private DailyTimeReportVo dayValues;
+
   private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
 
   public int getType() {
@@ -80,16 +87,21 @@ public class UserServiceAction extends BaseFrontAction {
 
   public String checkInSubmit(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
-      aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
-      if (aub != null) {
-          ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
-          if (spb != null){
-              //initialize data for checkin page.
-              checkIn();
-              super.addActionError("你已经在" + spb.getName()+"服务,同一时刻只允许签入一个服务地点");
-          }
-          return ERROR;
-      }
+    if(null == servicePlaceId) {
+      checkIn();
+      super.addActionError("请选择服务地点");
+      return ERROR;
+    }
+    aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
+    if (aub != null) {
+        ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+        if (spb != null){
+            //initialize data for checkin page.
+            checkIn();
+            super.addActionError("你已经在" + spb.getName()+"服务,同一时刻只允许签入一个服务地点");
+        }
+        return ERROR;
+    }
     userServiceBus.checkIn(user.getId(), servicePlaceId);
     return SUCCESS;
   }
@@ -103,13 +115,97 @@ public class UserServiceAction extends BaseFrontAction {
   public String getMyTimeReport() {
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     List<UserServiceBean> beanList = (List<UserServiceBean>)userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
-    Map<String, Map> resultMap = userServiceBus.statisticTime(beanList);
-    Map result = resultMap.get(user.getId());
+    Calendar cal = Calendar.getInstance();
+    yearValues = new YearlyTimeReportVo();
+    yearValues.setThisYear(String.valueOf(cal.get(Calendar.YEAR)));
+    yearValues.setLastYear(String.valueOf(cal.get(Calendar.YEAR) - 1 ));
+    Map<String, Map> thisYearResultMap = userServiceBus.statisticTime(beanList, "yyyy", yearValues.getThisYear());
+    Map<String, Map> lastYearResultMap = userServiceBus.statisticTime(beanList, "yyyy", yearValues.getLastYear());
+    Map result = thisYearResultMap.get(user.getId());
     if(null != result){
-      dayHours = (long)result.get(Calendar.DAY_OF_MONTH) / 3600000 ;
-      monthHours = (long)result.get(Calendar.MONTH) / 3600000 ;
-      yearHours = (long)result.get(Calendar.YEAR) / 3600000 ;
-      totalHours = (long)result.get(Calendar.ALL_STYLES) / 3600000 ;
+      Long value = (Long) result.get(yearValues.getThisYear());
+      yearValues.setThisYearValue ((null != value ? value : 0l) / 3600000);
+    } else {
+      yearValues.setThisYearValue(0l);
+    }
+    result = lastYearResultMap.get(user.getId());
+    if(null != result){
+      Long value = (Long) result.get(yearValues.getLastYear());
+      yearValues.setLastYearValue((null != value ? value : 0l) / 3600000);
+    } else {
+      yearValues.setLastYearValue(0l);
+    }
+    return SUCCESS;
+  }
+
+  public String getMyMonthlyTimeReport() throws ParseException {
+    String year = getRequest().getParameter("year");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+    if (null != year) {
+      Date yearStart = sdf.parse(year+"-01");
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(yearStart);
+      cal.add(Calendar.YEAR, 1);
+      Date yearEnd = cal.getTime();
+
+      VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+
+      List<String> userIdList = new ArrayList<String>();
+      userIdList.add(user.getId());
+      List<UserServiceBean> userServiceBeanList = userServiceBus.queryUserServices(userIdList, null, yearStart, yearEnd);
+
+      Map<String, Map> resultMap = userServiceBus.statisticTime(userServiceBeanList, "yyyy-MM", year);
+      Map result = resultMap.get(user.getId());
+      monthValues = new MonthlyTimeReportVo();
+      cal.setTime(yearStart);
+      while (cal.getTime().before(yearEnd)) {
+        String key = sdf.format(cal.getTime());
+        Long value = 0l;
+        if(null != result){
+          value = (Long) result.get(key);
+        }
+        monthValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
+        cal.add(Calendar.MONTH, 1);
+      }
+    }
+    return SUCCESS;
+  }
+
+  public String getMyDailyTimeReport() throws ParseException {
+    String yearMonth = getRequest().getParameter("yearMonth");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    dayValues = new DailyTimeReportVo();
+    if (null != yearMonth) {
+      Date monthStart = sdf.parse(yearMonth+"-01");
+      Calendar cal = Calendar.getInstance();
+      cal.setTime(monthStart);
+      cal.add(Calendar.MONTH, 1);
+      Date monthEnd = cal.getTime();
+
+      VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+
+      List<String> userIdList = new ArrayList<String>();
+      userIdList.add(user.getId());
+      List<UserServiceBean> userServiceBeanList = userServiceBus.queryUserServices(userIdList, null, monthStart, monthEnd);
+
+      Map<String, Map> resultMap = userServiceBus.statisticTime(userServiceBeanList, "yyyy-MM-dd", yearMonth);
+      Map result = resultMap.get(user.getId());
+      cal.setTime(monthStart);
+      while (cal.getTime().before(monthEnd)) {
+        String key = sdf.format(cal.getTime());
+        Long value = 0l;
+        if(null != result){
+          value = (Long) result.get(key);
+          if(null != value) {
+            dayValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
+          }
+        }
+        cal.add(Calendar.DAY_OF_MONTH, 1);
+      }
+    }
+
+    if(null == dayValues.getValueList() || (dayValues.getValueList().size() == 0)) {
+      super.addActionMessage("本月没有查询到服务记录！");
     }
     return SUCCESS;
   }
@@ -206,4 +302,30 @@ public class UserServiceAction extends BaseFrontAction {
   public long getTotalHours() {
     return totalHours;
   }
+
+
+  public DailyTimeReportVo getDayValues() {
+    return dayValues;
+  }
+
+  public void setDayValues(DailyTimeReportVo dayValues) {
+    this.dayValues = dayValues;
+  }
+
+  public YearlyTimeReportVo getYearValues() {
+    return yearValues;
+  }
+
+  public void setYearValues(YearlyTimeReportVo yearValues) {
+    this.yearValues = yearValues;
+  }
+
+  public MonthlyTimeReportVo getMonthValues() {
+    return monthValues;
+  }
+
+  public void setMonthValues(MonthlyTimeReportVo monthValues) {
+    this.monthValues = monthValues;
+  }
+
 }
