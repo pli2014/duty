@@ -9,6 +9,8 @@ public interface WebappsConstants {
     public static final String SCOPE_APPLICATION = "Application";
     public static final String SCOPE_SESSION = "Session";
     public static final String SCOPE_REQUEST = "Request";
+    public static final String UNVERIFIED_VOLUNTEER_KEY = "unVerifiedVolunnteer";
+    public static final String UNINTERVIEWED_VOLUNTEER_KEY = "unInterviewedVolunnteer";
 
     /** Tokens for storing items in the servlet context. */
     public static final String CTX_TOKEN_WEBAPP_SESSION = "WEBAPP_SESSION_CONTEXT";

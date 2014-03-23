@@ -108,15 +108,13 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    */
   public String register() throws Exception {
     if (volunteer != null) {
-      VolunteerBean origVolunteer = getBusiness().getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
-      if (origVolunteer != null) {
-        addActionError("身份证已经被注册!");
+      BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
+      if (result.getErrors().size() > 0) {
+        for (Object error : result.getErrors()) {
+          addActionError(error.toString());
+        }
         return FAILURE;
       }
-
-      volunteer.set_id(ObjectId.get());
-      volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-      getBusiness().createLeaf(volunteer);
       getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
       return SUCCESS;
     } else {
@@ -142,7 +140,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer);
+    BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());

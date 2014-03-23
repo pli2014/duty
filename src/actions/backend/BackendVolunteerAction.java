@@ -76,7 +76,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer);
+    BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());

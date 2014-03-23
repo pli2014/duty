@@ -5,6 +5,7 @@ package actions.backend;
 
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
+import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
 
 /**
@@ -51,6 +52,7 @@ public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
     if (volunteer != null) {
       volunteer.setStatus(VolunteerBean.VIERFIED);
       getBusiness().updateLeaf(volunteer, volunteer);
+      getRequest().getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getBusiness().getUnInterviewedVolunteers());
     }
     return SUCCESS;
   }
