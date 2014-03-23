@@ -37,15 +37,13 @@
    window.localFingerPath = "D:\\data\\img\\";
    window.remoteServerPath = "person/img/";
    window.fingerEng = document.getElementById("ZKFPEngX1");
-   var i = fingerEng.InitEngine();
-      if (i == 0)
-    {
-       printMessage('指纹采集器初始化成功');
-    }
-    else
-    {
-       printMessage('指纹采集器初始化失败');
-    }
+   try{
+     window.status = fingerEng.InitEngine();
+     printMessage('指纹采集器初始化成功');
+   }catch(error){
+     window.status = -1;
+     printMessage('指纹采集器初始化失败,请确保安装了正确的指纹驱动，以及正在使用IE8以上版本的浏览器');
+   }
  }
 
  initialize();
@@ -105,8 +103,10 @@
 
     function beginRegister()
     {
-        fingerEng.BeginEnroll();
-        printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
+        if(window.status==0){
+            fingerEng.BeginEnroll();
+            printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
+        }
     }
 </script>
 </body>

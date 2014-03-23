@@ -2,7 +2,7 @@
  * cellFormatter
  */
 cellFormatter["name"] = function ( data, type, full ) {
-   return '<img disable style="margin-right:10px" src="'+full.iconpath+'" width="60px" height="50px" onerror="this.src=\'img/volunteer.png\'"/>' + data;
+   return '<img disable style="margin-right:10px" class="volunteerimg" src="'+full.iconpath+'" width="60px" height="50px" onerror="this.src=\'img/volunteer.png\'"/>' + data;
 }
 cellFormatter["sex"] = function ( data, type, full ) {
     if(data == 1){
@@ -54,3 +54,10 @@ options = {
            }     
         }
 };
+
+jQuery("#decoratebody").on("mouseover",".volunteerimg",function(){
+    jQuery(this).css({width:'300px',height:'200px',position:'absolute'});
+});
+jQuery("#decoratebody").on("mouseout",".volunteerimg",function(){
+    jQuery(this).css({width:'60px',height:'50px',position:'static'});
+});
