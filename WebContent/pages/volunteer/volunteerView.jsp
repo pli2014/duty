@@ -35,7 +35,7 @@
           <s:actionerror/><s:actionmessage/>
           
           <label>个人照片</label>
-          <div class="input-control text" data-role="input-control">
+          <div class="input-control img" data-role="input-control">
 			  <img src="${volunteer.iconpath}" />
 		  </div>
           
