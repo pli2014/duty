@@ -38,7 +38,8 @@
    window.remoteServerPath = "person/img/";
    window.fingerEng = document.getElementById("ZKFPEngX1");
    try{
-     window.status = fingerEng.InitEngine();
+     fingerEng.InitEngine();
+     window.status = 0;
      printMessage('指纹采集器初始化成功');
    }catch(error){
      window.status = -1;
@@ -47,6 +48,14 @@
  }
 
  initialize();
+
+
+ jQuery(window).unload(function() {
+   if(window.status==0 && window.fingerEng!=null){
+      //释放资源
+      window.fingerEng.EndEngine();
+   }
+  });
 
 </script>
 <script for="ZKFPEngX1" language="JavaScript" type="text/javascript" event="OnCapture(result,ATemplate)">
@@ -76,6 +85,7 @@
             }
         }else{
             printMessage("指纹质量不好");
+            beginVerify();
         }
     }
 
@@ -83,9 +93,11 @@
     {
         if(window.status==0){
             fingerEng.BeginCapture();
-            printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
+            printMessage("如果想要通过指纹登入，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
         }
     }
+
+    beginVerify();
 </script>
 </body>
 </html>

@@ -38,7 +38,8 @@
    window.remoteServerPath = "person/img/";
    window.fingerEng = document.getElementById("ZKFPEngX1");
    try{
-     window.status = fingerEng.InitEngine();
+     fingerEng.InitEngine();
+     window.status = 0;
      printMessage('指纹采集器初始化成功');
    }catch(error){
      window.status = -1;
@@ -47,6 +48,13 @@
  }
 
  initialize();
+
+ jQuery(window).unload(function() {
+   if(window.status==0 && window.fingerEng!=null){
+      //释放资源
+      window.fingerEng.EndEngine();
+   }
+  });
 
 </script>
 <script for="ZKFPEngX1" language="JavaScript" type="text/javascript" event="OnImageReceived(result)">

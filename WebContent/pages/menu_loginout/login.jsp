@@ -36,7 +36,6 @@
           </div>
           
           <input type="submit" value="登录"/>
-          <input type="button" value="指纹登录" onclick="beginVerify()"/>
           <div style="margin-top: 20px">
           </div>
       </fieldset>

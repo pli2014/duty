@@ -5,7 +5,7 @@
     <input type="text" name="volunteer.code" value="${volunteer.code}" readonly="readonly"/>
 </div>
 
-<s:if test="%{#request['struts.request_uri'].contains('edit.action')}">
+<s:if test="%{!#request['struts.request_uri'].contains('view.action')}">
 <label>指纹信息</label>
 <label id="console_message" style="color:red;"></label>
 <div class="input-control text" data-role="input-control">
