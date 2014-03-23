@@ -36,14 +36,15 @@
         添加培训记录
       </s:else>
     </header>
-    <s:actionerror/><s:actionmessage/>
+    <div style="width: 500px;"><s:actionerror/><s:actionmessage/></div>
+    <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunterTrainCourse/save.action" method="post">
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">志愿者名</label>
         <div class="col-lg-10">
             <input type="hidden" id="volunteerId" />
-            <input type="text" id="volunteerName" placeholder="志愿者名"  class="form-control pull-left" style=" width: 200px;"/>
-            <input type="button" class="btn btn-success" name="" value="查询">       
-            <select class="form-control input-lg m-bot15">
+            <input type="text" id="volunteerName" placeholder="输入 志愿者名, 点查询"  class="form-control pull-left" style=" width: 200px;  "/>
+            <input type="button" class="btn btn-success" onclick="queryVolunteer()" value="查询" >       
+            <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px; position: relative;left: -200px;">
             </select>
         </div>
     </div> 
@@ -51,7 +52,7 @@
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">状态</label>
         <div class="col-lg-10">
-            <select class="form-control input-lg m-bot15">
+            <select name="volunteerTrainCourse.status" class="form-control input-lg m-bot15" style="width: 200px;">
               <option value="0">未通过</option>
               <option value="1">通过</option>
             </select>
@@ -62,20 +63,67 @@
         <label class="col-lg-2 control-label">培训课程</label>
         <div class="col-lg-10">
            <input type="hidden" id="trainCourseId" />
-            <input type="text" id="trainCourseName" placeholder="培训课程"   class="form-control  pull-left" style=" width: 200px;"/>
-          <input type="button" class="btn btn-success" name="" value="查询">   
-           <select class="form-control input-lg m-bot15">
-            </select>
+            <input type="text" id="trainCourseName" placeholder="输入 培训课程名, 点查询"   class="form-control  pull-left" style=" width: 200px;"/>
+          <input type="button" class="btn btn-success" onclick="queryTrainCourse()"  value="查询">   
+           <select id="traincourseIdSelect"  name="traincourseId" class="form-control input-lg m-bot15" style="width: 200px; position: relative;left: -200px;">
+           </select>
         </div>
     </div>
-         
-         
+     <div class="form-group  has-success">
+         <div class="col-lg-offset-2 col-lg-10">
+             <button class="btn btn-danger" type="submit">保存</button>
+             <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunterTrainCourse/index.action'">取消</button>
+         </div>
+     </div>    
+   </form>  
   </section>
   <script type="text/javascript">
-  $(document).ready(function() {
-	  
-	  
-  });
+    function queryVolunteer(){
+        var volunteerSelect = document.getElementById('volunteerIdSelect');
+        while(volunteerSelect.length > 0){
+            volunteerSelect.remove(0);
+        }
+        if($('#volunteerName').val() == ''){
+            return;
+        }
+        var url = "backend/volunteer/search.action";
+        var param = {'volunteer.name':$('#volunteerName').val()};
+        $.getJSON( url, param, function (volunteerArray) { 
+           if(volunteerArray == null || volunteerArray.length ==0){
+               return;
+           }
+           for(var i=0; i < volunteerArray.length;i++){
+               var optionObj =document.createElement( 'option' );
+               optionObj.text = volunteerArray[i].name;
+               optionObj.value = volunteerArray[i].id;
+               volunteerSelect.add(optionObj);
+           }
+        });
+    }
+    
+    
+    function queryTrainCourse(){
+        var traincourseSelect = document.getElementById('traincourseIdSelect');
+        while(traincourseSelect.length > 0){
+            traincourseSelect.remove(0);
+        }
+        if($('#trainCourseName').val() == ''){
+            return;
+        }
+        var url = "backend/traincourse/search.action";
+        var param = {'trainCourse.name':$('#trainCourseName').val()};
+        $.getJSON( url, param, function (trainCourseArray) { 
+            if(trainCourseArray == null || trainCourseArray.length ==0){
+                return;
+            }
+            for(var i=0; i < trainCourseArray.length;i++){
+                var optionObj =document.createElement( 'option' );
+                optionObj.text = trainCourseArray[i].name;
+                optionObj.value = trainCourseArray[i].id;
+                traincourseSelect.add(optionObj);
+            }
+        });
+    }
   </script>
 </body>
 </html>

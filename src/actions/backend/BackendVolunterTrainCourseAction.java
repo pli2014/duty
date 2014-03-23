@@ -29,6 +29,24 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  */
 public class BackendVolunterTrainCourseAction extends BaseBackendAction<VolunteerTrainCourseBusiness> {
   private VolunteerTrainCourseBean volunteerTrainCourse;
+  private String volunteerId;
+  private String traincourseId;
+
+  public String getVolunteerId() {
+    return volunteerId;
+  }
+
+  public void setVolunteerId(String volunteerId) {
+    this.volunteerId = volunteerId;
+  }
+
+  public String getTraincourseId() {
+    return traincourseId;
+  }
+
+  public void setTraincourseId(String traincourseId) {
+    this.traincourseId = traincourseId;
+  }
 
   public VolunteerTrainCourseBean getVolunteerTrainCourse() {
     return volunteerTrainCourse;
@@ -100,12 +118,23 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String save() throws Exception {
-    if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
-      volunteerTrainCourse.set_id(ObjectId.get());
-      getBusiness().createLeaf(volunteerTrainCourse);
+    if (StringUtils.isNotBlank(traincourseId) && StringUtils.isNotBlank(volunteerId)) {
+      if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
+        if(getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) !=null){
+          addActionError("该志愿者已经添加了该培训教程!");
+          return FAILURE;
+        }
+        volunteerTrainCourse.set_id(ObjectId.get());
+        volunteerTrainCourse.setTraincourseId(new ObjectId(traincourseId));
+        volunteerTrainCourse.setVolunteerId(new ObjectId(volunteerId));
+        getBusiness().createLeaf(volunteerTrainCourse);
+      } else {
+        getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
+      }
+      return SUCCESS;
     } else {
-      getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
+      addActionError("志愿者或者培训课程不能为空!");
+      return FAILURE;
     }
-    return SUCCESS;
   }
 }
