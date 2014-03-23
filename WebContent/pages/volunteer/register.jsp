@@ -15,14 +15,8 @@
          })(jQuery);
          jQuery("#cameraDialog").css('display','');
          jQuery("#cameraDialog").center();
-
-         
-         function submitConfirm(){
-        	 var s = '请牢记你的工号：' + $("input[name='volunteer.code']").val() + ',这将做为你的登录凭证！';
-        	 return confirm(s);
-         }
+        
      </script>
-     
   
    <style type="text/css">
 	.metro .volunteerinfo:before {
@@ -50,19 +44,15 @@
     </div>
     </div>
     <div class="example volunteerinfo" style=" float: left;">
-       <form  id="volunteerForm" action="register.action" method="post" onsubmit="return submitConfirm();">
+       <form  id="volunteerForm" action="register.action" method="post">
            <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
            <fieldset>
-               <legend>志愿者注册</legend>
-               <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+               <s:actionerror/><s:actionmessage/>
                
                <%@ include file="volunteerFields.jsp"%>
                
                <input type="submit" value="注册"/>
-               <input type="button" onclick="history.go(-1);" value="取消"/>
-
-               <div style="margin-top: 20px">
-               </div>
+               <input type="button" onclick="window.location.href='html/welcome.jsp'" value="取消"/>
            </fieldset>
        </form>
     </div>

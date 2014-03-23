@@ -36,7 +36,7 @@
         添加培训记录
       </s:else>
     </header>
-    <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+    <s:actionerror/><s:actionmessage/>
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">志愿者名</label>
         <div class="col-lg-10">

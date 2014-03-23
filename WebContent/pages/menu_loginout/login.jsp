@@ -22,7 +22,7 @@
     <label id="console_message" style="color:red;font-size:20px"></label>
     <form id="loginForm" action="<%=request.getContextPath() %>/login.action" method="post">
       <fieldset>
-          <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+          <s:actionerror/><s:actionmessage/>
           <label>工号</label>
           <div class="input-control text" data-role="input-control">
               <input type="text" placeholder="请输入工号,不是姓名" name="volunteer.code" autofocus required="required"/>

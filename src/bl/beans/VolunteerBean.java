@@ -10,9 +10,12 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity(value = "volunteer")
 public class VolunteerBean extends Bean {
-  public static final int LOCK = 1;
-  public static final int UN_LOCK = 0;
-
+  public static final int REGISTERED = 0;
+  public static final int VIERFIED = 1;
+  public static final int INTERVIEWED = 2;
+  public static final int SERVICED = 3;
+  public static final int LOGOUTED = 4;
+  
   private String code;
   private Integer registerFrom = 1; // 1=hospital,2=wechat.
   private Integer status = 0; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销

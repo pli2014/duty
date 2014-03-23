@@ -3,7 +3,9 @@
  */
 package actions.backend;
 
+import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
+import bl.beans.VolunteerBean;
 
 /**
  * @author gudong
@@ -11,9 +13,45 @@ import vo.table.TableQueryVo;
  */
 public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
   @Override
+  public String getTableTitle() {
+    return "志愿者审核";
+  }
+
+  @Override
+  public String getActionPrex() {
+    return getRequest().getContextPath() + "/backend/volunteerVerify";
+  }
+
+  @Override
+  public String getCustomJs() {
+    return getRequest().getContextPath() + "/js/volunteerVerify.js";
+  }
+
+  @Override
   public TableQueryVo getModel() {
     // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
-    super.getModel().getFilter().put("status", "0");
-    return super.getModel();
+    TableQueryVo model = super.getModel();
+    model.getFilter().put("status", VolunteerBean.REGISTERED);
+    return model;
+  }
+
+  @Override
+  public TableInitVo getTableInit() {
+    TableInitVo init = super.getTableInit();
+    init.setDisableTools(true);
+    return init;
+  }
+
+  /**
+   * 
+   * @return
+   */
+  public String verify() {
+    VolunteerBean volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    if (volunteer != null) {
+      volunteer.setStatus(VolunteerBean.VIERFIED);
+      getBusiness().updateLeaf(volunteer, volunteer);
+    }
+    return SUCCESS;
   }
 }

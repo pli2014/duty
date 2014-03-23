@@ -19,7 +19,7 @@
   </s:if>
            <form class="form-horizontal tasi-form">
 
-               <div class="form-group">
+               <div id="tableTools" class="form-group">
                    <div class="col-lg-3">
                        <a class="btn btn-success" href="${actionPrex}/add.action">
                            <i class="fa fa-plus"></i>
@@ -132,6 +132,9 @@
      var tableUrl = "${actionPrex}/initTable.action";
      var param = {};
      $.getJSON( tableUrl, param, function (initParam) { 
+         if(initParam.disableTools){
+             $('#tableTools').css('display','none');
+         }
          idName = initParam.idName;
          for(var i=0;i<initParam.aoColumns.length ; i++){
              if(typeof cellFormatter[initParam.aoColumns[i].mData] == "function"){

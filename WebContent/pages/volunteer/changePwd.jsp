@@ -21,7 +21,7 @@
    <div class="example volunteerinfo" >
      <form  id="volunteerForm" action="volunteer/changePassword.action" method="post">
            <fieldset>
-               <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+               <s:actionerror/><s:actionmessage/>
                
                <label>旧密码</label>
 				<div class="input-control password" data-role="input-control">

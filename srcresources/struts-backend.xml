@@ -112,12 +112,18 @@
         <action name="index" class="actions.backend.BackendVolunteerVerifyAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendVolunteerVerifyAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerVerifyAction" method="queryTable"/>
+		<action name="verify" class="actions.backend.BackendVolunteerVerifyAction" method="verify">
+		  <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+		</action>
 	</package>
 	
 	<package name="backendInterview" namespace="/backend/volunteerInterview" extends="default-backend">
         <action name="index" class="actions.backend.BackendVolunteerInterviewAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendVolunteerInterviewAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerInterviewAction" method="queryTable"/>
+		<action name="interview" class="actions.backend.BackendVolunteerInterviewAction" method="interview">
+		  <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+		</action>
 	</package>
 	
     <package name="serviceplace" namespace="/backend/serviceplace" extends="default-backend">

@@ -40,10 +40,7 @@
         <action name="register" class="actions.front.VolunteerAction" method="register">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="failure">/pages/volunteer/register.jsp</result>
-            <result name="success" type="redirectAction">
-                <param name="namespace">/</param>
-                <param name="actionName">index</param>
-            </result>
+            <result name="success">/pages/volunteer/registerSuccess.jsp</result>
         </action>
 
         <action name="index">

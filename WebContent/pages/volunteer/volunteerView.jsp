@@ -32,7 +32,7 @@
    <div class="example volunteerinfo">
     <form>
       <fieldset>
-          <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+          <s:actionerror/><s:actionmessage/>
           
           <label>个人照片</label>
           <div class="input-control text" data-role="input-control">

@@ -31,7 +31,7 @@
     <div class="container">
       <form id="loginForm" class="form-signin" action="backend/login.action" method="post">
         <h2 class="form-signin-heading">后台登录</h2>
-        <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+        <s:actionerror/><s:actionmessage/>
         <div class="login-wrap">
             <input type="text" name="user.name" class="form-control" placeholder="用户名" autofocus required="required">
             <input type="password" name="user.password" class="form-control" placeholder="密码" required="required">

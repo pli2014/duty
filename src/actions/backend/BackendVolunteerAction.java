@@ -32,6 +32,14 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     this.volunteer = volunteer;
   }
 
+  @Override
+  public VolunteerBusiness getBusiness() {
+    if (business == null) {
+      business = new VolunteerBusiness();
+    }
+    return (VolunteerBusiness)business;
+  }
+
   /**
    * 
    */

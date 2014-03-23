@@ -8,20 +8,15 @@ import java.lang.reflect.Type;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-
-import org.bson.types.ObjectId;
-
-import util.ServerContext;
 import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
-import webapps.WebappsConstants;
-import bl.beans.VolunteerBean;
 import bl.common.TableBusinessInterface;
-import bl.mongobus.SequenceUidGenerator;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 /**
  * Base Table Action
@@ -30,11 +25,10 @@ import com.opensymphony.xwork2.ModelDriven;
  * @since $Date:2014-02-20$
  */
 public abstract class BaseTableAction<B extends TableBusinessInterface> extends BaseAction implements ModelDriven<TableQueryVo> {
-
-  private TableQueryVo model;
-  private TableBusinessInterface business;
+  private static Logger log = LoggerFactory.getLogger(BaseTableAction.class);
+  protected TableQueryVo model;
+  protected TableBusinessInterface business;
   public static final String INDEX_SUCCESS = "tableIndex";
-
 
   /**
    * The Action Prefix that will be append action. like : getRequest().getContextPath() + "/datatable".
@@ -71,15 +65,15 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    */
   public B getBusiness() {
     if (business == null) {
-      ParameterizedType t = (ParameterizedType) this.getClass().getGenericSuperclass();
+      ParameterizedType t = (ParameterizedType) (this.getClass().getGenericSuperclass());
       Type[] ts = t.getActualTypeArguments();
       try {
         business = (B) ((Class<B>) ts[0]).newInstance();
       } catch (InstantiationException e) {
-        e.printStackTrace();
+        log.error("get business error!", e);
         business = null;
       } catch (IllegalAccessException e) {
-        e.printStackTrace();
+        log.error("get business error!", e);
         business = null;
       }
     }
@@ -114,7 +108,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     // json
     JsonConfig config = new JsonConfig();
     config.setExcludes(new String[] { "searchOptions" });
-    TableInitVo  ti = getTableInit();
+    TableInitVo ti = getTableInit();
     TableHeaderVo createTime = new TableHeaderVo("createTime", "创建时间");
     createTime.setbSearchable(false);
     ti.getAoColumns().add(createTime);
@@ -171,7 +165,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
   public String delete() throws Exception {
     return SUCCESS;
   }
-  
+
   /**
    * 
    * @return

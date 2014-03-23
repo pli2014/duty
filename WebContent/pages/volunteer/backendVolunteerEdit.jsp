@@ -36,7 +36,7 @@
         添加志愿者
       </s:else>
     </header>
-    <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+    <s:actionerror/><s:actionmessage/>
      <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunteer/save.action">
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">志愿者名</label>
