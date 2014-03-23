@@ -24,8 +24,8 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="backend/volunteer/index.action">志愿者管理</a></li>
-                          <li><a  href="horizontal_menu.html">审核</a></li>
-                          <li><a  href="language_switch_bar.html">面试</a></li>
+                          <li><a  href="backend/volunteerVerify/index.action">审核</a></li>
+                          <li><a  href="backend/volunteerInterview/index.action">面试</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

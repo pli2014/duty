@@ -24,7 +24,7 @@
     <header class="panel-heading">
         后台用户修改密码
     </header>
-     <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+     <s:actionerror/><s:actionmessage/>
      <form id="changePwdForm" class="form-horizontal tasi-form" action="backend/user/changePassword.action" method="post">
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">旧密码</label>

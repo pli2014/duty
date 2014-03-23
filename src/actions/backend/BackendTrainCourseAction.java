@@ -12,11 +12,15 @@ import bl.mongobus.TrainCourseServicePlaceBusiness;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import net.sf.json.JSONArray;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
 
+import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -149,5 +153,16 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
   @Override
   public String getCustomJs() {
     return getRequest().getContextPath() + "/js/trainCourse.js";
+  }
+  
+  public String search() {
+    TableQueryVo param = new TableQueryVo();
+    param.getFilter().put("name", trainCourse.getName());
+    param.setIDisplayLength(10);
+    param.setIDisplayStart(0);
+    TableDataVo dataVo = getBusiness().query(param);
+    JSONArray jsonArray = JSONArray.fromObject(dataVo.getAaData());
+    writeJson(jsonArray);
+    return null;
   }
 }

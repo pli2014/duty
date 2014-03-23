@@ -33,6 +33,17 @@
     <script src="jslib/flatlab/assets/metro-ui/js/docs.js"></script>
     <script src="jslib/flatlab/assets/metro-ui/js/github.info.js"></script>
     <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script>
+    
+    <style type="text/css">
+    .red{
+      color:red !important;
+    }
+    .errorMessage li{
+       text-align: center !important;
+       color:red !important;
+       font-size: x-large;
+    }
+    </style>
 </head>
 
 <body>

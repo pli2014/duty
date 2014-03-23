@@ -3,14 +3,13 @@
  */
 package actions.backend;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-
+import net.sf.json.JSONArray;
 import util.ServerContext;
 import util.StringUtil;
+import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
 import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
 import bl.common.BusinessResult;
@@ -34,6 +33,14 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   public void setVolunteer(VolunteerBean volunteer) {
     this.volunteer = volunteer;
+  }
+
+  @Override
+  public VolunteerBusiness getBusiness() {
+    if (business == null) {
+      business = new VolunteerBusiness();
+    }
+    return (VolunteerBusiness) business;
   }
 
   /**
@@ -72,7 +79,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer);
+    BusinessResult result = getBusiness().save(volunteer, getRequest().getServletContext());
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());
@@ -125,5 +132,16 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     volunteer = new VolunteerBean();
     volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
     return SUCCESS;
+  }
+
+  public String search() {
+    TableQueryVo param = new TableQueryVo();
+    param.getFilter().put("name", volunteer.getName());
+    param.setIDisplayLength(10);
+    param.setIDisplayStart(0);
+    TableDataVo dataVo = getBusiness().query(param);
+    JSONArray jsonArray = JSONArray.fromObject(dataVo.getAaData());
+    writeJson(jsonArray);
+    return null;
   }
 }

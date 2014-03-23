@@ -1,6 +1,7 @@
 package bl.beans;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.Date;
 
@@ -9,6 +10,7 @@ import java.util.Date;
  */
 @Entity(value = "activeuser")
 public class ActiveUserBean extends Bean{
+  @Indexed
   private String userId;
   private String servicePlaceId;
   private String status;   //-1:离线, 0:普通签入, 1:微信签入

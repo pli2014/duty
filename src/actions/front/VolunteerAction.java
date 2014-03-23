@@ -29,8 +29,17 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
   private static final long serialVersionUID = 2565111276150636692L;
   private VolunteerBean volunteer;
   private String oldPassword;
+  private String[][] volunteerCodes = null;
 
-  public VolunteerBean getVolunteer() {
+    public String[][] getVolunteerCodes() {
+        return volunteerCodes;
+    }
+
+    public void setVolunteerCodes(String[][] volunteerCodes) {
+        this.volunteerCodes = volunteerCodes;
+    }
+
+    public VolunteerBean getVolunteer() {
     return volunteer;
   }
 
@@ -57,9 +66,23 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
       if (userTmp != null && StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
         getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
         return SUCCESS;
-      } else {
+      } else if(userTmp != null && volunteer.getPassword().equals(userTmp.getPassword())){
+          //这是通过指纹的方式拿到MD5密码然后登陆，类似于token
+          getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+          return SUCCESS;
+      }else {
         addActionError("密码错误");
       }
+    }else{
+        List<VolunteerBean> volunteers = (List<VolunteerBean>)getBusiness().getAllLeaves().getResponseData();
+        String[][] vols = new String[volunteers.size()][2];
+        int i=0;
+        for(VolunteerBean vt:volunteers){
+            vols[i][0]= vt.getCode();
+            vols[i][1]= vt.getPassword();
+            i++;
+        }
+        this.volunteerCodes = vols;
     }
     return FAILURE;
   }
@@ -85,15 +108,13 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    */
   public String register() throws Exception {
     if (volunteer != null) {
-      VolunteerBean origVolunteer = getBusiness().getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
-      if (origVolunteer != null) {
-        addActionError("身份证已经被注册!");
+      BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
+      if (result.getErrors().size() > 0) {
+        for (Object error : result.getErrors()) {
+          addActionError(error.toString());
+        }
         return FAILURE;
       }
-
-      volunteer.set_id(ObjectId.get());
-      volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-      getBusiness().createLeaf(volunteer);
       getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
       return SUCCESS;
     } else {
@@ -119,7 +140,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer);
+    BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());

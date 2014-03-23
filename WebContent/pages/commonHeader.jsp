@@ -15,9 +15,16 @@
 %>
     <base href="<%=basePath%>">
 
-<style type="text/css">
+  <style type="text/css">
     .mt15 {
         margin-top: 15px;
     }
-
-</style>
+    .red{
+      color:red !important;
+    }
+    .errorMessage li{
+       text-align: center !important;
+       color:red !important;
+       font-size: x-large;
+    }
+ </style>

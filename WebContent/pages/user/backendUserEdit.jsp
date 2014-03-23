@@ -36,7 +36,7 @@
         添加用户
       </s:else>
     </header>
-    <h5 style="color: red;text-align: center;"><s:actionerror/><s:actionmessage/></h5>
+    <s:actionerror/><s:actionmessage/>
      <form id="userForm" class="form-horizontal tasi-form" action="backend/user/save.action">
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">用户名</label>

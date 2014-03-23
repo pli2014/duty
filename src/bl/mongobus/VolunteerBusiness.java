@@ -8,11 +8,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 import util.StringUtil;
+import vo.table.TableDataVo;
+import vo.table.TableQueryVo;
+import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
 import bl.common.BeanContext;
 import bl.common.BusinessResult;
@@ -75,7 +80,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    * @param volunteer
    * @return
    */
-  public BusinessResult save(VolunteerBean volunteer) {
+  public BusinessResult save(VolunteerBean volunteer, ServletContext context) {
     BusinessResult result = new BusinessResult();
     if (StringUtils.isBlank(volunteer.getId())) {
       VolunteerBean volunteerTmp = getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
@@ -85,7 +90,9 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       }
       volunteer.set_id(ObjectId.get());
       volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-      return createLeaf(volunteer);
+      result = createLeaf(volunteer);
+      context.setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
+      return result;
     } else {
       VolunteerBean volunteerTmp = (VolunteerBean) getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
       if (volunteerTmp != null && !volunteerTmp.getId().equals(volunteer.getId())) {
@@ -107,12 +114,12 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       return result;
     }
   }
-  
+
   /**
    * 通过OpenID获取志愿者
-   *
+   * 
    * @param openID
-   *  
+   * 
    * @return
    */
   public VolunteerBean getVolunteerBeanByOpenID(String openID) {
@@ -126,5 +133,39 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       return null;
     }
   }
-	
+
+  /**
+   * 
+   * @return
+   */
+  public TableDataVo getUnVerifiedVolunteers() {
+    TableQueryVo query = new TableQueryVo();
+    query.getFilter().put("status", VolunteerBean.REGISTERED);
+    query.getFilter().put("isDeleted_!=", true);
+    query.setIDisplayStart(0);
+    query.setIDisplayLength(7);
+
+    long count = getCount(query);
+    TableDataVo dataVo = query(query);
+    dataVo.setiTotalDisplayRecords(count);
+    dataVo.setiTotalRecords(count);
+    return dataVo;
+  }
+
+  /**
+   * 
+   * @return
+   */
+  public TableDataVo getUnInterviewedVolunteers() {
+    TableQueryVo query = new TableQueryVo();
+    query.getFilter().put("status", VolunteerBean.VIERFIED);
+    query.getFilter().put("isDeleted_!=", true);
+    query.setIDisplayStart(0);
+    query.setIDisplayLength(7);
+    long count = getCount(query);
+    TableDataVo dataVo = query(query);
+    dataVo.setiTotalDisplayRecords(count);
+    dataVo.setiTotalRecords(count);
+    return dataVo;
+  }
 }

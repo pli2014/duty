@@ -3,14 +3,17 @@ package bl.beans;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Index;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * Created by Administrator on 14-3-14.
  */
 @Entity(value = "traincourse_serviceplace")
-@Index(value = "trainCourseId,servicePlaceId")
+
 public class TrainCourseServicePlaceBean extends Bean {
+    @Indexed
     private String trainCourseId;
+    @Indexed
     private String servicePlaceId;
 
     public String getTrainCourseId() {
