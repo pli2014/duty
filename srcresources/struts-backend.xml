@@ -4,12 +4,6 @@
     "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-
-	<constant name="struts.devMode" value="false" />
-	<constant name="struts.ui.theme" value="simple" />
-	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<constant name="struts.custom.i18n.resources" value="resources/LocaleStrings" />
-
 	<package name="default-backend" namespace="/backend" extends="default" >
 	    <default-interceptor-ref name="bakcendDefaultStack"></default-interceptor-ref>
 		<global-results>

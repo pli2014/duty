@@ -197,44 +197,6 @@
         </action>
     </package>
 
-    <package name="wechat" namespace="/wechat" extends="default">
-        <default-interceptor-ref name="noLoginStack"></default-interceptor-ref>
-        <action name="redirect" class="actions.wechat.WechatRedirect" method="redirect">
-            <result name="success">/pages/wechat/redirect.jsp</result>
-        </action>
-        <action name="userBinding" class="actions.wechat.WechatUserAction" method="binding">
-            <result name="success">/pages/wechat/userBinding.jsp</result>
-        </action>
-        <action name="userBindingSubmit" class="actions.wechat.WechatUserAction" method="bindingSubmit">
-            <result name="success">/pages/wechat/userBindingSuccess.jsp</result>
-            <result name="error">/pages/wechat/userBinding.jsp</result>
-        </action>
-        <action name="checkIn" class="actions.wechat.WechatServiceAction" method="checkIn">
-            <result name="success">/pages/wechat/checkIn.jsp</result>
-        </action>
-        <action name="checkInSubmit" class="actions.wechat.WechatServiceAction" method="checkInSubmit">
-        </action>
-        <action name="checkOut" class="actions.wechat.WechatServiceAction" method="checkOut">
-            <result name="success">/pages/wechat/checkOut.jsp</result>
-        </action>
-        <action name="checkOutSubmit" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="peopleHere" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myHonour" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myTraining" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myData" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="volunteerRecruit" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myAdvise" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="currentActivity" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="serviceDescription" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-    </package>
     <include file="struts-backend.xml"></include>
+    <include file="struts-wechat.xml"></include>
 </struts>
