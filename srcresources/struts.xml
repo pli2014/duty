@@ -165,6 +165,13 @@
         <action name="myTimeReport" class="actions.front.UserServiceAction" method="getMyTimeReport">
             <result name="success">/pages/menu_volunteer/myTimeReport.jsp</result>
         </action>
+        <action name="myDailyTimeReport" class="actions.front.UserServiceAction" method="getMyDailyTimeReport">
+            <result name="success">/pages/menu_volunteer/myTimeReportDaily.jsp</result>
+        </action>
+        <action name="myMonthlyTimeReport" class="actions.front.UserServiceAction" method="getMyMonthlyTimeReport">
+            <result name="success">/pages/menu_volunteer/myTimeReportMonthly.jsp</result>
+        </action>
+
 
         <action name="whoishere" class="actions.front.UserServiceAction" method="whoIsHere">
             <result name="success0">/pages/menu_whoishere/whoishere.jsp</result>

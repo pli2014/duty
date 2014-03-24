@@ -39,6 +39,12 @@
     <s:actionerror/><s:actionmessage/>
      <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunteer/save.action">
          <div class="form-group has-success">
+             <label class="col-lg-2 control-label">工号</label>
+             <div class="col-lg-10">
+                 <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="readonly" class="form-control" />
+             </div>
+         </div>
+         <div class="form-group has-success">
              <label class="col-lg-2 control-label">志愿者名</label>
              <div class="col-lg-10">
                  <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
@@ -48,12 +54,6 @@
                         required="required" value="${volunteer.name}"/>
              </div>
          </div> 
-         <div class="form-group has-success">
-             <label class="col-lg-2 control-label">工号</label>
-             <div class="col-lg-10">
-                 <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="readonly" class="form-control" />
-             </div>
-         </div>
          <s:if test="volunteer.id.length() > 0">
          </s:if>
         <s:else>

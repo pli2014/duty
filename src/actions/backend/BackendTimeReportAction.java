@@ -59,12 +59,17 @@ public class BackendTimeReportAction extends BaseBackendAction{
   public String getActiveReportData(){
     List<ActiveTimeReportVo> result = new ArrayList<ActiveTimeReportVo>();
     // get filters
-    Map<String, String> filterMap = getModel().getFilter();
-    name = filterMap.get("name");
-    servicePlaceId = filterMap.get("servicePlaceId");
+    Map<String, String[]> filterMap = getModel().getFilter();
+    String[] names = filterMap.get("name");
+    if(null != names && names.length > 0) {
+      name = names[0];
+    }
+
+    String[] servicePlaces = filterMap.get("servicePlaceId");
 
     List<String> serviceIdList = new ArrayList<String>();
-    if(null != servicePlaceId) {
+    if(null != servicePlaces && servicePlaces.length > 0) {
+      servicePlaceId = servicePlaces[0];
       serviceIdList.add(servicePlaceId);
     }
 
@@ -151,7 +156,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
           Long value = valueMap.get(time);
           Map monthMap = new HashMap();
           monthMap.put("time", time);
-          monthMap.put(name, value!=null?value:0l);
+          monthMap.put(name, (value!=null?value:0l)/ 3600000);
           dataList.add(monthMap);
           cal.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -200,7 +205,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
           Long value = valueMap.get(time);
           Map monthMap = new HashMap();
           monthMap.put("time", time);
-          monthMap.put(name, value!=null?value:0l);
+          monthMap.put(name, (value!=null?value:0l)/ 3600000);
           dataList.add(monthMap);
           cal.add(Calendar.MONTH, 1);
         }

@@ -131,7 +131,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
       usBean.setCheckOutTime(new Date());
       this.createLeaf(usBean);
 
-      activeUserBus.deleteLeaf(activeUserBean.getId());
+      activeUserBus.deleteLeaf(activeUserBean.getId(), true);
     }
     return new BusinessResult();
   }
@@ -142,7 +142,38 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
   }
 
-  public Map<String, Map> statisticTime(List<UserServiceBean> beanList){
+  /**
+   *
+   * @param beanList
+   * @param sdfString could be: yyyy-MM-dd, yyyy-MM, yyyy
+   * @param baseTime the base compare time
+   * @return
+   */
+  public Map<String, Map> statisticTime(List<UserServiceBean> beanList, String sdfString, String baseTime) {
+    Map<String, Map> resultMap = new HashMap<String, Map>();
+    SimpleDateFormat sdf = new SimpleDateFormat(sdfString);
+
+    for(UserServiceBean bean: beanList) {
+      Map userMap = resultMap.get(bean.getUserId());
+      if(null == userMap) {
+        userMap = new HashMap<String, Map>();
+        userMap.put("user", bean.getUserBean());
+        resultMap.put(bean.getUserId(), userMap);
+      }
+      String formatedTime = sdf.format(bean.getCheckOutTime());
+      if(formatedTime.startsWith(baseTime)) {
+        long time = bean.getCheckOutTime().getTime() - bean.getCheckInTime().getTime();
+        if(null == userMap.get(formatedTime)) {
+          userMap.put(formatedTime, 0l);
+        }
+        userMap.put(formatedTime, (long)userMap.get(formatedTime) + time) ;
+      }
+    }
+    return resultMap;
+  }
+
+
+  public Map<String, Map> statisticTime(List<UserServiceBean> beanList) {
     Map<String, Map> resultMap = new HashMap<String, Map>();
     SimpleDateFormat day_sdf = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat month_sdf = new SimpleDateFormat("yyyy-MM");
@@ -156,14 +187,12 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     for(UserServiceBean bean: beanList) {
       Map userMap = resultMap.get(bean.getUserId());
       if(null == userMap) {
-        userMap = new HashMap<String, Map>();
+        userMap = new HashMap();
         userMap.put("user", bean.getUserBean());
         userMap.put(Calendar.DAY_OF_MONTH, 0l);
         userMap.put(Calendar.MONTH, 0l);
         userMap.put(Calendar.YEAR, 0l);
         userMap.put(Calendar.ALL_STYLES,0l);
-        userMap.put("user", bean.getUserBean());
-        userMap.put("user", bean.getUserBean());
         resultMap.put(bean.getUserId(), userMap);
       }
 

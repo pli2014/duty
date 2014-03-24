@@ -83,6 +83,20 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 		return br;
 	}
 
+
+  public BusinessResult deleteLeaf(String objectId, boolean realDelete) {
+    BusinessResult br = new BusinessResult();
+    if(realDelete) {
+      Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+      Object object = dc.find(this.clazz, "_id", new ObjectId(objectId))
+          .get();
+      dc.delete(object);
+    } else {
+      return deleteLeaf(objectId);
+    }
+    return br;
+  }
+
 	@Override
 	public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
 		Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
