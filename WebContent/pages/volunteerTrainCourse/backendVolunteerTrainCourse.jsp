@@ -41,10 +41,18 @@
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">志愿者名</label>
         <div class="col-lg-10">
-            <input type="hidden" id="volunteerId" />
-            <input type="text" id="volunteerName" placeholder="输入 志愿者名, 点查询"  class="form-control pull-left" style=" width: 200px;  "/>
-            <input type="button" class="btn btn-success" onclick="queryVolunteer()" value="查询" >       
-            <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px; position: relative;left: -200px;">
+            <input type="hidden" name="volunteerTrainCourse.id" value="${volunteerTrainCourse.id}"/>
+            <s:if test="volunteerTrainCourse.id.length() > 0">
+         </s:if>
+         <s:else>
+	            <input type="text" id="volunteerName" placeholder="输入 志愿者名, 点查询"  class="form-control pull-left" style=" width: 200px;  "/>
+	            <input type="button" class="btn btn-success" onclick="queryVolunteer()" value="查询" >       
+	            <div style="clear: both;"></div>
+            </s:else>
+            <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;">
+              <s:if test="volunteerTrainCourse.id.length() > 0">
+                <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
+              </s:if>
             </select>
         </div>
     </div> 
@@ -53,8 +61,12 @@
         <label class="col-lg-2 control-label">状态</label>
         <div class="col-lg-10">
             <select name="volunteerTrainCourse.status" class="form-control input-lg m-bot15" style="width: 200px;">
-              <option value="0">未通过</option>
-              <option value="1">通过</option>
+              <option value="0" 
+                 <s:if test="volunteerTrainCourse.status == 0">selected="selected"</s:if> 
+                 >未通过</option>
+              <option value="1"
+                 <s:if test="volunteerTrainCourse.status == 1">selected="selected"</s:if> 
+                 >通过</option>
             </select>
         </div>
     </div>
@@ -62,10 +74,17 @@
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">培训课程</label>
         <div class="col-lg-10">
-           <input type="hidden" id="trainCourseId" />
-            <input type="text" id="trainCourseName" placeholder="输入 培训课程名, 点查询"   class="form-control  pull-left" style=" width: 200px;"/>
+        <s:if test="volunteerTrainCourse.id.length() > 0">
+         </s:if>
+         <s:else>
+          <input type="text" id="trainCourseName" placeholder="输入 培训课程名, 点查询"   class="form-control  pull-left" style=" width: 200px;"/>
           <input type="button" class="btn btn-success" onclick="queryTrainCourse()"  value="查询">   
-           <select id="traincourseIdSelect"  name="traincourseId" class="form-control input-lg m-bot15" style="width: 200px; position: relative;left: -200px;">
+          <div style="clear: both;"></div>
+        </s:else>
+           <select id="traincourseIdSelect"  name="traincourseId" class="form-control input-lg m-bot15" style="width: 200px;">
+             <s:if test="volunteerTrainCourse.id.length() > 0">
+                <option value="${volunteerTrainCourse.trainCourse.id}">${volunteerTrainCourse.trainCourse.name}</option>
+              </s:if>
            </select>
         </div>
     </div>

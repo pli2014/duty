@@ -1,7 +1,4 @@
 //clean all options
-options={};
-
-
 cellFormatter["status"] = function ( data, type, full ) {
     //0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
     if(data == 0){

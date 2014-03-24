@@ -2,18 +2,14 @@ package actions.backend;
 
 import java.util.List;
 
-import org.apache.commons.beanutils.BeanUtils;
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
-import com.opensymphony.xwork2.ActionSupport;
-
-import net.sf.json.JSONObject;
 import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
-import actions.BaseTableAction;
-import bl.beans.ServicePlaceBean;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;
 import bl.beans.VolunteerTrainCourseBean;
@@ -112,7 +108,35 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     return null;
   }
 
+  @Override
   public String add() {
+    return SUCCESS;
+  }
+
+  @Override
+  public String edit() throws Exception {
+    volunteerTrainCourse = (VolunteerTrainCourseBean) getBusiness().getLeaf(getId()).getResponseData();
+    TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
+    VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
+    BusinessResult result;
+    if (volunteerTrainCourse != null && volunteerTrainCourse.getTraincourseId() != null) {
+      result = trainCourseBusiness.getLeaf(volunteerTrainCourse.getTraincourseId().toString());
+      if (result != null && result.getResponseData() != null) {
+        volunteerTrainCourse.setTrainCourse((TrainCourseBean) result.getResponseData());
+      }
+    }
+    if (volunteerTrainCourse.getVolunteerId() != null) {
+      result = volunteerBusiness.getLeaf(volunteerTrainCourse.getVolunteerId().toString());
+      if (result != null && result.getResponseData() != null) {
+        volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
+      }
+    }
+    return SUCCESS;
+  }
+
+  @Override
+  public String delete() throws Exception {
+    getBusiness().deleteLeaf(getId());
     return SUCCESS;
   }
 
@@ -120,7 +144,7 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
   public String save() throws Exception {
     if (StringUtils.isNotBlank(traincourseId) && StringUtils.isNotBlank(volunteerId)) {
       if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
-        if(getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) !=null){
+        if (getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) != null) {
           addActionError("该志愿者已经添加了该培训教程!");
           return FAILURE;
         }
@@ -129,6 +153,8 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
         volunteerTrainCourse.setVolunteerId(new ObjectId(volunteerId));
         getBusiness().createLeaf(volunteerTrainCourse);
       } else {
+        volunteerTrainCourse.setTraincourseId(new ObjectId(traincourseId));
+        volunteerTrainCourse.setVolunteerId(new ObjectId(volunteerId));
         getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
       }
       return SUCCESS;
