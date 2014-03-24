@@ -46,4 +46,10 @@
         <action name="serviceDescription" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
         </action>
     </package> 
+    
+    <package name="user" namespace="/wechat/user" extends="default-wechat">
+       <action name="myInfo" class="actions.wechat.WechatUserAction" method="myInfo">
+            <result name="success">/pages/wechat/userMyInfo.jsp</result>
+        </action>
+    </package>
 </struts>

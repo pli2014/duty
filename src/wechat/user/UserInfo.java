@@ -2,6 +2,8 @@ package wechat.user;
 
 import java.util.List;
 
+import bl.beans.VolunteerBean;
+
 /**
  * Created by wangronghua on 14-3-20.
  */
@@ -17,6 +19,8 @@ public class UserInfo {
   private long subscribe_time;
   private String headimgurl;
   private List privilege;
+
+  private VolunteerBean volunteer;
 
   public String getHeadimgurl() {
     return headimgurl;
@@ -98,7 +102,6 @@ public class UserInfo {
     this.subscribe_time = subscribe_time;
   }
 
-
   public List getPrivilege() {
     return privilege;
   }
@@ -107,5 +110,12 @@ public class UserInfo {
     this.privilege = privilege;
   }
 
+  public VolunteerBean getVolunteer() {
+    return volunteer;
+  }
+
+  public void setVolunteer(VolunteerBean volunteer) {
+    this.volunteer = volunteer;
+  }
 
 }

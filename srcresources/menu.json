@@ -40,7 +40,7 @@
                 {
                     "type":"view",
                     "name":"我的资料",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyData.action"
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2Fuser%2FmyInfo.action"
                 }]
         },
         {

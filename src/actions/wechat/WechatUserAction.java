@@ -22,11 +22,21 @@ public class WechatUserAction extends BaseAction {
   private String identityCardNumber;
   private String password;
 
+  private UserInfo user;
+
+  public UserInfo getUser() {
+    return user;
+  }
+
+  public void setUser(UserInfo user) {
+    this.user = user;
+  }
+
   VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
 
   public String binding() {
     String code = getRequest().getParameter("code");
-    if(null != code) {
+    if (null != code) {
       AccessToken token = AccessTokenManager.getAccessToken(code);
       UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
       if (null != info) {
@@ -37,11 +47,37 @@ public class WechatUserAction extends BaseAction {
     return SUCCESS;
   }
 
+  /**
+   * 
+   * @return
+   */
+  public String myInfo() {
+    user = new UserInfo();
+    user.setNickname("gudong");
+    user.setSex(1);
+    user.setCity("chongqing");
+    if (1 == 1)
+      return SUCCESS;
+    String code = getRequest().getParameter("code");
+    if (null != code) {
+      AccessToken token = AccessTokenManager.getAccessToken(code);
+      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
+      if (null != info) {
+        openID = info.getOpenid();
+        if (null != openID) {
+          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
+          wechatUser = volunteer.getWechat();
+          userName = volunteer.getName();
+        }
+      }
+    }
+    return SUCCESS;
+  }
+
   public String bindingSubmit() {
     VolunteerBean userTmp = vb.getVolunteerBeanByCode(userName);
-    if (userTmp != null && password != null && identityCardNumber != null
-            && StringUtil.toMD5(password).equals(userTmp.getPassword())
-            && identityCardNumber.equals(userTmp.getIdentityCard())) {
+    if (userTmp != null && password != null && identityCardNumber != null && StringUtil.toMD5(password).equals(userTmp.getPassword())
+        && identityCardNumber.equals(userTmp.getIdentityCard())) {
       userTmp.setOpenID(openID);
       userTmp.setWechat(wechatUser);
       vb.updateLeaf(userTmp, userTmp);
@@ -51,7 +87,6 @@ public class WechatUserAction extends BaseAction {
       return ERROR;
     }
   }
-
 
   public String getWechatUser() {
     return wechatUser;
