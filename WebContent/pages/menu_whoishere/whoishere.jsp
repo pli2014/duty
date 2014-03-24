@@ -42,7 +42,7 @@
                             <div style="idth:150px;height:40px;background-color:${key.color}"></div>
                         </div>
                     </div>
-                    <ul class="dropdown-menu extended tasks-bar">
+                    <ul class="dropdown-menu extended tasks-bar" style="width:500px !important;max-width:500px !important;">
                         <div class="notify-arrow notify-arrow-green"></div>
                         <li>
                             <p class="green">总共<s:property value="value.size"/>个志愿者在此服务</p>
@@ -52,7 +52,8 @@
                                 <span class="photo"><img src="<s:property value="#volunteer.iconpath"/>"
                                                          width="50px" height="50px"
                                                          onerror="this.src='img/volunteer.png';"/></span>
-                                    <span><s:property value="#volunteer.name"/></span>
+                                    <span>姓名：<s:property value="#volunteer.name"/>&nbsp;</span>
+                                    <span>工号：<s:property value="#volunteer.code"/>&nbsp;</span>
                                     <span>手机：<s:property value="#volunteer.cellPhone"/></span>
                             </li>
                         </s:iterator>

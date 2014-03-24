@@ -30,6 +30,30 @@
                         <input id="servicePlacename" name="servicePlace.name" type="text" class="form-control" value="${servicePlace.name}"/>
                     </div>
                 </div>
+                <div class="form-group has-success">
+                    <label class="col-lg-2 control-label">显示序号</label>
+                    <div class="col-lg-10">
+                        <input name="servicePlace.sequence" type="text" class="form-control" value="${servicePlace.sequence}"/>
+                        <script>
+                            $(document).ready(function() {
+                                $("form").validate({
+                                    rules: {
+                                        "servicePlace.sequence": {
+                                            required:true,
+                                            range: [0, 99999]
+                                        }
+                                    },
+                                    messages: {
+                                        'servicePlace.sequence': {
+                                            required: "请输入用户名",
+                                            range: "输入数字有效范围0-99,999"
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
                 <s:if test="#request.type==0">
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">地点颜色编码</label>
@@ -104,7 +128,7 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <button class="btn btn-danger" type="submit">保存</button>
-                        <button class="btn btn-danger" type="button" onclick="window.location.href='backend/serviceplace/index.action'">取消</button>
+                        <button class="btn btn-danger" type="button" onclick="window.location.href='../../backend/serviceplace/index.action?type=<s:property value='#request.type'/>'">取消</button>
                     </div>
                 </div>
             </form>

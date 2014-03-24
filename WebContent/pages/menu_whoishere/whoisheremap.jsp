@@ -41,7 +41,7 @@
                     buffer.push('<div class="dropdown-toggle" data-toggle="dropdown">');
                     buffer.push('地点：<s:property value="key.name"/><span class="badge bg-success"><s:property value="value.size"/></span>');
                     buffer.push('</div>');
-                    buffer.push('<ul class="dropdown-menu extended tasks-bar">');
+                    buffer.push('<ul class="dropdown-menu extended tasks-bar" style="width:500px !important;max-width:500px !important;">');
                     buffer.push('<div class="notify-arrow notify-arrow-green"></div>');
                     buffer.push('<li>');
                     buffer.push('<p class="green">总共<s:property value="value.size"/>个志愿者在此服务</p>');
@@ -51,7 +51,8 @@
                     buffer.push('<span class="photo"><img src="<s:property value="#volunteer.iconpath"/>"');
                     buffer.push('width="50px" height="50px"');
                     buffer.push('onerror=\'this.src="img/volunteer.png;"\'/></span>');
-                    buffer.push('<span><s:property value="#volunteer.name"/></span>');
+                    buffer.push('<span>姓名：<s:property value="#volunteer.name"/></span>');
+                    buffer.push('<span>&nbsp;工号：<s:property value="#volunteer.code"/></span>');
                     buffer.push('<span>&nbsp;手机：<s:property value="#volunteer.cellPhone"/></span>');
                     buffer.push('</li>');
                     buffer.push('</s:iterator>');

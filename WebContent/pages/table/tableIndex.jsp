@@ -64,14 +64,18 @@
                            </script>
                        </div>
                        <div class="col-lg-2">
-                           <input id="modifyTimeEnd"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
+                           <input id="modifyTimeEnd"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('');">
                            <script>
                                $("#modifyTimeEnd").datepicker();
                            </script>
                        </div>
-                       <a class="btn btn-success pull-right" style="margin-right:20px;margin-bottom: 15px; " onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                       <a class="btn btn-success pull-right" style="margin-left:5px" onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
                            <i class="fa fa-check"></i>
                            查询
+                       </a>
+                       <a class="btn btn-success pull-right" onclick="jQuery('form input').val('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                           <i class="fa fa-check"></i>
+                           重置
                        </a>
                    </div>
               </div>

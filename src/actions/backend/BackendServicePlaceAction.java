@@ -81,6 +81,7 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     @Override
     public TableInitVo getTableInit() {
         TableInitVo init = new TableInitVo();
+        init.getAoColumns().add(new TableHeaderVo("sequence", "显示序号"));
         init.getAoColumns().add(new TableHeaderVo("code", "地点编码"));
         init.getAoColumns().add(new TableHeaderVo("name", "地点名称"));
         return init;
