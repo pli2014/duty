@@ -7,8 +7,9 @@
 	<package name="default-wechat" namespace="/wechat" extends="default" >
 	    <default-interceptor-ref name="noLoginStack"></default-interceptor-ref>
 	</package>
-	
-	<package name="wechat" namespace="/wechat" extends="default-wechat">
+
+    <package name="wechat" namespace="/wechat" extends="default">
+        <default-interceptor-ref name="noLoginStack"></default-interceptor-ref>
         <action name="redirect" class="actions.wechat.WechatRedirect" method="redirect">
             <result name="success">/pages/wechat/redirect.jsp</result>
         </action>
@@ -21,13 +22,19 @@
         </action>
         <action name="checkIn" class="actions.wechat.WechatServiceAction" method="checkIn">
             <result name="success">/pages/wechat/checkIn.jsp</result>
+            <result name="checkout">/pages/wechat/checkOut.jsp</result>
+            <result name="login">/pages/wechat/userBindingRedirect.jsp</result>
+            <result name="error">/pages/wechat/wechatError.jsp</result>
         </action>
         <action name="checkInSubmit" class="actions.wechat.WechatServiceAction" method="checkInSubmit">
+            <result name="success">/pages/wechat/wechatMessage.jsp</result>
         </action>
         <action name="checkOut" class="actions.wechat.WechatServiceAction" method="checkOut">
             <result name="success">/pages/wechat/checkOut.jsp</result>
+            <result name="error">/pages/wechat/wechatMessage.jsp</result>
         </action>
         <action name="checkOutSubmit" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+            <result name="success">/pages/wechat/wechatMessage.jsp</result>
         </action>
         <action name="peopleHere" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
         </action>

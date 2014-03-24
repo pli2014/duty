@@ -197,6 +197,7 @@
         </action>
     </package>
 
+
     <include file="struts-backend.xml"></include>
     <include file="struts-wechat.xml"></include>
 </struts>

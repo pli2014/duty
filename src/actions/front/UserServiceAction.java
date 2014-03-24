@@ -81,7 +81,7 @@ public class UserServiceAction extends BaseFrontAction {
 
   public String checkIn(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
-    servicePlaces = (List<ServicePlaceBean>)userServiceBus.getAvailableServicePlaces(user.getId()).getResponseData();
+    servicePlaces = userServiceBus.getAvailableServicePlaces(user.getId());
     return SUCCESS;
   }
 

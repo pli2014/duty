@@ -136,9 +136,9 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     return new BusinessResult();
   }
 
-  public BusinessResult getAvailableServicePlaces(String userId){
+  public List<ServicePlaceBean> getAvailableServicePlaces(String userId){
     //todo 根据userId和培训记录查询可展现的servicePlaces
-    return servicePlaceBus.getAllLeaves();
+    return (List<ServicePlaceBean>) servicePlaceBus.getAllLeaves().getResponseData();
 
   }
 
