@@ -4,7 +4,8 @@
   Time: 上午10:22
 --%>
 <!DOCTYPE html>
-<%@ include file="commonHeader.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="/struts-tags" prefix="s" %>
 <style type="text/css">
     .actionMessage{
         color: green;

@@ -21,17 +21,17 @@
 
                <div id="tableTools" class="form-group">
                    <div class="col-lg-3">
-                       <a class="btn btn-success" href="${actionPrex}/add.action">
+                       <a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}">
                            <i class="fa fa-plus"></i>
                            添加
                        </a>
                    </div>
                </div>
            <section class="panel">
-               <header class="panel-heading" onclick="$('#panelbody').toggle();" style="cursor: pointer">
+               <header class="panel-heading" onclick="$('#panelbody').toggle();$('#panelbodybullet').toggleClass('fa fa-chevron-up');$('#panelbodybullet').toggleClass('fa fa-chevron-down');" style="cursor: pointer">
                    查询区域
                       <span class="tools pull-right">
-                        <span class="fa fa-chevron-up" style="cursor: pointer"></span>
+                        <span id="panelbodybullet" class="fa fa-chevron-up" style="cursor: pointer"></span>
                       </span>
                </header>
                <div class="panel-body" id="panelbody" style="display: none">
@@ -98,7 +98,7 @@
 	           var tableObj = $('#'+tableId).dataTable();
 	           var nTr = $(button).parents('tr')[0];
 	           var selectRowData =  tableObj.fnGetData( nTr );
-	           window.location.href = actionPrex + "/edit.action?id=" + selectRowData[idName];
+	           window.location.href = actionPrex + "/edit.action?${addButtonParameter}&id=" + selectRowData[idName];
 	       }     
         },
         'delete': {
@@ -150,7 +150,7 @@
 	 		 "iDisplayLength":initParam.iDisplayLength,
 	 		 "aLengthMenu": initParam.aLengthMenu,
 	 		 "aoColumns": initParam.aoColumns,
-	 		 "sAjaxSource": "${actionPrex}/queryTable.action",
+	 		 "sAjaxSource": "${actionPrex}/queryTable.action?${addButtonParameter}",
 	 		 //"sDom": '<"H"lT><"clear">rt<"F"ip>',
 	 		 "sDom": 'rt<"F"ip>',
 	 		 "oLanguage": {

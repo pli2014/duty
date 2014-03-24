@@ -81,6 +81,7 @@
                                         }
                                     </script>
                                 </th>
+                                <th class="column-name">地点编码</th>
                                 <th class="column-name">服务地点</th>
                             </tr>
                             </thead>
@@ -94,6 +95,7 @@
                                 </s:iterator>
                                 <tr>
                                     <td><input type="checkbox" <s:if test="#found">checked</s:if> name="trainCourseServicePlaces[<s:property value="%{#id.index}"/>].servicePlaceId" value="<s:property value="%{#sp.id}"/>"> </td>
+                                    <td><s:property value="%{#sp.code}"/> </td>
                                     <td><s:property value="%{#sp.name}"/> </td>
                                 </tr>
                             </s:iterator>
@@ -105,7 +107,7 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <button class="btn btn-danger" type="submit">保存</button>
-                        <button class="btn btn-danger" type="button" onclick="history.go(-1);">取消</button>
+                        <button class="btn btn-danger" type="button" onclick="window.location.href='backend/traincourse/index.action'">取消</button>
                     </div>
                 </div>
             </form>

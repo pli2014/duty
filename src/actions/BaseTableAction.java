@@ -37,6 +37,13 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    */
   public abstract String getActionPrex();
 
+    /**
+     *  In the TableIndex.jsp, there is a operation named "添加", sometime, need to be brought some parameters.
+     * @return
+     */
+  public String getAddButtonParameter(){
+      return "";
+  }
   /**
    * 
    * @return

@@ -34,8 +34,8 @@
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/serviceplace/serviceplacelist.action?type=0">院内服务地点</a></li>
-                          <li><a  href="backend/serviceplace/serviceplacelist.action?type=1">院外服务地点</a></li>
+                          <li><a  href="backend/serviceplace/index.action?type=0">院内服务地点</a></li>
+                          <li><a  href="backend/serviceplace/index.action?type=1">院外服务地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

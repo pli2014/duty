@@ -14,6 +14,16 @@ public class ServicePlaceBean extends Bean {
     private float longitude; //经度坐标
     private float latitude;  //纬度坐标
 
+    private int sequence;
+
+    public int getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(int sequence) {
+        this.sequence = sequence;
+    }
+
     public String getCode() {
         return code;
     }

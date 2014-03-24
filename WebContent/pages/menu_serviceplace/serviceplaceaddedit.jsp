@@ -13,6 +13,7 @@
             <header class="panel-heading">
                 服务地点管理
             </header>
+            <%@include file="../strutsMessage.jsp"%>
             <form role="form" method="post" class="form-horizontal tasi-form" onsubmit="return checkForm()" action="backend/serviceplace/serviceplacesubmit.action">
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">地点编码</label>
@@ -62,7 +63,7 @@
                             <br>
                             <br>
                             <style type="text/css">
-                                #allmap {width:80%;height:300px;overflow: hidden;margin:0;}
+                                #allmap {width:80%;height:500px;overflow: hidden;margin:0;}
                             </style>
                             <%@ include file="foundpositionmap.jsp"%>
                             <script type="text/javascript">
@@ -103,7 +104,7 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         <button class="btn btn-danger" type="submit">保存</button>
-                        <button class="btn btn-danger" type="button" onclick="history.go(-1);">取消</button>
+                        <button class="btn btn-danger" type="button" onclick="window.location.href='backend/serviceplace/index.action'">取消</button>
                     </div>
                 </div>
             </form>

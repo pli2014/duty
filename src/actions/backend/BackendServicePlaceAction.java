@@ -7,6 +7,9 @@ import bl.mongobus.ServicePlaceBusiness;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
+import vo.table.TableHeaderVo;
+import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +17,7 @@ import java.util.List;
 /**
  * Created by peter on 14-3-14.
  */
-public class BackendServicePlaceAction extends BaseBackendAction {
+public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBusiness> {
     List<ServicePlaceBean> servicePlaces = null;
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
@@ -36,37 +39,63 @@ public class BackendServicePlaceAction extends BaseBackendAction {
     }
 
     public String servicePlaceDelete() {
-        if (this.servicePlace.get_id() != null) {
-            sp.deleteLeaf(this.servicePlace.getId());
+        if (this.getId() != null) {
+            sp.deleteLeaf(this.getId());
         }
         return ActionSupport.SUCCESS;
     }
 
     public String servicePlaceAddEdit() {
-        if (this.servicePlace != null) {
-            String id = this.servicePlace.getId();
+        if (this.getId() != null) {
+            String id = this.getId();
             this.servicePlace = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
         }
         return ActionSupport.SUCCESS;
     }
 
-    public String servicePlaceSubmit() {
+    public String servicePlaceSubmit() throws Exception{
         String id = this.servicePlace.getId();
-        try {
-            if (id != null && !id.isEmpty()) {
-                ServicePlaceBean originalBean = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
-                ServicePlaceBean newBean = (ServicePlaceBean) originalBean.clone();
-                BeanUtils.copyProperties(newBean, this.servicePlace);
-                sp.updateLeaf(originalBean, newBean);
-            } else {
-                this.servicePlace.set_id(ObjectId.get());
-                this.sp.createLeaf(this.servicePlace);
-            }
-
-        } catch (Exception e) {
-            LOG.error("this exception [#0]", e.getMessage());
+        if (id != null && !id.isEmpty()) {
+            ServicePlaceBean originalBean = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
+            ServicePlaceBean newBean = (ServicePlaceBean) originalBean.clone();
+            BeanUtils.copyProperties(newBean, this.servicePlace);
+            sp.updateLeaf(originalBean, newBean);
+        } else {
+            this.servicePlace.set_id(ObjectId.get());
+            this.sp.createLeaf(this.servicePlace);
         }
         return ActionSupport.SUCCESS;
+    }
+
+    @Override
+    public String getActionPrex() {
+        return getRequest().getContextPath() + "/backend/serviceplace";
+    }
+
+    @Override
+    public String getCustomJs() {
+        return super.getCustomJs();
+        //return getRequest().getContextPath() + "/js/serviceplace.js";
+    }
+
+    @Override
+    public TableInitVo getTableInit() {
+        TableInitVo init = new TableInitVo();
+        init.getAoColumns().add(new TableHeaderVo("code", "地点编码"));
+        init.getAoColumns().add(new TableHeaderVo("name", "地点名称"));
+        return init;
+    }
+
+    @Override
+    public TableQueryVo getModel() {
+        TableQueryVo model = super.getModel();
+        model.getFilter().put("type", this.type + "");
+        return model;
+    }
+
+    @Override
+    public String getAddButtonParameter(){
+         return "type="+this.type;
     }
 
     public List<ServicePlaceBean> getServicePlaces() {

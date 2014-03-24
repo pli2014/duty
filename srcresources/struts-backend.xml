@@ -127,17 +127,23 @@
 	</package>
 	
     <package name="serviceplace" namespace="/backend/serviceplace" extends="default-backend">
-        <action name="serviceplacelist" class="actions.backend.BackendServicePlaceAction" method="servicePlaceList">
-            <result name="success">/pages/menu_serviceplace/serviceplacelist.jsp</result>
+        <action name="index" class="actions.backend.BackendServicePlaceAction" method="index">
         </action>
-        <action name="serviceplacedelete" class="actions.backend.BackendServicePlaceAction" method="servicePlaceDelete">
+        <action name="initTable" class="actions.backend.BackendServicePlaceAction" method="initTable"/>
+        <action name="queryTable" class="actions.backend.BackendServicePlaceAction" method="queryTable"/>
+
+        <action name="delete" class="actions.backend.BackendServicePlaceAction" method="servicePlaceDelete">
             <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
         </action>
-        <action name="serviceplaceaddedit" class="actions.backend.BackendServicePlaceAction" method="servicePlaceAddEdit">
+        <action name="add" class="actions.backend.BackendServicePlaceAction" method="servicePlaceAddEdit">
+            <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
+        </action>
+        <action name="edit" class="actions.backend.BackendServicePlaceAction" method="servicePlaceAddEdit">
             <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
         </action>
         <action name="serviceplacesubmit" class="actions.backend.BackendServicePlaceAction" method="servicePlaceSubmit">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
+            <result name="success" type="redirectAction">/serviceplace/index.action?type=${type}</result>
+            <result name="input">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
         </action>
     </package>
 
