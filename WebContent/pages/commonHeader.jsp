@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- Listing of all the taglibs that we reference in this application. --%>
