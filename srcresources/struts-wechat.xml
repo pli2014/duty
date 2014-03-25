@@ -50,7 +50,8 @@
         </action>
         <action name="currentActivity" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
         </action>
-        <action name="serviceDescription" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+        <action name="serviceDescription" class="actions.wechat.WechatServiceDescriptionAction" method="outDescription">
+            <result name="success">/pages/wechat/servicedescription.jsp</result>
         </action>
     </package> 
     
