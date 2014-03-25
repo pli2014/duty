@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%--
   User: peter
   Date: 14-3-16
