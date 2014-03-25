@@ -36,7 +36,8 @@
         <action name="checkOutSubmit" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
             <result name="success">/pages/wechat/wechatMessage.jsp</result>
         </action>
-        <action name="peopleHere" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+        <action name="peopleHere" class="actions.wechat.WechatUserAction" method="searchActiveUser">
+            <result name="success">/pages/wechat/searchActiveUser.jsp</result>
         </action>
         <action name="myHonour" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
         </action>

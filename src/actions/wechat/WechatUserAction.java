@@ -1,15 +1,22 @@
 package actions.wechat;
 
 import actions.BaseAction;
+import bl.beans.ActiveUserBean;
+import bl.beans.ServicePlaceBean;
 import bl.beans.VolunteerBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.ActiveUserBusiness;
+import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.VolunteerBusiness;
 import util.StringUtil;
 import wechat.access.AccessTokenManager;
 import wechat.access.AccessToken;
 import wechat.user.UerManager;
 import wechat.user.UserInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wangronghua on 14-3-19.
@@ -22,6 +29,11 @@ public class WechatUserAction extends BaseAction {
   private String identityCardNumber;
   private String password;
 
+  private String servicePlaceId;
+  private ServicePlaceBean servicePlaceBean;
+  private List<ServicePlaceBean> places;
+  private List<VolunteerBean> activeVolunteers;
+
   private UserInfo user;
 
   public UserInfo getUser() {
@@ -33,6 +45,8 @@ public class WechatUserAction extends BaseAction {
   }
 
   VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+  ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+  ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
   public String binding() {
     String code = getRequest().getParameter("code");
@@ -88,6 +102,35 @@ public class WechatUserAction extends BaseAction {
     }
   }
 
+  public String searchActiveUser() {
+    places = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
+    if(null == servicePlaceId) {
+      String code = getRequest().getParameter("code");
+      if (null != code) {
+        AccessToken token = AccessTokenManager.getAccessToken(code);
+        UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
+        if (null != info) {
+          openID = info.getOpenid();
+          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
+          ActiveUserBean userBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(volunteer.getId()).getResponseData();
+          if(null != userBean) {
+            servicePlaceId = userBean.getServicePlaceId();
+          }
+        }
+      }
+    }
+    if(null != servicePlaceId) {
+      servicePlaceBean = (ServicePlaceBean) sp.getLeaf(servicePlaceId).getResponseData();
+      List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.getActiveUsersByServicePlace(servicePlaceId).getResponseData();
+      activeVolunteers = new ArrayList<VolunteerBean>(activeUserBeanList.size());
+      for(ActiveUserBean userBean : activeUserBeanList) {
+        activeVolunteers.add((VolunteerBean) vb.getLeaf(userBean.getUserId()).getResponseData());
+      }
+    }
+    return SUCCESS;
+  }
+
+
   public String getWechatUser() {
     return wechatUser;
   }
@@ -126,6 +169,40 @@ public class WechatUserAction extends BaseAction {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+
+  public List<ServicePlaceBean> getPlaces() {
+    return places;
+  }
+
+  public void setPlaces(List<ServicePlaceBean> places) {
+    this.places = places;
+  }
+
+
+  public String getServicePlaceId() {
+    return servicePlaceId;
+  }
+
+  public void setServicePlaceId(String servicePlaceId) {
+    this.servicePlaceId = servicePlaceId;
+  }
+
+  public List<VolunteerBean> getActiveVolunteers() {
+    return activeVolunteers;
+  }
+
+  public void setActiveVolunteers(List<VolunteerBean> activeVolunteers) {
+    this.activeVolunteers = activeVolunteers;
+  }
+
+  public ServicePlaceBean getServicePlaceBean() {
+    return servicePlaceBean;
+  }
+
+  public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
+    this.servicePlaceBean = servicePlaceBean;
   }
 
 }
