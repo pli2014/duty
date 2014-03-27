@@ -17,7 +17,6 @@
     <base href="<%=basePath%>"/>
     
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="css/main.css" rel="stylesheet">
   <style type="text/css">
     .mt15 {
         margin-top: 15px;
