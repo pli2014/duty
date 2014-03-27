@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="../pages/commonHeader.jsp"%>
+<%@ include file="../pages/frontHeader.jsp"%>
 <title>首页</title>
 </head>
 <body>

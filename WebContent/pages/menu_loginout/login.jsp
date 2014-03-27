@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="../commonHeader.jsp"%>
+<%@ include file="../frontHeader.jsp"%>
 <title>登陆</title>
 </head>
 <body class="metro">

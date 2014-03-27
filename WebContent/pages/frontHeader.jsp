@@ -15,6 +15,8 @@
    // }
 %>
     <base href="<%=basePath%>"/>
+   <script src="jslib/flatlab/js/jquery.js"></script>
+   <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script> 
     
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/main.css" rel="stylesheet">
