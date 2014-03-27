@@ -8,7 +8,6 @@
 <body>
 	<div class="home2">
 		<div class="bg-user">
-
 			<div class="bg-username">${sessionUser.name}</div>
 			<div class="bg-touxiang">
 			  <s:if test="sessionUser.iconpath.length() > 0">
@@ -40,18 +39,20 @@
 				<img src="img/qd.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
-				<a href="#">我的签到</a>
+				 我的签到
 			</div>
 		  </a>	
 		</div>
 		<div class="bg-gay">
+		   <a data-click="transform" class="tile bg-darkPink" href="pages/menu_whoishere/serviceplaceview.jsp">
+         
 			<div class="bg-img">
 				<img src="img/location.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
-				<a href="#">谁在这里</a>
+				 谁在这里
 			</div>
-
+           </a>
 		</div>
 		<div class="bg-green2">
 		  <a data-click="transform" class="tile bg-darkViolet"
@@ -60,7 +61,7 @@
 				<img src="img/px.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
-				<a href="#">我的培训</a>
+				 我的培训
 			</div>
 		  </a>	
 		</div>
@@ -71,7 +72,7 @@
 				<img src="img/clock.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
-				<a href="#">我的工时</a>
+				我的工时
 			</div>
 		  </a>	
 		</div>
@@ -83,7 +84,7 @@
 				<img src="img/exit.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
-				<a href="#">退出</a>
+				退出
 			</div>
            </a>
 		</div>
