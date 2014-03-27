@@ -46,7 +46,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    */
   public VolunteerBean getVolunteerBeanByCode(String code) {
     Map filter = new HashMap();
-    filter.put("code", code);
+    filter.put("code_=", code);
 
     List<VolunteerBean> result = super.queryDataByCondition(filter, null);
     if (result != null && result.size() > 0) {

@@ -23,52 +23,51 @@ import java.util.List;
 /**
  * Created by wangronghua on 14-3-22.
  */
-public class WechatServiceAction extends BaseAction {
+public class WechatServiceAction extends WechatBaseAuthAction {
 
-  private String openID;
   private String userID;
-  private String wechatUser;
   private String userName;
   private Date currentTime;
   private String servicePlaceId;
   private List<ServicePlaceBean> places;
 
-  VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
   UserServiceBusiness usb = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
   ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
 
   public String checkIn(){
+    if(null == volunteer) {
+      return "redirectBinding";
+    }
     currentTime = new Date();
-    String code = getRequest().getParameter("code");
-    if(null != code) {
-      AccessToken token = AccessTokenManager.getAccessToken(code);
-      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-      if (null != info) {
-        openID = info.getOpenid();
-        if(null != openID) {
-          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
-          if(null != volunteer) {
-            wechatUser = volunteer.getWechat();
-            userName = volunteer.getName();
-            userID = volunteer.getId();
-            ActiveUserBean aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userID).getResponseData();
-            if (aub != null) {
-              ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
-              if (spb != null){
-                super.addActionMessage("您当前正在：" + spb.getName() + " 参与服务！");
-                return "checkout";
-              }
-            }
-            places = usb.getAvailableServicePlaces(userID);
-            return SUCCESS;
-          } else {
-            return LOGIN;
-          }
+//    String code = getRequest().getParameter("code");
+//    if(null != code) {
+//      AccessToken token = AccessTokenManager.getAccessToken(code);
+//      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
+//      if (null != info) {
+//        openID = info.getOpenid();
+//        if(null != openID) {
+//          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
+    if(null != volunteer) {
+      userName = volunteer.getName();
+      userID = volunteer.getId();
+      ActiveUserBean aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userID).getResponseData();
+      if (aub != null) {
+        ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+        if (spb != null){
+          super.addActionMessage("您当前正在：" + spb.getName() + " 参与服务！");
+          return "checkout";
         }
       }
+      places = usb.getAvailableServicePlaces(userID);
+      return SUCCESS;
+    } else {
+      return LOGIN;
     }
-    return ERROR;
+//        }
+//      }
+//    }
+//    return ERROR;
   }
 
   public String checkInSubmit(){
@@ -83,30 +82,32 @@ public class WechatServiceAction extends BaseAction {
   }
 
   public String checkOut(){
+    if(null == volunteer) {
+      return "redirectBinding";
+    }
     String code = getRequest().getParameter("code");
-    if(null != code) {
-      AccessToken token = AccessTokenManager.getAccessToken(code);
-      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-      if (null != info) {
-        openID = info.getOpenid();
-        if(null != openID) {
-          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
-          if(null != volunteer) {
-            wechatUser = volunteer.getWechat();
-            userName = volunteer.getName();
-            userID = volunteer.getId();
-            ActiveUserBean aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userID).getResponseData();
-            if (aub != null) {
-              ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
-              if (spb != null){
-                super.addActionMessage("您当前正在：" + spb.getName() + " 参与服务！");
-                return SUCCESS;
-              }
-            }
-          }
+//    if(null != code) {
+//      AccessToken token = AccessTokenManager.getAccessToken(code);
+//      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
+//      if (null != info) {
+//        openID = info.getOpenid();
+//        if(null != openID) {
+//          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
+    if(null != volunteer) {
+      userName = volunteer.getName();
+      userID = volunteer.getId();
+      ActiveUserBean aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userID).getResponseData();
+      if (aub != null) {
+        ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+        if (spb != null){
+          super.addActionMessage("您当前正在：" + spb.getName() + " 参与服务！");
+          return SUCCESS;
         }
       }
     }
+//        }
+//      }
+//    }
     super.addActionError("您当前未在任何地点参与服务！");
     return ERROR;
   }

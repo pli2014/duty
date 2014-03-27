@@ -5,11 +5,27 @@
 
 <struts>
 	<package name="default-wechat" namespace="/wechat" extends="default" >
-	    <default-interceptor-ref name="noLoginStack"></default-interceptor-ref>
+        <interceptors>
+            <interceptor name="WechatInterceptor"
+                         class="interceptor.WechatInterceptor">
+            </interceptor>
+            <!-- 拦截器栈 -->
+            <interceptor-stack name="wechatDefault">
+                <interceptor-ref name="noLoginStack" />
+                <interceptor-ref name="WechatInterceptor" />
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="wechatDefault"></default-interceptor-ref>
+
+        <global-results>
+            <result name="message">/pages/wechat/wechatMessage.jsp</result>
+            <result name="redirectBinding">/pages/wechat/userBindingRedirect.jsp</result>
+        </global-results>
+
 	</package>
 
-    <package name="wechat" namespace="/wechat" extends="default">
-        <default-interceptor-ref name="noLoginStack"></default-interceptor-ref>
+    <package name="wechat" namespace="/wechat" extends="default-wechat">
+
         <action name="redirect" class="actions.wechat.WechatRedirect" method="redirect">
             <result name="success">/pages/wechat/redirect.jsp</result>
         </action>

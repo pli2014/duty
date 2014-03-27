@@ -25,4 +25,11 @@ public class ServerContext {
         }
         return "";
     }
+
+    public static boolean isWechatLocalDebug() {
+        if (null != prop) {
+            return "true".equals(getValue("wechat.debug.local"));
+        }
+        return false;
+    }
 }
