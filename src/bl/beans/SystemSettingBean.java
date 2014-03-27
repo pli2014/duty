@@ -9,6 +9,15 @@ import org.mongodb.morphia.annotations.Entity;
 public class SystemSettingBean extends Bean {
     private String maptoken="URs4GQ1uMjGhGK4kfub7lXUt";
     private String city="南京";
+    private String introduction;
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public String getMaptoken() {
         return maptoken;
