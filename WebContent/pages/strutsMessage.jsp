@@ -17,7 +17,7 @@
         color: red;
     }
 </style>
-<div style="margin:15px">
+<div>
     <s:actionerror/>
     <s:actionmessage/>
     <s:fielderror/>
