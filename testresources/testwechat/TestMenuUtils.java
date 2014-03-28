@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
  */
 public class TestMenuUtils {
   public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-    FileInputStream f = new FileInputStream(new File("/Users/wangronghua/workspace/duty/srcresources/server.properties"));
+    File src = new File("");
+    String path = src.getAbsolutePath();
+    FileInputStream f = new FileInputStream(new File(path + "/srcresources/server.properties"));
     ServerContext.init(f);
 
     WechatMenu menu = new WechatMenu();
