@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
  */
 public class TestMenuUtils {
   public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
-    FileInputStream f = new FileInputStream(new File("/Users/wangronghua/workspace/duty/srcresources/server.properties"));
+    File src = new File("");
+    String path = src.getAbsolutePath();
+    FileInputStream f = new FileInputStream(new File(path + "/srcresources/server.properties"));
     ServerContext.init(f);
 
     WechatMenu menu = new WechatMenu();
@@ -29,17 +32,17 @@ public class TestMenuUtils {
     WechatButton subbutton11 = new WechatButton();
     subbutton11.setName("服务签入");
     subbutton11.setType("view");
-    subbutton11.setUrl(MenuUtils.getRedirectUrl("/wechat/checkIn.action"));
+    subbutton11.setUrl(MenuUtils.getOAuthUrl("/wechat/checkIn.action"));
 
     WechatButton subbutton12 = new WechatButton();
     subbutton12.setName("服务签出");
     subbutton12.setType("view");
-    subbutton11.setUrl(MenuUtils.getRedirectUrl("/wechat/checkOut.action"));
+    subbutton11.setUrl(MenuUtils.getOAuthUrl("/wechat/checkOut.action"));
 
     WechatButton subbutton13 = new WechatButton();
     subbutton13.setName("谁在这里");
     subbutton13.setType("view");
-    subbutton13.setUrl("http://www.baidu.com");
+    subbutton13.setUrl(MenuUtils.getOAuthUrl("/wechat/peopleHere.action"));
 
     WechatButton button2 = new WechatButton();
     button2.setName("我");
@@ -52,17 +55,17 @@ public class TestMenuUtils {
     WechatButton subbutton22 = new WechatButton();
     subbutton22.setName("我的荣誉");
     subbutton22.setType("view");
-    subbutton22.setUrl("http://www.baidu.com");
+    subbutton22.setUrl(MenuUtils.getOAuthUrl("/wechat/myHonour.action"));
 
     WechatButton subbutton23 = new WechatButton();
     subbutton23.setName("我的培训");
     subbutton23.setType("view");
-    subbutton23.setUrl("http://www.baidu.com");
+    subbutton23.setUrl(MenuUtils.getOAuthUrl("/wechat/myTraining.action"));
 
     WechatButton subbutton24 = new WechatButton();
     subbutton24.setName("我的资料");
     subbutton24.setType("view");
-    subbutton24.setUrl("http://www.baidu.com");
+    subbutton24.setUrl(MenuUtils.getOAuthUrl("/wechat/myData.action"));
 
     WechatButton button3 = new WechatButton();
     button3.setName("志愿动态");
@@ -70,22 +73,22 @@ public class TestMenuUtils {
     WechatButton subbutton31 = new WechatButton();
     subbutton31.setName("志愿者招募");
     subbutton31.setType("view");
-    subbutton31.setUrl("http://www.baidu.com");
+    subbutton31.setUrl(MenuUtils.getOAuthUrl("/wechat/volunteerRecruit.action"));
 
     WechatButton subbutton32 = new WechatButton();
     subbutton32.setName("我的建议");
     subbutton32.setType("view");
-    subbutton32.setUrl("http://www.baidu.com");
+    subbutton32.setUrl(MenuUtils.getOAuthUrl("/wechat/myAdvise.action"));
 
     WechatButton subbutton33 = new WechatButton();
     subbutton33.setName("当前活动");
     subbutton33.setType("view");
-    subbutton33.setUrl("http://www.baidu.com");
+    subbutton33.setUrl(MenuUtils.getOAuthUrl("/wechat/currentActivity.action"));
 
     WechatButton subbutton34 = new WechatButton();
     subbutton34.setName("服务介绍");
     subbutton34.setType("view");
-    subbutton34.setUrl("http://www.baidu.com");
+    subbutton34.setUrl(MenuUtils.getOAuthUrl("/wechat/serviceDescription.action"));
 
     button1.addSubButton(subbutton11);
     button1.addSubButton(subbutton12);
@@ -107,6 +110,11 @@ public class TestMenuUtils {
     buttonList.add(button3);
 
     menu.setButton(buttonList);
-    MenuUtils.create(new File("/Users/wangronghua/workspace/duty/srcresources/menu.json"));
+    if(MenuUtils.create(menu)){
+      System.out.println("菜单更新成功");
+    } else {
+      System.out.println("菜单更新失败");
+    }
+    //MenuUtils.create(new File("/Users/wangronghua/workspace/duty/srcresources/menu.json"));
   }
 }

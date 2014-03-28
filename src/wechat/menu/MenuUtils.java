@@ -9,6 +9,7 @@ import wechat.HttpClientHelper;
 import wechat.utils.URLManager;
 
 import java.io.*;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -20,6 +21,10 @@ public class MenuUtils {
 
   public static String getRedirectUrl(String url) throws UnsupportedEncodingException {
     return ServerContext.getValue("domainname") + "/wechat/redirect.action?url=" + URLEncoder.encode(url, "UTF-8");
+  }
+
+  public static String getOAuthUrl(String url) throws UnsupportedEncodingException {
+    return URLManager.getUrl_OAuthRedirect(ServerContext.getValue("domainname") + url, ServerContext.getValue("appID"));
   }
 
   public static boolean create(InputStream in) {

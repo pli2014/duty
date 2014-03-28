@@ -15,6 +15,5 @@
     <script type="text/javascript">
         window.location.href = "<s:property value='url' escape='false'/>"
     </script>
-
 </body>
 </html>

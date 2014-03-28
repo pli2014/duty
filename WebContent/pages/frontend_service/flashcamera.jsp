@@ -210,7 +210,7 @@
                         type: "POST",
                         url: "personpicture/uploadpngdata.action",
                         cache: false,
-                        data: {image:canvas.toDataURL("image/png")},
+                        data: {image:canvas.toDataURL("image/png"),code:window.figureNumber},
                         success : function(data, status) {
                              jQuery("#personicon").attr("src",data);
                              jQuery("#iconpath").val(data);

@@ -22,6 +22,16 @@ import java.nio.file.Paths;
  * Created by Administrator on 14-3-9.
  */
 public class HeadJpgAction {
+    private String code = null;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     private String image = null;
 
     public String getImage() {
@@ -52,15 +62,11 @@ public class HeadJpgAction {
                 String realstorepngdirectory = ServerContext.getValue("realstorepngdirectory");
                 String vitualstorepngdirectory = ServerContext.getValue("vitualstorepngdirectory");
                 String requestPath = null;
-                if (realstorepngdirectory == null) {
-                    String directory = System.getProperty("user.home") + File.separator + "img";
-                    realstorepngdirectory = directory;
-                }
                 if (Files.notExists(Paths.get(realstorepngdirectory))) {
                     Files.createDirectories(Paths.get(realstorepngdirectory));
                 }
 
-                String filename = System.currentTimeMillis() + ".png";
+                String filename = this.code + "_header.png";
                 requestPath = realstorepngdirectory + File.separator + filename;
 
                 decodeBase64Img(this.image.substring("data:image/png;base64,".length()), requestPath);
