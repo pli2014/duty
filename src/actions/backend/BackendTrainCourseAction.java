@@ -145,7 +145,7 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
   @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
-    init.getAoColumns().add(new TableHeaderVo("name", "课程名称"));
+    init.getAoColumns().add(new TableHeaderVo("name", "课程名称").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
     return init;
   }

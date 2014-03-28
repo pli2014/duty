@@ -35,59 +35,30 @@
                       </span>
                </header>
                <div class="panel-body" id="panelbody" style="display: none">
-                   <div class="form-group">
-                       <label class="col-lg-1 control-label">名称</label>
-                       <div class="col-lg-2">
-                           <input id="search_name" type="text" class="form-control">
-                       </div>
-                   </div>
-                   <div class="form-group">
-                       <label class="col-lg-1 control-label">创建时间</label>
-                       <div class="col-lg-2">
-                           <input id="createTimeStart"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
-                           <script>
-                               $("#createTimeStart").datepicker();
-                           </script>
-                       </div>
-                       <div class="col-lg-2">
-                           <input id="createTimeEnd"   data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
-                           <script>
-                               $("#createTimeEnd").datepicker();
-                           </script>
-                       </div>
-
-                       <label class="col-lg-1 control-label">更新时间</label>
-                       <div class="col-lg-2">
-                           <input id="modifyTimeStart"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('')">
-                           <script>
-                               $("#modifyTimeStart").datepicker();
-                           </script>
-                       </div>
-                       <div class="col-lg-2">
-                           <input id="modifyTimeEnd"  data-date-format="yyyy-mm-dd" type="text" class="form-control" ondblclick="$(this).val('');">
-                           <script>
-                               $("#modifyTimeEnd").datepicker();
-                           </script>
-                       </div>
-                       <a class="btn btn-success pull-right" style="margin-left:5px" onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
-                           <i class="fa fa-check"></i>
-                           查询
-                       </a>
-                       <a class="btn btn-success pull-right" onclick="jQuery('form input').val('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
-                           <i class="fa fa-check"></i>
-                           重置
-                       </a>
-                   </div>
-              </div>
+                    <div class="form-group">
+                         <s:iterator value="tableInit.aoColumns" var="column">
+                             <s:if test="%{#column.isbSearchable()==true}">
+                                   <label class="col-lg-1 control-label">${column.sTitle}</label>
+                                   <div class="col-lg-2">
+                                       <input id="${column.mData}" type="text" class="form-control" value="" name="${column.mData}">
+                                   </div>
+                          </s:if>
+                         </s:iterator>
+                        <a class="btn btn-success pull-right" style="margin-left:5px" onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                            <i class="fa fa-check"></i>
+                            查询
+                        </a>
+                    </div>
+                </div>
             </section>
            </form>
-          
+
         <div class="adv-table dataTables_wrapper form-inline">
             <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
        </div>
 </section>
      <!-- page end-->
-    
+
 <script type="text/javascript">
      var idName;
      var tableId = "${tableId}";
@@ -96,14 +67,14 @@
       /*ALL OPTIONS*/
      var options = {
         'edit':{
-	       'title':'修改', 
+	       'title':'修改',
 	       'html': '<button title="修改" style="margin-left:5px" class="btn btn-primary btn-xs" onclick="options[\'edit\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
 	       'onClick' : function(button){
 	           var tableObj = $('#'+tableId).dataTable();
 	           var nTr = $(button).parents('tr')[0];
 	           var selectRowData =  tableObj.fnGetData( nTr );
 	           window.location.href = actionPrex + "/edit.action?${addButtonParameter}&id=" + selectRowData[idName];
-	       }     
+	       }
         },
         'delete': {
 	       'title':'删除',
@@ -116,7 +87,7 @@
 		           window.location.href = actionPrex + "/delete.action?id=" + selectRowData[idName];
 	           }
 	       }
-        }  
+        }
     }
       /* Formating function for row details */
       function fnFormatDetails ( oTable, nTr ){
@@ -131,11 +102,11 @@
           sOut += '</table>';
           return sOut;
       }
- 
+
  $(document).ready(function() {
      var tableUrl = "${actionPrex}/initTable.action";
      var param = {};
-     $.getJSON( tableUrl, param, function (initParam) { 
+     $.getJSON( tableUrl, param, function (initParam) {
          if(initParam.disableTools){
              $('#tableTools').css('display','none');
          }
@@ -178,7 +149,7 @@
 			                      this.insertBefore(thObj , this.childNodes[0] );
 			                 } );
 		                }
-		                
+
 		                var nCloneTd = document.createElement( 'td' );
 		                nCloneTd.innerHTML = '<img class="operation" src="jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
 		                nCloneTd.className = "center";
@@ -188,11 +159,11 @@
 			            $('#${tableId} tbody td').on('click','img.operation',function(){
 			                var nTr = $(this).parents('tr')[0];
 			                if ( oTable.fnIsOpen(nTr) ){
-			                    // This row is already open - close it 
+			                    // This row is already open - close it
 			                     $(this).attr("src" , "jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png");
 			                     oTable.fnClose( nTr );
 			                }else{
-			                   //   Open this row 
+			                   //   Open this row
 			                     $(this).attr("src" , "jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_close.png");
 			                     oTable.fnOpen( nTr, fnFormatDetails(oTable, nTr), 'details' );
 			                     $('td.details',$(nTr).next()).attr("colspan",nTr.childNodes.length);
@@ -210,28 +181,28 @@
                           thObj.setAttribute("arias","options");
                           thObj.innerHTML ="操作";
                           $(this).append(thObj);
+                          $(thObj).css({width:'80px'});
 	                 } );
-                    
-	                 $('#${tableId} tbody tr').each( function (i) {
-	                    var nCloneTd = document.createElement( 'td' );
-	                    $(this).append(nCloneTd);
-	                    for(var p in options){
-	                      $(nCloneTd).append(options[p].html);
-	                    }
-		            });
                 }
-		     }, 
+                 $('#${tableId} tbody tr').each( function (i) {
+                     var nCloneTd = document.createElement( 'td' );
+                     $(this).append(nCloneTd);
+                     for(var p in options){
+                         $(nCloneTd).append(options[p].html);
+                     }
+                 });
+		     },
 	         "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
 	             /* //======= method one===========
-	             // Add some extra data to the sender 
+	             // Add some extra data to the sender
 	 			aoData.push( { "name": "more_data", "value": "my_value" } );
-	 			$.getJSON( sSource, aoData, function (json) { 
+	 			$.getJSON( sSource, aoData, function (json) {
 	 				// Do whatever additional processing you want on the callback, then tell DataTables
 	 				fnCallback(json)
 	 			} );
 	 			 //======= method one END=========== */
-	 			     
-	 			//========method two==================   
+
+	 			//========method two==================
 	 			 var mDataObj = {};
 	 			 var sortObj = {};
 	 			 var iMax = 0;
@@ -259,21 +230,14 @@
 	 			for(var p in sortObj){
 	 			    aoData.push( { "name": "sort['"+p+"']", "value": sortObj[p] } );
 	 			}
-	 			if($('#search_name').val() != ''){
-	 			 aoData.push( { "name": "filter['name']", "value": $('#search_name').val() } ); 
-	 		    }
-	 			if($('#createTimeStart').val() != ''){
-	 			 aoData.push( { "name": "filter['createTime_gteq']", "value": $('#createTimeStart').val() } );
-	 			}
-	 		    if($('#createTimeEnd').val() != ''){
-	 			 aoData.push( { "name": "filter['createTime_lteq']", "value": $('#createTimeEnd').val() } );
-	 		    }
-	 		    if($('#modifyTimeStart').val() != ''){
-	 			 aoData.push( { "name": "filter['modifyTime_gteq']", "value": $('#modifyTimeStart').val() } );
-	 			}
-	 		    if($('#modifyTimeEnd').val() != ''){
-	 			 aoData.push( { "name": "filter['modifyTime_lteq']", "value": $('#modifyTimeEnd').val() } );
-	 		    }
+                 <s:iterator value="tableInit.aoColumns" var="column">
+                 <s:if test="%{#column.isbSearchable()==true}">
+                    if($('#${column.mData}').val() != ''){
+                     aoData.push( { "name": "filter['${column.mData}']", "value": $('#${column.mData}').val() } );
+                    }
+                   </s:if>
+                </s:iterator>
+
 	 			 oSettings.jqXHR = $.ajax( {
 	                 "dataType": 'json',
 	                 "type": "POST",
@@ -284,7 +248,7 @@
 	                     fnCallback(result);
 	                  }
 	               } );
-	 			//========method two END==================   
+	 			//========method two END==================
 	          }
 	        });
  	} );

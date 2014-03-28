@@ -116,12 +116,6 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     JsonConfig config = new JsonConfig();
     config.setExcludes(new String[] { "searchOptions" });
     TableInitVo ti = getTableInit();
-    TableHeaderVo createTime = new TableHeaderVo("createTime", "创建时间");
-    createTime.setbSearchable(false);
-    ti.getAoColumns().add(createTime);
-    TableHeaderVo modifyTime = new TableHeaderVo("modifyTime", "更新时间");
-    modifyTime.setbSearchable(false);
-    ti.getAoColumns().add(modifyTime);
     JSONObject jsonObject = JSONObject.fromObject(ti, config);
     writeJson(jsonObject);
     return null;
