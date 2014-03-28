@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="dynamic manager technique">
     <meta name="author" content="LiLimin,GuDong,WangRonghua">
-    <title>我的资料</title>
+    <title>志愿者注册</title>
 
     <link rel="shortcut icon" href="jslib/flatlab/img/favicon.png">
 
@@ -39,32 +39,32 @@
         <s:include value="../strutsMessage.jsp"/>
 
         <div class="panel-body">
-            <form action="/wechat/user/save.action" method="post" class="form-horizontal">
+            <form id="volunteerForm" action="/wechat/user/register.action" method="post" class="form-horizontal">
                 <input type="hidden" name="openID" value="<s:property value='openID'/>">
-                <div class="form-group">
-                    <input type="hidden" name="volunteer.id" value="${volunteer.id}"/>
-                    <label class="col-xs-4  control-label" for="volWechat">微信用户</label>
-                    <div class="col-xs-8">
-                        <input class="form-control" id="volWechat" name="volunteer.wechat" value="${volunteer.wechat}" readonly="readonly"/>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volCode">工号</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volCode" name="volunteer.code" value="${volunteer.code}" readonly="readonly"/>
+                        <input class="form-control" id="volCode" name="vol.code" value="${vol.code}" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volName">姓名</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volName" name="volunteer.name" value="${volunteer.name}" readonly="readonly"/>
+                        <input class="form-control" id="volName" name="vol.name" value="${vol.name}" required="required"/>
                     </div>
                 </div>
+                  
+                <div class="form-group">
+                    <label class="col-xs-4  control-label" for="volIdentityCard">身份证号</label>
+                    <div class="col-xs-8">
+                        <input class="form-control" id="volIdentityCard" name="vol.identityCard" value="${vol.identityCard}" required="required"/>
+                    </div>
+                </div> 
                  
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volCellPhone">手机号</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volCellPhone" name="volunteer.cellPhone" value="${volunteer.cellPhone}"/>
+                        <input class="form-control" id="volCellPhone" name="vol.cellPhone" value="${vol.cellPhone}" required="required"/>
                     </div>
                 </div> 
                 <div class="form-group">
@@ -76,5 +76,37 @@
             </form>
         </div>
     </section>
+    
+    <script type="text/javascript" src="js/checkUtil.js"></script>
+<script type="text/javascript">
+    //please refer to form-validation-script.js
+    $(document).ready(function() {
+        $("#volunteerForm").validate({
+            rules: {
+				'vol.identityCard':{ 
+				   required:true, 
+                   idCardNo:true 
+				}, 
+				'vol.cellPhone':{ 
+				   required:true, 
+                   cellPhone:true 
+				}
+            },
+            messages: {
+                'vol.name': {
+                    required: "请输入用户名"
+                },
+                'vol.identityCard': {
+                    required: "请输入身份证号",
+                    idCardNo: "请输入正确的身份证号"
+                },
+                'vol.cellPhone': {
+                    required: "请输入手机",
+                    cellPhone: "请输入正确的手机号, 例如：13912332122"
+                }
+            }
+        }); 
+    });
+    </script>
 </body>
 </html>

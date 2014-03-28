@@ -20,8 +20,6 @@ public class UserInfo {
   private String headimgurl;
   private List privilege;
 
-  private VolunteerBean volunteer;
-
   public String getHeadimgurl() {
     return headimgurl;
   }
@@ -108,14 +106,6 @@ public class UserInfo {
 
   public void setPrivilege(List privilege) {
     this.privilege = privilege;
-  }
-
-  public VolunteerBean getVolunteer() {
-    return volunteer;
-  }
-
-  public void setVolunteer(VolunteerBean volunteer) {
-    this.volunteer = volunteer;
   }
 
 }

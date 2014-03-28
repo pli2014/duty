@@ -16,9 +16,13 @@ public class VolunteerBean extends Bean {
   public static final int SERVICED = 3;
   public static final int LOGOUTED = 4;
   
+  public static final int REGISTER_HOSPITAL = 1;
+  public static final int REGISTER_WECHAT = 1;
+  
+  
   private String code;
-  private Integer registerFrom = 1; // 1=hospital,2=wechat.
-  private Integer status = 0; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
+  private Integer registerFrom = REGISTER_HOSPITAL; // 1=hospital,2=wechat.
+  private Integer status = REGISTERED; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
   private Integer sex; // 1=Male,2=Female
   private Date birthDate;
   private String identityCard;

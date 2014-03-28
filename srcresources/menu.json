@@ -6,7 +6,7 @@
                 {
                     "type":"view",
                     "name":"服务签入",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FcheckIn.action"
+                    "url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd65ab268276cdb60&redirect_uri=http%3A%2F%2Ftcrznj.com%2Fwechat%2FcheckIn.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
                 },
                 {
                     "type":"view",
@@ -40,7 +40,7 @@
                 {
                     "type":"view",
                     "name":"我的资料",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2Fuser%2FmyInfo.action"
+                    "url": "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxd65ab268276cdb60&redirect_uri=http%3A%2F%2Ftcrznj.com%2Fwechat%2FmyData.action&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect"
                 }]
         },
         {
@@ -48,8 +48,8 @@
             "sub_button":[
                 {
                     "type":"view",
-                    "name":"志愿者招募",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FvolunteerRecruit.action"
+                    "name":"我要报名",
+                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2Fuser%2Fregister.action"
                 },
                 {
                     "type":"view",
