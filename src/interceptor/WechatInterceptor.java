@@ -39,7 +39,11 @@ public class WechatInterceptor extends AbstractInterceptor {
         openID = "test";
         wechatUser = "test";
       } else {
-        String code = (String)parameters.get("code");
+        String code = null;
+        String[] codesArray = (String[])parameters.get("code");
+        if(null != codesArray && codesArray.length > 0) {
+          code = codesArray[0];
+        }
         if(null != code) {
           AccessToken token = AccessTokenManager.getAccessToken(code);
           UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
