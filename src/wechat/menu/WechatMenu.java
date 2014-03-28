@@ -20,8 +20,19 @@ public class WechatMenu {
   private List<WechatButton> button;
 
   public String toJson() {
-    JSONObject object = JSONObject.fromObject(this);
-    return object.toString();
+    StringBuilder result = new StringBuilder();
+    result.append("{\"button\":[");
+    if(null != button) {
+      int length = button.size();
+      for(int index = 0; index < length; index ++) {
+        if(index > 0) {
+          result.append(",");
+        }
+        result.append(button.get(index).toJson());
+      }
+    }
+    result.append("]}");
+    return  result.toString();
   }
 
 }
