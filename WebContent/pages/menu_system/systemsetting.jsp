@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<%@ include file="../commonHeader.jsp"%>
 <%--
   User: peter
   Date: 14-3-18
@@ -10,7 +12,7 @@
     <script>
         jQuery(document).ready(function()
         {
-            CKEDITOR.replace( 'trainCourse.description',{
+            CKEDITOR.replace( 'systemSetting.introduction',{
                 language:'zh-cn',//简体中文
                 width : "100%", //宽度
                 height:400,  //高度

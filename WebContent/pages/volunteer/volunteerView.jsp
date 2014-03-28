@@ -75,9 +75,9 @@
 			</div>
 			<div class="Information-font2"></div>
 			<div class="Information-button">
-				<input type="button" class="Information-btn" value="修改" onclick="window.location.href='volunteer/edit.action?id=${volunteer.id}'"/>
-				<input type="button" class="Information-btn" value="修改密码" onclick="window.location.href='volunteer/changePassword.action'"/>
-				<input type="button" class="Information-btn" value="取消" onclick="window.location.href='index.action'"/>
+				<input type="button" class="Information-btn" value="修改" onclick="window.location.href='volunteer/edit.action?id=${volunteer.id}'" style="cursor: pointer;"/>
+				<input type="button" class="Information-btn" value="修改密码" onclick="window.location.href='volunteer/changePassword.action'" style="cursor: pointer;"/>
+				<input type="button" class="Information-btn" value="取消" onclick="window.location.href='index.action'" style="cursor: pointer;"/>
 			</div>
 		</div>
 	</div>
