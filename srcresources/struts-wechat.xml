@@ -61,11 +61,17 @@
         </action>
         <action name="myData" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
         </action>
-        <action name="volunteerRecruit" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+        <action name="volunteerRecruit" class="actions.wechat.WechatRecruitAction" method="volunteerRecruitView">
+            <result name="success">/pages/wechat/volunteerrecruit.jsp</result>
         </action>
-        <action name="myAdvise" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+        <action name="volunteerRecruitSave" class="actions.wechat.WechatRecruitAction" method="volunteerRecruitSave">
+            <result name="success">/pages/wechat/volunteerrecruitsuccess.jsp</result>
         </action>
-        <action name="currentActivity" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
+        <action name="myAdvise" class="actions.wechat.WechatBaseAuthAction" method="execute">
+            <result name="success">/pages/wechat/developing.jsp</result>
+        </action>
+        <action name="currentActivity" class="actions.wechat.WechatBaseAuthAction" method="execute">
+            <result name="success">/pages/wechat/developing.jsp</result>
         </action>
         <action name="serviceDescription" class="actions.wechat.WechatServiceDescriptionAction" method="outDescription">
             <result name="success">/pages/wechat/servicedescription.jsp</result>
