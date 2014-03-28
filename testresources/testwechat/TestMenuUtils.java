@@ -65,15 +65,15 @@ public class TestMenuUtils {
     WechatButton subbutton24 = new WechatButton();
     subbutton24.setName("我的资料");
     subbutton24.setType("view");
-    subbutton24.setUrl(MenuUtils.getOAuthUrl("/wechat/myData.action"));
+    subbutton24.setUrl(MenuUtils.getOAuthUrl("/wechat/user/myInfo.action"));
 
     WechatButton button3 = new WechatButton();
     button3.setName("志愿动态");
 
     WechatButton subbutton31 = new WechatButton();
-    subbutton31.setName("志愿者招募");
+    subbutton31.setName("我要报名");
     subbutton31.setType("view");
-    subbutton31.setUrl(MenuUtils.getOAuthUrl("/wechat/volunteerRecruit.action"));
+    subbutton31.setUrl(MenuUtils.getOAuthUrl("/wechat/user/register.action"));
 
     WechatButton subbutton32 = new WechatButton();
     subbutton32.setName("我的建议");
