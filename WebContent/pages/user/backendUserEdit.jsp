@@ -2,13 +2,6 @@
 <html lang="en">
 <%@ include file="../commonHeader.jsp"%>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="Mosaddek">
-    <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-    <link rel="shortcut icon" href="img/favicon.png">
-
     <style type="text/css">
 		 table tbody tr.even.row_selected td{
 			background-color: #B0BED9 !important;
@@ -37,7 +30,7 @@
       </s:else>
     </header>
     <s:actionerror/><s:actionmessage/>
-     <form id="userForm" class="form-horizontal tasi-form" action="backend/user/save.action">
+     <form id="userForm" class="form-horizontal tasi-form" action="backend/user/save.action" method="post">
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">用户名</label>
              <div class="col-lg-10">

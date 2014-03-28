@@ -9,7 +9,7 @@ import java.util.List;
 public class WechatButton {
 
   private String name;
-  private String type;
+  private String type;  // view:浏览型， click:事件型， null:父菜单
   private String key;
   private String url;
   private List<WechatButton> sub_button;
@@ -61,5 +61,36 @@ public class WechatButton {
       sub_button = new ArrayList<WechatButton>();
       sub_button.add(button);
     }
+  }
+
+  public String toJson(){
+    StringBuilder result = new StringBuilder();
+    result.append("{");
+    result.append("\"name\":\"").append(name).append("\"");
+    result.append(",");
+    if("click".equals(type)) {
+      result.append("\"type\":\"").append(type).append("\"");
+      result.append(",");
+      result.append("\"key\":\"").append(key).append("\"");
+    } else if("view".equals(type)) {
+      result.append("\"type\":\"").append(type).append("\"");
+      result.append(",");
+      result.append("\"url\":\"").append(url).append("\"");
+    } else {
+      if(null != sub_button) {
+        result.append("\"sub_button\":[");
+        int length = sub_button.size();
+        for(int index = 0; index < length; index ++) {
+          if(index > 0) {
+            result.append(",");
+          }
+          WechatButton button = sub_button.get(index);
+          result.append(button.toJson());
+        }
+        result.append("]");
+      }
+    }
+    result.append("}");
+    return result.toString();
   }
 }
