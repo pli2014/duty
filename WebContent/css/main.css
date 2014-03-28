@@ -67,6 +67,7 @@ text-align:center;
 .nav-img2{
 width:300px;
 height:130px;
+padding-top:10px;
 
 text-align:center;	
 		
@@ -80,19 +81,19 @@ padding-left:10px;
 	
 }
 .login-font{
-width:350px;
+width:300px;
 height:50px;
 font-family:Arial, Helvetica, sans-serif;
 text-align:center;
 font-size:18px;
 color:#FFF;
 font-style: normal;
-padding-top:20px;
+padding-top:20%;
 
 	}
 .nav-login{
-width:350px;
-height:350px;
+width:300px;
+height:300px;
 float:left;
 margin-top:25%;
 margin-left:10%;
@@ -101,8 +102,8 @@ background:#CE401F;
 }
 
 .nav-login2{
-width:350px;
-height:350px;
+width:300px;
+height:300px;
 float:left;
 margin-top:25%;
 margin-right:10px;
@@ -416,20 +417,7 @@ width:30px;
 	
 	}
 
-input, textarea {
-    height: 16px;
-    padding: 8px 10px 8px 10px;
-    border: 1px solid #c3b598;
-    font:14px Arial;
-    color: #888172;
-    margin: 12px 0 12px 0;
-	width:200px;
-}
-textarea { height: auto; }
-input:focus, textarea:focus {
-    border: 1px solid #eadcbf;
-    outline: none;
-}
+
 .Information-button{
 	width:750px;
 	height:100px;
