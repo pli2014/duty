@@ -37,7 +37,7 @@ public class TestMenuUtils {
     WechatButton subbutton12 = new WechatButton();
     subbutton12.setName("服务签出");
     subbutton12.setType("view");
-    subbutton11.setUrl(MenuUtils.getOAuthUrl("/wechat/checkOut.action"));
+    subbutton12.setUrl(MenuUtils.getOAuthUrl("/wechat/checkOut.action"));
 
     WechatButton subbutton13 = new WechatButton();
     subbutton13.setName("谁在这里");

@@ -61,6 +61,7 @@
     </header>
     <div class="panel-body" style="display: block;">
         <form id="queryForm" action="wechat/peopleHere.action" method="post" class="form-horizontal">
+            <input type="hidden" name="openID" value="<s:property value='openID'/>" >
             <div class="form-group">
                 <label class="col-xs-3  control-label" style="padding-right: 0px;">选择地点</label>
                 <div class="col-xs-8">
