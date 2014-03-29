@@ -34,8 +34,8 @@
 <script language="javascript" type="text/jscript">
  function initialize()
  {
-   window.localFingerPath = "D:\\data\\img\\";
-   window.remoteServerPath = "person/img/";
+   window.localFingerPath = '<s:property value="@util.ServerContext@getValue('realstorepngdirectory')"/>';
+   window.remoteServerPath = '<s:property value="@util.ServerContext@getValue('vitualstorepngdirectory')"/>';
    window.fingerEng = document.getElementById("ZKFPEngX1");
    try{
      fingerEng.InitEngine();

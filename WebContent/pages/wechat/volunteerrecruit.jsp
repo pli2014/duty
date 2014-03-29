@@ -47,6 +47,12 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="col-xs-4  control-label" >身份证号码</label>
+            <div class="col-xs-8">
+                <p class="form-control-static"><input class="form-control" type="text" name="register.identityCard" value=""/></p>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-xs-4  control-label" >性别</label>
             <div class="col-xs-8" data-role="input-control">
                 <label class="inline-block">
@@ -84,6 +90,14 @@
                         },
                         confirm_password: {
                             equalTo: "#password"
+                        },
+                        'register.identityCard':{
+                            required:true,
+                            idCardNo:true
+                        },
+                        'register.identityCard': {
+                            required: "请输入身份证号",
+                            idCardNo: "请输入正确的身份证号"
                         }
                     },
                     messages: {

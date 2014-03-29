@@ -14,7 +14,17 @@ public class ServicePlaceBean extends Bean {
     private float longitude; //经度坐标
     private float latitude;  //纬度坐标
 
+    private String serviceicon="";
+
     private int sequence;
+
+    public String getServiceicon() {
+        return serviceicon;
+    }
+
+    public void setServiceicon(String serviceicon) {
+        this.serviceicon = serviceicon;
+    }
 
     public int getSequence() {
         return sequence;

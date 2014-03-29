@@ -71,7 +71,7 @@ public class HeadJpgAction {
 
                 decodeBase64Img(this.image.substring("data:image/png;base64,".length()), requestPath);
 
-                ServletActionContext.getResponse().getWriter().print(vitualstorepngdirectory + "/" + filename);
+                ServletActionContext.getResponse().getWriter().print(vitualstorepngdirectory + filename);
                 ServletActionContext.getResponse().getWriter().close();
                 return null;
 

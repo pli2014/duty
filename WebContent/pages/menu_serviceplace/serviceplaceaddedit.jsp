@@ -38,6 +38,10 @@
                             $(document).ready(function() {
                                 $("form").validate({
                                     rules: {
+                                        "servicePlace.name":{
+                                            required:true,
+                                            maxlength: 8
+                                        },
                                         "servicePlace.sequence": {
                                             required:true,
                                             range: [0, 99999]
@@ -45,8 +49,12 @@
                                     },
                                     messages: {
                                         'servicePlace.sequence': {
-                                            required: "请输入用户名",
-                                            range: "输入数字有效范围0-99,999"
+                                            required: "请输入显示号",
+                                            range: "显示序号有效范围0-99,999"
+                                        },
+                                        "servicePlace.name":{
+                                            required:"请输入地点名称",
+                                            maxlength: "地点名称最多8个文字"
                                         }
                                     }
                                 });
@@ -55,7 +63,7 @@
                     </div>
                 </div>
                 <s:if test="#request.type==0">
-                <div class="form-group has-success">
+                <div class="form-group has-success" style="display:none">
                     <label class="col-lg-2 control-label">地点颜色编码</label>
                     <div class="col-lg-3">
                     <input style="background-color:${servicePlace.color}" id="servicePlacecolor" name="servicePlace.color" readonly="true" type="text" class="form-control" value="${servicePlace.color}"/>
@@ -66,6 +74,24 @@
                             });
                         </script>
                     </div>
+                </div>
+                <div class="form-group has-success">
+                    <label class="col-lg-2 control-label">地点图标</label>
+                       <div class="col-lg-6">
+                            <s:iterator value="serviceicons" var="iconpath">
+                            <div class="col-lg-3">
+                                <input name="servicePlace.serviceicon" type="radio" value="${iconpath}">
+                                <img src="${iconpath}" style="width:120px;height:100px"/>
+                             </div>
+                            </s:iterator>
+                            <script>
+                                jQuery('[name="servicePlace.serviceicon"]').each(function(){
+                                    if(jQuery(this).val()=="${servicePlace.serviceicon}"){
+                                        this.checked="checked";
+                                    }
+                                });
+                            </script>
+                       </div>
                 </div>
                 </s:if>
 

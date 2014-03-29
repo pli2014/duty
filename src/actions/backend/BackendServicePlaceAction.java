@@ -7,10 +7,12 @@ import bl.mongobus.ServicePlaceBusiness;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
+import util.ServerContext;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,6 +24,15 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
     private int type = 0;
+    private String[] serviceicons = null;
+
+    public String[] getServiceicons() {
+        return serviceicons;
+    }
+
+    public void setServiceicons(String[] serviceicons) {
+        this.serviceicons = serviceicons;
+    }
 
     public int getType() {
         return type;
@@ -46,6 +57,17 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     }
 
     public String servicePlaceAddEdit() {
+        //read file list
+        File iconList = new File(ServerContext.getValue("realserviceplacedirectory"));
+        if(iconList.isDirectory() && iconList.exists()){
+            String[] list = iconList.list();
+            //convert to virtual path within tomcat service.
+            serviceicons = new String[list.length];
+            String vitual = ServerContext.getValue("vitualserviceiplacedirectory");
+            for (int i = 0; i < list.length; i++) {
+                serviceicons[i] = vitual+ list[i];
+            }
+        }
         if (this.getId() != null) {
             String id = this.getId();
             this.servicePlace = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
@@ -114,4 +136,5 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     public void setServicePlace(ServicePlaceBean servicePlace) {
         this.servicePlace = servicePlace;
     }
+
 }
