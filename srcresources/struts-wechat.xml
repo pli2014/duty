@@ -85,7 +85,7 @@
             <result name="success">/pages/wechat/wechatMessage.jsp</result>
         </action>
          <action name="myHonor" class="actions.wechat.WechatUserAction" method="myHonor">
-            <result name="success">/pages/wechat/wechatMessage.jsp</result>
+            <result name="success">/pages/wechat/developing.jsp</result>
         </action>
          <action name="register" class="actions.wechat.WechatUserAction" method="register">
             <result name="failure">/pages/wechat/register.jsp</result>
