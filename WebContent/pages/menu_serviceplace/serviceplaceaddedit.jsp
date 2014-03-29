@@ -77,11 +77,11 @@
                 </div>
                 <div class="form-group has-success">
                     <label class="col-lg-2 control-label">地点图标</label>
-                       <div class="col-lg-6">
+                       <div class="col-lg-10">
                             <s:iterator value="serviceicons" var="iconpath">
-                            <div class="col-lg-3">
+                            <div class="col-xs-3" style="margin:5px">
                                 <input name="servicePlace.serviceicon" type="radio" value="${iconpath}">
-                                <img src="${iconpath}" style="width:120px;height:100px"/>
+                                <img src="${iconpath}" style="width:100px;height:80px"/>
                              </div>
                             </s:iterator>
                             <script>
