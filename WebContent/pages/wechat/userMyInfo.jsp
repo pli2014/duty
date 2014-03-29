@@ -12,29 +12,29 @@
             <form action="/wechat/user/save.action" method="post" class="form-horizontal">
                 <input type="hidden" name="openID" value="<s:property value='openID'/>">
                 <div class="form-group">
-                    <input type="hidden" name="volunteer.id" value="${volunteer.id}"/>
+                    <input type="hidden" name="vol.id" value="${volunteer.id}"/>
                     <label class="col-xs-4  control-label" for="volWechat">微信用户</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volWechat" name="volunteer.wechat" value="${volunteer.wechat}" readonly="readonly"/>
+                        <input class="form-control" id="volWechat" name="vol.wechat" value="${volunteer.wechat}" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volCode">工号</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volCode" name="volunteer.code" value="${volunteer.code}" readonly="readonly"/>
+                        <input class="form-control" id="volCode" name="vol.code" value="${volunteer.code}" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volName">姓名</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volName" name="volunteer.name" value="${volunteer.name}" readonly="readonly"/>
+                        <input class="form-control" id="volName" name="vol.name" value="${volunteer.name}" readonly="readonly"/>
                     </div>
                 </div>
                  
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volCellPhone">手机号</label>
                     <div class="col-xs-8">
-                        <input class="form-control" id="volCellPhone" name="volunteer.cellPhone" value="${volunteer.cellPhone}"/>
+                        <input class="form-control" id="volCellPhone" name="vol.cellPhone" value="${volunteer.cellPhone}"/>
                     </div>
                 </div> 
                 <div class="form-group">

@@ -186,7 +186,7 @@
         </action>
     </package>
 
-    <package name="trainCourse" namespace="/trainCourse" extends="default">
+    <package name="frontTraincourse" namespace="/frontTraincourse" extends="default">
         <action name="index" class="actions.front.TrainCourseAction" method="index">
             <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
         </action>

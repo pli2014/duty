@@ -51,19 +51,20 @@ public class WechatInterceptor extends AbstractInterceptor {
             openID = info.getOpenid();
             wechatUser = info.getNickname();
           } else {
-            action.addActionError("发生位置错误，获取用户授权失败！");
+            action.addActionError("发生未知错误，获取用户授权失败！");
             return "message";
           }
         }
       }
-
-      action.setOpenID(openID);
-      action.setWechatUser(wechatUser);
-
       if(null != openID) {
+        action.setOpenID(openID);
+        action.setWechatUser(wechatUser);
+      }
+
+      if(null != action.getOpenID()) {
         VolunteerBean volunteer;
         VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
-        volunteer = vb.getVolunteerBeanByOpenID(openID);
+        volunteer = vb.getVolunteerBeanByOpenID(action.getOpenID());
         if(null != volunteer) {
           action.setVolunteer(volunteer);
           if(null == wechatUser) {
