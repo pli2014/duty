@@ -8,22 +8,22 @@
 	<div class="home">
 		<div class="nav-login" >
 			<div class="login-font">指纹登陆</div>
-			<div class="nav-img2" style="width: 350px;">
+			<div class="nav-img2">
 				<img src="img/fingerprint_scan.png" width="100" height="100" />
 			</div>
 		</div>
 		<div class="nav-login2" >
 			<form id="loginForm" action="login.action" method="post">
-				<div class="login-font">普通登陆</div>
+				<div class="login-font" style="margin: 0px;">普通登陆</div>
 				<%@ include file="../strutsMessage.jsp"%>
-				<div class="nav-img2">
-					<input type="text" class="login-text" style="margin-left: 40px;" placeholder="请输入工号,不是姓名"
+				<div class="nav-img2" style="margin: 0px;">
+					<input type="text" class="login-text"   placeholder="请输入工号,不是姓名"
 						name="volunteer.code" autofocus required="required" />
-				    <input type="password" class="login-password" style="margin-left: 40px;" placeholder="请输入密码"
+				    <input type="password" class="login-password"   placeholder="请输入密码"
 						name="volunteer.password" autofocus required="required" />
 				</div>
 				
-				<div class="login-anniu" style="margin-top: 50px;margin-right: 20px;">
+				<div class="login-anniu">
 					<img src="img/in.png" width="34" height="34" style="cursor: pointer;" onclick="$('#loginForm').submit()"/>
 				</div>
 			</form>
