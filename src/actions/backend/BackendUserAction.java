@@ -53,7 +53,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
-    init.getAoColumns().add(new TableHeaderVo("name", "后台用户名"));
+    init.getAoColumns().add(new TableHeaderVo("name", "用户名").enableSearch());
     return init;
   }
 
