@@ -84,9 +84,18 @@
          <action name="save" class="actions.wechat.WechatUserAction" method="save">
             <result name="success">/pages/wechat/wechatMessage.jsp</result>
         </action>
+         <action name="myHonor" class="actions.wechat.WechatUserAction" method="myHonor">
+            <result name="success">/pages/wechat/wechatMessage.jsp</result>
+        </action>
          <action name="register" class="actions.wechat.WechatUserAction" method="register">
             <result name="failure">/pages/wechat/register.jsp</result>
             <result name="success">/pages/wechat/registerSuccess.jsp</result>
+        </action>
+    </package>
+    
+    <package name="trainCourse" namespace="/wechat/trainCourse" extends="default-wechat">
+       <action name="myTrainCourse" class="actions.wechat.WechatTrainCourseAction" method="myTrainCourse">
+            <result name="success">/pages/wechat/myTrainCourse.jsp</result>
         </action>
     </package>
 </struts>
