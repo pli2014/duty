@@ -1,69 +1,107 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<%@ include file="../metrouiHeader.jsp"%>
+
+    <%@ include file="../metrouiHeader.jsp" %>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/train.css" rel="stylesheet">
+    <title>志愿者注册</title>
+
     <style type="text/css">
-        .metro .volunteerinfo:before {
-            content: "个人信息";
+        .face {
+            #border: 1px solid #CCCCCC;
+            margin: 0 0 10px;
+            min-height: 100px;
+            padding: 20px 40px 20px 60px;
         }
-        .metro .face:before {
-            content: "个人头像";
+
+        .error {
+            color: red;
+        }
+
+        .required {
+            color: red;
         }
     </style>
-<!--external css-->
-<title>
-   <s:if test="volunteer.id.length() > 0">
-        志愿者修改
-      </s:if>
-      <s:else>
-        志愿者添加
-      </s:else>
-</title>
 </head>
-<body class="metro">
-<div class="container">
-   <h1>
-       <a href="index.action"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
-       <s:if test="volunteer.id.length() > 0">
-        志愿者修改
-      </s:if>
-      <s:else>
-        志愿者添加
-      </s:else><small class="on-right"></small>
-   </h1>
-   <h2 id="__table__">个人信息</h2>
-    <div  style="width: 360px;margin-right:10px; float: left;">
-    <div class="example face" >
-        <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
-    </div>
-    <div id="cameraDialog"  style="margin-top: -30px;">
-        <%@ include file="../frontend_service/flashcamera.jsp" %>
-    </div>
-    </div>
-    <div class="example volunteerinfo" style="float: left;">
-    <form id="volunteerForm" action="volunteer/save.action" method="post">
-      <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
-      <fieldset>
-          <s:actionerror/><s:actionmessage/>
 
-          <%@ include file="volunteerFields.jsp"%> 
-          
-          <button type="submit">保存</button>
-          <button type="button" onclick="window.location.href='index.action'">取消</button>
-      </fieldset>
-  </form>
-  </div>
- </div>
- <%@ include file="volunteerFieldsValidation.jsp"%> 
-  <s:if test="volunteer.id.length() > 0">
-	 <script type="text/javascript">
-	 $(document).ready(function() {
-	     $("form input[name='volunteer.name']").attr("readonly","readonly");
-	     $("form input[name='volunteer.name']").next("button").attr("disabled","disabled");
-	     $("form input[name='volunteer.identityCard']").attr("readonly","readonly");
-	     $("form input[name='volunteer.identityCard']").next("button").attr("disabled","disabled");
-	 });
-    </script>
-  </s:if>
+<body>
+<div class="home2">
+    <div class="bg-user">
+        <div class="bg-fh">
+            <a href="index.action">
+                <img src="img/back.png" width="35" height="35" />
+            </a>
+        </div>
+        <div class="bg-top">我的注册</div>
+        <div class="bg-username">${volunteer.name}</div>
+        <div  class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+    </div>
+
+    <div class="bg-left">
+        <div class="face">
+            <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
+        </div>
+    </div>
+    <form  id="volunteerForm" action="volunteer/save.action" method="post">
+
+        <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
+        <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
+        <input name="volunteer.status" type="hidden" value="${volunteer.status}"/>
+
+        <div class="bg-right">
+            <div class="bg-title">个人信息</div>
+
+            <s:include value="../strutsMessage.jsp"/>
+
+            <div class="bg-table">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><span class="required">*</span>工号<span class="bg-tishi"></span> <br/>
+                            <input type="text" name="volunteer.code" id="code" value="${volunteer.code}" class="zc-input" readonly="readonly"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>姓名<span class="bg-tishi"></span><br />
+                            <input type="text" name="volunteer.name" id="name" value="${volunteer.name}" class="zc-input" required="required"/></td>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>性别<span class="bg-tishi"></span>
+                            <input name="volunteer.sex" type="radio" value="1" checked = "checked" class="Radio" /> 男
+                            <input name="volunteer.sex" type="radio" value="2" class="Radio" /> 女
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>身份证号<span class="bg-tishi"></span><br />
+                            <input type="text" name="volunteer.identityCard" id="identityCard" value="${volunteer.identityCard}" class="zc-input" required="required"/></td>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>手机<span class="bg-tishi"></span><br />
+                            <input type="text" name="volunteer.cellPhone" id="cellPhone" value="${volunteer.cellPhone}" class="zc-input" required="required"/></td>
+                    </tr>
+                    <tr>
+                        <td>微信<br />
+                            <input type="text" name="volunteer.wechat" id="wechat" class="zc-input" /></td>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>邮箱<span class="bg-tishi"></span><br />
+                            <input type="text" name="volunteer.email" id="email" value="${volunteer.email}" class="zc-input"/></td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="bg-btn">
+                <input class="Infor-btn" type="submit" value="修改"/>
+                <input class="Infor-btn" type="button" value="修改密码" onclick="window.location.href='volunteer/changePassword.action'" style="cursor: pointer;"/>
+                <input class="Infor-btn" type="button" value="取消" onclick="window.location.href='index.action'" />
+            </div>
+        </div>
+
+        <%@ include file="volunteerFieldsValidation.jsp"%>
+
+    </form>
+</div>
 </body>
 </html>
+

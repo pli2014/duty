@@ -23,7 +23,7 @@
 		</div>
 		<div class="bg-blue">
 		  <a data-click="transform" class="tile bg-darkOrange"
-				href="volunteer/view.action?id=${sessionUser.id}">
+				href="volunteer/edit.action?id=${sessionUser.id}">
 			<div class="bg-img">
 				<img src="img/zc.png" width="100" height="100" />
 			</div>

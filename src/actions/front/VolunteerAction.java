@@ -173,8 +173,8 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String changePassword() throws Exception {
+    VolunteerBean loginedUser = getLoginedVolunteer();
     if (volunteer != null) {
-      VolunteerBean loginedUser = getLoginedVolunteer();
       if (loginedUser != null && loginedUser.getPassword().equals(StringUtil.toMD5(oldPassword))) {
         loginedUser.setPassword(StringUtil.toMD5(volunteer.getPassword()));
         getBusiness().updateLeaf(loginedUser, loginedUser);
@@ -183,6 +183,11 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
         return SUCCESS;
       } else {
         addActionError("原始密码错误");
+      }
+    } else {
+      if(null != loginedUser) {
+        volunteer = new VolunteerBean();
+        volunteer.setName(loginedUser.getName());
       }
     }
     return SUCCESS;

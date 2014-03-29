@@ -1,58 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-      <%@ include file="../metrouiHeader.jsp" %>
- 
-   <style type="text/css">
-	.metro .volunteerinfo:before {
-       content: "密码修改";
-     }
-    
-    </style>
-    <title>密码修改</title>
-</head>
-<body class="metro"  >
-<div class="container">
-   <h1>
-       <a href="index.action"><i class="icon-arrow-left-3 fg-darker smaller"></i></a>
-       密码修改<small class="on-right"></small>
-   </h1>
-   <h2 id="__table__">密码修改</h2>
-   <div class="example volunteerinfo" >
-     <form  id="volunteerForm" action="volunteer/changePassword.action" method="post">
-           <fieldset>
-               <s:actionerror/><s:actionmessage/>
-               
-               <label>旧密码</label>
-				<div class="input-control password" data-role="input-control">
-				    <input type="password" placeholder="请输入旧密码" name="oldPassword" autofocus required="required"/>
-				    <button class="btn-reveal" tabindex="-1"></button>
-				</div>
-				
-               <label>新密码</label>
-				<div class="input-control password" data-role="input-control">
-				    <input type="password" placeholder="请输入新密码" id="password" name="volunteer.password" autofocus required="required"/>
-				    <button class="btn-reveal" tabindex="-1"></button>
-				</div>
-				<div class="input-control password" data-role="input-control">
-				    <input type="password" placeholder="请再次输入新密码" name="confirm_password" autofocus required="required"/>
-				    <button class="btn-reveal" tabindex="-1"></button>
-				</div>
-               
-               <input type="submit" value="修改"/>
-               <input type="button" onclick="window.location.href='index.action'" value="取消"/>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <%@ include file="../metrouiHeader.jsp" %>
 
-               <div style="margin-top: 20px">
-               </div>
-           </fieldset>
-       </form>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="../css/train.css" rel="stylesheet">
+    <title>修改密码</title>
+
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+<div class="home2">
+    <div class="bg-user">
+        <div class="bg-fh">
+            <a href="volunteer/edit.action?id=${sessionUser.id}">
+                <img src="../img/back.png" width="35" height="35" />
+            </a>
+        </div>
+        <div class="bg-top">修改密码</div>
+        <div class="bg-username">${volunteer.name}</div>
+        <div  class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+
+
+    <div class="bg-right">
+
+        <s:include value="../strutsMessage.jsp"/>
+
+        <form  id="volunteerForm" action="volunteer/changePassword.action" method="post">
+            <div class="bg-table">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td><span class="required">*</span>旧密码<span class="bg-tishi"></span><br />
+                            <input type="password" name="oldPassword" id="oldPassword"  class="zc-input" required="required"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="required">*</span>新密码<span class="bg-tishi"></span><br />
+                            <input type="password" name="volunteer.password" id="password"  class="zc-input" required="required"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="required">*</span>确认密码<span class="bg-tishi"></span><br />
+                            <input type="password" name="confirm_password" id="confirm_password" class="zc-input" required="required"/>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="bg-btn">
+                <input name="" class="Infor-btn" type="submit" value="修改" />
+                <input name="" class="Infor-btn" type="button" value="取消" onclick="window.location.href='volunteer/edit.action?id=${sessionUser.id}'" />
+            </div>
+        </form>
     </div>
-   </div>
-   <footer class="site-footer" style="position:fixed;bottom:1px;width:100%;z-index:-1">
-       <div class="text-center">
-           2014-01 &copy; 版权所有
-       </div>
-   </footer>
-   <%@ include file="volunteerFieldsValidation.jsp"%>
-  </body>
+</div>
+
+<%@ include file="volunteerFieldsValidation.jsp"%>
+
+</body>
 </html>
