@@ -18,7 +18,7 @@ public class Constants {
 
   public static final String MSG_TYPE = "MsgType";
   public static final String EVENT_TYPE = "Event";
-
+  public static final String EVENT_KEY = "EventKey";
 
   public static final String MSG_TYPE_TEXT = "text";
   public static final String MSG_TYPE_IMAGE = "image";
