@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
     <%@ include file="/pages/miniwechatHeader.jsp" %>
-
+    <script type="text/javascript" src="js/checkUtil.js"></script>
     <title>志愿者服务微信平台</title>
 
 
@@ -91,13 +91,9 @@
                         confirm_password: {
                             equalTo: "#password"
                         },
-                        'register.identityCard':{
+                        "register.identityCard":{
                             required:true,
                             idCardNo:true
-                        },
-                        'register.identityCard': {
-                            required: "请输入身份证号",
-                            idCardNo: "请输入正确的身份证号"
                         }
                     },
                     messages: {
@@ -110,6 +106,10 @@
                         'confirm_password': {
                             required: "请再次输入密码",
                             equalTo: "密码两次输入不一致"
+                        },
+                        'register.identityCard': {
+                            required: "请输入身份证号",
+                            idCardNo: "请输入正确的身份证号"
                         }
                     }
                 });
