@@ -90,7 +90,7 @@ public class WechatUserAction extends WechatBaseAuthAction {
     addActionMessage("该功能暂未开放！");
     return SUCCESS;
   }
-  
+
   /**
    * 
    * @return
@@ -114,7 +114,7 @@ public class WechatUserAction extends WechatBaseAuthAction {
   public String register() {
     if (vol != null) {
       vol.setWechat(getWechatUser());
-      BusinessResult result = vb.save(vol,getRequest().getServletContext());
+      BusinessResult result = vb.save(getRequest(), vol);
       if (result.getErrors().size() > 0) {
         for (Object error : result.getErrors()) {
           addActionError(error.toString());

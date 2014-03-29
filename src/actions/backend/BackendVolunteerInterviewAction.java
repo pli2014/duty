@@ -50,7 +50,7 @@ public class BackendVolunteerInterviewAction extends BackendVolunteerAction {
     VolunteerBean volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     if (volunteer != null) {
       volunteer.setStatus(VolunteerBean.INTERVIEWED);
-      getBusiness().updateLeaf(volunteer, volunteer);
+      getBusiness().updateLeaf(getRequest(), volunteer);
     }
     return SUCCESS;
   }
