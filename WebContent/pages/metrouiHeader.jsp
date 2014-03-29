@@ -1,14 +1,6 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <%@ include file="commonHeader.jsp" %>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="dynamic manager technique">
-    <meta name="author" content="LiLimin,GuDong,WangRonghua">
-    <meta name="keyword" content="dynamicform,template">
-    <title>志愿者管理系统服务端</title>
 
     <link rel="shortcut icon" href="jslib/flatlab/img/favicon.png">
 
