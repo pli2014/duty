@@ -35,6 +35,21 @@
        color:red !important;
        font-size: x-large;
     }
+
+    .face {
+        #border: 1px solid #CCCCCC;
+        margin: 0 0 10px;
+        min-height: 100px;
+        padding: 20px 40px 20px 60px;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .required {
+        color: red;
+    }
     </style>
 </head>
 

@@ -51,6 +51,10 @@
                 'oldPassword': {
  	               required: "请输入旧密码"
  	            }
+            },
+
+            errorPlacement: function(error, element) {
+                error.appendTo( element.prev().prev() );
             }
         }); 
     });

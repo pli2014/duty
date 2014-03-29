@@ -1,9 +1,24 @@
 package bl.mongobus;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
+
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
-import bl.beans.VolunteerBean;
 import bl.beans.UserServiceBean;
+import bl.beans.VolunteerBean;
 import bl.common.BeanContext;
 import bl.common.BusinessResult;
 import bl.constants.BusTieConstant;
@@ -13,16 +28,6 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.lang.StringUtils;
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.query.Query;
-
-import java.lang.reflect.InvocationTargetException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * Created by wangronghua on 14-3-15.
@@ -154,7 +159,12 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
         time += (userServiceBean.getCheckOutTime().getTime() - userServiceBean.getCheckInTime().getTime());
       }
     }
-    return time / 3600000;
+    time = time / 3600000;
+
+    BigDecimal b = new BigDecimal(time);
+    time = b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+    return time;
   }
 
   public BusinessResult getLeavesByUserId(String userId) {
