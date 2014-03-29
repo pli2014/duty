@@ -80,7 +80,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer, getRequest().getServletContext());
+    BusinessResult result = getBusiness().save(getRequest(), volunteer);
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());
@@ -106,7 +106,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   public String delete() throws Exception {
     if (getIds() != null) {
       for (String id : getIds()) {
-        getBusiness().deleteLeaf(id);
+        getBusiness().deleteLeaf(getRequest(), id);
       }
     }
     return SUCCESS;

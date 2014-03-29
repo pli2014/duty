@@ -51,8 +51,7 @@ public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
     VolunteerBean volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     if (volunteer != null) {
       volunteer.setStatus(VolunteerBean.VIERFIED);
-      getBusiness().updateLeaf(volunteer, volunteer);
-      getRequest().getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getBusiness().getUnInterviewedVolunteers());
+      getBusiness().updateLeaf(getRequest(), volunteer);
     }
     return SUCCESS;
   }
