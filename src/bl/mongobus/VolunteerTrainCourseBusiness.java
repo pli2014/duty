@@ -3,10 +3,14 @@
  */
 package bl.mongobus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bl.beans.TrainCourseBean;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
 import org.bson.types.ObjectId;
 
 import bl.beans.VolunteerTrainCourseBean;
@@ -21,6 +25,7 @@ import com.opensymphony.xwork2.util.logging.LoggerFactory;
  */
 public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContext, VolunteerTrainCourseBean> {
   private static Logger log = LoggerFactory.getLogger(VolunteerTrainCourseBusiness.class);
+  private TrainCourseBusiness tcb = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
 
   public VolunteerTrainCourseBusiness() {
     this.dbName = "form";
@@ -44,5 +49,23 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
     } else {
       return (VolunteerTrainCourseBean) list.get(0);
     }
+  }
+
+  public List<TrainCourseBean> getPassedTrainCourseByVolunteerId(String volunteerId) {
+    List<TrainCourseBean> resultList = new ArrayList<TrainCourseBean>();
+
+    Map filter = new HashMap();
+    filter.put("isDeleted_!=", true);
+    filter.put("volunteerId", new ObjectId(volunteerId));
+    List<VolunteerTrainCourseBean> list = super.queryDataByCondition(filter, null);
+    for(VolunteerTrainCourseBean bean: list) {
+      if(bean.getStatus() == 1) {
+        TrainCourseBean courseBean = (TrainCourseBean)tcb.getLeaf(bean.getTraincourseId().toString()).getResponseData();
+        if(courseBean != null && !courseBean.getIsDeleted()) {
+          resultList.add(courseBean);
+        }
+      }
+    }
+    return resultList;
   }
 }
