@@ -71,9 +71,9 @@ public class TestMenuUtils {
     button3.setName("志愿动态");
 
     WechatButton subbutton31 = new WechatButton();
-    subbutton31.setName("我要报名");
+    subbutton31.setName("志愿者招募");
     subbutton31.setType("view");
-    subbutton31.setUrl(MenuUtils.getOAuthUrl("/wechat/user/register.action"));
+    subbutton31.setUrl(MenuUtils.getOAuthUrl("/wechat/volunteerRecruit.action"));
 
     WechatButton subbutton32 = new WechatButton();
     subbutton32.setName("我的建议");

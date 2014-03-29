@@ -56,7 +56,7 @@
 		</div>
 		<div class="bg-green2">
 		  <a data-click="transform" class="tile bg-darkViolet"
-				href="trainCourse/index.action">
+				href="frontTraincourse/index.action">
 			<div class="bg-img">
 				<img src="img/px.png" width="100" height="100" />
 			</div>
