@@ -44,12 +44,6 @@
             <result name="success">/pages/volunteer/registerSuccess.jsp</result>
         </action>
 
-        <action name="registerTest" class="actions.front.VolunteerAction" method="register">
-            <interceptor-ref name="noLoginStack"></interceptor-ref>
-            <result name="failure">/pages/volunteer/temp.jsp</result>
-            <result name="success">/pages/volunteer/registerSuccess.jsp</result>
-        </action>
-
         <action name="index">
             <result name="success">/pages/frontend_service/servicetile.jsp</result>
         </action>
