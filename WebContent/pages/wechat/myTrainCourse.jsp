@@ -81,7 +81,7 @@
 		</section>
 		<div class="panel-body">
 			<button type="button" class="btn btn-info btn-block"
-				onclick="custom_close()">点击此处，返回微信！</button>
+				onclick="custom_close()">取消</button>
 		</div>
 	</section>
 </body>
