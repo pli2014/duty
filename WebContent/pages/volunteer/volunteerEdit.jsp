@@ -64,17 +64,21 @@
                     </tr>
                     <tr>
                         <td><span class="required">*</span>姓名<span class="bg-tishi"></span><br />
-                            <input type="text" name="volunteer.name" id="name" value="${volunteer.name}" class="zc-input" required="required"/></td>
+                            <input type="text" name="volunteer.name" id="name" value="${volunteer.name}" class="zc-input" readonly="readonly"/></td>
                     </tr>
                     <tr>
                         <td><span class="required">*</span>性别<span class="bg-tishi"></span>
                             <input name="volunteer.sex" type="radio" value="1" checked = "checked" class="Radio" /> 男
-                            <input name="volunteer.sex" type="radio" value="2" class="Radio" /> 女
+                            <input name="volunteer.sex" type="radio" value="2"
+                                   <s:if test="volunteer.sex == 2">
+                                       checked = "checked"
+                                   </s:if>
+                                   class="Radio" /> 女
                         </td>
                     </tr>
                     <tr>
                         <td><span class="required">*</span>身份证号<span class="bg-tishi"></span><br />
-                            <input type="text" name="volunteer.identityCard" id="identityCard" value="${volunteer.identityCard}" class="zc-input" required="required"/></td>
+                            <input type="text" name="volunteer.identityCard" id="identityCard" value="${volunteer.identityCard}" class="zc-input" readonly="readonly"/></td>
                     </tr>
                     <tr>
                         <td><span class="required">*</span>手机<span class="bg-tishi"></span><br />
