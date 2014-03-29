@@ -27,7 +27,7 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
 
 	@Override
 	public String getActionPrex() {
-		return getRequest().getContextPath() + "/trainCourse";
+		return getRequest().getContextPath() + "/frontTraincourse";
 	}
 
 	@Override

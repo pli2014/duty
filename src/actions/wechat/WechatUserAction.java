@@ -86,6 +86,15 @@ public class WechatUserAction extends WechatBaseAuthAction {
    * 
    * @return
    */
+  public String myHonor() {
+    addActionMessage("该功能暂未开放！");
+    return SUCCESS;
+  }
+  
+  /**
+   * 
+   * @return
+   */
   public String save() {
     if (vol == null || StringUtils.isBlank(vol.getId())) {
       addActionMessage("用户不存在, 保存失败!");

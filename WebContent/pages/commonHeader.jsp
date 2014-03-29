@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%-- Listing of all the taglibs that we reference in this application. --%>
@@ -16,7 +15,12 @@
 %>
     <base href="<%=basePath%>"/>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="志愿者服务">
+    <meta name="author" content="LiLimin,GuDong,WangRonghua">
+
+
   <style type="text/css">
     .mt15 {
         margin-top: 15px;

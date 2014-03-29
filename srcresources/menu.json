@@ -30,12 +30,12 @@
                 {
                     "type":"view",
                     "name":"我的荣誉",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyHonour.action"
+                    "url":"http://www.xiangchile.com/wechat/redirect.action?url=%2Fwechat%2Fuser%2FmyHonor.action"
                 },
                 {
                     "type":"view",
                     "name":"我的培训",
-                    "url":"http://tcrznj.com/wechat/redirect.action?url=%2Fwechat%2FmyTraining.action"
+                    "url":"http://www.xiangchile.com/wechat/redirect.action?url=%2Fwechat%2FtrainCourse%2FmyTrainCourse.action"
                 },
                 {
                     "type":"view",

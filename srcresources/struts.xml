@@ -9,6 +9,7 @@
     <constant name="struts.ui.theme" value="simple" />
     <constant name="struts.i18n.encoding" value="UTF-8" />
     <constant name="struts.custom.i18n.resources" value="resources/LocaleStrings" />
+    <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
 
     <package name="default" namespace="/" extends="struts-default" >
         <default-action-ref name="index" />
@@ -191,7 +192,7 @@
         </action>
     </package>
 
-    <package name="trainCourse" namespace="/trainCourse" extends="default">
+    <package name="frontTraincourse" namespace="/frontTraincourse" extends="default">
         <action name="index" class="actions.front.TrainCourseAction" method="index">
             <result name="tableIndex">/pages/traincourse/myTraincourse.jsp</result>
         </action>

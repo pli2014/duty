@@ -6,9 +6,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ include file="/pages/bootstrapHeader.jsp" %>
-    <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script>
-
+    <%@ include file="/pages/miniwechatHeader.jsp" %>
+    <script type="text/javascript" src="js/checkUtil.js"></script>
     <title>志愿者服务微信平台</title>
 
 
@@ -30,26 +29,32 @@
         <br>
         <input type="hidden" name="register.openID" value="${openID}">
         <div class="form-group">
-            <label class="col-lg-2  control-label">工号</label>
-            <div class="col-lg-3">
+            <label class="col-xs-4  control-label">工号</label>
+            <div class="col-xs-8">
                 <input type="text" class="form-control" name="register.code" readonly="true" value="${register.code}"/>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2  control-label">微信用户</label>
-            <div class="col-lg-3">
+            <label class="col-xs-4  control-label">微信用户</label>
+            <div class="col-xs-8">
                 <input class="form-control" id="wechatUser" name="register.wechat" readonly="true" value="${wechatUser}">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2  control-label" >姓名</label>
-            <div class="col-lg-3">
+            <label class="col-xs-4  control-label" >姓名</label>
+            <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" type="text" name="register.name" value=""/></p>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2  control-label" >性别</label>
-            <div class="col-lg-3" data-role="input-control">
+            <label class="col-xs-4  control-label" >身份证号码</label>
+            <div class="col-xs-8">
+                <p class="form-control-static"><input class="form-control" type="text" name="register.identityCard" value=""/></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-4  control-label" >性别</label>
+            <div class="col-xs-8" data-role="input-control">
                 <label class="inline-block">
                     <input type="radio" name="register.sex" value="1"/>
                     男
@@ -62,14 +67,14 @@
         </div>
 
         <div class="form-group">
-            <label class="col-lg-2  control-label" >密码</label>
-            <div class="col-lg-3">
+            <label class="col-xs-4  control-label" >密码</label>
+            <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" id="password" type="password" name="register.password" value=""/></p>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-lg-2  control-label" >请再次输入密码</label>
-            <div class="col-lg-3">
+            <label class="col-xs-4  control-label" >请再次输入密码</label>
+            <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" type="password" name="confirm_password" value=""/></p>
             </div>
         </div>
@@ -85,6 +90,10 @@
                         },
                         confirm_password: {
                             equalTo: "#password"
+                        },
+                        "register.identityCard":{
+                            required:true,
+                            idCardNo:true
                         }
                     },
                     messages: {
@@ -97,6 +106,10 @@
                         'confirm_password': {
                             required: "请再次输入密码",
                             equalTo: "密码两次输入不一致"
+                        },
+                        'register.identityCard': {
+                            required: "请输入身份证号",
+                            idCardNo: "请输入正确的身份证号"
                         }
                     }
                 });

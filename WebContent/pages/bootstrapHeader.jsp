@@ -1,11 +1,10 @@
-<!DOCTYPE html>
 <%--
   User: peter
   Date: 14-3-16
   Time: 下午4:18
 --%>
 <%@ include file="commonHeader.jsp" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <link href="jslib/flatlab/css/bootstrap.min.css" rel="stylesheet">
 <link href="jslib/flatlab/css/bootstrap-reset.css" rel="stylesheet">
 <!--external css-->
