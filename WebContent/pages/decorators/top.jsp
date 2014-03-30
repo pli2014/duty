@@ -1,5 +1,11 @@
 <%@ include file="/pages/commonHeader.jsp"%>
       <!--header start-->
+      
+       <style type="text/css">
+      .dropdown-menu.extended {
+    max-width: 180px !important;
+    }
+    </style>
       <header class="header white-bg">
               <div class="sidebar-toggle-box">
                   <div class="fa fa-bars tooltips" data-placement="right"></div>
@@ -77,15 +83,13 @@
                     <!-- user login dropdown start-->
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
-                            <img alt="" src="jslib/flatlab/img/avatar1_small.jpg">
                             <span class="username">${backendSessionUser.name }</span>
                             <b class="caret"></b>
                         </a>
-                        <ul class="dropdown-menu extended logout userHead">
-                            <li><a href="backend/user/changePassword.action"><i class=" fa fa-cog"></i>修改密码</a></li>
-                            <li><a href="backend/volunteerVerify/index.action"><i class="fa fa-bell-o"></i> 审核</a></li>
-                            <li><a href="backend/volunteerInterview/index.action"><i class="fa fa-bell-o"></i> 面试</a></li>
-                            <li><a href="backend/logout.action"><i class="fa fa-key"></i> Log Out</a></li>
+                        <ul class="dropdown-menu extended logout">
+                            <li style="width: 50%;"><a href="backend/user/changePassword.action"><i class=" fa fa-cog"></i>修改密码</a></li>
+                            <li style="width: 50%;"><a href="backend/logout.action"><i class="fa fa-key"></i>退出</a></li>
+                            <li> </li>
                         </ul>
                     </li>
                     <!-- user login dropdown end -->

@@ -4,13 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.bson.types.ObjectId;
 
 import vo.table.TableDataVo;
-import vo.table.TableHeaderVo;
-import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
 import webapps.WebappsConstants;
 import bl.beans.TrainCourseBean;
@@ -24,146 +20,145 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  * Created by peter on 14-3-14.
  */
 public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
+  private TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
+  private VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
+  private List<VolunteerTrainCourseBean> myTraincourse;
+  private List<TrainCourseBean> allTraincourse;
 
-	@Override
-	public String getActionPrex() {
-		return getRequest().getContextPath() + "/frontTraincourse";
-	}
+  private int start = 0;
+  private int length = 5;
+  private long count = 0;
 
-	@Override
-	public String getCustomJs() {
-		return getRequest().getContextPath() + "/js/trainCourse.js";
-	}
+  public int getStart() {
+    return start;
+  }
 
-	@Override
-	public TableInitVo getTableInit() {
-		TableInitVo init = new TableInitVo();
-		init.getAoColumns().add(new TableHeaderVo("name", "课程名称"));
-		init.getAoColumns().add(new TableHeaderVo("status", "状态"));
-		init.getAoColumns().add(new TableHeaderVo("description", "描述", false));
-		return init;
-	}
+  public void setStart(int start) {
+    this.start = start;
+  }
 
-	@Override
-	public TableQueryVo getModel() {
-		TableQueryVo model = super.getModel();
-		model.getFilter().put("status", TrainCourseBean.STATUS_START + "");
-		return model;
-	}
+  public int getLength() {
+    return length;
+  }
 
-	/**
-	 * queryTable
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public String queryMyTrainCourse() throws Exception {
-		TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
-		VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-		VolunteerBean volunteer = getLoginedVolunteer();
+  public List<VolunteerTrainCourseBean> getMyTraincourse() {
+    return myTraincourse;
+  }
 
-		TableQueryVo volunteerTrainCourseModel = new TableQueryVo();
-		volunteerTrainCourseModel.getFilter().put("volunteerId",
-				volunteer.get_id());
+  public void setMyTraincourse(List<VolunteerTrainCourseBean> myTraincourse) {
+    this.myTraincourse = myTraincourse;
+  }
 
-		long count = volunteerCourseBusiness
-				.getCount(volunteerTrainCourseModel);
-		TableDataVo table = volunteerCourseBusiness
-				.query(volunteerTrainCourseModel);
-		List<VolunteerTrainCourseBean> volunteerTrainCourseList = table
-				.getAaData();
-		BusinessResult result;
-		if (volunteerTrainCourseList != null) {
-			for (VolunteerTrainCourseBean volunteerTrainCourseBean : volunteerTrainCourseList) {
-				if (volunteerTrainCourseBean.getTraincourseId() != null) {
-					result = trainCourseBusiness
-							.getLeaf(volunteerTrainCourseBean
-									.getTraincourseId().toString());
-					if (result != null && result.getResponseData() != null) {
-						volunteerTrainCourseBean
-								.setTrainCourse((TrainCourseBean) result
-										.getResponseData());
-					}
-				}
-			}
-		}
+  public List<TrainCourseBean> getAllTraincourse() {
+    return allTraincourse;
+  }
 
-		table.setsEcho(getModel().getSEcho());
-		table.setiTotalDisplayRecords(count);
-		table.setiTotalRecords(count);
+  public void setAllTraincourse(List<TrainCourseBean> allTraincourse) {
+    this.allTraincourse = allTraincourse;
+  }
 
-		// json
-		JSONObject jsonObject = JSONObject.fromObject(table);
-		writeJson(jsonObject);
-		return null;
-	}
+  public void setLength(int length) {
+    this.length = length;
+  }
 
-	/**
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public String receive() throws Exception {
-		String[] trainCourseIds = getIds();
-		if (trainCourseIds != null) {
-			VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-			VolunteerBean volunteer = (VolunteerBean) getSession()
-					.getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+  public long getCount() {
+    return count;
+  }
 
-			VolunteerTrainCourseBean volunteerTrainCourseBean;
-			Map filterMap = new HashMap();
-			for (String trainCourseId : trainCourseIds) {
-				if (trainCourseId == null)
-					continue;
-				filterMap.put("volunteerId", volunteer.get_id());
-				filterMap.put("traincourseId", new ObjectId(trainCourseId));
-				List list = volunteerCourseBusiness.queryDataByCondition(
-						filterMap, null);
-				if (list.size() == 0) {
-					volunteerTrainCourseBean = new VolunteerTrainCourseBean();
-					volunteerTrainCourseBean.setVolunteerId(volunteer.get_id());
-					volunteerTrainCourseBean.setTraincourseId(new ObjectId(
-							trainCourseId));
-					volunteerCourseBusiness
-							.createLeaf(volunteerTrainCourseBean);
-				}
-			}
-		}
-		return SUCCESS;
-	}
+  public void setCount(long count) {
+    this.count = count;
+  }
 
-	@Override
-	public String queryTable() throws Exception {
-		TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
-		VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
-		VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(
-				WebappsConstants.LOGIN_USER_SESSION_ID);
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String index() throws Exception {
+    if (start < 0) {
+      start = 0;
+    }
+    // query allTraincourse
+    TableQueryVo allTraincourseModel = new TableQueryVo();
+    allTraincourseModel.setIDisplayStart(start);
+    allTraincourseModel.setIDisplayLength(length);
+    allTraincourseModel.getFilter().put("isDeleted_!=", true);
+    allTraincourseModel.getFilter().put("status", TrainCourseBean.STATUS_START + "");
 
-		Map filter = new HashMap();
-		filter.put("volunteerId", volunteer.get_id());
+    // add not in filter
+    Map filter = new HashMap();
+    filter.put("volunteerId", getLoginedVolunteer().get_id());
+    List<VolunteerTrainCourseBean> volunteerTrainCourseList = volunteerCourseBusiness.queryDataByCondition(filter, null);
+    if (volunteerTrainCourseList != null && volunteerTrainCourseList.size() > 0) {
+      ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList.size()];
+      for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
+        trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
+      }
+      allTraincourseModel.getFilter().put("_id_nin", trainCourseId);
+    }
+    allTraincourse = trainCourseBusiness.query(allTraincourseModel).getAaData();
+    count = trainCourseBusiness.getCount(allTraincourseModel);
 
-		List<VolunteerTrainCourseBean> volunteerTrainCourseList = volunteerCourseBusiness
-				.queryDataByCondition(filter, null);
-		if (volunteerTrainCourseList != null
-				&& volunteerTrainCourseList.size() > 0) {
-			ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList
-					.size()];
-			for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
-				trainCourseId[i] = volunteerTrainCourseList.get(i)
-						.getTraincourseId();
-			}
-			getModel().getFilter().put("_id_nin", trainCourseId);
-		}
+    // query myTraincourse
+    TableQueryVo myTraincourseModel = new TableQueryVo();
+    myTraincourseModel.setIDisplayStart(start);
+    myTraincourseModel.setIDisplayLength(length);
+    myTraincourseModel.getFilter().put("volunteerId", getLoginedVolunteer().get_id());
 
-		long count = getBusiness().getCount(getModel());
-		TableDataVo table = getBusiness().query(getModel());
-		table.setsEcho(getModel().getSEcho());
-		table.setiTotalDisplayRecords(count);
-		table.setiTotalRecords(count);
+    myTraincourse = volunteerCourseBusiness.query(myTraincourseModel).getAaData();
+    long myCount = volunteerCourseBusiness.getCount(myTraincourseModel);
+    if (myCount > count) {
+      count = myCount;
+    }
+    if (myTraincourse != null) {
+      BusinessResult result;
+      for (VolunteerTrainCourseBean volunteerTrainCourseBean : myTraincourse) {
+        if (volunteerTrainCourseBean.getTraincourseId() != null) {
+          result = trainCourseBusiness.getLeaf(volunteerTrainCourseBean.getTraincourseId().toString());
+          if (result != null && result.getResponseData() != null) {
+            volunteerTrainCourseBean.setTrainCourse((TrainCourseBean) result.getResponseData());
+          }
+        }
+      }
+    }
 
-		// json
-		JSONObject jsonObject = JSONObject.fromObject(table);
-		writeJson(jsonObject);
-		return null;
-	}
+    return INDEX_SUCCESS;
+  }
+
+  @Override
+  public TableQueryVo getModel() {
+    TableQueryVo model = super.getModel();
+    model.getFilter().put("status", TrainCourseBean.STATUS_START + "");
+    return model;
+  }
+
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String receive() throws Exception {
+    String[] trainCourseIds = getIds();
+    if (trainCourseIds != null) {
+      VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
+      VolunteerBean volunteer = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+
+      VolunteerTrainCourseBean volunteerTrainCourseBean;
+      Map filterMap = new HashMap();
+      for (String trainCourseId : trainCourseIds) {
+        if (trainCourseId == null)
+          continue;
+        filterMap.put("volunteerId", volunteer.get_id());
+        filterMap.put("traincourseId", new ObjectId(trainCourseId));
+        List list = volunteerCourseBusiness.queryDataByCondition(filterMap, null);
+        if (list.size() == 0) {
+          volunteerTrainCourseBean = new VolunteerTrainCourseBean();
+          volunteerTrainCourseBean.setVolunteerId(volunteer.get_id());
+          volunteerTrainCourseBean.setTraincourseId(new ObjectId(trainCourseId));
+          volunteerCourseBusiness.createLeaf(volunteerTrainCourseBean);
+        }
+      }
+    }
+    return SUCCESS;
+  }
 }

@@ -23,7 +23,7 @@
                           <span>志愿者管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/volunteer/index.action">志愿者管理</a></li>
+                          <li><a  href="backend/volunteer/index.action">志愿者</a></li>
                           <li><a  href="backend/volunteerVerify/index.action">审核</a></li>
                           <li><a  href="backend/volunteerInterview/index.action">面试</a></li>
                       </ul>
@@ -34,8 +34,8 @@
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/serviceplace/index.action?type=0">院内服务地点</a></li>
-                          <li><a  href="backend/serviceplace/index.action?type=1">院外服务地点</a></li>
+                          <li><a  href="backend/serviceplace/index.action?type=0">院内地点</a></li>
+                          <li><a  href="backend/serviceplace/index.action?type=1">院外地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
@@ -66,23 +66,14 @@
                       <li class="sub-menu">
                           <a href="javascript:;">
                               <i class="fa fa-laptop"></i>
-                              <span>后台系统管理</span>
+                              <span>系统管理</span>
                           </a>
                           <ul class="sub">
-                              <li><a  href="backend/user/index.action">后台用户管理</a></li>
-                              <li><a  href="backend/systemsetting.action">系统参数设定</a></li>
+                              <li><a  href="backend/user/index.action">用户管理</a></li>
+                              <li><a  href="backend/systemsetting.action">参数设定</a></li>
                           </ul>
                       </li>
                   </s:if>
-                  <li>
-                      <a  href="backend/logout.action">
-                          <i class="fa fa-user"></i>
-                          <span>用户退出</span>
-                      </a>
-                  </li>
-
-                  <!--multi level menu end-->
-
               </ul>
               <!-- sidebar menu end-->
           </div>

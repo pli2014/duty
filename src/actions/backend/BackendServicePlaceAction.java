@@ -4,9 +4,12 @@ import bl.beans.ServicePlaceBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ServicePlaceBusiness;
+
 import com.opensymphony.xwork2.ActionSupport;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
+
 import util.ServerContext;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
@@ -93,6 +96,15 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     public String getActionPrex() {
         return getRequest().getContextPath() + "/backend/serviceplace";
     }
+
+  @Override
+  public String getTableTitle() {
+    if (type == 1) {
+      return "服务管理 / 院外服务地点";
+    } else {
+      return "服务管理 / 院内服务地点";
+    }
+  }
 
     @Override
     public String getCustomJs() {

@@ -60,7 +60,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String getTableTitle() {
-    return "志愿者管理";
+    return "志愿者管理 / 志愿者";
   }
 
   @Override

@@ -15,7 +15,7 @@ import bl.beans.VolunteerBean;
 public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
   @Override
   public String getTableTitle() {
-    return "志愿者审核";
+    return "志愿者管理 / 审核";
   }
 
   @Override

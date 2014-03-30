@@ -63,6 +63,11 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
   }
 
   @Override
+  public String getTableTitle() {
+    return "培训管理 / 培训记录";
+  }
+  
+  @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("volunteer.name", "志愿者").enableSearch());
