@@ -26,6 +26,7 @@
         <button type="button" class="btn btn-info btn-block" onclick="custom_close()">点击此处，返回微信！</button>
 
     <form action="wechat/volunteerRecruitSave.action" method="post" class="form-horizontal">
+        <%@include file="../strutsMessage.jsp"%>
         <br>
         <input type="hidden" name="register.openID" value="${openID}">
         <div class="form-group">
@@ -35,21 +36,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-4  control-label">微信用户</label>
-            <div class="col-xs-8">
-                <input class="form-control" id="wechatUser" name="register.wechat" readonly="true" value="${wechatUser}">
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-xs-4  control-label" >姓名</label>
             <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" type="text" name="register.name" value=""/></p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4  control-label" >身份证号码</label>
-            <div class="col-xs-8">
-                <p class="form-control-static"><input class="form-control" type="text" name="register.identityCard" value=""/></p>
             </div>
         </div>
         <div class="form-group">
@@ -65,7 +54,18 @@
                 </label>
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="col-xs-4  control-label" >身份证号码</label>
+            <div class="col-xs-8">
+                <p class="form-control-static"><input class="form-control" type="text" name="register.identityCard" value=""/></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-4  control-label" >手机号码</label>
+            <div class="col-xs-8">
+                <p class="form-control-static"><input class="form-control" type="text" name="register.cellPhone" value=""/></p>
+            </div>
+        </div>
         <div class="form-group">
             <label class="col-xs-4  control-label" >密码</label>
             <div class="col-xs-8">
@@ -94,6 +94,10 @@
                         "register.identityCard":{
                             required:true,
                             idCardNo:true
+                        },
+                        'volunteer.cellPhone':{
+                            required:true,
+                            cellPhone:true
                         }
                     },
                     messages: {
@@ -110,6 +114,10 @@
                         'register.identityCard': {
                             required: "请输入身份证号",
                             idCardNo: "请输入正确的身份证号"
+                        },
+                        'volunteer.cellPhone': {
+                            required: "请输入手机",
+                            cellPhone: "请输入正确的手机号, 例如：13912332122"
                         }
                     }
                 });
