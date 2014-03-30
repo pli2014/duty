@@ -37,7 +37,7 @@
       </s:else>
     </header>
     <div style="width: 500px;"><s:actionerror/><s:actionmessage/></div>
-    <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunterTrainCourse/save.action" method="post">
+    <form id="volunteerForm" class="form-horizontal tasi-form" action="${rootPath}/backend/volunterTrainCourse/save.action" method="post">
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">志愿者名</label>
         <div class="col-lg-10">
@@ -91,7 +91,7 @@
      <div class="form-group  has-success">
          <div class="col-lg-offset-2 col-lg-10">
              <button class="btn btn-danger" type="submit">保存</button>
-             <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunterTrainCourse/index.action'">取消</button>
+             <button class="btn btn-danger" type="button" onclick="window.location.href='${rootPath}/backend/volunterTrainCourse/index.action'">取消</button>
          </div>
      </div>    
    </form>  
@@ -105,7 +105,7 @@
         if($('#volunteerName').val() == ''){
             return;
         }
-        var url = "backend/volunteer/search.action";
+        var url = "${rootPath}/backend/volunteer/search.action";
         var param = {'volunteer.name':$('#volunteerName').val()};
         $.getJSON( url, param, function (volunteerArray) { 
            if(volunteerArray == null || volunteerArray.length ==0){
@@ -129,7 +129,7 @@
         if($('#trainCourseName').val() == ''){
             return;
         }
-        var url = "backend/traincourse/search.action";
+        var url = "${rootPath}/backend/traincourse/search.action";
         var param = {'trainCourse.name':$('#trainCourseName').val()};
         $.getJSON( url, param, function (trainCourseArray) { 
             if(trainCourseArray == null || trainCourseArray.length ==0){
