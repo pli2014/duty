@@ -58,10 +58,10 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     return getRequest().getContextPath() + "/js/volunteer.js";
   }
 
-  @Override
-  public String getTableTitle() {
-    return "志愿者管理 / 志愿者";
-  }
+    @Override
+    public String getTableTitle() {
+        return "<ul class=\"breadcrumb\"><li>志愿者管理</li><li class=\"active\">志愿者</li></ul>";
+    }
 
   @Override
   public TableInitVo getTableInit() {

@@ -97,15 +97,6 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
         return getRequest().getContextPath() + "/backend/serviceplace";
     }
 
-  @Override
-  public String getTableTitle() {
-    if (type == 1) {
-      return "服务管理 / 院外服务地点";
-    } else {
-      return "服务管理 / 院内服务地点";
-    }
-  }
-
     @Override
     public String getCustomJs() {
         return super.getCustomJs();
@@ -149,4 +140,11 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
         this.servicePlace = servicePlace;
     }
 
+    @Override
+    public String getTableTitle() {
+        if (this.type == 0)
+            return "<ul class=\"breadcrumb\"><li>服务管理</li><li class=\"active\">院内地点</li></ul>";
+        else
+            return "<ul class=\"breadcrumb\"><li>服务管理</li><li class=\"active\">院外地点</li></ul>";
+    }
 }

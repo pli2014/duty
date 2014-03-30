@@ -36,9 +36,11 @@
 <body>
 <!--main content start-->
 <section class="panel">
-    <header class="panel-heading">
-        参数设定
-    </header>
+    <ul class="breadcrumb">
+        <li>系统管理</li>
+        <li class="active">参数设定</li>
+    </ul>
+    <div class="panel-body">
     <form role="form" method="post" class="form-horizontal tasi-form" action="backend/systemsettingsave.action">
         <%@ include file="../strutsMessage.jsp"%>
         <input type="hidden" name="systemSetting.id" value="${systemSetting.id}"/>
@@ -69,6 +71,7 @@
             </div>
         </div>
     </form>
+    </div>
 </section>
 </body>
 </html>

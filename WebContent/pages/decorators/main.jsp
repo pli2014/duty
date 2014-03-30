@@ -28,6 +28,9 @@
           .form-control{
               color: #000000;
           }
+          .breadcrumb{
+              padding:0px;
+          }
       </style>
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
       <!--[if lt IE 9]>

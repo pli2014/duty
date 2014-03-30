@@ -100,9 +100,10 @@
 </head>
 <body>
 <section class="panel">
-    <header class="panel-heading">
-        工时实时统计
-    </header>
+    <ul class="breadcrumb">
+        <li>工时管理</li>
+        <li class="active">工时实时统计</li>
+    </ul>
 
     <div class="panel-body">
         <div class="adv-table dataTables_wrapper form-inline">

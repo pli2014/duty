@@ -17,21 +17,18 @@
   <s:if test="tableTitle != null && tableTitle.length() > 0">
   <header class="panel-heading">${tableTitle}</header>
   </s:if>
+    <div class="panel-body">
            <form class="form-horizontal tasi-form">
 
-               <div id="tableTools" class="form-group">
-                   <div class="col-lg-3">
-                       <a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}">
-                           <i class="fa fa-plus"></i>
-                           添加
-                       </a>
-                   </div>
-               </div>
            <section class="panel">
                <header class="panel-heading" onclick="$('#panelbody').toggle();$('#panelbodybullet').toggleClass('fa fa-chevron-up');$('#panelbodybullet').toggleClass('fa fa-chevron-down');" style="cursor: pointer">
-                   查询区域
+                   <a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}">
+                       <i class="fa fa-plus"></i>
+                       添加
+                   </a>
+
                       <span class="tools pull-right">
-                        <span id="panelbodybullet" class="fa fa-chevron-up" style="cursor: pointer"></span>
+                        <span id="panelbodybullet" class="fa fa-chevron-up" style="cursor: pointer">查询区域</span>
                       </span>
                </header>
                <div class="panel-body" id="panelbody" style="display: none">
@@ -51,11 +48,12 @@
                     </div>
                 </div>
             </section>
-           </form>
 
-        <div class="adv-table dataTables_wrapper form-inline">
-            <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
-       </div>
+               <div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
+                   <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
+               </div>
+           </form>
+     </div>
 </section>
      <!-- page end-->
 

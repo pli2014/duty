@@ -59,7 +59,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
 
   @Override
   public String getTableTitle() {
-    return "系统管理 / 用户管理";
+    return "<ul class=\"breadcrumb\"><li>系统管理</li><li class=\"active\">用户管理</li></ul>";
   }
 
   @Override

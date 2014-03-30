@@ -19,7 +19,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
                   <li class="sub-menu">
                       <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
+                          <i class="fa fa-heart"></i>
                           <span>志愿者管理</span>
                       </a>
                       <ul class="sub">
@@ -30,7 +30,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
+                          <i class="fa fa-gavel"></i>
                           <span>服务管理</span>
                       </a>
                       <ul class="sub">
@@ -40,7 +40,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
+                          <i class="fa fa-volume-up"></i>
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
@@ -50,7 +50,7 @@
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;">
-                          <i class="fa fa-laptop"></i>
+                          <i class="fa fa-clock-o"></i>
                           <span>工时管理</span>
                       </a>
                       <ul class="sub">
@@ -65,7 +65,7 @@
                   <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                       <li class="sub-menu">
                           <a href="javascript:;">
-                              <i class="fa fa-laptop"></i>
+                              <i class="fa fa-cogs"></i>
                               <span>系统管理</span>
                           </a>
                           <ul class="sub">

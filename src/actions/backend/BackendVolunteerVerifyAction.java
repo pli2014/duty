@@ -13,10 +13,11 @@ import bl.beans.VolunteerBean;
  * @since $Date:2014-02-10$
  */
 public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
-  @Override
-  public String getTableTitle() {
-    return "志愿者管理 / 审核";
-  }
+    @Override
+    public String getTableTitle() {
+        return "<ul class=\"breadcrumb\"><li>志愿者管理</li><li class=\"active\">审核</li></ul>";
+    }
+
 
   @Override
   public String getActionPrex() {

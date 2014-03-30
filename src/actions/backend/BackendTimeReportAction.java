@@ -51,6 +51,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
   private String jsonLabels;
   private String jsonYKeys;
 
+
   public String getActiveReport(){
     servicePlaces = (List<ServicePlaceBean>)servicePlaceBus.getAllLeaves().getResponseData();
     return SUCCESS;
