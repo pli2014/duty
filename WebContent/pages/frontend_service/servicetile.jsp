@@ -44,7 +44,7 @@
 		  </a>	
 		</div>
 		<div class="bg-gay">
-		   <a data-click="transform" class="tile bg-darkPink" href="pages/menu_whoishere/serviceplaceview.jsp">
+		   <a data-click="transform" class="tile bg-darkPink" href="userFront/whoishere.action">
          
 			<div class="bg-img">
 				<img src="img/location.png" width="100" height="100" />

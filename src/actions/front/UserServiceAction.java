@@ -43,7 +43,28 @@ public class UserServiceAction extends BaseFrontAction {
   private MonthlyTimeReportVo monthValues;
   private DailyTimeReportVo dayValues;
 
-  private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
+  private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信
+
+  //whoisherelist.jsp data
+  private List<VolunteerBean> volunteerBeans = null;
+  private ServicePlaceBean  servicePlaceBean = null;
+
+    public List<VolunteerBean> getVolunteerBeans() {
+        return volunteerBeans;
+    }
+
+    public void setVolunteerBeans(List<VolunteerBean> volunteerBeans) {
+        this.volunteerBeans = volunteerBeans;
+    }
+
+    public ServicePlaceBean getServicePlaceBean() {
+        return servicePlaceBean;
+    }
+
+    public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
+        this.servicePlaceBean = servicePlaceBean;
+    }
+
 
   public int getType() {
       return type;
@@ -54,27 +75,27 @@ public class UserServiceAction extends BaseFrontAction {
   }
 
   ActiveUserBean aub = null;
-  List<ServicePlaceBean> servicePlaceBeans = null;
   HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
-  public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
-      return servicePlaceVolunteer;
-  }
+    public ActiveUserBean getAub() {
+        return aub;
+    }
 
-  public List<ServicePlaceBean> getServicePlaceBeans() {
-      return servicePlaceBeans;
-  }
+    public void setAub(ActiveUserBean aub) {
+        this.aub = aub;
+    }
 
-  public String getList(){
+    public String getList(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     if(null != user){
       userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
-      if (aub != null) {
+    /*if (aub != null) {
          ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
          if (spb != null)
             super.addActionMessage("你现在在这里服务:" + spb.getName());
-      }
+      }*/
+        servicePlaces = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
     }
     return SUCCESS;
   }
@@ -226,7 +247,7 @@ public class UserServiceAction extends BaseFrontAction {
               }
           }
           //only display service places by type.
-          if(sbFetch!=null && sbFetch.getType()==this.type){
+          if(sbFetch!=null){
           VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
               if(!servicePlaceVolunteer.containsKey(sbFetch)){
                   if(vtb!=null){
@@ -242,10 +263,34 @@ public class UserServiceAction extends BaseFrontAction {
               }
           }
       }
-      return SUCCESS+this.type;
+      return SUCCESS;
   }
 
-  public List<UserServiceBean> getUserServices() {
+    public String whoIsHereList() {
+        if (this.servicePlaceId != null) {
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("servicePlaceId", this.servicePlaceId);
+            List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
+            this.volunteerBeans = new ArrayList<VolunteerBean>();
+            for (ActiveUserBean ub : beanList) {
+                String spId = ub.getServicePlaceId();
+                String volunteerId = ub.getUserId();
+                VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
+                this.volunteerBeans.add(vtb);
+            }
+            this.servicePlaceBean = (ServicePlaceBean)sp.getLeaf(this.servicePlaceId).getResponseData();
+        }
+        return SUCCESS;
+    }
+    public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
+        return servicePlaceVolunteer;
+    }
+
+    public void setServicePlaceVolunteer(HashMap<ServicePlaceBean, HashSet<VolunteerBean>> servicePlaceVolunteer) {
+        this.servicePlaceVolunteer = servicePlaceVolunteer;
+    }
+
+    public List<UserServiceBean> getUserServices() {
     return userServices;
   }
 

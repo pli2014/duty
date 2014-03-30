@@ -1,6 +1,7 @@
 package actions.wechat;
 
 import bl.beans.VolunteerBean;
+import bl.common.BusinessResult;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SequenceUidGenerator;
@@ -34,7 +35,13 @@ public class WechatRecruitAction extends WechatBaseAuthAction {
         //来源微信
         register.setRegisterFrom(2);
         register.setPassword(StringUtil.toMD5(register.getPassword()));
-        vb.createLeaf(register);
+        BusinessResult result = vb.save(register,getRequest().getServletContext());
+        if (result.getErrors().size() > 0) {
+            for (Object error : result.getErrors()) {
+                addActionError(error.toString());
+            }
+            return ERROR;
+        }
         return SUCCESS;
     }
 }
