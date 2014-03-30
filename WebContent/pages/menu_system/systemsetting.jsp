@@ -7,7 +7,7 @@
 --%>
 <html>
 <head>
-    <title>系统参数设定</title>
+    <title>参数设定</title>
     <script type="text/javascript" src="jslib/flatlab/assets/ckeditor/ckeditor.js"></script>
     <script>
         jQuery(document).ready(function()
@@ -37,7 +37,7 @@
 <!--main content start-->
 <section class="panel">
     <header class="panel-heading">
-        系统参数设定
+        参数设定
     </header>
     <form role="form" method="post" class="form-horizontal tasi-form" action="backend/systemsettingsave.action">
         <%@ include file="../strutsMessage.jsp"%>
