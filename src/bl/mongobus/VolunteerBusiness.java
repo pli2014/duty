@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -65,7 +66,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    */
   public VolunteerBean getVolunteerBeanByIdentityCard(String identityCard) {
     Map filter = new HashMap();
-    filter.put("identityCard", identityCard);
+    filter.put("identityCard_=", identityCard);
 
     List<VolunteerBean> result = super.queryDataByCondition(filter, null);
     if (result != null && result.size() > 0) {
@@ -80,7 +81,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    * @param volunteer
    * @return
    */
-  public BusinessResult save(VolunteerBean volunteer, ServletContext context) {
+  public BusinessResult save(HttpServletRequest request, VolunteerBean volunteer) {
     BusinessResult result = new BusinessResult();
     if (StringUtils.isBlank(volunteer.getId())) {
       VolunteerBean volunteerTmp = getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
@@ -90,8 +91,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       }
       volunteer.set_id(ObjectId.get());
       volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
-      result = createLeaf(volunteer);
-      context.setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
+      result = createLeaf(request,volunteer);
       return result;
     } else {
       VolunteerBean volunteerTmp = (VolunteerBean) getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
@@ -103,7 +103,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       volunteer.setPassword(origUser.getPassword());
       try {
         BeanUtils.copyProperties(origUser, volunteer);
-        return updateLeaf(origUser, origUser);
+        return updateLeaf(request,origUser);
       } catch (IllegalAccessException e) {
         e.printStackTrace();
         result.addError(e);
@@ -124,7 +124,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    */
   public VolunteerBean getVolunteerBeanByOpenID(String openID) {
     Map filter = new HashMap();
-    filter.put("openID", openID);
+    filter.put("openID_=", openID);
 
     List<VolunteerBean> result = super.queryDataByCondition(filter, null);
     if (result != null && result.size() > 0) {
@@ -167,5 +167,28 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     dataVo.setiTotalDisplayRecords(count);
     dataVo.setiTotalRecords(count);
     return dataVo;
+  }
+
+  public void updateVolunteerStatus(HttpServletRequest request) {
+    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
+    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
+  }
+
+  public BusinessResult updateLeaf(HttpServletRequest request, BeanContext newBean) {
+    BusinessResult result = updateLeaf(newBean, newBean);
+    updateVolunteerStatus(request);
+    return result;
+  }
+
+  public BusinessResult createLeaf(HttpServletRequest request, BeanContext newBean) {
+    BusinessResult result = createLeaf(newBean);
+    updateVolunteerStatus(request);
+    return result;
+  }
+
+  public BusinessResult deleteLeaf(HttpServletRequest request, String objectId) {
+    BusinessResult result = super.deleteLeaf(objectId);
+    updateVolunteerStatus(request);
+    return result;
   }
 }

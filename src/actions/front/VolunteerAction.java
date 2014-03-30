@@ -108,7 +108,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    */
   public String register() throws Exception {
     if (volunteer != null) {
-      BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
+      BusinessResult result = getBusiness().save(getRequest(), volunteer);
       if (result.getErrors().size() > 0) {
         for (Object error : result.getErrors()) {
           addActionError(error.toString());
@@ -140,7 +140,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String save() throws Exception {
-    BusinessResult result = getBusiness().save(volunteer,getRequest().getServletContext());
+    BusinessResult result = getBusiness().save(getRequest(), volunteer );
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
         addActionError(error.toString());

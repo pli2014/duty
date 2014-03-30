@@ -1,5 +1,6 @@
 package bl.constants;
 
+
 public interface BusTieConstant {
 
     public static final String BUS_CPATH_FORMBUSINESS = "bl.mongobus.FormBusiness";
@@ -21,6 +22,8 @@ public interface BusTieConstant {
     public static final String BUS_CPATH_TRAINCOURSESERVICEPLACE = "bl.mongobus.TrainCourseServicePlaceBusiness";
 
     public static final String BUS_CPATH_SYSTEMSETTING = "bl.mongobus.SystemSettingBusiness";
+
+    public static final String BUS_CPATH_VOLUNTEERTRAINCOURSE = "bl.mongobus.VolunteerTrainCourseBusiness";
 
 
 }
