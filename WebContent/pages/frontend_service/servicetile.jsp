@@ -36,7 +36,6 @@
 			<div class="bg-font">
 				 我的签到
 			</div>
-		  </a>	
 		</div>
 		<div class="bg-gay">
 		   <a data-click="transform" class="tile bg-darkPink" href="userFront/whoishere.action">
@@ -62,13 +61,13 @@
 		</div>
 		<div class="bg-black">
 		  <a data-click="transform" class="tile bg-lightBlue"
-				href="userFront/myTimeReport.action">
-			<div class="bg-img">
-				<img src="img/clock.png" width="100" height="100" />
-			</div>
-			<div class="bg-font">
-				我的工时
-			</div>
+				href="userFront/myMonthlyTimeReport.action">
+      <div class="bg-img">
+        <img src="img/clock.png" width="100" height="100" />
+      </div>
+      <div class="bg-font">
+        我的工时
+      </div>
 		  </a>	
 		</div>
 
@@ -81,7 +80,7 @@
 			<div class="bg-font">
 				退出
 			</div>
-           </a>
+      </a>
 		</div>
 	</div>
 </body>

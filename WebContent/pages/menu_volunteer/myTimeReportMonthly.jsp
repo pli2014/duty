@@ -1,218 +1,106 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: wangronghua
-  Date: 14-3-15
-  Time: 下午9:11
-  To change this template use File | Settings | File Templates.
---%>
-<%@ include file="../bootstrapHeader.jsp" %>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>我的工时</title>
 
-    <style type="text/css">
-        .mt15 {
-            margin-top: 15px;
+    <%@ include file="../frontHeader.jsp" %>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="css/train.css" rel="stylesheet">
+    <title>我的工时</title>
+    <script language="javascript" type="text/javascript">
+        window.onload=function (){
+            setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
         }
 
-    </style>
+        function dailyReport(yearMonth) {
+            window.location.href = "userFront/myDailyTimeReport.action?yearMonth=" + yearMonth;
+        }
 
-    <script type="text/javascript">
-        function cancel() {
-            window.location.href = "index.action";
+        function handlePrev(year) {
+            year = year - 1;
+            window.location.href = "userFront/myMonthlyTimeReport.action?year=" + year;
+        }
+
+        function handleNext(year) {
+            year = year + 1;
+            window.location.href = "userFront/myMonthlyTimeReport.action?year=" + year;
         }
     </script>
+
+    <style type="text/css">
+
+    </style>
 </head>
+
 <body>
-<section class="panel">
-    <header class="panel-heading">
-        我的工时
-    </header>
-
-    <section class="container">
-        <div class="wrapper">
-            <div class="row state-overview">
-                <div class="col-lg-2 col-md-2 col-sm-3">
-                    <a class="btn btn-success btn-block" href="javascript:window.history.go(-1);">
-                        返回上一页
-                    </a>
-                </div>
+    <div class="home2">
+        <div class="bg-user">
+            <div class="bg-fh">
+                <a href="index.action">
+                    <img src="img/back.png" width="35" height="35" />
+                </a>
             </div>
-
-            <%-- 消息引用 --%>
-            <s:include value="../strutsMessage.jsp"/>
-
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="row state-overview">
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[0].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #CDCDCD;">
-                                        <h4>一月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[0].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[1].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #B0E0E6;">
-                                        <h4>二月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[1].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[2].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #F5F5F5;">
-                                        <h4>三月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[2].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[3].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #FFFFCD;">
-                                        <h4>四月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count2"><s:property value="monthValues.valueList[3].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row state-overview">
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[4].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #DDA0DD;">
-                                        <h4>五月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[4].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[5].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #FF69B4;">
-                                        <h4>六月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[5].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[6].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #87CEFA;">
-                                        <h4>七月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[6].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[7].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #2E8B57;">
-                                        <h4>八月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count2"><s:property value="monthValues.valueList[7].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="row state-overview">
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[8].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #FFD700;">
-                                        <h4>九月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[8].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[9].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #D2B48C;">
-                                        <h4>十月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[9].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[10].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #A020F0;">
-                                        <h4>十一月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="monthValues.valueList[10].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-sm-3">
-                            <a href="userFront/myDailyTimeReport.action?yearMonth=<s:property value='monthValues.valueList[11].name'/>">
-                                <section class="panel">
-                                    <div class="symbol" style="background: #FF0000;">
-                                        <h4>十二月</h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class=" count2"><s:property value="monthValues.valueList[11].value"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
+            <div class="bg-top">我的工时</div>
+            <div class="bg-username">${volunteer.name}</div>
+            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
         </div>
-    </section>
-</section>
+        <div class="bg-center">
+            <div class="bg-title3">
+                <div class="time-pre" style="cursor: pointer;" onclick="handlePrev(<s:property value="year" />)"></div>
+                <s:property value="year" />
+            </div>
+            <div class="bg-time"> <div class="time-next" style="cursor: pointer;" onclick="handleNext(<s:property value="year" />)"></div></div>
+
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[0].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[0].value"/></div>
+                <div class="month-font">1月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[1].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[1].value"/></div>
+                <div class="month-font">2月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[2].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[2].value"/></div>
+                <div class="month-font">3月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[3].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[3].value"/></div>
+                <div class="month-font">4月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[4].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[4].value"/></div>
+                <div class="month-font">5月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[5].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[5].value"/></div>
+                <div class="month-font">5月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[6].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[6].value"/></div>
+                <div class="month-font">7月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[7].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[7].value"/></div>
+                <div class="month-font">8月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[8].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[8].value"/></div>
+                <div class="month-font">9月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[9].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[9].value"/></div>
+                <div class="month-font">10月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[10].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[10].value"/></div>
+                <div class="month-font">11月</div>
+            </div>
+            <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[11].name'/>')">
+                <div class="time-font"><s:property value="monthValues.valueList[11].value"/></div>
+                <div class="month-font">12月</div>
+            </div>
+        </div>
+        <div class="hosp-hr"></div>
+    </div>
 </body>
 </html>

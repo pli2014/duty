@@ -36,7 +36,7 @@
         </div>
         <div class="bg-top">我的注册</div>
         <div class="bg-username">${volunteer.name}</div>
-        <div  class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+        <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
     </div>
 
     <div class="bg-left">
