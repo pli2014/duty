@@ -30,11 +30,17 @@
         </action>
         <action name="userBinding" class="actions.wechat.WechatUserAction" method="binding">
             <result name="success">/pages/wechat/userBinding.jsp</result>
+            <result name="releaseBinding">/pages/wechat/userBindingRelease.jsp</result>
         </action>
+        <action name="userBindingRelease" class="actions.wechat.WechatUserAction" method="releaseBinding">
+            <result name="success">/pages/wechat/userBinding.jsp</result>
+        </action>
+
         <action name="userBindingSubmit" class="actions.wechat.WechatUserAction" method="bindingSubmit">
             <result name="success">/pages/wechat/userBindingSuccess.jsp</result>
             <result name="error">/pages/wechat/userBinding.jsp</result>
         </action>
+
         <action name="checkIn" class="actions.wechat.WechatServiceAction" method="checkIn">
             <result name="success">/pages/wechat/checkIn.jsp</result>
             <result name="checkout">/pages/wechat/checkOut.jsp</result>

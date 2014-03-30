@@ -66,7 +66,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    */
   public VolunteerBean getVolunteerBeanByIdentityCard(String identityCard) {
     Map filter = new HashMap();
-    filter.put("identityCard", identityCard);
+    filter.put("identityCard_=", identityCard);
 
     List<VolunteerBean> result = super.queryDataByCondition(filter, null);
     if (result != null && result.size() > 0) {
@@ -124,7 +124,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
    */
   public VolunteerBean getVolunteerBeanByOpenID(String openID) {
     Map filter = new HashMap();
-    filter.put("openID", openID);
+    filter.put("openID_=", openID);
 
     List<VolunteerBean> result = super.queryDataByCondition(filter, null);
     if (result != null && result.size() > 0) {

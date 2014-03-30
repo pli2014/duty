@@ -62,15 +62,19 @@ public class WechatUserAction extends WechatBaseAuthAction {
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
   public String binding() {
-    // String code = getRequest().getParameter("code");
-    // if (null != code) {
-    // AccessToken token = AccessTokenManager.getAccessToken(code);
-    // UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-    // if (null != info) {
-    // wechatUser = info.getNickname();
-    // openID = info.getOpenid();
-    // }
-    // }
+    if(volunteer != null) {
+      //means we already have the volunteer binding to the wechat user, go to the release process
+      return "releaseBinding";
+    }
+    return SUCCESS;
+  }
+
+  public String releaseBinding() {
+    if(volunteer != null) {
+      volunteer.setOpenID(null);
+      volunteer.setWechat(null);
+      vb.updateLeaf(volunteer, volunteer);
+    }
     return SUCCESS;
   }
 
@@ -149,19 +153,10 @@ public class WechatUserAction extends WechatBaseAuthAction {
     }
     places = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
     if (null == servicePlaceId) {
-      // String code = getRequest().getParameter("code");
-      // if (null != code) {
-      // AccessToken token = AccessTokenManager.getAccessToken(code);
-      // UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-      // if (null != info) {
-      // openID = info.getOpenid();
-      // VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
       ActiveUserBean userBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(volunteer.getId()).getResponseData();
       if (null != userBean) {
         servicePlaceId = userBean.getServicePlaceId();
       }
-      // }
-      // }
     }
     if (null != servicePlaceId) {
       servicePlaceBean = (ServicePlaceBean) sp.getLeaf(servicePlaceId).getResponseData();
