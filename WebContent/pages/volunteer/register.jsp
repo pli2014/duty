@@ -48,6 +48,7 @@
         </div>
     </div>
     <form  id="volunteerForm" action="register.action" method="post">
+        <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
         <div class="bg-right">
             <div class="bg-title">注册信息</div>
 
