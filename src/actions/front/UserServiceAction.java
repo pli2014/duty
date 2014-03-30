@@ -47,33 +47,8 @@ public class UserServiceAction extends BaseFrontAction {
   private List<VolunteerBean> volunteerBeans = null;
   private ServicePlaceBean  servicePlaceBean = null;
 
-  public List<VolunteerBean> getVolunteerBeans() {
-    return volunteerBeans;
-  }
-
-  public void setVolunteerBeans(List<VolunteerBean> volunteerBeans) {
-    this.volunteerBeans = volunteerBeans;
-  }
-
-  public ServicePlaceBean getServicePlaceBean() {
-    return servicePlaceBean;
-  }
-
-  public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
-    this.servicePlaceBean = servicePlaceBean;
-  }
-
-
   ActiveUserBean aub = null;
   HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
-
-    public ActiveUserBean getAub() {
-        return aub;
-    }
-
-    public void setAub(ActiveUserBean aub) {
-        this.aub = aub;
-    }
 
   public String getList(){
     VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
@@ -273,31 +248,31 @@ public class UserServiceAction extends BaseFrontAction {
       return SUCCESS;
   }
 
-    public String whoIsHereList() {
-        if (this.servicePlaceId != null) {
-            HashMap<String, String> map = new HashMap<String, String>();
-            map.put("servicePlaceId", this.servicePlaceId);
-            List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
-            this.volunteerBeans = new ArrayList<VolunteerBean>();
-            for (ActiveUserBean ub : beanList) {
-                String spId = ub.getServicePlaceId();
-                String volunteerId = ub.getUserId();
-                VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
-                this.volunteerBeans.add(vtb);
-            }
-            this.servicePlaceBean = (ServicePlaceBean)sp.getLeaf(this.servicePlaceId).getResponseData();
-        }
-        return SUCCESS;
+  public String whoIsHereList() {
+    if (this.servicePlaceId != null) {
+      HashMap<String, String> map = new HashMap<String, String>();
+      map.put("servicePlaceId", this.servicePlaceId);
+      List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
+      this.volunteerBeans = new ArrayList<VolunteerBean>();
+      for (ActiveUserBean ub : beanList) {
+          String spId = ub.getServicePlaceId();
+          String volunteerId = ub.getUserId();
+          VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
+          this.volunteerBeans.add(vtb);
+      }
+      this.servicePlaceBean = (ServicePlaceBean)sp.getLeaf(this.servicePlaceId).getResponseData();
     }
-    public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
-        return servicePlaceVolunteer;
-    }
+    return SUCCESS;
+  }
+  public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
+    return servicePlaceVolunteer;
+  }
 
-    public void setServicePlaceVolunteer(HashMap<ServicePlaceBean, HashSet<VolunteerBean>> servicePlaceVolunteer) {
-        this.servicePlaceVolunteer = servicePlaceVolunteer;
-    }
+  public void setServicePlaceVolunteer(HashMap<ServicePlaceBean, HashSet<VolunteerBean>> servicePlaceVolunteer) {
+    this.servicePlaceVolunteer = servicePlaceVolunteer;
+  }
 
-    public List<UserServiceBean> getUserServices() {
+  public List<UserServiceBean> getUserServices() {
     return userServices;
   }
 
@@ -392,6 +367,31 @@ public class UserServiceAction extends BaseFrontAction {
 
   public void setYearMonth(String yearMonth) {
     this.yearMonth = yearMonth;
+  }
+
+
+  public ActiveUserBean getAub() {
+    return aub;
+  }
+
+  public void setAub(ActiveUserBean aub) {
+    this.aub = aub;
+  }
+
+  public List<VolunteerBean> getVolunteerBeans() {
+    return volunteerBeans;
+  }
+
+  public void setVolunteerBeans(List<VolunteerBean> volunteerBeans) {
+    this.volunteerBeans = volunteerBeans;
+  }
+
+  public ServicePlaceBean getServicePlaceBean() {
+    return servicePlaceBean;
+  }
+
+  public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
+    this.servicePlaceBean = servicePlaceBean;
   }
 
 }
