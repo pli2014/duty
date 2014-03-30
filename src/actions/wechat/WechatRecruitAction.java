@@ -35,7 +35,7 @@ public class WechatRecruitAction extends WechatBaseAuthAction {
         //来源微信
         register.setRegisterFrom(2);
         register.setPassword(StringUtil.toMD5(register.getPassword()));
-        BusinessResult result = vb.save(register,getRequest().getServletContext());
+        BusinessResult result = vb.save(getRequest(),register);
         if (result.getErrors().size() > 0) {
             for (Object error : result.getErrors()) {
                 addActionError(error.toString());
