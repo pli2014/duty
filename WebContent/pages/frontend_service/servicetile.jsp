@@ -53,7 +53,7 @@
 				 我的培训
 			</div>
 		</div>
-		<div class="bg-black" onclick="window.location.href='userFront/myTimeReport.action'">
+		<div class="bg-black" onclick="window.location.href='userFront/myMonthlyTimeReport.action'">
 			<div class="bg-img">
 				<img src="img/clock.png" width="100" height="100" />
 			</div>

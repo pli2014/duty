@@ -34,24 +34,14 @@ public class UserServiceAction extends BaseFrontAction {
   VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
   private String userId;
   private String servicePlaceId;
-  private long dayHours;
-  private long monthHours;
-  private long yearHours;
-  private long totalHours;
 
   private YearlyTimeReportVo yearValues;
   private MonthlyTimeReportVo monthValues;
   private DailyTimeReportVo dayValues;
-
+  private VolunteerBean volunteer;
+  private int year;
+  private String yearMonth;
   private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
-
-  public int getType() {
-      return type;
-  }
-
-  public void setType(int type) {
-      this.type = type;
-  }
 
   ActiveUserBean aub = null;
   List<ServicePlaceBean> servicePlaceBeans = null;
@@ -139,57 +129,74 @@ public class UserServiceAction extends BaseFrontAction {
   }
 
   public String getMyMonthlyTimeReport() throws ParseException {
-    String year = getRequest().getParameter("year");
+    String yearStr = getRequest().getParameter("year");
+    Calendar cal = Calendar.getInstance();
+    if(null == yearStr) {
+      yearStr = String.valueOf(cal.get(Calendar.YEAR));
+    }
+    year = Integer.valueOf(yearStr);
+
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-    if (null != year) {
-      Date yearStart = sdf.parse(year+"-01");
-      Calendar cal = Calendar.getInstance();
-      cal.setTime(yearStart);
-      cal.add(Calendar.YEAR, 1);
-      Date yearEnd = cal.getTime();
 
-      VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    Date yearStart = sdf.parse(yearStr+"-01");
+    cal.setTime(yearStart);
+    cal.add(Calendar.YEAR, 1);
+    Date yearEnd = cal.getTime();
 
-      List<String> userIdList = new ArrayList<String>();
-      userIdList.add(user.getId());
-      List<UserServiceBean> userServiceBeanList = userServiceBus.queryUserServices(userIdList, null, yearStart, yearEnd);
+    volunteer = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
-      Map<String, Map> resultMap = userServiceBus.statisticTime(userServiceBeanList, "yyyy-MM", year);
-      Map result = resultMap.get(user.getId());
-      monthValues = new MonthlyTimeReportVo();
-      cal.setTime(yearStart);
-      while (cal.getTime().before(yearEnd)) {
-        String key = sdf.format(cal.getTime());
-        Long value = 0l;
-        if(null != result){
-          value = (Long) result.get(key);
-        }
-        monthValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
-        cal.add(Calendar.MONTH, 1);
+    List<String> userIdList = new ArrayList<String>();
+    userIdList.add(volunteer.getId());
+    List<UserServiceBean> userServiceBeanList = userServiceBus.queryUserServices(userIdList, null, yearStart, yearEnd);
+
+    Map<String, Map> resultMap = userServiceBus.statisticTime(userServiceBeanList, "yyyy-MM", yearStr);
+    Map result = resultMap.get(volunteer.getId());
+    monthValues = new MonthlyTimeReportVo();
+    cal.setTime(yearStart);
+    while (cal.getTime().before(yearEnd)) {
+      String key = sdf.format(cal.getTime());
+      Long value = 0l;
+      if(null != result){
+        value = (Long) result.get(key);
       }
+      monthValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
+      cal.add(Calendar.MONTH, 1);
     }
     return SUCCESS;
   }
 
   public String getMyDailyTimeReport() throws ParseException {
-    String yearMonth = getRequest().getParameter("yearMonth");
+    int step = 0;
+    yearMonth = getRequest().getParameter("yearMonth");
+    String stepStr = getRequest().getParameter("step");
+    if(null != stepStr) {
+      step = Integer.valueOf(stepStr);
+    }
+    SimpleDateFormat ymsdf = new SimpleDateFormat("yyyy-MM");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     dayValues = new DailyTimeReportVo();
     if (null != yearMonth) {
-      Date monthStart = sdf.parse(yearMonth+"-01");
+      Date baseMonth = sdf.parse(yearMonth+"-01");
       Calendar cal = Calendar.getInstance();
-      cal.setTime(monthStart);
+      cal.setTime(baseMonth);
+      cal.add(Calendar.MONTH, step);
+
+      Date monthStart = cal.getTime();
+
+      yearMonth = ymsdf.format(monthStart);
+      year = cal.get(Calendar.YEAR);
+
       cal.add(Calendar.MONTH, 1);
       Date monthEnd = cal.getTime();
 
-      VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+      volunteer = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
       List<String> userIdList = new ArrayList<String>();
-      userIdList.add(user.getId());
+      userIdList.add(volunteer.getId());
       List<UserServiceBean> userServiceBeanList = userServiceBus.queryUserServices(userIdList, null, monthStart, monthEnd);
 
       Map<String, Map> resultMap = userServiceBus.statisticTime(userServiceBeanList, "yyyy-MM-dd", yearMonth);
-      Map result = resultMap.get(user.getId());
+      Map result = resultMap.get(volunteer.getId());
       cal.setTime(monthStart);
       while (cal.getTime().before(monthEnd)) {
         String key = sdf.format(cal.getTime());
@@ -277,7 +284,6 @@ public class UserServiceAction extends BaseFrontAction {
     this.servicePlaceId = servicePlaceId;
   }
 
-
   public List<ServicePlaceBean> getServicePlaces() {
     return servicePlaces;
   }
@@ -285,24 +291,6 @@ public class UserServiceAction extends BaseFrontAction {
   public void setServicePlaces(List<ServicePlaceBean> servicePlaces) {
     this.servicePlaces = servicePlaces;
   }
-
-
-  public long getDayHours() {
-    return dayHours;
-  }
-
-  public long getMonthHours() {
-    return monthHours;
-  }
-
-  public long getYearHours() {
-    return yearHours;
-  }
-
-  public long getTotalHours() {
-    return totalHours;
-  }
-
 
   public DailyTimeReportVo getDayValues() {
     return dayValues;
@@ -326,6 +314,38 @@ public class UserServiceAction extends BaseFrontAction {
 
   public void setMonthValues(MonthlyTimeReportVo monthValues) {
     this.monthValues = monthValues;
+  }
+
+  public VolunteerBean getVolunteer() {
+    return volunteer;
+  }
+
+  public void setVolunteer(VolunteerBean volunteer) {
+    this.volunteer = volunteer;
+  }
+
+  public int getType() {
+    return type;
+  }
+
+  public void setType(int type) {
+    this.type = type;
+  }
+
+  public int getYear() {
+    return year;
+  }
+
+  public void setYear(int year) {
+    this.year = year;
+  }
+
+  public String getYearMonth() {
+    return yearMonth;
+  }
+
+  public void setYearMonth(String yearMonth) {
+    this.yearMonth = yearMonth;
   }
 
 }

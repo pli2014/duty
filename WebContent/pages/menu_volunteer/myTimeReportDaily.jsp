@@ -8,7 +8,8 @@
 <%@ include file="../bootstrapHeader.jsp" %>
 <html>
 <head>
-    <title>我的工时</title>
+    <link href="css/train.css" rel="stylesheet">
+    <title>我的日工时</title>
 
     <style type="text/css">
         .mt15 {
@@ -18,36 +19,45 @@
     </style>
 
     <script type="text/javascript">
-        function cancel() {
-            window.location.href = "index.action";
+
+        function handlePrev(yearMonth) {
+            //year = year - 1;
+            window.location.href = "userFront/myDailyTimeReport.action?step=-1&yearMonth=" + yearMonth;
+        }
+
+        function handleNext(yearMonth) {
+            //year = year + 1;
+            window.location.href = "userFront/myDailyTimeReport.action?step=1&yearMonth=" + yearMonth;
         }
     </script>
 </head>
 <body>
-<section class="panel">
-    <header class="panel-heading">
-        我的工时
-    </header>
-
-    <section class="container">
-        <div class="wrapper">
-            <div class="row state-overview">
-                <div class="col-lg-2 col-md-2 col-sm-3">
-                    <a class="btn btn-success btn-block" href="javascript:window.history.go(-1);">
-                        返回上一页
-                    </a>
-                </div>
+    <div class="home2">
+        <div class="bg-user">
+            <div class="bg-fh">
+                <a href="userFront/myMonthlyTimeReport.action?year=<s:property value="year" />">
+                    <img src="img/back.png" width="35" height="35" />
+                </a>
             </div>
+            <div class="bg-top">我的日工时</div>
+            <div class="bg-username">${volunteer.name}</div>
+            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+        </div>
+        <div class="bg-center">
 
-            <%-- 消息引用 --%>
-            <s:include value="../strutsMessage.jsp"/>
+            <div class="bg-title3">
+                <div class="time-pre" style="cursor: pointer;" onclick="handlePrev('<s:property value="yearMonth" />')"></div>
+                <s:property value="yearMonth" />
+            </div>
+            <div class="bg-time"> <div class="time-next" style="cursor: pointer;" onclick="handleNext('<s:property value="yearMonth" />')"></div></div>
 
 
-            <section class="panel">
-                <div class="panel-body">
-                    <s:iterator value="dayValues.valueList" var="valueBean">
-                        <div class="row state-overview">
-                            <div class="col-lg-12">
+            <section class="container">
+                <section class="panel">
+                    <div class="panel-body col-xs-6">
+                        <s:include value="../strutsMessage.jsp"/>
+                        <s:iterator value="dayValues.valueList" var="valueBean">
+                            <div class="row state-overview">
                                 <section class="panel">
                                     <div class="symbol terques">
                                         <h4><s:property value="%{#valueBean.name}"/></h4>
@@ -58,12 +68,13 @@
                                     </div>
                                 </section>
                             </div>
-                        </div>
-                    </s:iterator>
-                </div>
+                        </s:iterator>
+                    </div>
+                </section>
             </section>
         </div>
-    </section>
-</section>
+    </div>
+
+
 </body>
 </html>
