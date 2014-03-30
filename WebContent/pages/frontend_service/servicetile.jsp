@@ -24,7 +24,7 @@
 		<div class="bg-volu">
 			<img src="img/volun2.jpg" width="410" height="200" />
 		</div>
-		<div class="bg-blue" onclick="window.location='volunteer/edit.action?id=${sessionUser.id}'">
+		<div class="bg-blue" onclick="window.location.href='<%=request.getContextPath() %>/volunteer/edit.action?id=${sessionUser.id}'">
 			<div class="bg-img">
 				<img src="img/zc.png" width="100" height="100" />
 			</div>
@@ -48,7 +48,7 @@
 				 谁在这里
 			</div>
 		</div>
-		<div class="bg-green2" onclick="window.location='frontTraincourse/index.action'">
+		<div class="bg-green2" onclick="window.location.href='<%=request.getContextPath() %>/frontTraincourse/index.action'">
 			<div class="bg-img">
 				<img src="img/px.png" width="100" height="100" />
 			</div>
