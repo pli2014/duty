@@ -40,6 +40,7 @@ public class WebInitListener implements ServletContextListener {
     VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
     sce.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, volunteerBusiness.getUnVerifiedVolunteers());
     sce.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, volunteerBusiness.getUnInterviewedVolunteers());
+    sce.getServletContext().setAttribute("rootPath", sce.getServletContext().getContextPath());
   }
 
   @Override
