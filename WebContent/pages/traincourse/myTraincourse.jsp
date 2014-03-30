@@ -37,7 +37,7 @@ a {
 <body>
 	<div class="home2">
 		<div class="bg-user">
-			<div class="bg-fh" onclick="window.location.href = 'index.action'" style="cursor: pointer;">
+			<div class="bg-fh" onclick="window.location.href = '<%=request.getContextPath() %>/index.action'" style="cursor: pointer;">
 				<img src="img/back.png" width="35" height="35" />
 			</div>
 			<div class="bg-top">我的培训</div>
