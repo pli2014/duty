@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <%@ include file="../frontHeader.jsp"%>
+<script language="javascript" type="text/javascript">
+    window.onload = function () {
+        setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
+    }
+</script>
 <html>
 <head>
 <title>列表</title>
@@ -8,16 +13,14 @@
 <body>
 	<div class="home2">
 		<div class="bg-user">
-			<div class="bg-username">${sessionUser.name}</div>
-			<div class="bg-touxiang">
-			  <s:if test="sessionUser.iconpath.length() > 0">
-				<img src="${sessionUser.iconpath }" width="50" height="50" />
-			  </s:if>
-			  <s:else>
-			    <img src="img/touxiang.png" width="50" height="50" />
-			  </s:else>	
-			</div>
+            <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
+            <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
+                                          height="50" onerror="this.src='img/volunteer.png';"/></div>
 		</div>
+        <div class="bg-right2">
+            <div class="bg-time" id="timewatcher" style="float:right;color:white">加载当前时间</div>
+        </div>
+        <div style="clear:both"></div>
 		<div class="bg-volu">
 			<img src="img/volun2.jpg" width="410" height="200" />
 		</div>
