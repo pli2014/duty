@@ -175,8 +175,10 @@
 
 
         <action name="whoishere" class="actions.front.UserServiceAction" method="whoIsHere">
-            <result name="success0">/pages/menu_whoishere/whoishere.jsp</result>
-            <result name="success1">/pages/menu_whoishere/whoisheremap.jsp</result>
+            <result name="success">/pages/menu_whoishere/whoishere.jsp</result>
+        </action>
+        <action name="whoisherelist" class="actions.front.UserServiceAction" method="whoIsHereList">
+            <result name="success">/pages/menu_whoishere/whoisherelist.jsp</result>
         </action>
     </package>
 
