@@ -21,13 +21,13 @@
                                           height="50" onerror="this.src='img/volunteer.png';"/></div>
 		</div>
         <div class="bg-right2">
-            <div class="bg-time" id="timewatcher" style="float:right;color:white">加载当前时间</div>
+            <div class="bg-time" id="timewatcher" style="float:right;color:white;font-size:20px">加载当前时间</div>
         </div>
         <div style="clear:both"></div>
 		<div class="bg-volu">
 			<img src="img/volun2.jpg" width="410" height="200" />
 		</div>
-        <a href="/volunteer/edit.action?id=${sessionUser.id}">
+        <a href="volunteer/edit.action?id=${sessionUser.id}">
 		<div class="bg-blue">
 			<div class="bg-img">
 				<img src="img/zc.png" width="100" height="100" />
@@ -37,7 +37,7 @@
 			</div>
 		</div></a>
 
-        <a href="/userFront/getCheckInRecords.action">
+        <a href="userFront/getCheckInRecords.action">
 		<div class="bg-green">
 			<div class="bg-img">
 				<img src="img/qd.png" width="100" height="100" />
@@ -47,7 +47,7 @@
 			</div>
 		</div></a>
 
-        <a href="/userFront/whoishere.action">
+        <a href="userFront/whoishere.action">
 		<div class="bg-gay">
 			<div class="bg-img">
 				<img src="img/location.png" width="100" height="100" />
@@ -57,7 +57,7 @@
 			</div>
 		</div></a>
 
-        <a href="/frontTraincourse/index.action">
+        <a href="frontTraincourse/index.action">
 		<div class="bg-green2">
 			<div class="bg-img">
 				<img src="img/px.png" width="100" height="100" />
@@ -67,7 +67,7 @@
 			</div>
 		</div></a>
 
-        <a href="/userFront/myMonthlyTimeReport.action">
+        <a href="userFront/myMonthlyTimeReport.action">
 		<div class="bg-black">
 	      <div class="bg-img">
 	        <img src="img/clock.png" width="100" height="100" />
@@ -77,7 +77,7 @@
 	      </div>
 		</div></a>
 
-        <a href="/logout.action">
+        <a href="logout.action">
 		<div class="bg-gray">
 			<div class="bg-img">
 				<img src="img/exit.png" width="100" height="100" />
