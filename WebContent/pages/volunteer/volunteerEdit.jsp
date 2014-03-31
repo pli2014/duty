@@ -37,6 +37,7 @@
         <div class="bg-top">我的注册</div>
         <div class="bg-username">${volunteer.name}</div>
         <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+        <s:property value="#volunteer.iconpath"/>
     </div>
 
     <div class="bg-left">
@@ -45,7 +46,7 @@
         </div>
     </div>
     <form  id="volunteerForm" action="volunteer/save.action" method="post">
-
+        <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
         <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
         <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
         <input name="volunteer.status" type="hidden" value="${volunteer.status}"/>

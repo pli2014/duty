@@ -48,11 +48,11 @@
                     </div>
                 </div>
             </section>
-
+           </form>
                <div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
                    <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
                </div>
-           </form>
+
      </div>
 </section>
      <!-- page end-->
@@ -71,7 +71,7 @@
 	           var tableObj = $('#'+tableId).dataTable();
 	           var nTr = $(button).parents('tr')[0];
 	           var selectRowData =  tableObj.fnGetData( nTr );
-	           window.location.href = actionPrex + "/edit.action?${addButtonParameter}&id=" + selectRowData[idName];
+	           window.location = actionPrex + "/edit.action?${addButtonParameter}&id=" + selectRowData[idName];
 	       }
         },
         'delete': {
@@ -82,7 +82,7 @@
 		           var tableObj = $('#'+tableId).dataTable();
 		           var nTr = $(button).parents('tr')[0];
 		           var selectRowData =  tableObj.fnGetData( nTr );
-		           window.location.href = actionPrex + "/delete.action?id=" + selectRowData[idName];
+		           window.location = actionPrex + "/delete.action?id=" + selectRowData[idName];
 	           }
 	       }
         }
