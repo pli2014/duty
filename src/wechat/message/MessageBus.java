@@ -1,5 +1,7 @@
 package wechat.message;
 
+import com.opensymphony.xwork2.util.logging.Logger;
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import wechat.BaseMessage;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.concurrent.Executors;
  */
 public class MessageBus {
 
+  protected final static Logger LOG = LoggerFactory.getLogger(MessageBus.class);
+
   private static BlockingQueue<BaseMessage> queue = new ArrayBlockingQueue<BaseMessage>(100);
   private static ExecutorService executor = Executors.newFixedThreadPool(10);
   private static List<EventHandler> eventHandlers = new ArrayList<EventHandler>();
@@ -26,6 +30,7 @@ public class MessageBus {
   MessageBus () {
     ThreadDispacther dispacther = new ThreadDispacther();
     Thread thread = new Thread(dispacther);
+    thread.setDaemon(true);
     thread.start();
   }
 
@@ -45,8 +50,10 @@ public class MessageBus {
           BaseMessage message = queue.take();
           TaskRunner runner = new TaskRunner(eventHandlers, message);
           executor.submit(runner);
-        } catch (Exception e) {
-          e.printStackTrace();
+        } catch (InterruptedException e) {
+          LOG.error("Core Messgae handle Thread down:", e);
+          executor.shutdownNow();
+          break;
         }
       }
 

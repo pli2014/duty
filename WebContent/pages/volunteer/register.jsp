@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
@@ -24,13 +24,19 @@
             color: red;
         }
     </style>
+
+    <script type="text/javascript">
+        function goBack() {
+            window.location.href='<%=request.getContextPath()%>/html/welcome.jsp';
+        }
+    </script>
 </head>
 
 <body>
 <div class="home2">
     <div class="bg-user">
         <div class="bg-fh">
-            <a href="html/welcome.jsp">
+            <a href="<%=request.getContextPath()%>/html/welcome.jsp">
                 <img src="img/back.png" width="35" height="35" />
             </a>
         </div>
@@ -129,7 +135,7 @@
             </div>
             <div class="bg-btn">
                 <input class="Infor-btn" type="submit"  value="注册"/>
-                <input class="Infor-btn" type="button"  value="取消" onclick="window.location.href='html/welcome.jsp'" />
+                <input class="Infor-btn" type="button"  value="取消" onclick="goBack()" />
             </div>
         </div>
 
