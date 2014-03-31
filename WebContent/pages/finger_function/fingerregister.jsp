@@ -93,7 +93,7 @@
         if(true){
             //产生指纹的特征ID
             var localpath = window.localFingerPath + (window.figureNumber)+".jpg";
-            var remotepath = window.remoteServerPath + (window.figureNumber)+".jpg";
+            var remotepath = window.remoteServerPath + (window.figureNumber)+".jpg?time="+new Date().getTime();
             var localFingerPath = window.localFingerPath + (window.figureNumber)+".tpl";
             fingerEng.SaveJPG(localpath);
             //var template = fingerEng.GetTemplateAsString();
