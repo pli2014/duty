@@ -212,7 +212,7 @@
                         cache: false,
                         data: {image:canvas.toDataURL("image/png"),code:window.figureNumber},
                         success : function(data, status) {
-                             jQuery("#personicon").attr("src",data);
+                             jQuery("#personicon").attr("src",data+"?time="+new Date().getTime());
                              jQuery("#iconpath").val(data);
                         },
                         error: function(){
