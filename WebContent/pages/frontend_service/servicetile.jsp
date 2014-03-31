@@ -8,6 +8,9 @@
 <html>
 <head>
 <title>列表</title>
+ <style>
+     a img{border:none}
+ </style>
 </head>
 
 <body>
@@ -24,55 +27,65 @@
 		<div class="bg-volu">
 			<img src="img/volun2.jpg" width="410" height="200" />
 		</div>
-		<div class="bg-blue" onclick="window.location.href='/volunteer/edit.action?id=${sessionUser.id}'">
+        <a href="/volunteer/edit.action?id=${sessionUser.id}">
+		<div class="bg-blue">
 			<div class="bg-img">
 				<img src="img/zc.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
 				我的注册
 			</div>
-		</div>
-		<div class="bg-green" onclick="window.location='/userFront/getCheckInRecords.action'">
+		</div></a>
+
+        <a href="/userFront/getCheckInRecords.action">
+		<div class="bg-green">
 			<div class="bg-img">
 				<img src="img/qd.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
 				 我的签到
 			</div>
-		</div>
-		<div class="bg-gay" onclick="window.location='/userFront/whoishere.action'">
+		</div></a>
+
+        <a href="/userFront/whoishere.action">
+		<div class="bg-gay">
 			<div class="bg-img">
 				<img src="img/location.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
 				 谁在这里
 			</div>
-		</div>
-		<div class="bg-green2" onclick="window.location.href='/frontTraincourse/index.action'">
+		</div></a>
+
+        <a href="/frontTraincourse/index.action">
+		<div class="bg-green2">
 			<div class="bg-img">
 				<img src="img/px.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
 				 我的培训
 			</div>
-		</div>
-		<div class="bg-black" onclick="window.location='/userFront/myMonthlyTimeReport.action'">
+		</div></a>
+
+        <a href="/userFront/myMonthlyTimeReport.action">
+		<div class="bg-black">
 	      <div class="bg-img">
 	        <img src="img/clock.png" width="100" height="100" />
 	      </div>
 	      <div class="bg-font">
 	        我的工时
 	      </div>
-		</div>
+		</div></a>
 
-		<div class="bg-gray" onclick="window.location='/logout.action'">
+        <a href="/logout.action">
+		<div class="bg-gray">
 			<div class="bg-img">
 				<img src="img/exit.png" width="100" height="100" />
 			</div>
 			<div class="bg-font">
 				退出
 			</div>
-		</div>
+		</div></a>
 	</div>
 </body>
 </html>
