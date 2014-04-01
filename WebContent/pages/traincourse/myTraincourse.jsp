@@ -41,12 +41,11 @@ a {
 				<img src="img/back.png" width="35" height="35" />
 			</div>
 			<div class="bg-top">我的培训</div>
-			<div class="bg-username">
-				<s:property value="#session.sessionUser.name" />
-			</div>
-			<div class="bg-touxiang">
-				<img src="img/photo.jpg" width="50" height="50" />
-			</div>
+            <div class="bg-user">
+                <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
+                <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
+                                              height="50" onerror="this.src='img/volunteer.png';"/></div>
+            </div>
 		</div>
 
 		<div class="bg-left3">
