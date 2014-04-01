@@ -22,16 +22,25 @@ public class MessageBus {
   private static ExecutorService executor = Executors.newFixedThreadPool(10);
   private static List<EventHandler> eventHandlers = new ArrayList<EventHandler>();
   private static MessageBus instance = new MessageBus();
+  private static Thread dispactherThread;
+
 
   public static MessageBus get() {
     return instance;
   }
 
-  MessageBus () {
+  private MessageBus () {
     ThreadDispacther dispacther = new ThreadDispacther();
-    Thread thread = new Thread(dispacther);
-    thread.setDaemon(true);
-    thread.start();
+    executor.submit(dispacther);
+//    Thread thread = new Thread(dispacther);
+//    thread.setDaemon(true);
+//    thread.start();
+  }
+
+  public static void destroy() {
+    if(null != executor) {
+      executor.shutdownNow();
+    }
   }
 
   public boolean add(BaseMessage message) {

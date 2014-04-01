@@ -44,6 +44,9 @@
         <div class="face">
             <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
         </div>
+        <div id="cameraDialog">
+            <%@ include file="../frontend_service/flashcamera.jsp" %>
+        </div>
     </div>
     <form  id="volunteerForm" action="volunteer/save.action" method="post">
         <input name="volunteer.iconpath" id="iconpath" type="hidden" value="${volunteer.iconpath}"/>
@@ -61,6 +64,34 @@
                     <tr>
                         <td><span class="required">*</span>工号<span class="bg-tishi"></span> <br/>
                             <input type="text" name="volunteer.code" id="code" value="${volunteer.code}" class="zc-input" readonly="readonly"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <s:if test="%{!#request['struts.request_uri'].contains('view.action')}">
+                                指纹信息
+                                <span id="console_message" style="color:red;"></span>
+                                <div style="margin-bottom: 20px;">
+                                    <img id="fingerjpg" src="${volunteer.fingerpath}" style="width:100px;height:80px;margin-bottom:120px" onerror="this.src='img/notfound.png';">
+                                    <script>
+                                        window.figureNumber = "${volunteer.code}";
+                                        function  printMessage(message){
+                                            jQuery("#console_message").html(message);
+                                        }
+                                    </script>
+                                    <%@include file="../finger_function/fingerregister.jsp"%>
+                                </div>
+                                <div style="margin:-100px 0 20px 0px;">
+                                    <input id="fingerpath" name="volunteer.fingerpath" type="hidden" value="${volunteer.fingerpath}">
+                                    <input name="volunteer.id" class="Infor-btn" type="button" value="指纹录入" onclick="beginRegister()">
+                                </div>
+                            </s:if>
+                            <s:else>
+                                <label>指纹信息</label>
+                                <div class="input-control text" data-role="input-control">
+                                    <img id="fingerjpg" src="${volunteer.fingerpath}" style="width:100px;height:80px;margin-bottom:120px" onerror="this.src='img/notfound.png';">
+                                </div>
+                            </s:else>
                         </td>
                     </tr>
                     <tr>

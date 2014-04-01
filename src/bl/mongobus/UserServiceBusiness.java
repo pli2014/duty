@@ -212,13 +212,15 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   }
 
   public List<ServicePlaceBean> getAvailableServicePlaces(String volunteerId) {
-    List<ServicePlaceBean> servicePlaces = new ArrayList<ServicePlaceBean>();
+    Map<String, ServicePlaceBean> filterMap = new HashMap<String, ServicePlaceBean>();
     List<TrainCourseBean> courses = vtcBus.getPassedTrainCourseByVolunteerId(volunteerId);
     for(TrainCourseBean course: courses) {
       List<ServicePlaceBean> places = tcspBus.getServicePlacesByTrainCourseId(course.getId());
-      servicePlaces.addAll(places);
+      for(ServicePlaceBean bean: places) {
+        filterMap.put(bean.getId(), bean);
+      }
     }
-    return servicePlaces;
+    return Arrays.asList(filterMap.values().toArray(new ServicePlaceBean[0]));
 
   }
 
