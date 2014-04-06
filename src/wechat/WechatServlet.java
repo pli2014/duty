@@ -8,6 +8,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import util.ServerContext;
 import wechat.access.AccessValidator;
+import wechat.message.MessageBus;
 import wechat.utils.Constants;
 import wechat.utils.WechatContext;
 
@@ -109,5 +110,10 @@ public class WechatServlet extends HttpServlet {
     inputStream.close();
 
     return map;
+  }
+
+  @Override
+  public void destroy() {
+    MessageBus.destroy();
   }
 }
