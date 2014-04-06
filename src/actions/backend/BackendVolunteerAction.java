@@ -131,7 +131,6 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   @Override
   public String add() {
     volunteer = new VolunteerBean();
-    volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
     return SUCCESS;
   }
 

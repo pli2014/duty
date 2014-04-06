@@ -34,7 +34,31 @@
          <div class="form-group has-success">
              <label class="col-lg-2 control-label">工号</label>
              <div class="col-lg-10">
-                 <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="readonly" class="form-control" />
+                 <s:if test="volunteer.id.length() > 0">
+                     <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="true" class="form-control" />
+                 </s:if>
+                 <s:else>
+                     <input name="volunteer.code" type="text" value="${volunteer.code}" class="form-control" />
+                 </s:else>
+                 <script type="text/javascript">
+                     //please refer to form-validation-script.js
+                     $(document).ready(function() {
+                         $("#volunteerForm").validate({
+                             rules: {
+                                 'volunteer.code':{
+                                     required:true
+                                 }
+                             },
+                             messages: {
+                                 'volunteer.code': {
+                                     required: "请输入工号"
+                             },
+                             errorPlacement: function(error, element) {
+                                 error.appendTo( element.prev().prev() );
+                             }
+                         });
+                     });
+                 </script>
              </div>
          </div>
          <div class="form-group has-success">
@@ -60,7 +84,7 @@
           <div class="form-group has-error">
             <label for="confirm_password" class="control-label col-lg-2">再次输入密码</label>
            <div class="col-lg-10">
-               <input class="form-control "  name="confirm_password" type="password" placeholder="请再次输入密码"  required="required"/>
+               <input class="form-control "  id="confirm_password" name="confirm_password" type="password" placeholder="请再次输入密码"  required="required"/>
            </div>
           </div>
         </s:else>

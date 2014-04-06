@@ -119,7 +119,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
       return SUCCESS;
     } else {
       volunteer = new VolunteerBean();
-      volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
+      //volunteer.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
       return FAILURE;
     }
   }

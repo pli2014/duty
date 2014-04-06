@@ -30,12 +30,6 @@
         <br>
         <input type="hidden" name="register.openID" value="${openID}">
         <div class="form-group">
-            <label class="col-xs-4  control-label">工号</label>
-            <div class="col-xs-8">
-                <input type="text" class="form-control" name="register.code" readonly="true" value="${register.code}"/>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="col-xs-4  control-label" >姓名</label>
             <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" type="text" name="register.name" value=""/></p>
@@ -66,30 +60,12 @@
                 <p class="form-control-static"><input class="form-control" type="text" name="register.cellPhone" value=""/></p>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-xs-4  control-label" >密码</label>
-            <div class="col-xs-8">
-                <p class="form-control-static"><input class="form-control" id="password" type="password" name="register.password" value=""/></p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-xs-4  control-label" >请再次输入密码</label>
-            <div class="col-xs-8">
-                <p class="form-control-static"><input class="form-control" type="password" name="confirm_password" value=""/></p>
-            </div>
-        </div>
         <script>
             $(document).ready(function() {
                 $("form").validate({
                     rules: {
                         "register.name": {
                             required:true
-                        },
-                        "register.password": {
-                            required:true
-                        },
-                        confirm_password: {
-                            equalTo: "#password"
                         },
                         "register.identityCard":{
                             required:true,
@@ -103,13 +79,6 @@
                     messages: {
                         'register.name': {
                             required: "请输入姓名"
-                        },
-                        'register.password': {
-                            required: "请输入密码"
-                        },
-                        'confirm_password': {
-                            required: "请再次输入密码",
-                            equalTo: "密码两次输入不一致"
                         },
                         'register.identityCard': {
                             required: "请输入身份证号",

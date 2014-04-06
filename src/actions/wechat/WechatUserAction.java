@@ -128,7 +128,6 @@ public class WechatUserAction extends WechatBaseAuthAction {
       return SUCCESS;
     } else {
       vol = new VolunteerBean();
-      vol.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
       return FAILURE;
     }
   }

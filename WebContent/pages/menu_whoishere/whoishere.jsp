@@ -14,12 +14,12 @@
             setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
         }
     </script>
-    <link href="../css/train.css" rel="stylesheet">
+    <link href="css/train.css" rel="stylesheet">
 </head>
 <body>
 <div class="home2">
     <div class="bg-user">
-        <div class="bg-fh"><img src="../img/back.png" width="35" height="35" onclick="location='index.action'"
+        <div class="bg-fh"><img src="img/back.png" width="35" height="35" onclick="location='index.action'"
                                 style="cursor: pointer"/></div>
         <div class="bg-top">谁在这里</div>
 

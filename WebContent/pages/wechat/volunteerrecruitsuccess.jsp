@@ -23,7 +23,7 @@
         <button type="button" class="btn btn-info btn-block" onclick="custom_close()">点击此处，返回微信！</button>
         <br>
         <br>
-        <p>请记住你的工号<span style="color:red">${register.code}</span>和刚刚填写的密码，然后前往医院本部指纹和图像采集系统完成后续注册信息，感谢您在线申请志愿者服务。</p>
+        <p>请前往医院本部完成后续的指纹和图像采集等相关注册信息，感谢您在线申请志愿者服务。</p>
     </div>
 
 </section>

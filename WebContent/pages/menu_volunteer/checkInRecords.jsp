@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link href="../css/train.css" rel="stylesheet">
+    <link href="css/train.css" rel="stylesheet">
     <title>志愿者服务签入签出</title>
     <script language="javascript" type="text/javascript">
         window.onload = function () {
@@ -19,7 +19,7 @@
 <body>
 <div class="home2">
     <div class="bg-user">
-        <div class="bg-fh"><img src="../img/back.png" width="35" height="35" onclick="location='index.action'"
+        <div class="bg-fh"><img src="img/back.png" width="35" height="35" onclick="location='index.action'"
                                 style="cursor: pointer"/></div>
         <s:if test="aub!=null">
             <div class="bg-top">我的签出</div>

@@ -27,14 +27,13 @@ public class WechatRecruitAction extends WechatBaseAuthAction {
 
     public String volunteerRecruitView() {
         register = new VolunteerBean();
-        register.setCode(ServerContext.getValue(WebappsConstants.ID_PREFIX_KEY) + SequenceUidGenerator.getNewUid());
         return SUCCESS;
     }
 
     public String volunteerRecruitSave() {
         //来源微信
         register.setRegisterFrom(2);
-        register.setPassword(StringUtil.toMD5(register.getPassword()));
+        register.setPassword(StringUtil.toMD5("123456"));
         BusinessResult result = vb.save(getRequest(),register);
         if (result.getErrors().size() > 0) {
             for (Object error : result.getErrors()) {
