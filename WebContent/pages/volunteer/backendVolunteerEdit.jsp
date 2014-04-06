@@ -52,6 +52,7 @@
                              messages: {
                                  'volunteer.code': {
                                      required: "请输入工号"
+                                 }
                              },
                              errorPlacement: function(error, element) {
                                  error.appendTo( element.prev().prev() );

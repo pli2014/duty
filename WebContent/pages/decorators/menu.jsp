@@ -71,6 +71,7 @@
                           <ul class="sub">
                               <li><a  href="backend/user/index.action">用户管理</a></li>
                               <li><a  href="backend/systemsetting.action">参数设定</a></li>
+                              <li><a  href="backend/sourcecode/index.action">来源编码</a></li>
                           </ul>
                       </li>
                   </s:if>

@@ -22,11 +22,7 @@
 
            <section class="panel">
                <header class="panel-heading" onclick="$('#panelbody').toggle();$('#panelbodybullet').toggleClass('fa fa-chevron-up');$('#panelbodybullet').toggleClass('fa fa-chevron-down');" style="cursor: pointer">
-                   <a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}">
-                       <i class="fa fa-plus"></i>
-                       添加
-                   </a>
-
+                      <div id="operationbutton"></div>
                       <span class="tools pull-right">
                         <span id="panelbodybullet" class="fa fa-chevron-up" style="cursor: pointer">查询区域</span>
                       </span>
@@ -101,7 +97,17 @@
           return sOut;
       }
 
+     var operationButtons = [
+        '<a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}"><i class="fa fa-plus"></i> 添加 </a>'
+     ];
+
  $(document).ready(function() {
+     //intial opration button
+     for(var i=0;i<operationButtons.length;i++){
+         $("#operationbutton").html(operationButtons[i]);
+     }
+     $(".btn.btn-success").click(function(event){event.stopPropagation();});
+
      var tableUrl = "${actionPrex}/initTable.action";
      var param = {};
      $.getJSON( tableUrl, param, function (initParam) {

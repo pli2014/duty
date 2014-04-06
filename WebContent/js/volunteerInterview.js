@@ -61,3 +61,5 @@ jQuery("#decoratebody").on("mouseover",".volunteerimg",function(){
 jQuery("#decoratebody").on("mouseout",".volunteerimg",function(){
     jQuery(this).css({width:'60px',height:'50px',position:'static'});
 });
+
+var operationButtons = [];
