@@ -15,8 +15,8 @@ import vo.table.TableQueryVo;
 import bl.common.TableBusinessInterface;
 
 import com.opensymphony.xwork2.ModelDriven;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Base Table Action

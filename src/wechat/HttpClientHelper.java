@@ -1,7 +1,7 @@
 package wechat;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.sf.json.JSONObject;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

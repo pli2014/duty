@@ -21,8 +21,8 @@ import bl.beans.VolunteerBean;
 import bl.mongobus.BackendUserBusiness;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author gudong

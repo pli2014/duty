@@ -16,8 +16,8 @@ import org.bson.types.ObjectId;
 import bl.beans.VolunteerTrainCourseBean;
 import bl.common.BeanContext;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author gudong

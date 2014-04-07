@@ -7,8 +7,8 @@ import bl.common.BeanContext;
 import bl.common.BusinessInterface;
 import bl.exceptions.FailureInitialClassException;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SingleBusinessPoolManager {
     protected static Logger LOG = LoggerFactory.getLogger(SingleBusinessPoolManager.class);
@@ -31,7 +31,7 @@ public class SingleBusinessPoolManager {
                         busObj = (BusinessInterface<BeanContext, BeanContext>) (Class.forName(classpath).newInstance());
                         _hBusObjs.put(classpath, busObj);
                     } catch (Exception ex) {
-                        LOG.fatal("Error: couldn't instantiate new business object: {}", ex);
+                        LOG.error("Error: couldn't instantiate new business object: {}", ex);
                         throw new FailureInitialClassException(ex);
                     }
                 }

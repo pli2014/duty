@@ -1,7 +1,7 @@
 package wechat.menu;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.ServerContext;
 import wechat.access.AccessTokenManager;
 import wechat.utils.Constants;

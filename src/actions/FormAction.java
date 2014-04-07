@@ -24,8 +24,8 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.FormBusiness;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a dynamic handler action

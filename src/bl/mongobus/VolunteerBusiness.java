@@ -23,8 +23,8 @@ import bl.beans.VolunteerBean;
 import bl.common.BeanContext;
 import bl.common.BusinessResult;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author gudong

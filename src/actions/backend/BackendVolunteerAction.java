@@ -16,8 +16,8 @@ import bl.common.BusinessResult;
 import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.VolunteerBusiness;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author gudong

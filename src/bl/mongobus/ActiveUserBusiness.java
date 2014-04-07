@@ -4,8 +4,8 @@ import bl.beans.ActiveUserBean;
 import bl.beans.UserServiceBean;
 import bl.common.BeanContext;
 import bl.common.BusinessResult;
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import dao.MongoDBConnectionFactory;
 import org.mongodb.morphia.Datastore;
 

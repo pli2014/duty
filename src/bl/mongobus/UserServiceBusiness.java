@@ -17,8 +17,8 @@ import bl.common.BusinessResult;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 
-import com.opensymphony.xwork2.util.logging.Logger;
-import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
 
