@@ -8,11 +8,14 @@ import bl.mongobus.SourceCodeBusiness;
 import bl.mongobus.VolunteerBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import util.StringUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -24,7 +27,7 @@ import java.util.Set;
 /**
  * Created by pli on 14-4-7.
  */
-public class UploadExcelAction extends ActionSupport {
+public class UploadExcelAction extends ActionSupport implements ServletRequestAware {
     private static VolunteerBusiness VOLBUS = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
     private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
 
@@ -125,6 +128,7 @@ public class UploadExcelAction extends ActionSupport {
                     VOLBUS.createLeaf(vb);
                 }
             }
+            VOLBUS.updateVolunteerStatus(this.request);
         }
         //clear cache from memory
         ActionContext.getContext().getSession().put("UPLOADEXCEL", null);
@@ -150,6 +154,7 @@ public class UploadExcelAction extends ActionSupport {
             for (SourceCodeBean scb : listSource) {
                 setSource.add(scb.getCode());
             }
+            String defaultPassword = StringUtil.toMD5("123456");
             for (int rowNum = rowStart; rowNum < rowEnd; rowNum++) {
                 Row row = sheet.getRow(rowNum);
                 int lastColumn = row.getLastCellNum();
@@ -190,6 +195,7 @@ public class UploadExcelAction extends ActionSupport {
                         newVb.setName(cellName);
                         newVb.setCellPhone(cellPhone);
                         newVb.setOccupation(cellSource);
+                        newVb.setPassword(defaultPassword);
                         //validation data.
                         if (setSource.contains(cellSource)) {
                             this.arrayList.add(newVb);
@@ -244,4 +250,10 @@ public class UploadExcelAction extends ActionSupport {
             System.out.println("code=" + vb.getCode() + ",name=" + vb.getName());
         }
     }
+
+    private javax.servlet.http.HttpServletRequest request;
+    public void setServletRequest(HttpServletRequest request) {
+        this.request = request;
+    }
+
 }
