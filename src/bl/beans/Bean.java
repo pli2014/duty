@@ -1,5 +1,6 @@
 package bl.beans;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.bson.types.ObjectId;
@@ -8,7 +9,7 @@ import org.mongodb.morphia.annotations.Indexed;
 
 import bl.common.BeanContext;
 
-public class Bean implements BeanContext, Cloneable {
+public class Bean implements BeanContext, Cloneable, Serializable {
 	@Id
 	ObjectId _id;
 	@Indexed
