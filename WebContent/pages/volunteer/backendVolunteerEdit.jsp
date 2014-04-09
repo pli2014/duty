@@ -32,46 +32,32 @@
     <s:actionerror/><s:actionmessage/>
      <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunteer/save.action" method="post">
          <div class="form-group has-success">
-             <label class="col-lg-2 control-label">工号</label>
-             <div class="col-lg-10">
-                 <s:if test="volunteer.id.length() > 0">
-                     <input name="volunteer.code" type="text" value="${volunteer.code}" readonly="true" class="form-control" />
-                 </s:if>
-                 <s:else>
-                     <input name="volunteer.code" type="text" value="${volunteer.code}" class="form-control" />
-                 </s:else>
-                 <script type="text/javascript">
-                     //please refer to form-validation-script.js
-                     $(document).ready(function() {
-                         $("#volunteerForm").validate({
-                             rules: {
-                                 'volunteer.code':{
-                                     required:true
-                                 }
-                             },
-                             messages: {
-                                 'volunteer.code': {
-                                     required: "请输入工号"
-                                 }
-                             },
-                             errorPlacement: function(error, element) {
-                                 error.appendTo( element.prev().prev() );
-                             }
-                         });
-                     });
-                 </script>
-             </div>
-         </div>
-         <div class="form-group has-success">
              <label class="col-lg-2 control-label">志愿者名</label>
              <div class="col-lg-10">
                  <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
                  <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
-                 <input name="volunteer.status" type="hidden" value="${volunteer.status}"/>
                  <input type="text" placeholder="志愿者名" name="volunteer.name" class="form-control" 
                         required="required" value="${volunteer.name}"/>
              </div>
          </div> 
+         <div class="form-group has-success">
+             <label class="col-lg-2 control-label">工号</label>
+             <div class="col-lg-10">
+                <input name="volunteer.code" type="text" value="${volunteer.code}" class="form-control" required="required" placeholder="请输入工号"/>
+             </div>
+         </div>
+         <div class="form-group has-success">
+             <label class="col-lg-2 control-label">状态</label>
+             <div class="col-lg-10">
+                <select name="volunteer.status" class="form-control">
+                  <option value="0" <s:if test="volunteer.status == 0">selected="selected"</s:if>>已注册</option>
+                  <option value="1" <s:if test="volunteer.status == 1">selected="selected"</s:if>>已审核</option>
+                  <option value="2" <s:if test="volunteer.status == 2">selected="selected"</s:if>>已面试</option>
+                  <option value="3" <s:if test="volunteer.status == 3">selected="selected"</s:if>>正在服务期</option>
+                  <option value="4" <s:if test="volunteer.status == 4">selected="selected"</s:if>>已注销</option>
+                </select>
+             </div>
+         </div>
          <s:if test="volunteer.id.length() > 0">
          </s:if>
         <s:else>
