@@ -17,7 +17,7 @@ public class VolunteerBean extends Bean {
   public static final int LOGOUTED = 4;
   
   public static final int REGISTER_HOSPITAL = 1;
-  public static final int REGISTER_WECHAT = 1;
+  public static final int REGISTER_WECHAT = 2;
   
   
   private String code;

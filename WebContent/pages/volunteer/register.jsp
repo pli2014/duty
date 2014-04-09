@@ -62,12 +62,13 @@
 
             <div class="bg-table">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                   <!-- 
                     <tr>
                         <td><span class="required">*</span>工号<span class="bg-tishi"></span> <br/>
                             <input type="text" name="volunteer.code" id="code" value="${volunteer.code}" class="zc-input" readonly="readonly"/>
                         </td>
                     </tr>
-
+                 -->
                     <tr>
                         <td>
                             <s:if test="%{!#request['struts.request_uri'].contains('view.action')}">
