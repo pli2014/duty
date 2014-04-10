@@ -39,7 +39,7 @@
 		   </result>
 		</action>
 		
-        <action name="index">
+        <action name="index" class="actions.backend.BackendDashBoardAction" method="getAllData">
 		   <result name="success">/backendHome.jsp</result>
 		</action>
 

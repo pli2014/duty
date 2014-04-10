@@ -11,7 +11,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right"></div>
               </div>
             <!--logo start-->
-            <a href="index.jsp" class="logo"><span>志愿者管理</span></a>
+            <a href="backend/index.action" class="logo"><span>志愿者管理</span></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
