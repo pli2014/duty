@@ -31,8 +31,8 @@ import java.util.List;
  */
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
-  private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
-    private List<SourceCodeBean> listSource = null;
+    protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+    protected List<SourceCodeBean> listSource = null;
     private VolunteerBean volunteer;
 
     public List<SourceCodeBean> getListSource() {

@@ -3,10 +3,13 @@
  */
 package actions.backend;
 
+import bl.beans.SourceCodeBean;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
 import webapps.WebappsConstants;
 import bl.beans.VolunteerBean;
+
+import java.util.List;
 
 /**
  * @author gudong
@@ -49,6 +52,7 @@ public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
    * @return
    */
   public String verify() {
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     VolunteerBean volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     setVolunteer(volunteer);
     return SUCCESS;
