@@ -117,6 +117,10 @@
                         </td>
                     </tr>
                     <tr>
+                        <td><span class="required">*</span>来源<span class="bg-tishi"></span><br />
+                            <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name"/></td>
+                    </tr>
+                    <tr>
                         <td><span class="required">*</span>身份证号<span class="bg-tishi"></span><br />
                             <input type="text" name="volunteer.identityCard" id="identityCard" value="${volunteer.identityCard}" class="zc-input" required="required"/></td>
                     </tr>

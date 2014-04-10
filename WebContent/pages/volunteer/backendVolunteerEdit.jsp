@@ -99,7 +99,13 @@
 			    </label>   
              </div>
          </div>
-         
+         <div class="form-group has-success">
+             <label class="col-lg-2 control-label">来源</label>
+             <div class="col-lg-10">
+                 <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}"/>
+             </div>
+         </div>
+
         <div class="form-group has-success">
              <label class="col-lg-2 control-label">身份证号</label>
              <div class="col-lg-10">

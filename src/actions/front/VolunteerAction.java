@@ -6,6 +6,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bl.beans.SourceCodeBean;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.SourceCodeBusiness;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -26,12 +30,22 @@ import com.opensymphony.xwork2.ActionContext;
  * @since $Date:2014-03-22$
  */
 public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
-  private static final long serialVersionUID = 2565111276150636692L;
-  private VolunteerBean volunteer;
+    private static final long serialVersionUID = 2565111276150636692L;
+    private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+    private VolunteerBean volunteer;
   private String oldPassword;
   private String[][] volunteerCodes = null;
+  private List<SourceCodeBean> listSource = null;
 
-  public String[][] getVolunteerCodes() {
+    public List<SourceCodeBean> getListSource() {
+        return listSource;
+    }
+
+    public void setListSource(List<SourceCodeBean> listSource) {
+        this.listSource = listSource;
+    }
+
+    public String[][] getVolunteerCodes() {
     return volunteerCodes;
   }
 
@@ -114,7 +128,8 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String register() throws Exception {
-    if (volunteer != null) {
+      this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+      if (volunteer != null) {
       BusinessResult result = getBusiness().save(getRequest(), volunteer);
       if (result.getErrors().size() > 0) {
         for (Object error : result.getErrors()) {
@@ -168,7 +183,8 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @throws Exception
    */
   public String edit() throws Exception {
-    volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+      this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+      volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     return SUCCESS;
   }
 
