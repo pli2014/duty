@@ -129,6 +129,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String edit() throws Exception {
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     return SUCCESS;
   }
