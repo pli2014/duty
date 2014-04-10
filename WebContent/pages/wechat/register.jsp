@@ -11,12 +11,14 @@
         <div class="panel-body">
             <form id="volunteerForm" action="/wechat/user/register.action" method="post" class="form-horizontal">
                 <input type="hidden" name="openID" value="<s:property value='openID'/>">
+                <!-- 
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volCode">工号</label>
                     <div class="col-xs-8">
                         <input class="form-control" id="volCode" name="vol.code" value="${vol.code}" readonly="readonly"/>
                     </div>
                 </div>
+                 -->
                 <div class="form-group">
                     <label class="col-xs-4  control-label" for="volName">姓名</label>
                     <div class="col-xs-8">

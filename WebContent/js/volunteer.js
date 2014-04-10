@@ -46,3 +46,7 @@ jQuery("#decoratebody").on("mouseover",".volunteerimg",function(){
 jQuery("#decoratebody").on("mouseout",".volunteerimg",function(){
     jQuery(this).css({width:'60px',height:'50px',position:'static'});
 });
+
+if(typeof window.admin!='undefined'){
+    operationButtons.push('<a class="btn btn-success" href="'+window.actionPrex+'/batchimportview.action"><i class="fa fa-plus"></i> 批量导入 </a>');
+}

@@ -101,6 +101,18 @@
 		   <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
 		<action name="search" class="actions.backend.BackendVolunteerAction" method="search"/>
+
+        <action name="batchimportview" class="actions.backend.UploadExcelAction" method="batchImportView">
+            <result name="success">/pages/volunteer/backendbatchimportview.jsp</result>
+        </action>
+        <action name="batchpreimport" class="actions.backend.UploadExcelAction" method="batchPreImport">
+            <result name="error">/pages/volunteer/backendbatchimportview.jsp</result>
+            <result name="input">/pages/volunteer/backendbatchimportview.jsp</result>
+            <result name="success">/pages/volunteer/backendpreimport.jsp</result>
+        </action>
+        <action name="batchimportsave" class="actions.backend.UploadExcelAction" method="saveExcel">
+            <result name="success">/pages/volunteer/backendsaveexcel.jsp</result>
+        </action>
 	</package>
 
     <package name="sourcecode" namespace="/backend/sourcecode" extends="default-backend">
@@ -129,8 +141,12 @@
 		<action name="initTable" class="actions.backend.BackendVolunteerVerifyAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerVerifyAction" method="queryTable"/>
 		<action name="verify" class="actions.backend.BackendVolunteerVerifyAction" method="verify">
-		  <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+		  <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
+		<action name="save" class="actions.backend.BackendVolunteerVerifyAction" method="save">
+            <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+            <result name="failure">/pages/volunteer/backendVolunteerEdit.jsp</result>
+        </action>
 	</package>
 	
 	<package name="backendInterview" namespace="/backend/volunteerInterview" extends="default-backend">

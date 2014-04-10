@@ -45,12 +45,10 @@ options = {
            'title':'审核', 
            'html': '<button title="审核" style="margin-left:5px" class="btn btn-primary btn-xs" onclick="options[\'pass\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
            'onClick' : function(button){
-               if (confirm("您确定要审核吗?")){
-                   var tableObj = $('#'+tableId).dataTable();
-                   var nTr = $(button).parents('tr')[0];
-                   var selectRowData =  tableObj.fnGetData( nTr );
-                   window.location.href = actionPrex + "/verify.action?id=" + selectRowData[idName];
-               }
+               var tableObj = $('#'+tableId).dataTable();
+               var nTr = $(button).parents('tr')[0];
+               var selectRowData =  tableObj.fnGetData( nTr );
+               window.location.href = actionPrex + "/verify.action?id=" + selectRowData[idName];
            }     
         }
 };

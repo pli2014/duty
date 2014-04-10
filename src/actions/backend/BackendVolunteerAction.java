@@ -3,6 +3,10 @@
  */
 package actions.backend;
 
+import bl.beans.SourceCodeBean;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.SourceCodeBusiness;
 import net.sf.json.JSONArray;
 import util.ServerContext;
 import util.StringUtil;
@@ -19,15 +23,27 @@ import bl.mongobus.VolunteerBusiness;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * @author gudong
  * @since $Date:2014-02-10$
  */
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
-  private VolunteerBean volunteer;
+  private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+    private List<SourceCodeBean> listSource = null;
+    private VolunteerBean volunteer;
 
-  public VolunteerBean getVolunteer() {
+    public List<SourceCodeBean> getListSource() {
+        return listSource;
+    }
+
+    public void setListSource(List<SourceCodeBean> listSource) {
+        this.listSource = listSource;
+    }
+
+    public VolunteerBean getVolunteer() {
     return volunteer;
   }
 
@@ -58,6 +74,10 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     return getRequest().getContextPath() + "/js/volunteer.js";
   }
 
+    public String getCustomJsp() {
+        return "/pages/volunteer/volunteer.jsp";
+    };
+
     @Override
     public String getTableTitle() {
         return "<ul class=\"breadcrumb\"><li>志愿者管理</li><li class=\"active\">志愿者</li></ul>";
@@ -70,13 +90,24 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     init.getAoColumns().add(new TableHeaderVo("code", "工号").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("identityCard", "身份证").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
-    init.getAoColumns().add(new TableHeaderVo("registerFrom", "注册来源"));
+      init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
+    init.getAoColumns().add(new TableHeaderVo("registerFrom", "来自"));
     init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
     init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
     init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
     init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
     return init;
   }
+
+    /**
+     *
+     * @return
+     * @throws Exception
+     */
+    public String index() throws Exception {
+        this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+        return INDEX_SUCCESS;
+    }
 
   @Override
   public String save() throws Exception {

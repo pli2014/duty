@@ -103,9 +103,7 @@
 
  $(document).ready(function() {
      //intial opration button
-     for(var i=0;i<operationButtons.length;i++){
-         $("#operationbutton").html(operationButtons[i]);
-     }
+     $("#operationbutton").html(operationButtons.join("&nbsp;"));
      $(".btn.btn-success").click(function(event){event.stopPropagation();});
 
      var tableUrl = "${actionPrex}/initTable.action";
@@ -257,10 +255,19 @@
 	        });
  	} );
  } );
+     <s:if test="#session['backendSessionUser'].name=='admin'">
+     window.admin = true;
+     window.actionPrex = "${actionPrex}";
+     </s:if>
   </script>
   <s:if test="customJs != null && customJs.length() > 0">
      <script src="${customJs}" type="text/javascript"></script>
   </s:if>
+
+    <s:if test="customJsp != null && customJsp.length() > 0">
+        <s:include value="%{customJsp}"/>
+    </s:if>
+
        <script>
 
            // 格式化js时间

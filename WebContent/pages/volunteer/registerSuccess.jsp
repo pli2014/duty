@@ -17,7 +17,7 @@
    </h1>
    <h2 id="__table__">注册成功</h2>
     <div class="example volunteerinfo">
-       <h2 id="__table__">注册成功, 请牢记你的工号：<span class="red">${volunteer.code }</span>，这将作为你的登录凭证！</h2>
+       <h2 id="__table__">注册成功, 我们将尽快审核，请耐心等待</h2>
     </div>
   </div> 
    <footer class="site-footer" style="position:fixed;bottom:1px;width:100%;z-index:-1">

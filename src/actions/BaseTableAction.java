@@ -52,6 +52,10 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     return null;
   };
 
+    public String getCustomJsp() {
+        return null;
+    };
+
   public String getTableTitle() {
     return null;
   }
