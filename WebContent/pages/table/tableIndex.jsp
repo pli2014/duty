@@ -263,6 +263,11 @@
   <s:if test="customJs != null && customJs.length() > 0">
      <script src="${customJs}" type="text/javascript"></script>
   </s:if>
+
+    <s:if test="customJsp != null && customJsp.length() > 0">
+        <s:include value="%{customJsp}"/>
+    </s:if>
+
        <script>
 
            // 格式化js时间
