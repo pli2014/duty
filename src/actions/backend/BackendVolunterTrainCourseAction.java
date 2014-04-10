@@ -25,6 +25,7 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  */
 public class BackendVolunterTrainCourseAction extends BaseBackendAction<VolunteerTrainCourseBusiness> {
   private VolunteerTrainCourseBean volunteerTrainCourse;
+  private List<TrainCourseBean> trainCourseList;
   private String volunteerId;
   private String traincourseId;
 
@@ -50,6 +51,14 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   public void setVolunteerTrainCourse(VolunteerTrainCourseBean volunteerTrainCourse) {
     this.volunteerTrainCourse = volunteerTrainCourse;
+  }
+
+  public List<TrainCourseBean> getTrainCourseList() {
+    return trainCourseList;
+  }
+
+  public void setTrainCourseList(List<TrainCourseBean> trainCourseList) {
+    this.trainCourseList = trainCourseList;
   }
 
   @Override
@@ -110,6 +119,7 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String add() {
+    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
     return SUCCESS;
   }
 
@@ -131,6 +141,9 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
         volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
       }
     }
+    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
+    traincourseId = volunteerTrainCourse.getTraincourseId().toString();
+    volunteerId = volunteerTrainCourse.getVolunteerId().toString();
     return SUCCESS;
   }
 
@@ -142,6 +155,7 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String save() throws Exception {
+    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
     if (StringUtils.isNotBlank(traincourseId) && StringUtils.isNotBlank(volunteerId)) {
       if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
         if (getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) != null) {
@@ -164,8 +178,8 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     }
   }
 
-    @Override
-    public String getTableTitle() {
-        return "<ul class=\"breadcrumb\"><li>培训管理</li><li class=\"active\">培训记录</li></ul>";
-    }
+  @Override
+  public String getTableTitle() {
+    return "<ul class=\"breadcrumb\"><li>培训管理</li><li class=\"active\">培训记录</li></ul>";
+  }
 }
