@@ -31,8 +31,8 @@ import java.util.List;
  */
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
-  private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
-    private List<SourceCodeBean> listSource = null;
+    protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+    protected List<SourceCodeBean> listSource = null;
     private VolunteerBean volunteer;
 
     public List<SourceCodeBean> getListSource() {
@@ -91,7 +91,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     init.getAoColumns().add(new TableHeaderVo("identityCard", "身份证").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
       init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
-    init.getAoColumns().add(new TableHeaderVo("registerFrom", "来自"));
+    init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道"));
     init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
     init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
     init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
