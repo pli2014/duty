@@ -34,31 +34,37 @@
     </div>
 
     <div class="bg-right2">
-        <div class="bg-title2">院内</div>
+        <div class="bg-title2" style="font-size:30px">院内</div>
         <div class="bg-time" id="timewatcher">加载当前时间</div>
 
-        <s:iterator value="servicePlaces" var="us">
-            <s:if test="#us.type==0">
-                <s:if test="aub.servicePlaceId==#us.id">
-                    <div class="hosp-green hosp-focus">
-                        <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
-                        <div class="plase-font"><s:property value="#us.name"/></div>
-                        <form id="dataForm" action="userFront/checkOut.action" method="post">
-                            <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
-                        </form>
-                    </div>
-                </s:if>
-                <s:else>
-                    <div class="hosp-green"
-                         <s:if test="aub==null">onclick="jQuery('.hosp-green').removeClass('hosp-focus');jQuery(this).addClass('hosp-focus');"</s:if>>
-                        <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
-                        <div class="plase-font"><s:property value="#us.name"/></div>
-                        <form id="dataForm" action="userFront/checkInSubmit.action" method="post">
-                            <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
-                        </form>
-                    </div>
-                </s:else>
-            </s:if>
+        <s:iterator value="servicePlaces" var="parent">
+           <s:if test="#parent.type==1 && #parent.area==0">
+                <div class="bg-title2"><s:property value="#parent.name"/></div><div style="clear:both"></div>
+               <s:iterator value="servicePlaces" var="us">
+                    <s:if test="#us.type==0 && #parent.id==#us.parentid">
+                        <s:if test="aub.servicePlaceId==#us.id">
+                            <div class="hosp-green hosp-focus">
+                                <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
+                                <div class="plase-font"><s:property value="#us.name"/></div>
+                                <form id="dataForm" action="userFront/checkOut.action" method="post">
+                                    <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
+                                </form>
+                            </div>
+                        </s:if>
+                        <s:else>
+                            <div class="hosp-green"
+                                 <s:if test="aub==null">onclick="jQuery('.hosp-green').removeClass('hosp-focus');jQuery(this).addClass('hosp-focus');"</s:if>>
+                                <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
+                                <div class="plase-font"><s:property value="#us.name"/></div>
+                                <form id="dataForm" action="userFront/checkInSubmit.action" method="post">
+                                    <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
+                                </form>
+                            </div>
+                        </s:else>
+                    </s:if>
+               </s:iterator>
+               <div style="clear:both"></div>
+           </s:if>
         </s:iterator>
     </div>
 

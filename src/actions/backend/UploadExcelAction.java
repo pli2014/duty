@@ -123,6 +123,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                     cloneBean.setName(vb.getName());
                     cloneBean.setOccupation(vb.getOccupation());
                     cloneBean.setCellPhone(vb.getCellPhone());
+                    cloneBean.setStatus(vb.getStatus());
                     VOLBUS.updateLeaf(found, cloneBean);
                 } else {
                     VOLBUS.createLeaf(vb);
