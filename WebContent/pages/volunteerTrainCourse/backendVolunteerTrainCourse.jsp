@@ -74,18 +74,16 @@
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">培训课程</label>
         <div class="col-lg-10">
-        <s:if test="volunteerTrainCourse.id.length() > 0">
-         </s:if>
-         <s:else>
-          <input type="text" id="trainCourseName" placeholder="输入 培训课程名, 点查询"   class="form-control  pull-left" style=" width: 200px;"/>
-          <input type="button" class="btn btn-success" onclick="queryTrainCourse()"  value="查询">   
-          <div style="clear: both;"></div>
-        </s:else>
-           <select id="traincourseIdSelect"  name="traincourseId" class="form-control input-lg m-bot15" style="width: 200px;">
-             <s:if test="volunteerTrainCourse.id.length() > 0">
-                <option value="${volunteerTrainCourse.trainCourse.id}">${volunteerTrainCourse.trainCourse.name}</option>
-              </s:if>
-           </select>
+            <s:iterator value="trainCourseList" id="trainCourse" status="st">
+              <div class="radio">
+                <label>
+                    <input type="radio" name="traincourseId" value="${trainCourse.id}" 
+                      <s:if test="#st.index == 0 || trainCourse.id == traincourseId">checked="checked"</s:if>
+                    >
+                    ${trainCourse.name}
+                </label>
+             </div>
+            </s:iterator>
         </div>
     </div>
      <div class="form-group  has-success">
