@@ -63,6 +63,12 @@
                     </div>
                 </div>
                 <s:if test="#request.type==0">
+                <div class="form-group has-success">
+                    <label class="col-lg-2 control-label">归属医院区域</label>
+                    <div class="col-lg-10">
+                        <s:select name="servicePlace.parentid" list="innerHospital"  listKey="id" listValue="name" value="%{servicePlace.parentid}"></s:select>
+                    </div>
+                </div>
                 <div class="form-group has-success" style="display:none">
                     <label class="col-lg-2 control-label">地点颜色编码</label>
                     <div class="col-lg-3">
@@ -96,6 +102,12 @@
                 </s:if>
 
                 <s:if test="#request.type==1">
+                    <div class="form-group has-success">
+                        <label class="col-lg-2 control-label">医院区域</label>
+                        <div class="col-lg-10">
+                            <s:select list="#{0:'院内',1:'院外'}"  name="servicePlace.area" value="%{servicePlace.area}"></s:select>
+                        </div>
+                    </div>
                     <div class="form-group has-success">
                         <label class="control-label col-lg-2 col-sm-3">地理坐标</label>
                         <div class="col-lg-10">

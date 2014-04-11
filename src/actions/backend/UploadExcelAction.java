@@ -196,6 +196,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                         newVb.setCellPhone(cellPhone);
                         newVb.setOccupation(cellSource);
                         newVb.setPassword(defaultPassword);
+                        newVb.setStatus(VolunteerBean.VIERFIED);
                         //validation data.
                         if (setSource.contains(cellSource)) {
                             this.arrayList.add(newVb);

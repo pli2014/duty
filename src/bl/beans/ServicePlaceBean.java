@@ -18,6 +18,26 @@ public class ServicePlaceBean extends Bean {
 
     private int sequence;
 
+    private int area = 0; //0 院内区域  1 院外区域
+
+    private String parentid = null;
+
+    public String getParentid() {
+        return parentid;
+    }
+
+    public void setParentid(String parentid) {
+        this.parentid = parentid;
+    }
+
+    public int getArea() {
+        return area;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
     public String getServiceicon() {
         return serviceicon;
     }

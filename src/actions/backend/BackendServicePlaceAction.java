@@ -18,6 +18,7 @@ import vo.table.TableQueryVo;
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by peter on 14-3-14.
@@ -28,6 +29,16 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
     private int type = 0;
     private String[] serviceicons = null;
+
+    private List<ServicePlaceBean> innerHospital = null;
+
+    public List<ServicePlaceBean> getInnerHospital() {
+        return innerHospital;
+    }
+
+    public void setInnerHospital(List<ServicePlaceBean> innerHospital) {
+        this.innerHospital = innerHospital;
+    }
 
     public String[] getServiceicons() {
         return serviceicons;
@@ -75,6 +86,12 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
             String id = this.getId();
             this.servicePlace = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
         }
+        Map<String,String> filterMap = new HashMap<String,String>();
+        filterMap.put("area_=","0");
+        filterMap.put("type_=","1");
+        filterMap.put("isDeleted","false");
+        this.innerHospital = sp.queryDataByCondition(filterMap,null);
+
         return ActionSupport.SUCCESS;
     }
 

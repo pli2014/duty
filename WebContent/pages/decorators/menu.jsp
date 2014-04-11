@@ -35,7 +35,7 @@
                       </a>
                       <ul class="sub">
                           <li><a  href="backend/serviceplace/index.action?type=0">院内地点</a></li>
-                          <li><a  href="backend/serviceplace/index.action?type=1">院外地点</a></li>
+                          <li><a  href="backend/serviceplace/index.action?type=1">地图地点</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">
