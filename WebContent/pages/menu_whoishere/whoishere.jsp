@@ -55,12 +55,25 @@
         <s:set name="found" value="false"/>
         <script type="text/javascript">
             jQuery(document).ready(function () {
-                <s:iterator value="servicePlaceVolunteer">
+                <s:iterator value="servicePlaceVolunteer" id="service">
                 <s:if test="key.type==1">
                 <s:set name="found" value="true"/>
                 var buffer = [];
                 buffer.push('<div onclick="location=\'userFront/whoisherelist.action?servicePlaceId=<s:property value="key.id"/>\'">');
-                buffer.push('<s:property value="key.name"/><span class="badge bg-success"><s:property value="value.size"/></span>');
+                buffer.push('<s:property value="key.name"/><span class="badge bg-success">'+
+                        <s:if test="key.area==1">
+                        <s:property value="value.size"/>
+                        </s:if>
+                        <s:else>
+                            <s:set name="counters" value="0"/>
+                            <s:iterator value="servicePlaceVolunteer">
+                            <s:if test="key.type==0 && key.parentid==#service.key.id">
+                                <s:set name="counters" value="%{#counters+value.size}"/>
+                            </s:if>
+                            </s:iterator>
+                            <s:property value="#counters"/>
+                        </s:else>
+                        +'</span>');
                 buffer.push('</div>');
                 mapMutiplePosition(buffer.join(""), "<s:property value="key.longitude"/>", "<s:property value="key.latitude"/>");
                 </s:if>

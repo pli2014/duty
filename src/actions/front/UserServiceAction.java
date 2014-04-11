@@ -230,6 +230,16 @@ public class UserServiceAction extends BaseFrontAction {
           }
           //only display service places by type.
           if(sbFetch!=null){
+          if (sbFetch.getArea() == 0 && sbFetch.getParentid() != null && !sbFetch.getParentid().equals("")) {
+              ServicePlaceBean parentS = null;
+              for(int i=0;i<sb.size();i++){
+                  if(sb.get(i).getId().equals(sbFetch.getParentid())){
+                      parentS = sb.get(i);
+                      break;
+                  }
+              }
+              servicePlaceVolunteer.put(parentS, null);
+          }
           VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
               if(!servicePlaceVolunteer.containsKey(sbFetch)){
                   if(vtb!=null){
