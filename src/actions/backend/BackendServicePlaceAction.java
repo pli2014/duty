@@ -2,6 +2,7 @@ package actions.backend;
 
 import bl.beans.ServicePlaceBean;
 import bl.constants.BusTieConstant;
+import bl.exceptions.MiServerException;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ServicePlaceBusiness;
 
@@ -97,14 +98,34 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
 
     public String servicePlaceSubmit() throws Exception{
         String id = this.servicePlace.getId();
-        if (id != null && !id.isEmpty()) {
-            ServicePlaceBean originalBean = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
-            ServicePlaceBean newBean = (ServicePlaceBean) originalBean.clone();
-            BeanUtils.copyProperties(newBean, this.servicePlace);
-            sp.updateLeaf(originalBean, newBean);
-        } else {
-            this.servicePlace.set_id(ObjectId.get());
-            this.sp.createLeaf(this.servicePlace);
+        try {
+            if (id != null && !id.isEmpty()) {
+                ServicePlaceBean originalBean = (ServicePlaceBean) this.sp.getLeaf(id).getResponseData();
+                ServicePlaceBean newBean = (ServicePlaceBean) originalBean.clone();
+                BeanUtils.copyProperties(newBean, this.servicePlace);
+                sp.updateLeaf(originalBean, newBean);
+            } else {
+                this.servicePlace.set_id(ObjectId.get());
+                this.sp.createLeaf(this.servicePlace);
+            }
+        } catch (MiServerException miEx) {
+            //read file list
+            File iconList = new File(ServerContext.getValue("realserviceplacedirectory"));
+            if (iconList.isDirectory() && iconList.exists()) {
+                String[] list = iconList.list();
+                //convert to virtual path within tomcat service.
+                serviceicons = new String[list.length];
+                String vitual = ServerContext.getValue("vitualserviceiplacedirectory");
+                for (int i = 0; i < list.length; i++) {
+                    serviceicons[i] = vitual + list[i];
+                }
+            }
+            Map<String, String> filterMap = new HashMap<String, String>();
+            filterMap.put("area_=", "0");
+            filterMap.put("type_=", "1");
+            filterMap.put("isDeleted", "false");
+            this.innerHospital = sp.queryDataByCondition(filterMap, null);
+            throw miEx;
         }
         return ActionSupport.SUCCESS;
     }
