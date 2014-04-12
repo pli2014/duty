@@ -10,10 +10,13 @@ import java.util.Date;
  */
 @Entity(value = "activeuser")
 public class ActiveUserBean extends Bean {
+  public static final int STATUS_WECHAT = 1;
+  public static final int STATUS_CLIENT = 0;
+
   @Indexed
   private String userId;
   private String servicePlaceId;
-  private String status; // -1:离线, 0:普通签入, 1:微信签入
+  private int status = 0;   //-1:离线, 0:普通签入, 1:微信签入
   private Date checkInTime;
   private Date checkOutTime;
 
@@ -35,11 +38,11 @@ public class ActiveUserBean extends Bean {
     this.servicePlaceId = servicePlaceId;
   }
 
-  public String getStatus() {
+  public int getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(int status) {
     this.status = status;
   }
 

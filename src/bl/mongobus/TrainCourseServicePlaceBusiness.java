@@ -26,7 +26,7 @@ public class TrainCourseServicePlaceBusiness extends MongoCommonBusiness<BeanCon
       List<ServicePlaceBean> resultList = new ArrayList<ServicePlaceBean>();
       Map filter = new HashMap();
       filter.put("isDeleted_!=", true);
-      filter.put("traincourseId", new ObjectId(trainCourseId));
+      filter.put("trainCourseId", new ObjectId(trainCourseId));
       List<TrainCourseServicePlaceBean> list = super.queryDataByCondition(filter, null);
       for(TrainCourseServicePlaceBean bean : list) {
         ServicePlaceBean spBean = (ServicePlaceBean)spb.getLeaf(bean.getServicePlaceId()).getResponseData();

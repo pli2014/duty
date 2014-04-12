@@ -186,12 +186,18 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   }
 
   public BusinessResult checkIn(String userId, String servicePlaceId) {
+    return this.checkIn(userId, servicePlaceId, false);
+  }
+  public BusinessResult checkIn(String userId, String servicePlaceId, boolean isWechat) {
 
     ActiveUserBean bean = new ActiveUserBean();
     bean.set_id(ObjectId.get());
     bean.setUserId(userId);
     bean.setServicePlaceId(servicePlaceId);
     bean.setCheckInTime(new Date());
+    if(isWechat){
+      bean.setStatus(ActiveUserBean.STATUS_WECHAT);
+    }
     this.createLeaf(bean);
     return new BusinessResult();
   }
