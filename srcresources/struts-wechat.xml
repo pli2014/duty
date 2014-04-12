@@ -60,12 +60,7 @@
         <action name="peopleHere" class="actions.wechat.WechatUserAction" method="searchActiveUser">
             <result name="success">/pages/wechat/searchActiveUser.jsp</result>
         </action>
-        <action name="myHonour" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myTraining" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
-        <action name="myData" class="actions.wechat.WechatServiceAction" method="checkOutSubmit">
-        </action>
+
         <action name="volunteerRecruit" class="actions.wechat.WechatRecruitAction" method="volunteerRecruitView">
             <result name="success">/pages/wechat/volunteerrecruit.jsp</result>
         </action>

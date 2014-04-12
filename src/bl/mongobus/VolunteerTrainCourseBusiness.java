@@ -42,7 +42,7 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
     Map filter = new HashMap();
     filter.put("isDeleted_!=", true);
     filter.put("volunteerId", new ObjectId(volunteerId));
-    filter.put("traincourseId", new ObjectId(traincourseId));
+    filter.put("trainCourseId", new ObjectId(traincourseId));
     List list = super.queryDataByCondition(filter, null);
     if (list == null || list.size() == 0) {
       return null;

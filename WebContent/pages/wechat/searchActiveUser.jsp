@@ -8,6 +8,10 @@
 --%>
 <head>
     <%@ include file="/pages/miniwechatHeader.jsp" %>
+
+    <link href="jslib/flatlab/css/style-front.css" rel="stylesheet">
+    <link href="jslib/flatlab/css/style.css" rel="stylesheet">
+
     <script src="jslib/flatlab/js/jquery.scrollTo.min.js"></script>
     <script src="jslib/flatlab/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.cookie.js"></script>
@@ -21,58 +25,116 @@
             margin: 0 0;
         }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#" + '<s:property value="servicePlaceId"/>').css("background", "url('../img/accept_item.png') no-repeat scroll 180px 0px #F77B6F");
+        });
+
+        function selectServicePlace(selectedId, selectedName) {
+            //$(".selection").css("background", "none repeat scroll 0 0 #505B71");
+            //$("#"+selectedId).css("background", "url('../img/accept_item.png') no-repeat scroll 180px 0px #F77B6F");
+
+            $("#servicePlaceId").val(selectedId);
+            //$("#selectionDiv").css("display", "none");
+            $("#queryForm").submit();
+        }
+
+        function showSlection(){
+            $("#selectionDiv").css("display", "");
+        }
+
+        function cancelSelection(){
+            $("#selectionDiv").css("display", "none");
+        }
+
+        function checkForm() {
+            if($("#servicePlaceId").val()){
+                return true;
+            }
+            showSlection();
+            alert("请选择您要参与服务的地点！");
+            return false;
+        }
+    </script>
 </head>
 <body>
 <section class="panel" style="margin-bottom: 0px;">
     <header class="panel-heading">
-        查询条件
+        地点
         <span class="tools pull-right">
-            <a class="fa fa-chevron-down" href="javascript:;">收起/展开</a>
+            <a href="javascript:showSlection()" class="fa fa-pencil-square-o"><s:property value="servicePlaceBean.name" default="请选择地点" />[点击切换]</a>
         </span>
     </header>
-    <div class="panel-body" style="display: block;">
-        <form id="queryForm" action="wechat/peopleHere.action" method="post" class="form-horizontal">
-            <input type="hidden" name="openID" value="<s:property value='openID'/>" >
-            <div class="form-group">
-                <label class="col-xs-3  control-label" style="padding-right: 0px;">选择地点</label>
-                <div class="col-xs-8">
-                    <s:iterator value="places" var="place" status="L">
-                        <div class="col-xs-6" style="padding-left: 0px">
-                            <label class="radio-inline">
-                                <input type="radio" name="servicePlaceId" value="<s:property value='%{#place.id}'/>"
-                                        <s:if test="servicePlaceId == #place.id">
-                                           checked
-                                        </s:if>
-                                        > <s:property value='%{#place.name}'/>
-                            </label>
-                        </div>
-                    </s:iterator>
-                </div>
-                <div class="col-xs-1">
-                    <a href="javascript:$('#queryForm').submit();" class="control-label fa fa-search"></a>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
-<section class="panel">
-
 
     <s:iterator value="activeVolunteers" var="bean">
         <div class="panel-body boder" style="padding-top: 0px; padding-bottom: 0px;">
 
-            <a class="task-thumb" href="#">
+            <a class="task-thumb col-xs-4" href="#">
                 <img width="60px" height="50px" src="<s:property value='%{#bean.iconpath}'/>" class=""
                      onerror="this.src='img/volunteer.png'" style="margin-right: 10px; width: 60px; height: 50px; position: static;" disable="">
             </a>
             <div class="task-thumb-details" style="margin: 0 0 0 0;">
-                <p style="padding: 0px"><s:property value="servicePlaceBean.name" /> </p>
                 <p style="padding: 0px"><s:property value='%{#bean.name}'/></p>
+                <%--<p style="padding: 0px"><s:property value="servicePlaceBean.name" /></p>--%>
                 <p style="padding: 0px"><s:property value='%{#bean.cellPhone}'/></p>
+                <p style="padding: 0px;">签入时间:<s:date name="%{#bean.checkInTime}" format="yyyy-MM-dd HH:mm:ss"/></p>
             </div>
+            <s:if test="#bean.status == 1">
+                <img style="float: right;" src="img/wechat.jpg">
+            </s:if>
+            <s:if test="#bean.status == 0">
+                <img style="float: right;" src="img/screen.jpg">
+            </s:if>
+
         </div>
     </s:iterator>
 </section>
+
+<div id="selectionDiv" style="position:absolute; top:0px; left:0px; width:100%; height:100%; background-color: #ffffff; display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <s:iterator value="places" var="servicePlace">
+                    <section class="panel" style="margin-bottom: 0px;">
+                        <header class="panel-heading">
+                            <s:property value="#servicePlace.name"></s:property>
+                        </header>
+                        <div class="panel-body" style="display: block; ">
+                            <form action="#" class="form-horizontal  tasi-form">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <ul class="social-link-footer list-unstyled">
+                                        <s:iterator value="%{#servicePlace.selections}" var="selection">
+                                            <li>
+                                                <a id="<s:property value="#selection.id"></s:property>" class="selection" style="width: 200px;"
+                                                   href="javascript:selectServicePlace('<s:property value="#selection.id"/>', '<s:property value="#selection.name"/>')">
+                                                    <s:property value="#selection.name" />&nbsp;[<s:property value="#selection.count" />]
+                                                </a>
+                                            </li>
+                                        </s:iterator>
+                                    </ul>
+                                </div>
+                            </form>
+                        </div>
+                    </section>
+                </s:iterator>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 20px; text-align: center;">
+            <div class="col-xs-12" >
+                <button type="button" class="btn btn-info btn-block" onclick="cancelSelection()">返回上一页</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div style="display: none">
+    <form id="queryForm" action="wechat/peopleHere.action" method="post">
+        <input type="hidden" name="openID" value="<s:property value='openID'/>" >
+        <input type="hidden" id="servicePlaceId" name="servicePlaceId" value="<s:property value='servicePlaceId'/>">
+    </form>
+</div>
 </body>
 
 <script src="jslib/flatlab/js/common-scripts.js"></script>

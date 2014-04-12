@@ -10,15 +10,16 @@ import bl.mongobus.ActiveUserBusiness;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
 import bl.mongobus.VolunteerBusiness;
+import org.apache.commons.lang.StringUtils;
 import vo.NameValueVo;
+import vo.serviceplace.ServicePlaceVo;
 import wechat.access.AccessToken;
 import wechat.access.AccessTokenManager;
 import wechat.user.UerManager;
 import wechat.user.UserInfo;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by wangronghua on 14-3-22.
@@ -29,7 +30,7 @@ public class WechatServiceAction extends WechatBaseAuthAction {
   private String userName;
   private Date currentTime;
   private String servicePlaceId;
-  private List<ServicePlaceBean> places;
+  private List<ServicePlaceVo> places;
 
   UserServiceBusiness usb = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
@@ -40,14 +41,6 @@ public class WechatServiceAction extends WechatBaseAuthAction {
       return "redirectBinding";
     }
     currentTime = new Date();
-//    String code = getRequest().getParameter("code");
-//    if(null != code) {
-//      AccessToken token = AccessTokenManager.getAccessToken(code);
-//      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-//      if (null != info) {
-//        openID = info.getOpenid();
-//        if(null != openID) {
-//          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
     if(null != volunteer) {
       userName = volunteer.getName();
       userID = volunteer.getId();
@@ -59,20 +52,18 @@ public class WechatServiceAction extends WechatBaseAuthAction {
           return "checkout";
         }
       }
-      places = usb.getAvailableServicePlaces(userID);
+      List<ServicePlaceBean> placeBeans = usb.getAvailableServicePlaces(userID);
+      List<ServicePlaceBean> allPlaceBeans = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
+      places = sp.getFormattedPlaces(allPlaceBeans, placeBeans);
       return SUCCESS;
     } else {
       return LOGIN;
     }
-//        }
-//      }
-//    }
-//    return ERROR;
   }
 
   public String checkInSubmit(){
     if(null != userID && null != servicePlaceId) {
-      usb.checkIn(userID, servicePlaceId);
+      usb.checkIn(userID, servicePlaceId, true);
       ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(servicePlaceId).getResponseData();
       if (spb != null){
         super.addActionMessage("您当前正在：" + spb.getName() + " 参与服务！");
@@ -86,13 +77,6 @@ public class WechatServiceAction extends WechatBaseAuthAction {
       return "redirectBinding";
     }
     String code = getRequest().getParameter("code");
-//    if(null != code) {
-//      AccessToken token = AccessTokenManager.getAccessToken(code);
-//      UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-//      if (null != info) {
-//        openID = info.getOpenid();
-//        if(null != openID) {
-//          VolunteerBean volunteer = vb.getVolunteerBeanByOpenID(openID);
     if(null != volunteer) {
       userName = volunteer.getName();
       userID = volunteer.getId();
@@ -105,9 +89,6 @@ public class WechatServiceAction extends WechatBaseAuthAction {
         }
       }
     }
-//        }
-//      }
-//    }
     super.addActionError("您当前未在任何地点参与服务！");
     return ERROR;
   }
@@ -126,11 +107,11 @@ public class WechatServiceAction extends WechatBaseAuthAction {
   }
 
 
-  public List<ServicePlaceBean> getPlaces() {
+  public List<ServicePlaceVo> getPlaces() {
     return places;
   }
 
-  public void setPlaces(List<ServicePlaceBean> places) {
+  public void setPlaces(List<ServicePlaceVo> places) {
     this.places = places;
   }
 
