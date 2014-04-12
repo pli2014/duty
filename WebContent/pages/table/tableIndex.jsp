@@ -183,7 +183,7 @@
                           thObj.setAttribute("arias","options");
                           thObj.innerHTML ="操作";
                           $(this).append(thObj);
-                          $(thObj).css({width:'80px'});
+                          $(thObj).css({width:''+totalOptions*40+'px'});
 	                 } );
                 }
                  $('#${tableId} tbody tr').each( function (i) {

@@ -42,15 +42,15 @@
         <label class="col-lg-2 control-label">志愿者名</label>
         <div class="col-lg-10">
             <input type="hidden" name="volunteerTrainCourse.id" value="${volunteerTrainCourse.id}"/>
-            <s:if test="volunteerTrainCourse.id.length() > 0">
-         </s:if>
-         <s:else>
+	        <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
+	        </s:if>
+	        <s:else>
 	            <input type="text" id="volunteerName" placeholder="输入 志愿者名, 点查询"  class="form-control pull-left" style=" width: 200px;  "/>
 	            <input type="button" class="btn btn-success" onclick="queryVolunteer()" value="查询" >       
 	            <div style="clear: both;"></div>
             </s:else>
             <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;">
-              <s:if test="volunteerTrainCourse.id.length() > 0">
+              <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
                 <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
               </s:if>
             </select>

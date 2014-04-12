@@ -44,7 +44,7 @@
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/traincourse/traincourselist.action">培训课程</a></li>
+                          <li><a  href="backend/traincourse/index.action">培训课程</a></li>
                           <li><a  href="backend/volunterTrainCourse/index.action">培训记录</a></li>
                       </ul>
                   </li>

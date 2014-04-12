@@ -1,6 +1,8 @@
 package actions.backend;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -119,7 +121,17 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String add() {
-    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
+    if (volunteerId != null) {
+      VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
+      BusinessResult result = volunteerBusiness.getLeaf(volunteerId);
+      if (result != null && result.getResponseData() != null) {
+        volunteerTrainCourse = new VolunteerTrainCourseBean();
+        volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
+      }
+    }
+    Map filter = new HashMap();
+    filter.put("isDeleted_!=", true);
+    trainCourseList = new TrainCourseBusiness().queryDataByCondition(filter, null);
     return SUCCESS;
   }
 
@@ -141,7 +153,9 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
         volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
       }
     }
-    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
+    Map filter = new HashMap();
+    filter.put("isDeleted_!=", true);
+    trainCourseList = new TrainCourseBusiness().queryDataByCondition(filter, null);
     traincourseId = volunteerTrainCourse.getTraincourseId().toString();
     volunteerId = volunteerTrainCourse.getVolunteerId().toString();
     return SUCCESS;
