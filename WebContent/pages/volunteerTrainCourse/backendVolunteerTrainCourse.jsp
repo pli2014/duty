@@ -74,13 +74,13 @@
     <div class="form-group has-success">
         <label class="col-lg-2 control-label">培训课程</label>
         <div class="col-lg-10">
-            <s:iterator value="trainCourseList" id="trainCourse" status="st">
+            <s:iterator value="trainCourseList" id="item" status="st">
               <div class="radio">
                 <label>
-                    <input type="radio" name="traincourseId" value="${trainCourse.id}" 
-                      <s:if test="#st.index == 0 || trainCourse.id == traincourseId">checked="checked"</s:if>
+                    <input type="radio" name="traincourseId" value="${item.id}" 
+                      <s:if test="#st.index == 0 || #item.id == traincourseId">checked="checked"</s:if>
                     >
-                    ${trainCourse.name}
+                    ${item.name}
                 </label>
              </div>
             </s:iterator>

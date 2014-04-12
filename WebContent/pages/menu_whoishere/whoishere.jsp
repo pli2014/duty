@@ -31,17 +31,22 @@
         <div class="bg-title2">院内</div>
         <div class="bg-time" id="timewatcher">加载当前时间</div>
 
-        <s:iterator value="servicePlaceVolunteer">
-            <s:if test="key.type==0">
-                <div class="hosp-green" onclick="location='userFront/whoisherelist.action?servicePlaceId=<s:property value="key.id"/>'">
-                    <div class="plase-img"><img src="<s:property value="key.serviceicon"/>"
-                                                style="width:100px;height:80px">
+        <s:iterator value="servicePlaces" var="parent">
+            <div style="clear:both"></div>
+            <div class="bg-title2"><s:property value="#parent.name"/></div>
+            <div style="clear:both"></div>
+            <s:iterator value="#parent.children" var="child">
+                <div class="hosp-green" onclick="location='userFront/whoisherelist.action?servicePlaceId=<s:property value="#child.id"/>'">
+                    <div class="plase-img">
+                        <img src="<s:property value="#child.serviceicon"/>" style="width:100px;height:80px"/>
                     </div>
-                    <div class="plase-font" style="width:150px"><s:property value="key.name"/><span
-                            style="float:right;color:red;font-weight:900;font-size:20px"><s:property
-                            value="value.size"/></span></div>
+                    <div class="plase-font" style="width:150px"><s:property value="#child.name"/>
+                       <span style="float:right;color:red;font-weight:900;font-size:20px">
+                            <s:property value="#child.activeUserBeanList.size()"/>
+                       </span>
+                    </div>
                 </div>
-            </s:if>
+             </s:iterator>
         </s:iterator>
     </div>
 
@@ -55,28 +60,15 @@
         <s:set name="found" value="false"/>
         <script type="text/javascript">
             jQuery(document).ready(function () {
-                <s:iterator value="servicePlaceVolunteer" id="service">
-                <s:if test="key.type==1">
+                <s:iterator value="outServicePlaces" id="service">
                 <s:set name="found" value="true"/>
                 var buffer = [];
-                buffer.push('<div onclick="location=\'userFront/whoisherelist.action?servicePlaceId=<s:property value="key.id"/>\'">');
-                buffer.push('<s:property value="key.name"/><span class="badge bg-success">'+
-                        <s:if test="key.area==1">
-                        <s:property value="value.size"/>
-                        </s:if>
-                        <s:else>
-                            <s:set name="counters" value="0"/>
-                            <s:iterator value="servicePlaceVolunteer">
-                            <s:if test="key.type==0 && key.parentid==#service.key.id">
-                                <s:set name="counters" value="%{#counters+value.size}"/>
-                            </s:if>
-                            </s:iterator>
-                            <s:property value="#counters"/>
-                        </s:else>
+                buffer.push('<div onclick="location=\'userFront/whoisherelist.action?servicePlaceId=<s:property value="#service.id"/>\'">');
+                buffer.push('<s:property value="#service.name"/><span class="badge bg-success">'+
+                        <s:property value="#service.activeUserBeanList.size()"/>
                         +'</span>');
                 buffer.push('</div>');
-                mapMutiplePosition(buffer.join(""), "<s:property value="key.longitude"/>", "<s:property value="key.latitude"/>");
-                </s:if>
+                mapMutiplePosition(buffer.join(""), "<s:property value="#service.longitude"/>", "<s:property value="#service.latitude"/>");
                 </s:iterator>
             });
 
@@ -89,7 +81,6 @@
                 initializePosition("", "", "");
             </script>
         </s:if>
-
     </div>
 </div>
 </div>

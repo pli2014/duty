@@ -3,7 +3,13 @@ package actions.front;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 import vo.NameValueVo;
 import vo.report.DailyTimeReportVo;
@@ -28,6 +34,7 @@ public class UserServiceAction extends BaseFrontAction {
   List<UserServiceBean> userServices = null;
 
   List<ServicePlaceBean> servicePlaces = null;
+  List<ServicePlaceBean> outServicePlaces = null;
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
   ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
@@ -41,81 +48,80 @@ public class UserServiceAction extends BaseFrontAction {
   private VolunteerBean volunteer;
   private int year;
   private String yearMonth;
-  private int type = 0;  // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
+  private int type = 0; // 0 院内 含有颜色显示信息 1 院外 含有坐标信息
 
-  //whoisherelist.jsp data
+  // whoisherelist.jsp data
   private List<VolunteerBean> volunteerBeans = null;
-  private ServicePlaceBean  servicePlaceBean = null;
+  private ServicePlaceBean servicePlaceBean = null;
 
   ActiveUserBean aub = null;
-  HashMap<ServicePlaceBean,HashSet<VolunteerBean>> servicePlaceVolunteer = null;
+  HashMap<ServicePlaceBean, HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
-  public String getList(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
-    if(null != user){
-      userServices = (List<UserServiceBean>)userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
+  public String getList() {
+    VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    if (null != user) {
+      userServices = (List<UserServiceBean>) userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
-    /*if (aub != null) {
-         ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
-         if (spb != null)
-            super.addActionMessage("你现在在这里服务:" + spb.getName());
-      }*/
-        servicePlaces = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
+      /*
+       * if (aub != null) { ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData(); if (spb != null)
+       * super.addActionMessage("你现在在这里服务:" + spb.getName()); }
+       */
+      servicePlaces = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
     }
     return SUCCESS;
   }
 
-  public String checkIn(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+  public String checkIn() {
+    VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     servicePlaces = userServiceBus.getAvailableServicePlaces(user.getId());
     return SUCCESS;
   }
 
-  public String checkInSubmit(){
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
-    if(null == servicePlaceId) {
+  public String checkInSubmit() {
+    VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    if (null == servicePlaceId) {
       checkIn();
       super.addActionError("请选择服务地点");
       return ERROR;
     }
     aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
     if (aub != null) {
-        ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
-        if (spb != null){
-            //initialize data for checkin page.
-            checkIn();
-            super.addActionError("你已经在" + spb.getName()+"服务,同一时刻只允许签入一个服务地点");
-        }
-        return ERROR;
+      ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData();
+      if (spb != null) {
+        // initialize data for checkin page.
+        checkIn();
+        super.addActionError("你已经在" + spb.getName() + "服务,同一时刻只允许签入一个服务地点");
+      }
+      return ERROR;
     }
     userServiceBus.checkIn(user.getId(), servicePlaceId);
     return SUCCESS;
   }
 
   public String checkOut() throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     userServiceBus.checkOut(user.getId());
     return SUCCESS;
   }
 
   public String getMyTimeReport() {
-    VolunteerBean user = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
-    List<UserServiceBean> beanList = (List<UserServiceBean>)userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
+    VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    List<UserServiceBean> beanList = (List<UserServiceBean>) userServiceBus.getLeavesByUserId(user.getId()).getResponseData();
     Calendar cal = Calendar.getInstance();
     yearValues = new YearlyTimeReportVo();
     yearValues.setThisYear(String.valueOf(cal.get(Calendar.YEAR)));
-    yearValues.setLastYear(String.valueOf(cal.get(Calendar.YEAR) - 1 ));
+    yearValues.setLastYear(String.valueOf(cal.get(Calendar.YEAR) - 1));
     Map<String, Map> thisYearResultMap = userServiceBus.statisticTime(beanList, "yyyy", yearValues.getThisYear());
     Map<String, Map> lastYearResultMap = userServiceBus.statisticTime(beanList, "yyyy", yearValues.getLastYear());
     Map result = thisYearResultMap.get(user.getId());
-    if(null != result){
+    if (null != result) {
       Long value = (Long) result.get(yearValues.getThisYear());
-      yearValues.setThisYearValue ((null != value ? value : 0l) / 3600000);
+      yearValues.setThisYearValue((null != value ? value : 0l) / 3600000);
     } else {
       yearValues.setThisYearValue(0l);
     }
     result = lastYearResultMap.get(user.getId());
-    if(null != result){
+    if (null != result) {
       Long value = (Long) result.get(yearValues.getLastYear());
       yearValues.setLastYearValue((null != value ? value : 0l) / 3600000);
     } else {
@@ -127,19 +133,19 @@ public class UserServiceAction extends BaseFrontAction {
   public String getMyMonthlyTimeReport() throws ParseException {
     String yearStr = getRequest().getParameter("year");
     Calendar cal = Calendar.getInstance();
-    if(null == yearStr) {
+    if (null == yearStr) {
       yearStr = String.valueOf(cal.get(Calendar.YEAR));
     }
     year = Integer.valueOf(yearStr);
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
-    Date yearStart = sdf.parse(yearStr+"-01");
+    Date yearStart = sdf.parse(yearStr + "-01");
     cal.setTime(yearStart);
     cal.add(Calendar.YEAR, 1);
     Date yearEnd = cal.getTime();
 
-    volunteer = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+    volunteer = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
     List<String> userIdList = new ArrayList<String>();
     userIdList.add(volunteer.getId());
@@ -152,10 +158,10 @@ public class UserServiceAction extends BaseFrontAction {
     while (cal.getTime().before(yearEnd)) {
       String key = sdf.format(cal.getTime());
       Long value = 0l;
-      if(null != result){
+      if (null != result) {
         value = (Long) result.get(key);
       }
-      monthValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
+      monthValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l) / 3600000));
       cal.add(Calendar.MONTH, 1);
     }
     return SUCCESS;
@@ -165,14 +171,14 @@ public class UserServiceAction extends BaseFrontAction {
     int step = 0;
     yearMonth = getRequest().getParameter("yearMonth");
     String stepStr = getRequest().getParameter("step");
-    if(null != stepStr) {
+    if (null != stepStr) {
       step = Integer.valueOf(stepStr);
     }
     SimpleDateFormat ymsdf = new SimpleDateFormat("yyyy-MM");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     dayValues = new DailyTimeReportVo();
     if (null != yearMonth) {
-      Date baseMonth = sdf.parse(yearMonth+"-01");
+      Date baseMonth = sdf.parse(yearMonth + "-01");
       Calendar cal = Calendar.getInstance();
       cal.setTime(baseMonth);
       cal.add(Calendar.MONTH, step);
@@ -185,7 +191,7 @@ public class UserServiceAction extends BaseFrontAction {
       cal.add(Calendar.MONTH, 1);
       Date monthEnd = cal.getTime();
 
-      volunteer = (VolunteerBean)getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
+      volunteer = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
 
       List<String> userIdList = new ArrayList<String>();
       userIdList.add(volunteer.getId());
@@ -197,83 +203,83 @@ public class UserServiceAction extends BaseFrontAction {
       while (cal.getTime().before(monthEnd)) {
         String key = sdf.format(cal.getTime());
         Long value = 0l;
-        if(null != result){
+        if (null != result) {
           value = (Long) result.get(key);
-          if(null != value) {
-            dayValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l)/3600000));
+          if (null != value) {
+            dayValues.addNameValueVo(new NameValueVo(key, (value != null ? value : 0l) / 3600000));
           }
         }
         cal.add(Calendar.DAY_OF_MONTH, 1);
       }
     }
 
-    if(null == dayValues.getValueList() || (dayValues.getValueList().size() == 0)) {
+    if (null == dayValues.getValueList() || (dayValues.getValueList().size() == 0)) {
       super.addActionMessage("本月没有查询到服务记录！");
     }
     return SUCCESS;
   }
 
-  public String whoIsHere(){
-      List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.getAllLeaves().getResponseData();
-      servicePlaceVolunteer = new HashMap<ServicePlaceBean,HashSet<VolunteerBean>>();
-      // Because serviceplace isn't huge, loading all data one time.
-      List<ServicePlaceBean> sb = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
-      for (ActiveUserBean ub : beanList) {
-         String spId = ub.getServicePlaceId();
-         String volunteerId = ub.getUserId();
-          ServicePlaceBean sbFetch = null;
-          for(int i=0;i<sb.size();i++){
-              if(sb.get(i).getId().equals(spId)){
-                  sbFetch = sb.get(i);
-                  break;
-              }
+  /**
+   * who Is Here
+   * 
+   * @return
+   */
+  public String whoIsHere() {
+    Map filter = new HashMap();
+    filter.put("type", ServicePlaceBean.TYPE_OUT);
+    filter.put("area", ServicePlaceBean.AREA_IN);
+    servicePlaces = sp.queryDataByCondition(filter, null);
+
+    if (servicePlaces != null) {
+      filter = new HashMap();
+      for (ServicePlaceBean parent : servicePlaces) {
+        filter.put("parentid", parent.getId());
+        parent.setChildren(sp.queryDataByCondition(filter, null));
+        if (parent.getChildren() != null) {
+          filter = new HashMap();
+          for (ServicePlaceBean child : parent.getChildren()) {
+            filter.put("servicePlaceId", child.getId());
+            child.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
           }
-          //only display service places by type.
-          if(sbFetch!=null){
-          if (sbFetch.getArea() == 0 && sbFetch.getParentid() != null && !sbFetch.getParentid().equals("")) {
-              ServicePlaceBean parentS = null;
-              for(int i=0;i<sb.size();i++){
-                  if(sb.get(i).getId().equals(sbFetch.getParentid())){
-                      parentS = sb.get(i);
-                      break;
-                  }
-              }
-              servicePlaceVolunteer.put(parentS, null);
-          }
-          VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
-              if(!servicePlaceVolunteer.containsKey(sbFetch)){
-                  if(vtb!=null){
-                      HashSet<VolunteerBean> hv = new HashSet<VolunteerBean>();
-                      hv.add(vtb);
-                      servicePlaceVolunteer.put(sbFetch,hv);
-                  }
-              }else{
-                  HashSet<VolunteerBean> hv = servicePlaceVolunteer.get(sbFetch);
-                  if(vtb!=null && !hv.contains(vtb)){
-                      hv.add(vtb);
-                  }
-              }
-          }
+        }
       }
-      return SUCCESS;
+    }
+    
+    
+    filter = new HashMap();
+    filter.put("type", ServicePlaceBean.TYPE_OUT);
+    filter.put("area", ServicePlaceBean.AREA_OUT);
+    outServicePlaces = sp.queryDataByCondition(filter, null);
+    
+    if (outServicePlaces != null) {
+      filter = new HashMap();
+      for (ServicePlaceBean outServicePlace : outServicePlaces) {
+        filter.put("servicePlaceId", outServicePlace.getId());
+        outServicePlace.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+      }
+    }
+    
+    return SUCCESS;
   }
 
+  /**
+   * 
+   * @return
+   */
   public String whoIsHereList() {
     if (this.servicePlaceId != null) {
       HashMap<String, String> map = new HashMap<String, String>();
       map.put("servicePlaceId", this.servicePlaceId);
-      List<ActiveUserBean> beanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
-      this.volunteerBeans = new ArrayList<VolunteerBean>();
-      for (ActiveUserBean ub : beanList) {
-          String spId = ub.getServicePlaceId();
-          String volunteerId = ub.getUserId();
-          VolunteerBean vtb = (VolunteerBean) vb.getLeaf(volunteerId).getResponseData();
-          this.volunteerBeans.add(vtb);
+      List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
+      for (ActiveUserBean ub : activeUserBeanList) {
+        ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());
       }
-      this.servicePlaceBean = (ServicePlaceBean)sp.getLeaf(this.servicePlaceId).getResponseData();
+      this.servicePlaceBean = (ServicePlaceBean) sp.getLeaf(this.servicePlaceId).getResponseData();
+      this.servicePlaceBean.setActiveUserBeanList(activeUserBeanList);
     }
     return SUCCESS;
   }
+
   public HashMap<ServicePlaceBean, HashSet<VolunteerBean>> getServicePlaceVolunteer() {
     return servicePlaceVolunteer;
   }
@@ -313,7 +319,6 @@ public class UserServiceAction extends BaseFrontAction {
   public void setServicePlaceId(String servicePlaceId) {
     this.servicePlaceId = servicePlaceId;
   }
-
 
   public List<ServicePlaceBean> getServicePlaces() {
     return servicePlaces;
@@ -379,7 +384,6 @@ public class UserServiceAction extends BaseFrontAction {
     this.yearMonth = yearMonth;
   }
 
-
   public ActiveUserBean getAub() {
     return aub;
   }
@@ -402,6 +406,14 @@ public class UserServiceAction extends BaseFrontAction {
 
   public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
     this.servicePlaceBean = servicePlaceBean;
+  }
+
+  public List<ServicePlaceBean> getOutServicePlaces() {
+    return outServicePlaces;
+  }
+
+  public void setOutServicePlaces(List<ServicePlaceBean> outServicePlaces) {
+    this.outServicePlaces = outServicePlaces;
   }
 
 }

@@ -1,5 +1,7 @@
 package bl.beans;
 
+import java.util.List;
+
 import org.mongodb.morphia.annotations.Entity;
 
 /**
@@ -7,102 +9,125 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity(value = "serviceplace")
 public class ServicePlaceBean extends Bean {
-    private String code="";
-    private int type = 0; // 0 院内 含有颜色显示信息  1 院外 含有坐标信息
-    private String color="white"; //RGB颜色值 default 白色
+  public static final int TYPE_OUT = 1;
+  public static final int TYPE_IN = 0;
+  public static final int AREA_OUT = 1;
+  public static final int AREA_IN = 0;
 
-    private float longitude; //经度坐标
-    private float latitude;  //纬度坐标
+  private String code = "";
+  private int type = 0; // 0 院内 含有颜色显示信息 1 院外 含有坐标信息
+  private String color = "white"; // RGB颜色值 default 白色
 
-    private String serviceicon="";
+  private float longitude; // 经度坐标
+  private float latitude; // 纬度坐标
 
-    private int sequence;
+  private String serviceicon = "";
 
-    private int area = 0; //0 院内区域  1 院外区域
+  private int sequence;
 
-    private String parentid = null;
+  private int area = 0; // 0 院内区域 1 院外区域
 
-    public String getParentid() {
-        return parentid;
-    }
+  private String parentid = null;
 
-    public void setParentid(String parentid) {
-        this.parentid = parentid;
-    }
+  private transient List<ServicePlaceBean> children;
+  private transient List<ActiveUserBean> activeUserBeanList;
 
-    public int getArea() {
-        return area;
-    }
+  public String getParentid() {
+    return parentid;
+  }
 
-    public void setArea(int area) {
-        this.area = area;
-    }
+  public void setParentid(String parentid) {
+    this.parentid = parentid;
+  }
 
-    public String getServiceicon() {
-        return serviceicon;
-    }
+  public int getArea() {
+    return area;
+  }
 
-    public void setServiceicon(String serviceicon) {
-        this.serviceicon = serviceicon;
-    }
+  public void setArea(int area) {
+    this.area = area;
+  }
 
-    public int getSequence() {
-        return sequence;
-    }
+  public String getServiceicon() {
+    return serviceicon;
+  }
 
-    public void setSequence(int sequence) {
-        this.sequence = sequence;
-    }
+  public void setServiceicon(String serviceicon) {
+    this.serviceicon = serviceicon;
+  }
 
-    public String getCode() {
-        return code;
-    }
+  public int getSequence() {
+    return sequence;
+  }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+  public void setSequence(int sequence) {
+    this.sequence = sequence;
+  }
 
-    public String getColor() {
-        return color;
-    }
+  public String getCode() {
+    return code;
+  }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-    public float getLongitude() {
-        return longitude;
-    }
+  public String getColor() {
+    return color;
+  }
 
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
+  public void setColor(String color) {
+    this.color = color;
+  }
 
-    public float getLatitude() {
-        return latitude;
-    }
+  public float getLongitude() {
+    return longitude;
+  }
 
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
+  public void setLongitude(float longitude) {
+    this.longitude = longitude;
+  }
 
-    public int getType() {
-        return type;
-    }
+  public float getLatitude() {
+    return latitude;
+  }
 
+  public void setLatitude(float latitude) {
+    this.latitude = latitude;
+  }
 
+  public int getType() {
+    return type;
+  }
 
-    public void setType(int type) {
-        this.type = type;
-    }
+  public void setType(int type) {
+    this.type = type;
+  }
 
-    private String description;
+  private String description;
 
-    public String getDescription() {
-        return description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public List<ServicePlaceBean> getChildren() {
+    return children;
+  }
+
+  public void setChildren(List<ServicePlaceBean> children) {
+    this.children = children;
+  }
+
+  public List<ActiveUserBean> getActiveUserBeanList() {
+    return activeUserBeanList;
+  }
+
+  public void setActiveUserBeanList(List<ActiveUserBean> activeUserBeanList) {
+    this.activeUserBeanList = activeUserBeanList;
+  }
+
 }

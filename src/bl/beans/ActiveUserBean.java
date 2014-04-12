@@ -9,14 +9,15 @@ import java.util.Date;
  * Created by wangronghua on 14-3-15.
  */
 @Entity(value = "activeuser")
-public class ActiveUserBean extends Bean{
+public class ActiveUserBean extends Bean {
   @Indexed
   private String userId;
   private String servicePlaceId;
-  private String status;   //-1:离线, 0:普通签入, 1:微信签入
+  private String status; // -1:离线, 0:普通签入, 1:微信签入
   private Date checkInTime;
   private Date checkOutTime;
 
+  private transient VolunteerBean volunteer;
 
   public String getUserId() {
     return userId;
@@ -58,6 +59,12 @@ public class ActiveUserBean extends Bean{
     this.checkInTime = checkInTime;
   }
 
+  public VolunteerBean getVolunteer() {
+    return volunteer;
+  }
 
+  public void setVolunteer(VolunteerBean volunteer) {
+    this.volunteer = volunteer;
+  }
 
 }

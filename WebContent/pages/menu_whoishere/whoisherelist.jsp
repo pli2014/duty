@@ -11,7 +11,7 @@
     <title>谁在这里</title>
     <script language="javascript" type="text/javascript">
         window.onload = function () {
-            setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
+            setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());", 1000);
         }
     </script>
 
@@ -29,22 +29,47 @@
         <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
         <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
                                       height="50" onerror="this.src='img/volunteer.png';"/></div>
-
-        <div class="bg-center2">
-            <div class="bg-title4">
-                <s:property value="servicePlaceBean.name"/>
+     </div>
+     
+     <div class="bg-center2">
+        <div class="bg-title2"></div>
+        <div class="bg-time" id="timewatcher">加载当前时间</div>
+        <div class="bg-left2" style="width: 200px;">
+            <div class="hosp-green">
+                <div class="plase-img">
+                    <img src="<s:property value="servicePlaceBean.serviceicon"/>" style="width:100px;height:80px"/>
+                </div>
+                <div class="plase-font" style="width:150px"><s:property value="servicePlaceBean.name"/>
+                   <span style="float:right;color:red;font-weight:900;font-size:20px">
+                        <s:property value="servicePlaceBean.activeUserBeanList.size()"/>
+                   </span>
+                </div>
             </div>
-          <s:iterator value="volunteerBeans" var="vol">
+        </div>     
+        <div class="bg-right2" style="width: 500px;">    
+          <s:iterator value="servicePlaceBean.activeUserBeanList" var="vol">
                 <div class="person-train2">
-                    <div class="person-train-left2"><img src="<s:property value="#vol.iconpath"/>" onerror="this.src='img/volunteer.png';"/></div>
-                    <div class="person-train-right2">
-                        <div class="person-name"><s:property value="#vol.name"/></div>
-                        <div class="person-num"><s:property value="#vol.code"/></div>
-                        <div class="person-phone"><s:property value="#vol.cellPhone"/></div>
+                    <div class="person-train-left2"><img src="<s:property value="#vol.volunteer.iconpath"/>" onerror="this.src='img/volunteer.png';" style="width:100ppx; height: 100px;"/></div>
+                    <div class="person-train-right2" style="height: 100px;">
+                       <div style="padding-left:10px; float: left;width: 200px; padding-top: 30px;">
+                          <div style="font-size: large;color: blue;"><s:property value="#vol.volunteer.name"/></div>
+                          <div style="color:black;"><s:property value="#vol.volunteer.code"/></div>
+                          <div style="color:gray;"><s:property value="#vol.volunteer.cellPhone"/></div>
+                       </div>
+                       <div style="float: right;width: 60px; padding-top: 30px;">
+                          <s:if test="#vol.status == '0'">
+                             <img src="${rootPath}/img/screen.jpg"/>
+                          </s:if>
+                          <s:else>
+                             <img src="${rootPath}/img/wechat.jpg"/>
+                          </s:else>
+                       </div>
                     </div>
                 </div>
           </s:iterator>
+          </div>
         </div>
-        <div class="person-hr"></div>
+     </div>
+  <div class="person-hr"></div>
 </body>
 </html>
