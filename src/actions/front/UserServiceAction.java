@@ -244,21 +244,32 @@ public class UserServiceAction extends BaseFrontAction {
         }
       }
     }
-    
-    
+
     filter = new HashMap();
     filter.put("type", ServicePlaceBean.TYPE_OUT);
-    filter.put("area", ServicePlaceBean.AREA_OUT);
     outServicePlaces = sp.queryDataByCondition(filter, null);
-    
+
     if (outServicePlaces != null) {
       filter = new HashMap();
       for (ServicePlaceBean outServicePlace : outServicePlaces) {
-        filter.put("servicePlaceId", outServicePlace.getId());
-        outServicePlace.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+        if (outServicePlace.getArea() == ServicePlaceBean.AREA_IN) {
+          filter.put("parentid", outServicePlace.getId());
+          outServicePlace.setChildren(sp.queryDataByCondition(filter, null));
+          if (outServicePlace.getChildren() != null) {
+            filter = new HashMap();
+            for (ServicePlaceBean child : outServicePlace.getChildren()) {
+              filter.put("servicePlaceId", child.getId());
+              child.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+              outServicePlace.getActiveUserBeanList().addAll(child.getActiveUserBeanList());
+            }
+          }
+        } else {
+          filter.put("servicePlaceId", outServicePlace.getId());
+          outServicePlace.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+        }
       }
     }
-    
+
     return SUCCESS;
   }
 
@@ -268,14 +279,35 @@ public class UserServiceAction extends BaseFrontAction {
    */
   public String whoIsHereList() {
     if (this.servicePlaceId != null) {
-      HashMap<String, String> map = new HashMap<String, String>();
-      map.put("servicePlaceId", this.servicePlaceId);
-      List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
-      for (ActiveUserBean ub : activeUserBeanList) {
-        ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());
-      }
       this.servicePlaceBean = (ServicePlaceBean) sp.getLeaf(this.servicePlaceId).getResponseData();
-      this.servicePlaceBean.setActiveUserBeanList(activeUserBeanList);
+
+      if (servicePlaceBean.getArea() == ServicePlaceBean.AREA_IN && servicePlaceBean.getType() == ServicePlaceBean.TYPE_OUT) {
+        Map<String, String> filter = new HashMap();
+        filter.put("parentid", servicePlaceBean.getId());
+        servicePlaceBean.setChildren(sp.queryDataByCondition(filter, null));
+        if (servicePlaceBean.getChildren() != null) {
+          filter = new HashMap();
+          for (ServicePlaceBean child : servicePlaceBean.getChildren()) {
+            filter.put("servicePlaceId", child.getId());
+            child.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+            servicePlaceBean.getActiveUserBeanList().addAll(child.getActiveUserBeanList());
+          }
+        }
+        
+        List<ActiveUserBean> activeUserBeanList = servicePlaceBean.getActiveUserBeanList();
+        for (ActiveUserBean ub : activeUserBeanList) {
+          ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());
+        }
+        
+      } else {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("servicePlaceId", this.servicePlaceId);
+        List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
+        for (ActiveUserBean ub : activeUserBeanList) {
+          ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());
+        }
+        this.servicePlaceBean.setActiveUserBeanList(activeUserBeanList);
+      }
     }
     return SUCCESS;
   }

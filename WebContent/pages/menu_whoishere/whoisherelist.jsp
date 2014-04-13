@@ -49,19 +49,19 @@
         <div class="bg-right2" style="width: 500px;">    
           <s:iterator value="servicePlaceBean.activeUserBeanList" var="vol">
                 <div class="person-train2">
-                    <div class="person-train-left2"><img src="<s:property value="#vol.volunteer.iconpath"/>" onerror="this.src='img/volunteer.png';" style="width:100ppx; height: 100px;"/></div>
-                    <div class="person-train-right2" style="height: 100px;">
-                       <div style="padding-left:10px; float: left;width: 200px; padding-top: 30px;">
+                    <div class="person-train-left2"><img src="<s:property value="#vol.volunteer.iconpath"/>" onerror="this.src='img/volunteer.png';"/></div>
+                    <div class="person-train-right2">
+                       <div style="padding-left:10px; float: left;">
                           <div style="font-size: large;color: blue;"><s:property value="#vol.volunteer.name"/></div>
                           <div style="color:black;"><s:property value="#vol.volunteer.code"/></div>
                           <div style="color:gray;"><s:property value="#vol.volunteer.cellPhone"/></div>
                        </div>
-                       <div style="float: right;width: 60px; padding-top: 30px;">
-                          <s:if test="#vol.status == '0'">
-                             <img src="${rootPath}/img/screen.jpg"/>
+                       <div style="float: right;padding-top: 30px;">
+                          <s:if test="#vol.status == '1'">
+                             <img src="${rootPath}/img/wechat.jpg"/>
                           </s:if>
                           <s:else>
-                             <img src="${rootPath}/img/wechat.jpg"/>
+                             <img src="${rootPath}/img/screen.jpg"/>
                           </s:else>
                        </div>
                     </div>
