@@ -105,7 +105,7 @@
         }
         var url = "${rootPath}/backend/volunteer/search.action";
         var param = {'volunteer.name':$('#volunteerName').val()};
-        $.getJSON( url, param, function (volunteerArray) { 
+        $.post( url, param, function (volunteerArray) { 
            if(volunteerArray == null || volunteerArray.length ==0){
                return;
            }
@@ -129,7 +129,7 @@
         }
         var url = "${rootPath}/backend/traincourse/search.action";
         var param = {'trainCourse.name':$('#trainCourseName').val()};
-        $.getJSON( url, param, function (trainCourseArray) { 
+        $.post( url, param, function (trainCourseArray) { 
             if(trainCourseArray == null || trainCourseArray.length ==0){
                 return;
             }
