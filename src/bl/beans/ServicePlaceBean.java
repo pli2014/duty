@@ -1,5 +1,6 @@
 package bl.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
@@ -29,8 +30,8 @@ public class ServicePlaceBean extends Bean {
 
   private String parentid = null;
 
-  private transient List<ServicePlaceBean> children;
-  private transient List<ActiveUserBean> activeUserBeanList;
+  private transient List<ServicePlaceBean> children = new ArrayList<ServicePlaceBean>();
+  private transient List<ActiveUserBean> activeUserBeanList = new ArrayList<ActiveUserBean>();
 
   public String getParentid() {
     return parentid;
