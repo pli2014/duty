@@ -43,6 +43,8 @@
 		   <result name="success">/backendHome.jsp</result>
 		</action>
 
+        <action name="pushMenu" class="actions.SystemSettingAction" method="pushMenu"></action>
+
         <action name="systemsetting" class="actions.SystemSettingAction" method="modify">
             <result name="success">/pages/menu_system/systemsetting.jsp</result>
         </action>

@@ -31,6 +31,20 @@
                         ]
             });
         });
+
+        function pushMenu() {
+            $("#pushButton").attr("disabled",true)
+            jQuery.ajax({
+                type: "POST",
+                async:false,
+                url:"backend/pushMenu.action",
+                cache: false,
+                complete: function(data) {
+                    alert(data.responseText);
+                }
+            });
+            $("#pushButton").attr("disabled",false)
+        }
     </script>
 </head>
 <body>
@@ -89,7 +103,7 @@
                 </div>
                 <div class="row" style="margin-top: 10px;">
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-info" onclick="alert('敬请期待！')">发送菜单</button>
+                        <button id="pushButton" type="button" class="btn btn-info" onclick="pushMenu()">发送菜单</button>
                     </div>
                 </div>
             </div>
