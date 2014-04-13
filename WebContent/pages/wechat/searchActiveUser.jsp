@@ -9,14 +9,80 @@
 <head>
     <%@ include file="/pages/miniwechatHeader.jsp" %>
 
-    <link href="jslib/flatlab/css/style-front.css" rel="stylesheet">
-    <link href="jslib/flatlab/css/style.css" rel="stylesheet">
+    <%--<link href="jslib/flatlab/css/style-front.css" rel="stylesheet">--%>
+    <%--<link href="jslib/flatlab/css/style.css" rel="stylesheet">--%>
 
-    <script src="jslib/flatlab/js/jquery.scrollTo.min.js"></script>
-    <script src="jslib/flatlab/js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.cookie.js"></script>
-    <script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.dcjqaccordion.2.7.js"></script>
+    <%--<script src="jslib/flatlab/js/jquery.scrollTo.min.js"></script>--%>
+    <%--<script src="jslib/flatlab/js/jquery.nicescroll.js" type="text/javascript"></script>--%>
+    <%--<script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.cookie.js"></script>--%>
+    <%--<script class="include" type="text/javascript" src="jslib/flatlab/js/jquery.dcjqaccordion.2.7.js"></script>--%>
     <style type="text/css">
+
+        .social-link-footer li {
+            float: left;
+            margin: 0 10px 10px 0px;
+
+        }
+
+        .social-link-footer li a {
+            color: #fff;
+            background:#505b71;
+            padding: 5px;
+            width: 50px;
+            #height: 50px;
+            float: left;
+            text-align: center;
+            font-size: 20px;
+            -webkit-transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -ms-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+
+        .social-link-footer li a:hover {
+            background: #F77B6F;
+            -webkit-transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -ms-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            transition: all .3s ease;
+        }
+
+        /*personal task*/
+
+        .task-thumb {
+            width: 90px;
+            float: left;
+        }
+
+        .task-thumb img {
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+        }
+
+        .task-thumb-details {
+            display: inline-block;
+            margin: 25px 0 0 10px;
+        }
+
+        .task-progress {
+            float: left;
+        }
+
+        .task-thumb-details h1, .task-thumb-details h1 a, .task-progress h1, .task-progress h1 a {
+            color: #39b5aa;
+            font-size: 18px;
+            margin: 0;
+            padding: 0;
+            font-weight: 400;
+        }
+
+        .task-thumb-details p, .task-progress p {
+            padding-top: 5px;
+            color: #a4aaba;
+        }
+
         .boder {
             border-top: 1px solid #DDDDDD;
         }
@@ -77,7 +143,7 @@
                 <p style="padding: 0px"><s:property value='%{#bean.name}'/></p>
                 <%--<p style="padding: 0px"><s:property value="servicePlaceBean.name" /></p>--%>
                 <p style="padding: 0px"><s:property value='%{#bean.cellPhone}'/></p>
-                <p style="padding: 0px;">签入时间:<s:date name="%{#bean.checkInTime}" format="yyyy-MM-dd HH:mm:ss"/></p>
+                <p style="padding: 0px;"><s:date name="%{#bean.checkInTime}" format="yyyy/MM/dd HH:mm:ss"/></p>
             </div>
             <s:if test="#bean.status == 1">
                 <img style="float: right;" src="img/wechat.jpg">

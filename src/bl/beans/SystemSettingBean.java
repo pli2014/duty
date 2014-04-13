@@ -11,6 +11,53 @@ public class SystemSettingBean extends Bean {
     private String city="南京";
     private String introduction;
 
+    private String appID;
+    private String appsecret;
+    private String apptoken;
+    private String domainname;
+    private boolean debugMode = false;
+
+    public boolean isDebugMode() {
+      return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+      this.debugMode = debugMode;
+    }
+
+    public String getAppID() {
+      return appID;
+    }
+
+    public void setAppID(String appID) {
+      this.appID = appID;
+    }
+
+    public String getAppsecret() {
+      return appsecret;
+    }
+
+    public void setAppsecret(String appsecret) {
+      this.appsecret = appsecret;
+    }
+
+    public String getApptoken() {
+      return apptoken;
+    }
+
+    public void setApptoken(String apptoken) {
+      this.apptoken = apptoken;
+    }
+
+    public String getDomainname() {
+      return domainname;
+    }
+
+    public void setDomainname(String domainname) {
+      this.domainname = domainname;
+    }
+
+
     public String getIntroduction() {
         return introduction;
     }

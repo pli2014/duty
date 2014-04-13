@@ -44,6 +44,13 @@
     <form role="form" method="post" class="form-horizontal tasi-form" action="backend/systemsettingsave.action">
         <%@ include file="../strutsMessage.jsp"%>
         <input type="hidden" name="systemSetting.id" value="${systemSetting.id}"/>
+        <%--<div class="form-group has-success">--%>
+            <%--<label class="col-lg-2 control-label">测试模式</label>--%>
+            <%--<div class="col-lg-10">--%>
+                <%--<input name="systemSetting.maptoken" type="text" class="form-control" value="${systemSetting.maptoken}"/>--%>
+            <%--</div>--%>
+        <%--</div>--%>
+
         <div class="form-group has-success">
             <label class="col-lg-2 control-label">百度地图序列号</label>
             <div class="col-lg-10">
@@ -52,15 +59,45 @@
         </div>
 
         <div class="form-group has-success">
-            <label class="control-label col-lg-2 col-sm-3">默认城市</label>
+            <label class="control-label col-lg-2">默认城市</label>
             <div class="col-lg-10">
                 <input name="systemSetting.city" type="text" class="form-control" value="${systemSetting.city}"/>
             </div>
         </div>
+        <div class="form-group has-success">
+            <label class="control-label col-lg-2">微信配置</label>
+            <div class="col-lg-10">
+                <div class="row">
+                    <label class="control-label col-lg-2">AppID</label>
+                    <div class="col-lg-4">
+                        <input name="systemSetting.appID" type="text" class="form-control" placeholder="请输入AppID" value="${systemSetting.appID}"/>
+                    </div>
+                    <label class="control-label col-lg-2">AppSecret</label>
+                    <div class="col-lg-4">
+                        <input name="systemSetting.appsecret" type="text" class="form-control" placeholder="请输入AppSecret" value="${systemSetting.appsecret}"/>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <label class="control-label col-lg-2">AppToken</label>
+                    <div class="col-lg-4">
+                        <input name="systemSetting.apptoken" type="text" class="form-control" placeholder="请输入AppToken" value="${systemSetting.apptoken}"/>
+                    </div>
+                    <label class="control-label col-lg-2">OAuth域名</label>
+                    <div class="col-lg-4">
+                        <input name="systemSetting.domainname" type="text" class="form-control" placeholder="请输入Oauth域名" value="${systemSetting.domainname}"/>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-lg-4">
+                        <button type="button" class="btn btn-info" onclick="alert('敬请期待！')">发送菜单</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group has-success">
-            <label class="col-sm-2 control-label col-sm-2">服务介绍</label>
-            <div class="col-sm-10">
+            <label class="control-label col-lg-2">服务介绍</label>
+            <div class="col-lg-10">
                 <textarea class="form-control ckeditor" name="systemSetting.introduction" rows="20">${systemSetting.introduction}</textarea>
             </div>
         </div>

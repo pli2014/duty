@@ -14,6 +14,8 @@ public class Constants {
   public static final String EXPIRES_IN = "expires_in";
   public static final String APP_ID = "appID";
   public static final String APP_SECRET = "appsecret";
+  public static final String DOMAIN_NAME = "domainname";
+  public static final String WECHAT_DEBUG = "wechat.debug.local";
 
 
   public static final String MSG_TYPE = "MsgType";

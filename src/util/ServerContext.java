@@ -26,6 +26,14 @@ public class ServerContext {
         return "";
     }
 
+    public static void putValue(String key, String value) {
+        if(prop != null) {
+          prop.put(key, value);
+        } else {
+          LOG.error("ServerContext property is not ready for Wechat!");
+        }
+    }
+
     public static boolean isWechatLocalDebug() {
         if (null != prop) {
             return "true".equals(getValue("wechat.debug.local"));

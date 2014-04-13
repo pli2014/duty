@@ -56,6 +56,7 @@ public class SystemSettingAction extends ActionSupport {
             SystemSettingBean newBean = (SystemSettingBean) originalBean.clone();
             BeanUtils.copyProperties(newBean, this.systemSetting);
             ssb.updateLeaf(originalBean, newBean);
+            ssb.loadServerContext();
             ActionContext.getContext().getApplication().put(Constants.GLOBALSETTING, newBean);
             super.addActionMessage("系统参数设定保存成功");
         } catch (Exception e) {
