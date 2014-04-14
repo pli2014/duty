@@ -36,6 +36,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
         );
         List<ServicePlaceBean> exists = query.asList();
         if (exists.size() > 0) {
+            ((ServicePlaceBean) genLeafBean).set_id(null);
             throw new MiServerException.Conflicted("已经存在的服务地点名称或者编码");
         }
         return super.createLeaf(genLeafBean);
