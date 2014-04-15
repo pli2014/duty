@@ -27,6 +27,32 @@
             <div class="col-lg-10">
                 <input name="sourceCode.code" type="text" class="form-control" value="${sourceCode.code}"/>
             </div>
+            <script>
+                $(document).ready(function() {
+                    $("form").validate({
+                        rules: {
+                            "sourceCode.name":{
+                                required:true,
+                                maxlength: 8
+                            },
+                            "sourceCode.code":{
+                                required:true,
+                                number: true
+                            }
+                        },
+                        messages: {
+                            'sourceCode.name': {
+                                required: "请输入名称",
+                                maxlength: "名称最多20个文字"
+                            },
+                            "sourceCode.code":{
+                                required:"请输入编码",
+                                number:"编码必须是数值型"
+                            }
+                        }
+                    });
+                });
+            </script>
         </div>
 
         <div class="form-group">
