@@ -20,7 +20,7 @@
 <body>
 
 <!--main content start-->
-  <section class="panel" style="padding-left: 15px;">
+  <section class="panel">
     <header class="panel-heading">
        <s:if test="volunteer.id.length() > 0">
         修改志愿者
