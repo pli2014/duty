@@ -10,7 +10,6 @@
                     equalTo: "#password"
                 },
                 'volunteer.email':{ 
-				   required:true, 
                    email:true 
 				}, 
 				'volunteer.identityCard':{ 
@@ -48,7 +47,6 @@
                     required: "请输入微信"
                 },
                 'volunteer.email': {
-                    required: "请输入邮箱",
                     email: "请输入正确的邮箱, 例如：test@qq.com"
                 },
                 'oldPassword': {

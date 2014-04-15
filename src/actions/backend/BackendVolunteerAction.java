@@ -32,7 +32,7 @@ import java.util.List;
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
     protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
-    protected List<SourceCodeBean> listSource = null;
+    protected List<SourceCodeBean> listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     private VolunteerBean volunteer;
 
     public List<SourceCodeBean> getListSource() {
@@ -105,7 +105,6 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
      * @throws Exception
      */
     public String index() throws Exception {
-        this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
         return INDEX_SUCCESS;
     }
 
@@ -129,7 +128,6 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String edit() throws Exception {
-    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     return SUCCESS;
   }
@@ -162,7 +160,6 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String add() {
-    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     volunteer = new VolunteerBean();
     return SUCCESS;
   }

@@ -31,7 +31,7 @@
     </header>
     <s:actionerror/><s:actionmessage/>
      <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunteer/save.action" method="post">
-         <div class="form-group has-success">
+         <div class="form-group has-error">
              <label class="col-lg-2 control-label">志愿者名</label>
              <div class="col-lg-10">
                  <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
@@ -40,13 +40,13 @@
                         required="required" value="${volunteer.name}"/>
              </div>
          </div> 
-         <div class="form-group has-success">
+         <div class="form-group has-error">
              <label class="col-lg-2 control-label">工号</label>
              <div class="col-lg-10">
                 <input name="volunteer.code" type="text" value="${volunteer.code}" class="form-control" required="required" placeholder="请输入工号"/>
              </div>
          </div>
-         <div class="form-group has-success">
+         <div class="form-group has-error">
              <label class="col-lg-2 control-label">状态</label>
              <div class="col-lg-10">
                 <select name="volunteer.status" class="form-control">
@@ -76,7 +76,7 @@
           </div>
         </s:else>
 
-        <div class="form-group has-success">
+        <div class="form-group has-error">
              <label class="col-lg-2 control-label">性别</label>
              <div class="col-lg-10">
                  <label class="inline-block">
@@ -99,21 +99,21 @@
 			    </label>   
              </div>
          </div>
-         <div class="form-group has-success">
+         <div class="form-group has-error">
              <label class="col-lg-2 control-label">来源</label>
              <div class="col-lg-10">
                  <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}"/>
              </div>
          </div>
 
-        <div class="form-group has-success">
+        <div class="form-group has-error">
              <label class="col-lg-2 control-label">身份证号</label>
              <div class="col-lg-10">
                  <input type="text" class="form-control" placeholder="请输入身份证号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
              </div>
          </div>
 
-         <div class="form-group has-success">
+         <div class="form-group has-error">
              <label class="col-lg-2 control-label">手机</label>
              <div class="col-lg-10">
                  <input type="text" class="form-control" placeholder="请输入手机" name="volunteer.cellPhone" value="${volunteer.cellPhone}" required="required"/>
@@ -138,11 +138,11 @@
          
          <div class="form-group">
              <div class="col-lg-offset-2 col-lg-10">
-                 <button class="btn btn-danger" type="submit">保存</button>
+                 <button class="btn btn-info" type="submit">保存</button>
                  <s:if test="volunteer.id.length() > 0">
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
                  </s:if>
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
              </div>
          </div>
          
