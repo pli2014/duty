@@ -61,11 +61,11 @@
 
          <div class="form-group">
              <div class="col-lg-offset-2 col-lg-10">
-                 <button class="btn btn-danger" type="submit">保存</button>
+                 <button class="btn btn-info" type="submit">保存</button>
                  <s:if test="user.id.length() > 0 && #session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/user/resetPassword.action?id=${user.id}'">重置密码</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/user/resetPassword.action?id=${user.id}'">重置密码</button>
                  </s:if>
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/user/index.action'">取消</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/user/index.action'">取消</button>
              </div>
          </div>
      </form>

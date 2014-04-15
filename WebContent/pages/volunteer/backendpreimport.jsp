@@ -75,8 +75,8 @@
             </table>
         </div>
         <div class="col-lg-offset-2 col-lg-10">
-            <button class="btn btn-danger" type="button" onclick="window.location.href='../../backend/volunteer/batchimportsave.action'">确认导入</button>
-            <button class="btn btn-danger" type="button" onclick="window.location.href='../../backend/volunteer/batchimportview.action'">重新导入</button>
+            <button class="btn btn-info" type="button" onclick="window.location.href='../../backend/volunteer/batchimportsave.action'">确认导入</button>
+            <button class="btn btn-info" type="button" onclick="window.location.href='../../backend/volunteer/batchimportview.action'">重新导入</button>
         </div>
     </form>
 </body>
