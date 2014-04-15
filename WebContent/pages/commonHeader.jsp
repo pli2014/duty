@@ -29,6 +29,11 @@
     .red{
       color:red !important;
     }
+    .actionMessage li{
+       text-align: center !important;
+       color: green !important;
+       font-size: x-large;
+    }
     .errorMessage li{
        text-align: center !important;
        color:red !important;

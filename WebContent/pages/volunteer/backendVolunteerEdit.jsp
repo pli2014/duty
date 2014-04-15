@@ -102,7 +102,7 @@
          <div class="form-group has-error">
              <label class="col-lg-2 control-label">来源</label>
              <div class="col-lg-10">
-                 <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}"/>
+                 <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}" cssClass="form-control"/>
              </div>
          </div>
 

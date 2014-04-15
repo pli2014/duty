@@ -153,7 +153,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
       getBusiness().updateLeaf(volunteer, volunteer);
       addActionMessage("密码重置成功！");
     } else {
-      addActionMessage("获取用户失败！重置密码失败！");
+      addActionError("获取用户失败！重置密码失败！");
     }
     return SUCCESS;
   }
