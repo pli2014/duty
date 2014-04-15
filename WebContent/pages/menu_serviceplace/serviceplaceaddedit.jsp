@@ -165,8 +165,8 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
-                        <button class="btn btn-danger" type="submit">保存</button>
-                        <button class="btn btn-danger" type="button" onclick="window.location.href='../../backend/serviceplace/index.action?type=<s:property value='#request.type'/>'">取消</button>
+                        <button class="btn btn-info" type="submit">保存</button>
+                        <button class="btn btn-info" type="button" onclick="window.location.href='../../backend/serviceplace/index.action?type=<s:property value='#request.type'/>'">取消</button>
                     </div>
                 </div>
             </form>

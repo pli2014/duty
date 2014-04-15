@@ -89,8 +89,8 @@
 
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-10">
-                <button class="btn btn-danger" type="submit">提交</button>
-                <button class="btn btn-danger" onclick="handleCancel()">取消</button>
+                <button class="btn btn-info" type="submit">提交</button>
+                <button class="btn btn-info" onclick="handleCancel()">取消</button>
             </div>
         </div>
     </form>

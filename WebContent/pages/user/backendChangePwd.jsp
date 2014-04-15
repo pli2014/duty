@@ -47,8 +47,8 @@
 
          <div class="form-group">
              <div class="col-lg-offset-2 col-lg-10">
-                 <button class="btn btn-danger" type="submit">保存</button>
-                 <button class="btn btn-danger" type="button" onclick="history.go(-1);">取消</button>
+                 <button class="btn btn-info" type="submit">保存</button>
+                 <button class="btn btn-info" type="button" onclick="history.go(-1);">取消</button>
              </div>
          </div>
      </form>

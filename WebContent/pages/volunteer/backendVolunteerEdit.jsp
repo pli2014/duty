@@ -138,11 +138,11 @@
          
          <div class="form-group">
              <div class="col-lg-offset-2 col-lg-10">
-                 <button class="btn btn-danger" type="submit">保存</button>
+                 <button class="btn btn-info" type="submit">保存</button>
                  <s:if test="volunteer.id.length() > 0">
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
                  </s:if>
-                 <button class="btn btn-danger" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
              </div>
          </div>
          
