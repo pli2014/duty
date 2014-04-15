@@ -11,7 +11,7 @@
 <!--main content start-->
 <section class="panel" style="padding-left: 15px;">
     <header class="panel-heading">
-        批量导入志愿者
+        批量导入志愿者  <span style="margin-left:100px"><a href="pages/volunteer/志愿者模板.xls">导出模板文件</a></span>
     </header>
     <%@include file="../strutsMessage.jsp"%>
     <form id="excelfile" class="form-horizontal tasi-form" action="backend/volunteer/batchpreimport.action" method="post" enctype="multipart/form-data">

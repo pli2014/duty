@@ -102,8 +102,8 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
         if (this.myFileFileName == null) {
             this.addActionError("请选择Excel文件导入系统");
             return ERROR;
-        } else if (!this.myFileFileName.endsWith("xls") && !this.myFileFileName.endsWith("xlsx")) {
-            this.addActionError("请选择Excel文件，文件扩展名为：xls,xlsx");
+        } else if (!this.myFileFileName.endsWith("xls")) {
+            this.addActionError("请选择Excel文件，文件扩展名为：xls");
             return ERROR;
         }
         prepareExcel(this.myFile);

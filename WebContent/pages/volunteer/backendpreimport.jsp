@@ -15,7 +15,7 @@
     </header>
     <%@include file="../strutsMessage.jsp" %>
     <form id="excelfile" class="form-horizontal tasi-form">
-        <label style="color:green;font-size:20px">合法的批量导入信息列表</label>
+        <label style="color:green;font-size:20px">合法的批量导入信息列表 (<s:property value="arrayList.size"/>)</label>
 
         <div class="form-group has-success">
             <table class="table">
@@ -46,7 +46,7 @@
             </table>
         </div>
 
-        <label style="color:red;font-size:20px">错误的批量导入信息列表</label>
+        <label style="color:red;font-size:20px">错误的批量导入信息列表 (<s:property value="errors.size"/>)</label>
 
         <div class="form-group has-success">
             <table class="table">

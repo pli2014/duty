@@ -15,7 +15,7 @@
     </header>
     <%@include file="../strutsMessage.jsp" %>
     <form id="excelfile" class="form-horizontal tasi-form">
-        <label style="color:green;font-size:20px">批量导入成功的信息列表</label>
+        <label style="color:green;font-size:20px">批量导入成功的信息列表 (<s:property value="arrayList.size"/>)</label>
 
         <div class="form-group has-success">
             <table class="table">
