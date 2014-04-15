@@ -22,15 +22,6 @@
                     </div>
                 </div>
                 <div class="form-group has-success">
-                    <label class="col-lg-2 control-label">地点名称</label>
-                    <div class="col-lg-10">
-                        <input name="servicePlace.id" type="hidden" value="${servicePlace.id}"/>
-                        <input name="servicePlace.type" type="hidden" value="${type}"/>
-                        <input name="type" type="hidden" value="${type}"/>
-                        <input id="servicePlacename" name="servicePlace.name" type="text" class="form-control" value="${servicePlace.name}"/>
-                    </div>
-                </div>
-                <div class="form-group has-success">
                     <label class="col-lg-2 control-label">显示序号</label>
                     <div class="col-lg-10">
                         <input name="servicePlace.sequence" type="text" class="form-control" value="${servicePlace.sequence}"/>
@@ -45,6 +36,13 @@
                                         "servicePlace.sequence": {
                                             required:true,
                                             range: [0, 99999]
+                                        },
+                                        "servicePlace.code":{
+                                            required:true,
+                                            number: true
+                                        },
+                                        "servicePlace.parentid":{
+                                            required:true
                                         }
                                     },
                                     messages: {
@@ -55,6 +53,13 @@
                                         "servicePlace.name":{
                                             required:"请输入地点名称",
                                             maxlength: "地点名称最多8个文字"
+                                        },
+                                        "servicePlace.code":{
+                                            required:"请输入地点编码",
+                                            number:"地点编码必须是数值型"
+                                        },
+                                        "servicePlace.parentid":{
+                                            required:"请选择归属医院区域"
                                         }
                                     }
                                 });
@@ -100,7 +105,15 @@
                        </div>
                 </div>
                 </s:if>
-
+                <div class="form-group has-success">
+                    <label class="col-lg-2 control-label">地点名称</label>
+                    <div class="col-lg-10">
+                        <input name="servicePlace.id" type="hidden" value="${servicePlace.id}"/>
+                        <input name="servicePlace.type" type="hidden" value="${type}"/>
+                        <input name="type" type="hidden" value="${type}"/>
+                        <input id="servicePlacename" name="servicePlace.name" type="text" class="form-control" value="${servicePlace.name}"/>
+                    </div>
+                </div>
                 <s:if test="#request.type==1">
                     <div class="form-group has-success">
                         <label class="col-lg-2 control-label">医院区域</label>

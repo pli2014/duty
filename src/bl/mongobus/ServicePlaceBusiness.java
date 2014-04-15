@@ -30,10 +30,17 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
         ServicePlaceBean sp = (ServicePlaceBean) genLeafBean;
         Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
         Query<ServicePlaceBean> query = dc.createQuery(this.clazz);
-        query.filter("isDeleted", false).or(
-                query.criteria("name").equal(sp.getName()),
-                query.criteria("code").equal(sp.getCode())
-        );
+        if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
+            query.filter("isDeleted", false).filter("parentid",sp.getParentid()).or(
+                    query.criteria("name").equal(sp.getName()),
+                    query.criteria("code").equal(sp.getCode())
+            );
+        }else{
+            query.filter("isDeleted", false).or(
+                    query.criteria("name").equal(sp.getName()),
+                    query.criteria("code").equal(sp.getCode())
+            );
+        }
         List<ServicePlaceBean> exists = query.asList();
         if (exists.size() > 0) {
             ((ServicePlaceBean) genLeafBean).set_id(null);
@@ -47,10 +54,17 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
         ServicePlaceBean sp = (ServicePlaceBean) newBean;
         Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
         Query<ServicePlaceBean> query = dc.createQuery(this.clazz);
-        query.filter("isDeleted", false).or(
-                query.criteria("name").equal(sp.getName()),
-                query.criteria("code").equal(sp.getCode())
-        );
+        if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
+            query.filter("isDeleted", false).filter("parentid",sp.getParentid()).or(
+                    query.criteria("name").equal(sp.getName()),
+                    query.criteria("code").equal(sp.getCode())
+            );
+        }else{
+            query.filter("isDeleted", false).or(
+                    query.criteria("name").equal(sp.getName()),
+                    query.criteria("code").equal(sp.getCode())
+            );
+        }
         List<ServicePlaceBean> exists = query.asList();
         if (exists.size() > 1 || (exists.size() == 1 && !exists.get(0).getId().equals(sp.getId()))) {
             throw new MiServerException.Conflicted("已经存在的服务地点名称或者编码");

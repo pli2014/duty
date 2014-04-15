@@ -162,12 +162,14 @@
 	
     <package name="serviceplace" namespace="/backend/serviceplace" extends="default-backend">
         <action name="index" class="actions.backend.BackendServicePlaceAction" method="index">
+            <result name="input">/pages/table/tableIndex.jsp?type=${type}</result>
         </action>
         <action name="initTable" class="actions.backend.BackendServicePlaceAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendServicePlaceAction" method="queryTable"/>
 
         <action name="delete" class="actions.backend.BackendServicePlaceAction" method="servicePlaceDelete">
-            <result name="success" type="redirectAction">/serviceplace/serviceplacelist?type=${type}</result>
+            <result name="error" type="chain">/serviceplace/index.action?type=${type}</result>
+            <result name="success" type="redirectAction">/serviceplace/index.action?type=${type}</result>
         </action>
         <action name="add" class="actions.backend.BackendServicePlaceAction" method="servicePlaceAddEdit">
             <result name="success">/pages/menu_serviceplace/serviceplaceaddedit.jsp</result>
