@@ -16,7 +16,7 @@
         
         options['addTrainCourse'] = {
            'title':'添加培训课程',
-           'html': '<button title="添加培训课程" style="margin-left:5px" class="btn btn-primary btn-xs" onclick="options[\'addTrainCourse\'].onClick(this)"><i class="fa fa-pencil"></i></button>',
+           'html': '<button title="添加培训课程" style="margin-left:5px" class="btn btn-info btn-xs" onclick="options[\'addTrainCourse\'].onClick(this)"><i class="fa fa-edit"></i></button>',
            'onClick' : function(button){
                var tableObj = $('#'+tableId).dataTable();
                var nTr = $(button).parents('tr')[0];

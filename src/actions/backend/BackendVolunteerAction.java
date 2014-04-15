@@ -86,6 +86,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   @Override
   public TableQueryVo getModel() {
     TableQueryVo model = super.getModel();
+    model.getSort().remove("name");
     model.getSort().put("code", "desc");
     return model;
   }

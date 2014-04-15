@@ -148,7 +148,7 @@
          
      </form>
   </section>
-   <%@ include file="volunteerFieldsValidation.jsp"%> 
+   <%@ include file="backendVolunteerFieldsValidation.jsp"%>
   <s:if test="volunteer.id.length() > 0">
 	 <script type="text/javascript">
 	 $(document).ready(function() {

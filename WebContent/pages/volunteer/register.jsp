@@ -133,7 +133,7 @@
                             <input type="text" name="volunteer.wechat" id="wechat" class="zc-input" /></td>
                     </tr>
                     <tr>
-                        <td><span class="required">*</span>邮箱<span class="bg-tishi"></span><br />
+                        <td>邮箱<span class="bg-tishi"></span><br />
                             <input type="text" name="volunteer.email" id="email" value="${volunteer.email}" class="zc-input"/></td>
                     </tr>
 
