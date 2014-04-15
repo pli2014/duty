@@ -9,17 +9,17 @@
                 confirm_password: {
                     equalTo: "#password"
                 },
-                'volunteer.email':{ 
-                   email:true 
-				}, 
-				'volunteer.identityCard':{ 
-				   required:true, 
-                   idCardNo:true 
-				}, 
-				'volunteer.cellPhone':{ 
-				   required:true, 
-                   cellPhone:true 
-				}
+                'volunteer.email':{
+                    email:true
+                },
+                'volunteer.identityCard':{
+                    required:true,
+                    idCardNo:true
+                },
+                'volunteer.cellPhone':{
+                    required:true,
+                    cellPhone:true
+                }
             },
             messages: {
                 'volunteer.name': {
@@ -50,12 +50,9 @@
                     email: "请输入正确的邮箱, 例如：test@qq.com"
                 },
                 'oldPassword': {
- 	               required: "请输入旧密码"
- 	            }
-            } ,
-            errorPlacement: function(error, element) {
-                error.appendTo( element.prev().prev() );
+                    required: "请输入旧密码"
+                }
             }
         });
     });
-    </script>
+</script>

@@ -20,7 +20,7 @@
 <body>
 
 <!--main content start-->
-  <section class="panel" style="padding-left: 15px;">
+  <section class="panel">
     <header class="panel-heading">
        <s:if test="volunteer.id.length() > 0">
         修改志愿者
@@ -102,7 +102,7 @@
          <div class="form-group has-error">
              <label class="col-lg-2 control-label">来源</label>
              <div class="col-lg-10">
-                 <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}"/>
+                 <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name" value="%{volunteer.occupation}" cssClass="form-control"/>
              </div>
          </div>
 
@@ -148,7 +148,7 @@
          
      </form>
   </section>
-   <%@ include file="volunteerFieldsValidation.jsp"%> 
+   <%@ include file="backendVolunteerFieldsValidation.jsp"%>
   <s:if test="volunteer.id.length() > 0">
 	 <script type="text/javascript">
 	 $(document).ready(function() {

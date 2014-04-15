@@ -31,19 +31,19 @@ import java.util.List;
  */
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
-    protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
-    protected List<SourceCodeBean> listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
-    private VolunteerBean volunteer;
+  protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+  protected List<SourceCodeBean> listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+  private VolunteerBean volunteer;
 
-    public List<SourceCodeBean> getListSource() {
-        return listSource;
-    }
+  public List<SourceCodeBean> getListSource() {
+    return listSource;
+  }
 
-    public void setListSource(List<SourceCodeBean> listSource) {
-        this.listSource = listSource;
-    }
+  public void setListSource(List<SourceCodeBean> listSource) {
+    this.listSource = listSource;
+  }
 
-    public VolunteerBean getVolunteer() {
+  public VolunteerBean getVolunteer() {
     return volunteer;
   }
 
@@ -74,14 +74,22 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     return getRequest().getContextPath() + "/js/volunteer.js";
   }
 
-    public String getCustomJsp() {
-        return "/pages/volunteer/volunteer.jsp";
-    };
+  public String getCustomJsp() {
+    return "/pages/volunteer/volunteer.jsp";
+  };
 
-    @Override
-    public String getTableTitle() {
-        return "<ul class=\"breadcrumb\"><li>志愿者管理</li><li class=\"active\">志愿者</li></ul>";
-    }
+  @Override
+  public String getTableTitle() {
+    return "<ul class=\"breadcrumb\"><li>志愿者管理</li><li class=\"active\">志愿者</li></ul>";
+  }
+
+  @Override
+  public TableQueryVo getModel() {
+    TableQueryVo model = super.getModel();
+    model.getSort().remove("name");
+    model.getSort().put("code", "desc");
+    return model;
+  }
 
   @Override
   public TableInitVo getTableInit() {
@@ -90,7 +98,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     init.getAoColumns().add(new TableHeaderVo("code", "工号").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("identityCard", "身份证").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
-      init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
+    init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
     init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道"));
     init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
     init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
@@ -99,14 +107,14 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     return init;
   }
 
-    /**
-     *
-     * @return
-     * @throws Exception
-     */
-    public String index() throws Exception {
-        return INDEX_SUCCESS;
-    }
+  /**
+   * 
+   * @return
+   * @throws Exception
+   */
+  public String index() throws Exception {
+    return INDEX_SUCCESS;
+  }
 
   @Override
   public String save() throws Exception {
@@ -153,7 +161,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
       getBusiness().updateLeaf(volunteer, volunteer);
       addActionMessage("密码重置成功！");
     } else {
-      addActionMessage("获取用户失败！重置密码失败！");
+      addActionError("获取用户失败！重置密码失败！");
     }
     return SUCCESS;
   }
