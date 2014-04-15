@@ -166,7 +166,7 @@
               <artifactId>maven-war-plugin</artifactId>
               <version>2.3</version>
               <configuration>
-                  <outputDirectory>E:\\apache-tomcat-8.0.3\\webapps</outputDirectory>
+                  <outputDirectory>/oracle/workspace/duty/target</outputDirectory>
                   <warSourceDirectory>WebContent</warSourceDirectory>
                   <failOnMissingWebXml>false</failOnMissingWebXml>
               </configuration>
