@@ -33,6 +33,7 @@ public class SourceCodeBusiness extends MongoCommonBusiness<BeanContext, SourceC
         );
         List<SourceCodeBean> exists = query.asList();
         if (exists.size() > 0) {
+            sp.set_id(null);
             throw new MiServerException.Conflicted("已经存在的来源名称或者编码");
         }
         return super.createLeaf(genLeafBean);

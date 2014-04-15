@@ -64,7 +64,10 @@ public class SourceCodeAction extends BaseBackendAction<SourceCodeBusiness> {
     public TableInitVo getTableInit() {
         TableInitVo init = new TableInitVo();
         init.getAoColumns().add(new TableHeaderVo("name", "名称").enableSearch());
-        init.getAoColumns().add(new TableHeaderVo("code", "编码").enableSearch());
+        TableHeaderVo th = new TableHeaderVo("code", "编码");
+        th.setbSortable(true);
+        th.enableSearch();
+        init.getAoColumns().add(th);
         return init;
     }
 
