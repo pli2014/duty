@@ -1,3 +1,5 @@
+<%@ page import="util.ServerContext" %>
+<%@ page import="wechat.utils.URLManager" %>
 <%--
   Created by IntelliJ IDEA.
   User: wangronghua
@@ -19,9 +21,13 @@
 </head>
 <body>
 
+<%
+    String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
+    String redirectUrl = URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo");
+%>
 <section class="panel">
     <div class="panel-body">
-        <label class="col-xs-12  control-label">还未绑定微信账号，<a href="wechat/redirect.action?url=%2Fwechat%2FuserBinding.action">点击此处</a>进行绑定！</label>
+        <label class="col-xs-12  control-label">还未绑定微信账号，<a href="<%=redirectUrl%>">点击此处</a>进行绑定！</label>
         <button type="button" class="btn btn-info btn-block" onclick="custom_close()">点击此处，返回微信！</button>
     </div>
 </section>

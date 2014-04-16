@@ -29,6 +29,7 @@
         添加志愿者
       </s:else>
     </header>
+    <div class="panel-body">
     <s:actionerror/><s:actionmessage/>
      <form id="volunteerForm" class="form-horizontal tasi-form" action="backend/volunteer/save.action" method="post">
          <div class="form-group has-error">
@@ -147,6 +148,7 @@
          </div>
          
      </form>
+    </div>
   </section>
    <%@ include file="backendVolunteerFieldsValidation.jsp"%>
   <s:if test="volunteer.id.length() > 0">

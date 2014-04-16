@@ -103,8 +103,16 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
         tcp.deleteByCondition(filter);
 
       } else {
-        this.trainCourse.set_id(ObjectId.get());
-        this.tc.createLeaf(this.trainCourse);
+        TrainCourseBean bean = (TrainCourseBean)this.tc.getLeafByName(trainCourse.getName()).getResponseData();
+        if(null != bean) {
+          super.addActionError("课程名已被使用，请更换后重新提交！");
+          servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+          return FAILURE;
+        } else {
+          this.trainCourse.set_id(ObjectId.get());
+          this.tc.createLeaf(this.trainCourse);
+        }
+
       }
 
       // insert data relationship table.

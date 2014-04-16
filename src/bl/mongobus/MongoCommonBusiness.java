@@ -111,7 +111,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 	@Override
 	public BusinessResult getAllLeaves() {
 		Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
-		List<L> list = dc.find(this.clazz).asList();
+		List<L> list = dc.find(this.clazz, "isDeleted", false).asList();
 		BusinessResult br = new BusinessResult();
 		br.setResponseData(list);
 		return br;
@@ -174,6 +174,10 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 	@Override
 	public List queryDataByCondition(Map filter, Set sorted,
 			SpecPaginationContext spc) {
+    if(null == filter) {
+      filter = new HashMap();
+    }
+    filter.put("isDeleted_!=", true);
 		Query query = this.constructQuery(filter, sorted, spc);
 		return query.asList();
 	}

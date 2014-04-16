@@ -24,6 +24,7 @@
     <header class="panel-heading">
         后台用户修改密码
     </header>
+    <div class="panel-body">
      <s:actionerror/><s:actionmessage/>
      <form id="changePwdForm" class="form-horizontal tasi-form" action="backend/user/changePassword.action" method="post">
          <div class="form-group has-success">
@@ -52,6 +53,7 @@
              </div>
          </div>
      </form>
+    </div>
   </section>
   <script type="text/javascript">
     //please refer to form-validation-script.js
