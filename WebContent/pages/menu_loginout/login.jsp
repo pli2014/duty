@@ -8,6 +8,7 @@
 	<div class="home">
 		<div class="nav-login" >
 			<div class="login-font">指纹登陆</div>
+            <div style="text-align:center;color:white;font-size:15px;margin-left:10px;margin-right:10px" id="console_message"></div>
 			<div class="nav-img2">
 				<img src="img/fingerprint_scan.png" width="100" height="100" />
 			</div>

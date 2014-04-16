@@ -34,8 +34,9 @@
 <script language="javascript" type="text/jscript">
  function initialize()
  {
-   window.localFingerPath = 'C:\\data\\img';
-   window.remoteServerPath = '<s:property value="@util.ServerContext@getValue('vitualstorepngdirectory')"/>';
+   window.localFingerPath = 'C:\\data\\img\\';
+   //window.remoteServerPath = '<s:property value="@util.ServerContext@getValue('vitualstorepngdirectory')"/>';
+   window.remoteServerPath = 'pages/finger_function/pseudo.jpg';
    window.fingerEng = document.getElementById("ZKFPEngX1");
    try{
      fingerEng.InitEngine();
@@ -93,7 +94,7 @@
         if(true){
             //产生指纹的特征ID
             var localpath = window.localFingerPath + (window.figureNumber)+".jpg";
-            var remotepath = window.remoteServerPath + (window.figureNumber)+".jpg?time="+new Date().getTime();
+            var remotepath = "window.remoteServerPath"+"?time="+new Date().getTime();
             var localFingerPath = window.localFingerPath + (window.figureNumber)+".tpl";
             fingerEng.SaveJPG(localpath);
             //var template = fingerEng.GetTemplateAsString();
@@ -113,6 +114,7 @@
     {
         if(window.fingerStatus==0){
             fingerEng.BeginEnroll();
+            document.getElementById("fingerjpg").src="";
             printMessage("如果想要录入指纹，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
         }
     }

@@ -89,13 +89,13 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
         result.addError("身份证号码已经被注册");
         return result;
       }
-      
+      if(volunteer.getCode()!=null && !volunteer.getCode().isEmpty()){
       volunteerTmp = getVolunteerBeanByCode(volunteer.getCode());
       if (volunteerTmp != null && volunteerTmp.getIsDeleted() != true) {
         result.addError("工号已经被注册");
         return result;
       }
-      
+      }
       volunteer.set_id(ObjectId.get());
       volunteer.setPassword(StringUtil.toMD5(volunteer.getPassword()));
       result = createLeaf(request,volunteer);
