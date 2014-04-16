@@ -8,44 +8,6 @@
 <html>
 <head>
     <title>参数设定</title>
-    <script type="text/javascript" src="jslib/flatlab/assets/ckeditor/ckeditor.js"></script>
-    <script>
-        jQuery(document).ready(function()
-        {
-            CKEDITOR.replace( 'systemSetting.introduction',{
-                language:'zh-cn',//简体中文
-                width : "100%", //宽度
-                height:400,  //高度
-                toolbar ://工具栏设置
-                        [
-                            ['Maximize','-','Save','NewPage','Preview','-','Templates'],
-                            ['Cut','Copy','Paste','PasteText','PasteFromWord'],
-                            ['Undo','Redo','-','Find','Replace','-',,'Table','HorizontalRule','-','SelectAll','RemoveFormat'],
-                            ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
-                            ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
-                            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-                            ['Link','Unlink','Anchor'],
-                            ['Image','Flash','Smiley','SpecialChar','PageBreak'],
-                            ['Styles','Format','Font','FontSize'],
-                            ['TextColor','BGColor']
-                        ]
-            });
-        });
-
-        function pushMenu() {
-            $("#pushButton").attr("disabled",true)
-            jQuery.ajax({
-                type: "POST",
-                async:false,
-                url:"backend/pushMenu.action",
-                cache: false,
-                complete: function(data) {
-                    alert(data.responseText);
-                }
-            });
-            $("#pushButton").attr("disabled",false)
-        }
-    </script>
 </head>
 <body>
 <!--main content start-->
@@ -124,5 +86,43 @@
     </form>
     </div>
 </section>
+<script type="text/javascript" src="jslib/flatlab/assets/ckeditor/ckeditor.js"></script>
+<script>
+    jQuery(document).ready(function()
+    {
+        CKEDITOR.replace( 'systemSetting.introduction',{
+            language:'zh-cn',//简体中文
+            width : "100%", //宽度
+            height:400,  //高度
+            toolbar ://工具栏设置
+                    [
+                        ['Maximize','-','Save','NewPage','Preview','-','Templates'],
+                        ['Cut','Copy','Paste','PasteText','PasteFromWord'],
+                        ['Undo','Redo','-','Find','Replace','-',,'Table','HorizontalRule','-','SelectAll','RemoveFormat'],
+                        ['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+                        ['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+                        ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+                        ['Link','Unlink','Anchor'],
+                        ['Image','Flash','Smiley','SpecialChar','PageBreak'],
+                        ['Styles','Format','Font','FontSize'],
+                        ['TextColor','BGColor']
+                    ]
+        });
+    });
+
+    function pushMenu() {
+        $("#pushButton").attr("disabled",true)
+        jQuery.ajax({
+            type: "POST",
+            async:false,
+            url:"backend/pushMenu.action",
+            cache: false,
+            complete: function(data) {
+                alert(data.responseText);
+            }
+        });
+        $("#pushButton").attr("disabled",false)
+    }
+</script>
 </body>
 </html>

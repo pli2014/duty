@@ -38,7 +38,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         invocation.getStack().setValue(WebappsConstants.CTX_TOKEN_ERROR_MSG_REQUEST, errorMessage);
         return as.INPUT;
       } else {
-        log.error("This action exception is: #0", e);
+        log.error("This action exception is: {}", e);
         throw new WrappedRuntimeException(e);
       }
     }

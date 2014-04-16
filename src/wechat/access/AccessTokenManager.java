@@ -26,7 +26,7 @@ public class AccessTokenManager {
     }
     Map resultMap = HttpClientHelper.get(url);
     if(null != resultMap.get(Constants.ERR_CODE)) {
-      LOG.error("Error while getting token from server, errcode:#0;#1", String.valueOf(resultMap.get(Constants.ERR_CODE)), String.valueOf(resultMap.get(Constants.ERR_CODE)));
+      LOG.error("Error while getting token from server, errcode:{};{}", String.valueOf(resultMap.get(Constants.ERR_CODE)), String.valueOf(resultMap.get(Constants.ERR_CODE)));
     } else if(null != resultMap.get(Constants.ACCESS_TOKEN)){
       TOKEN = (String)resultMap.get(Constants.ACCESS_TOKEN);
       Integer expires = (Integer)resultMap.get(Constants.EXPIRES_IN);
@@ -45,7 +45,7 @@ public class AccessTokenManager {
     String resultString = HttpClientHelper.getResponseAsJSONString(url);
     JSONObject object = JSONObject.fromObject(resultString);
     if(null != object.get(Constants.ERR_CODE)) {
-      LOG.error("Error while getting token from server, errcode:#0;#1", String.valueOf(object.get(Constants.ERR_CODE)), String.valueOf(object.get(Constants.ERR_CODE)));
+      LOG.error("Error while getting token from server, errcode:{};{}", String.valueOf(object.get(Constants.ERR_CODE)), String.valueOf(object.get(Constants.ERR_CODE)));
     } else {
       token = (AccessToken)JSONObject.toBean(object, AccessToken.class);
     }

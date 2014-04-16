@@ -70,7 +70,7 @@ public class SystemSettingAction extends BaseAction {
             ActionContext.getContext().getApplication().put(Constants.GLOBALSETTING, newBean);
             super.addActionMessage("系统参数设定保存成功");
         } catch (Exception e) {
-            LOG.error("this exception [#0]", e.getMessage());
+            LOG.error("this exception [{}]", e.getMessage());
         }
         return SUCCESS;
     }

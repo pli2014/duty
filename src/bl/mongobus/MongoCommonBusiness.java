@@ -205,7 +205,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 			try {
 				obj = Class.forName(this.clazz.getName()).newInstance();
 			} catch (Exception e) {
-				LOG.error("this exception [#0]", e.getMessage());
+				LOG.error("this exception [{}]", e.getMessage());
 			}
 			while (iterator.hasNext()) {
 				String key = iterator.next();
@@ -255,7 +255,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 							}
 						}
 					} catch (Exception e) {
-						LOG.error("this exception [#0]", e.getMessage());
+						LOG.error("this exception [{}]", e.getMessage());
 					}
 				}
 			}

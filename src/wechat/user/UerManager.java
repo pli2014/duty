@@ -19,7 +19,7 @@ public class UerManager {
     String jsonResult = HttpClientHelper.getResponseAsJSONString(url);
     JSONObject object = JSONObject.fromObject(jsonResult);
     if(null != object.get(Constants.ERR_CODE)) {
-      LOG.error("Error while getting token from server, errcode:#0;#1", String.valueOf(object.get(Constants.ERR_CODE)), String.valueOf(object.get(Constants.ERR_CODE)));
+      LOG.error("Error while getting token from server, errcode:{};{}", String.valueOf(object.get(Constants.ERR_CODE)), String.valueOf(object.get(Constants.ERR_CODE)));
     } else {
       info = (UserInfo) JSONObject.toBean(object, UserInfo.class);
     }

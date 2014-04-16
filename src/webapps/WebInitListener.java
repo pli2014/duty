@@ -29,7 +29,7 @@ public class WebInitListener implements ServletContextListener {
     try {
       ServerContext.init(new FileInputStream("/etc/db.properties"));
     } catch (Exception e) {
-      LOG.error("Reading file has some exception #0", e.getMessage());
+      LOG.error("Reading file has some exception {}", e.getMessage());
     }
     LOG.info("init MongoDB");
     MongoDBConnectionFactory.initDb();
