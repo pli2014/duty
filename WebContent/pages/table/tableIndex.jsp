@@ -37,7 +37,7 @@
                                    </div>
                           </s:if>
                          </s:iterator>
-                        <a class="btn btn-success pull-right" style="margin-left:5px" onclick="$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                        <a class="btn btn-success pull-right" style="margin-left:5px" onclick="$('#errorarea').html('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
                             <i class="fa fa-check"></i>
                             查询
                         </a>
@@ -45,6 +45,7 @@
                 </div>
             </section>
            </form>
+               <div id="errorarea"><%@include file="../strutsMessage.jsp"%></div>
                <div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
                    <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
                </div>
@@ -78,7 +79,7 @@
 		           var tableObj = $('#'+tableId).dataTable();
 		           var nTr = $(button).parents('tr')[0];
 		           var selectRowData =  tableObj.fnGetData( nTr );
-		           window.location = actionPrex + "/delete.action?id=" + selectRowData[idName];
+		           window.location = actionPrex + "/delete.action?${addButtonParameter}&id=" + selectRowData[idName];
 	           }
 	       }
         }
@@ -106,7 +107,7 @@
      $("#operationbutton").html(operationButtons.join("&nbsp;"));
      $(".btn.btn-success").click(function(event){event.stopPropagation();});
 
-     var tableUrl = "${actionPrex}/initTable.action";
+     var tableUrl = "${actionPrex}/initTable.action?${addButtonParameter}";
      var param = {};
      $.getJSON( tableUrl, param, function (initParam) {
          if(initParam.disableTools){

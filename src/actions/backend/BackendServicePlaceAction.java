@@ -66,6 +66,14 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
 
     public String servicePlaceDelete() {
         if (this.getId() != null) {
+            Map<String,String> filterMap = new HashMap<String,String>();
+            filterMap.put("parentid_=",this.getId());
+            filterMap.put("isDeleted","false");
+            List<ServicePlaceBean> list = sp.queryDataByCondition(filterMap,null);
+            if(list.size()>0){
+                addActionError("该地图地点被院内地点引用，请先解除关联关系");
+                return ActionSupport.ERROR;
+            }
             sp.deleteLeaf(this.getId());
         }
         return ActionSupport.SUCCESS;
@@ -141,12 +149,28 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
         //return getRequest().getContextPath() + "/js/serviceplace.js";
     }
 
+    public String getCustomJsp() {
+        if (this.type == 0) {
+            return "/pages/menu_serviceplace/servicePlaceParent.jsp";
+        } else {
+            return null;
+        }
+    };
+
     @Override
     public TableInitVo getTableInit() {
         TableInitVo init = new TableInitVo();
         init.getAoColumns().add(new TableHeaderVo("sequence", "显示序号").enableSearch());
         init.getAoColumns().add(new TableHeaderVo("code", "地点编码").enableSearch());
         init.getAoColumns().add(new TableHeaderVo("name", "地点名称").enableSearch());
+        if(this.type==0){
+            Map<String, String> filterMap = new HashMap<String, String>();
+            filterMap.put("area_=", "0");
+            filterMap.put("type_=", "1");
+            filterMap.put("isDeleted", "false");
+            this.innerHospital = sp.queryDataByCondition(filterMap,null);
+            init.getAoColumns().add(new TableHeaderVo("parentid", "地图地点"));
+        }
         return init;
     }
 
@@ -183,6 +207,6 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
         if (this.type == 0)
             return "<ul class=\"breadcrumb\"><li>服务管理</li><li class=\"active\">院内地点</li></ul>";
         else
-            return "<ul class=\"breadcrumb\"><li>服务管理</li><li class=\"active\">院外地点</li></ul>";
+            return "<ul class=\"breadcrumb\"><li>服务管理</li><li class=\"active\">地图地点</li></ul>";
     }
 }

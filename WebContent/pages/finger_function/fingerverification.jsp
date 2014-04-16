@@ -39,10 +39,10 @@
    window.fingerEng = document.getElementById("ZKFPEngX1");
    try{
      fingerEng.InitEngine();
-     window.status = 0;
+     window.fingerStatus = 0;
      printMessage('指纹采集器初始化成功');
    }catch(error){
-     window.status = -1;
+     window.fingerStatus = -1;
      printMessage('指纹采集器初始化失败,请确保安装了正确的指纹驱动，以及正在使用IE8以上版本的浏览器');
    }
  }
@@ -51,7 +51,7 @@
 
 
  jQuery(window).unload(function() {
-   if(window.status==0 && window.fingerEng!=null){
+   if(window.fingerStatus==0 && window.fingerEng!=null){
       //释放资源
       window.fingerEng.EndEngine();
    }
@@ -91,7 +91,7 @@
 
     function beginVerify()
     {
-        if(window.status==0){
+        if(window.fingerStatus==0){
             fingerEng.BeginCapture();
             printMessage("如果想要通过指纹登入，请将手指头放在指纹采集器上，当红灯闪过后，请将手指头离开!");
         }
