@@ -11,7 +11,7 @@
                     return '<s:property value="name"/>';
                }
            </s:iterator>
-               return "错误信息("+data+")";
+               return "未知来源("+data+")";
         };
         
         options['addTrainCourse'] = {
