@@ -1,8 +1,3 @@
-<%--
-  User: peter
-  Date: 14-3-16
-  Time: 上午10:07
---%>
 <!DOCTYPE html>
 <html lang="en">
 <html>
@@ -36,7 +31,8 @@
             <div class="bg-title2"><s:property value="#parent.name"/></div>
             <div style="clear:both"></div>
             <s:iterator value="#parent.children" var="child">
-                <div class="hosp-green" onclick="location='userFront/whoisherelist.action?servicePlaceId=<s:property value="#child.id"/>'">
+                <a href='userFront/whoisherelist.action?servicePlaceId=<s:property value="#child.id"/>'>
+                <div class="hosp-green">
                     <div class="plase-img">
                         <img src="<s:property value="#child.serviceicon"/>" style="width:100px;height:80px"/>
                     </div>
@@ -46,6 +42,7 @@
                        </span>
                     </div>
                 </div>
+                </a>
              </s:iterator>
         </s:iterator>
     </div>
@@ -63,11 +60,11 @@
                 <s:iterator value="outServicePlaces" id="service">
                 <s:set name="found" value="true"/>
                 var buffer = [];
-                buffer.push('<div onclick="location=\'userFront/whoisherelist.action?servicePlaceId=<s:property value="#service.id"/>\'">');
+                buffer.push('<a href="userFront/whoisherelist.action?servicePlaceId=<s:property value="#service.id"/>">');
                 buffer.push('<s:property value="#service.name"/><span class="badge bg-success">'+
                         <s:property value="#service.activeUserBeanList.size()"/>
                         +'</span>');
-                buffer.push('</div>');
+                buffer.push('</a>');
                 mapMutiplePosition(buffer.join(""), "<s:property value="#service.longitude"/>", "<s:property value="#service.latitude"/>");
                 </s:iterator>
             });

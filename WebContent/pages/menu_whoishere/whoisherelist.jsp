@@ -23,8 +23,11 @@
 <body>
 <div class="home2">
     <div class="bg-user">
-        <div class="bg-fh"><img src="../img/back.png" width="35" height="35" onclick="location='userFront/whoishere.action'"
-                                style="cursor: pointer"/></div>
+        <div class="bg-fh">
+            <a href='userFront/whoishere.action'>
+                <img src="img/back.png" width="35" height="35"/>
+            </a>
+        </div>
         <div class="bg-top">谁在这里</div>
         <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
         <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
