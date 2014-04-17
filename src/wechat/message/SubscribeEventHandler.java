@@ -18,7 +18,6 @@ import java.io.UnsupportedEncodingException;
 public class SubscribeEventHandler implements EventHandler {
 
   String content = "你可以在此处绑定横渡志愿者服务平台: <a href='%s'>点击这里</a>";
-  String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
   protected final static Logger LOG = LoggerFactory.getLogger(SubscribeEventHandler.class);
 
   @Override
@@ -37,6 +36,7 @@ public class SubscribeEventHandler implements EventHandler {
   @Override
   public void handle(BaseMessage message) {
     try {
+      String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
       ServiceMessage response = new TextServiceMessage(message.getFromUserName(),
           String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo")));
       ServiceMessageUtils.sendMessage(response);

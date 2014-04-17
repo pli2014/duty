@@ -36,10 +36,8 @@ public class WechatTrainCourseAction extends WechatBaseAuthAction {
    * @return
    */
   public String myTrainCourse() {
-    VolunteerBean volunteer = getVolunteer();
-    if (volunteer == null) {
-      addActionError("获取用户失败！无法显示你的培训课程！");
-      return SUCCESS;
+    if(null == volunteer) {
+      return "redirectBinding";
     }
     TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
     VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();

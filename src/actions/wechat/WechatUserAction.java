@@ -86,6 +86,9 @@ public class WechatUserAction extends WechatBaseAuthAction {
    * @return
    */
   public String myInfo() {
+    if(null == volunteer) {
+      return "redirectBinding";
+    }
     return SUCCESS;
   }
 

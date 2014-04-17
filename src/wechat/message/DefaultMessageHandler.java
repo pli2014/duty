@@ -5,16 +5,26 @@ import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.UserServiceBusiness;
 import bl.mongobus.VolunteerBusiness;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import util.ServerContext;
 import wechat.BaseEvent;
 import wechat.BaseMessage;
 import wechat.request.*;
 import wechat.response.TextResponse;
 import wechat.response.VoiceResponse;
+import wechat.servicemessage.ServiceMessage;
+import wechat.servicemessage.ServiceMessageUtils;
+import wechat.servicemessage.TextServiceMessage;
+import wechat.utils.URLManager;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by wangronghua on 14-3-11.
  */
 public class DefaultMessageHandler implements MessageHandler {
+  private static Logger logger = LoggerFactory.getLogger(DefaultMessageHandler.class);
 
   @Override
   public BaseMessage handle(BaseMessage message) {
@@ -27,17 +37,17 @@ public class DefaultMessageHandler implements MessageHandler {
     response.setToUserName(text.getFromUserName());
     response.setFromUserName(text.getToUserName());
     response.setCreateTime(System.currentTimeMillis() / 1000);
-    response.setContent(text.getContent());
+    response.setContent("对不起，暂未提供短信助手功能！");
     return response;
   }
 
   @Override
   public BaseMessage handle(VoiceRequest voice) {
-    VoiceResponse response = new VoiceResponse();
+    TextResponse response = new TextResponse();
     response.setToUserName(voice.getFromUserName());
     response.setFromUserName(voice.getToUserName());
     response.setCreateTime(System.currentTimeMillis() / 1000);
-    response.setMediaId(voice.getMediaId());
+    response.setContent("对不起，暂未提供语音助手功能！");
     return response;
   }
 
@@ -72,7 +82,7 @@ public class DefaultMessageHandler implements MessageHandler {
     response.setToUserName(event.getFromUserName());
     response.setFromUserName(event.getToUserName());
     response.setCreateTime(System.currentTimeMillis() / 1000);
-    response.setContent("欢迎使用千年老二测试系统！");
+    response.setContent("欢迎使用横渡志愿者服务平台！");
     return response;
   }
 
@@ -98,11 +108,19 @@ public class DefaultMessageHandler implements MessageHandler {
       VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
 
       VolunteerBean volunteer = volunteerBus.getVolunteerBeanByOpenID(event.getFromUserName());
-      String text = "获取用户信息失败!";
+      String text = "对不起，您还未绑定志愿者账号!";
       if (volunteer != null) {
         double hoursForMonth = userServiceBus.getServicedHoursForCurrentMonth(volunteer.getId());
         double hoursForYear = userServiceBus.getServicedHoursForCurrentMonth(volunteer.getId());
         text = "您当月服务" + hoursForMonth + "小时，当年服务" + hoursForYear + "小时.";
+      } else {
+        String content = "对不起，您还未绑定志愿者账号! 你可以在此处绑定横渡志愿者服务平台: <a href='%s'>点击这里</a>";
+        String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
+        try {
+          text = String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo"));
+        } catch (UnsupportedEncodingException e) {
+          logger.error("Exception happened while getUrl_OAuthRedirect:{}", e);
+        }
       }
       response.setContent(text);
       return response;
