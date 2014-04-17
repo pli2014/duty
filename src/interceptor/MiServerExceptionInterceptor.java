@@ -35,7 +35,7 @@ public class MiServerExceptionInterceptor extends AbstractInterceptor {
                 as.addActionError(errorMessage);
                 return as.INPUT;
             } else {
-                LOG.error("This action exception is: #0", e);
+                LOG.error("This action exception is: {}", e);
                 throw new WrappedRuntimeException(e);
             }
         }

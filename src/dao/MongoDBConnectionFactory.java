@@ -35,7 +35,7 @@ public class MongoDBConnectionFactory {
         try {
             mongoClient = new MongoClient(ServerContext.getValue("mongodbip"));
         } catch (UnknownHostException e) {
-            LOG.error("this exception [#0]", e.getMessage());
+            LOG.error("this exception [{}]", e.getMessage());
         }
     }
 
