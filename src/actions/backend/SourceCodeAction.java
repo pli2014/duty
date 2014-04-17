@@ -1,17 +1,26 @@
 package actions.backend;
 
 import bl.beans.SourceCodeBean;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SourceCodeBusiness;
+import bl.mongobus.VolunteerBusiness;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.commons.beanutils.BeanUtils;
 import org.bson.types.ObjectId;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by peter on 06-04-14.
  */
 public class SourceCodeAction extends BaseBackendAction<SourceCodeBusiness> {
+    private final VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+
     private SourceCodeBean sourceCode = null;
 
     public SourceCodeBean getSourceCode() {
@@ -23,10 +32,22 @@ public class SourceCodeAction extends BaseBackendAction<SourceCodeBusiness> {
     }
 
     public String delete() {
-        if (getIds() != null) {
-            for (String id : getIds()) {
-                getBusiness().deleteLeaf(id);
-            }
+        if (getId() != null) {
+            boolean error = false;
+                final SourceCodeBean sb = (SourceCodeBean)getBusiness().getLeaf(getId()).getResponseData();
+                if (sb != null) {
+                    Map<String, String> map = new HashMap<String, String>() {
+                        {
+                            put("occupation", sb.getCode());
+                        }
+                    };
+                    List list = volunteerBus.queryDataByCondition(map,null);
+                    if(list.size()>0){
+                        addActionError(sb.getCode()+" 来源编码已经被志愿者信息关联");
+                    }else{
+                        getBusiness().deleteLeaf(getId());
+                    }
+                }
         }
         return ActionSupport.SUCCESS;
     }

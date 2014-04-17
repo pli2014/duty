@@ -119,12 +119,13 @@
 
     <package name="sourcecode" namespace="/backend/sourcecode" extends="default-backend">
         <action name="index" class="actions.backend.SourceCodeAction" method="index">
+            <result name="input">/pages/table/tableIndex.jsp</result>
         </action>
         <action name="initTable" class="actions.backend.SourceCodeAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.SourceCodeAction" method="queryTable"/>
 
         <action name="delete" class="actions.backend.SourceCodeAction" method="delete">
-            <result name="success" type="redirectAction"><param name="actionName">index</param></result>
+            <result name="success" type="chain"><param name="actionName">index</param></result>
         </action>
         <action name="add" class="actions.backend.SourceCodeAction" method="add">
             <result name="success">/pages/menu_sourcecode/sourcecodeaddedit.jsp</result>
