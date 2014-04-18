@@ -71,8 +71,16 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-5 col-md-5">
-                        <button class="btn btn-default pull-right" type="submit">
+                    <div class="col-lg-3 col-md-3 filter-column">
+                        <label class="pull-left control-label" for="code">工号</label>
+
+                        <div class="col-lg-9 col-md-9 filter-component-column">
+                            <input type="text" value="<s:property value='code'/>" placeholder="工号" class="form-control input-sm filter-component" name="code" id="code">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3">
+                        <button class="btn btn-success pull-right" type="submit">
                             查询
                         </button>
                     </div>

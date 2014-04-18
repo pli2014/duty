@@ -41,9 +41,13 @@
             if($("#name").val()) {
                 aoData.push( { "name": "filter['name']", "value": $("#name").val() } );
             }
+            if($("#code").val()) {
+                aoData.push( { "name": "filter['code']", "value": $("#code").val() } );
+            }
             if($("#servicePlaceId").val()) {
                 aoData.push( { "name": "filter['servicePlaceId']", "value": $("#servicePlaceId").val() } );
             }
+            aoData.push( {"name":"filter['status']","value":2} );
             $.ajax( {
                 "type": "post",
                 "url": sSource,
@@ -137,6 +141,14 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-2 col-md-2 filter-column">
+                        <label class="pull-left control-label" for="code">工号</label>
+
+                        <div class="col-lg-9 col-md-9 filter-component-column">
+                            <input type="text" value="<s:property value='code'/>" placeholder="工号" class="form-control input-sm filter-component" name="code" id="code">
+                        </div>
+                    </div>
+
                     <div class="col-lg-4 col-md-4 filter-column">
                         <label class="pull-left control-label" >范围</label>
 
@@ -168,8 +180,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-3 col-md-3">
-                        <button class="btn btn-default pull-right" type="submit">
+                    <div class="col-lg-2 col-md-2">
+                        <button class="btn btn-success pull-right" type="submit">
                             查询
                         </button>
                     </div>
