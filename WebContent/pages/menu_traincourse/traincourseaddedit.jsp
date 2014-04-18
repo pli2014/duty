@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label col-sm-2"></label>
                             <div class="col-sm-10">
-                                <textarea class="form-control ckeditor" name="trainCourse.description" rows="10">${trainCourse.description}</textarea>
+                                <textarea class="form-control" name="trainCourse.description" rows="10">${trainCourse.description}</textarea>
                             </div>
                         </div>
                     </div>
