@@ -74,7 +74,7 @@
         <div class="form-group has-success">
             <label class="control-label col-lg-2">服务介绍</label>
             <div class="col-lg-10">
-                <textarea class="form-control ckeditor" name="systemSetting.introduction" rows="20">${systemSetting.introduction}</textarea>
+                <textarea class="form-control" name="systemSetting.introduction" rows="20">${systemSetting.introduction}</textarea>
             </div>
         </div>
 
