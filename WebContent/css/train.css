@@ -482,7 +482,8 @@ height:30px;
 	float:left;
 	margin-right:15px;
 	margin-bottom:15px;
-	
+
+    cursor: pointer;
 	}
 .time-focus{
 	width:160px;
@@ -490,7 +491,7 @@ height:30px;
 	background:#0671DE;
 	border:2px solid #0657aa;
 	background: url("../img/accept_item.png") no-repeat 138px 2px #0671DE;
-	
+
 	
 	margin-top:0%;
 	float:left;
