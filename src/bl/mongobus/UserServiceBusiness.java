@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
+import util.EarthGpsDistanceUtil;
 import wechat.request.LocationEvent;
 import wechat.utils.LocationCache;
 
@@ -29,13 +30,13 @@ import wechat.utils.LocationCache;
  */
 public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserServiceBean> {
 
-  ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
-  ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
+    private static final ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+    private static final  ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
-  VolunteerBusiness userBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
-  TrainCourseServicePlaceBusiness tcspBus = (TrainCourseServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
-  TrainCourseBusiness tcBus = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
-  VolunteerTrainCourseBusiness vtcBus = (VolunteerTrainCourseBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
+    private static final VolunteerBusiness userBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+    private static final TrainCourseServicePlaceBusiness tcspBus = (TrainCourseServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
+    private static final TrainCourseBusiness tcBus = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
+    private static final  VolunteerTrainCourseBusiness vtcBus = (VolunteerTrainCourseBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
 
   private static Logger LOG = LoggerFactory.getLogger(UserServiceBusiness.class);
 
@@ -206,6 +207,15 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
             bean.setLatitude(event.getLatitude());
             bean.setLongitude(event.getLongitude());
             bean.setPrecision(event.getPrecision());
+            ServicePlaceBean sp = (ServicePlaceBean) servicePlaceBus.getLeaf(servicePlaceId).getResponseData();
+            if(sp!=null){
+                //计算距离和显示描述信息
+                double lat = Double.valueOf(bean.getLatitude());
+                double loi = Double.valueOf(bean.getLongitude());
+                double distance = EarthGpsDistanceUtil.getDistance(lat, loi, sp.getLatitude(), sp.getLongitude());
+                bean.setDistance(distance);
+                bean.setDescription("附近大约"+ distance +"公里");
+            }
           }
         }
       }

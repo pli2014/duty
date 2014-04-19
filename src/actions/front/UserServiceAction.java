@@ -3,13 +3,7 @@ package actions.front;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import vo.NameValueVo;
 import vo.report.DailyTimeReportVo;
@@ -284,7 +278,9 @@ public class UserServiceAction extends BaseFrontAction {
       if (servicePlaceBean.getArea() == ServicePlaceBean.AREA_IN && servicePlaceBean.getType() == ServicePlaceBean.TYPE_OUT) {
         Map<String, String> filter = new HashMap();
         filter.put("parentid", servicePlaceBean.getId());
-        servicePlaceBean.setChildren(sp.queryDataByCondition(filter, null));
+        Set<String> sorted = new HashSet();
+        sorted.add("distance");
+        servicePlaceBean.setChildren(sp.queryDataByCondition(filter, sorted));
         if (servicePlaceBean.getChildren() != null) {
           filter = new HashMap();
           for (ServicePlaceBean child : servicePlaceBean.getChildren()) {
@@ -302,7 +298,9 @@ public class UserServiceAction extends BaseFrontAction {
       } else {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("servicePlaceId", this.servicePlaceId);
-        List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, null);
+        Set<String> sorted = new HashSet();
+        sorted.add("-distance");
+        List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, sorted);
         for (ActiveUserBean ub : activeUserBeanList) {
           ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());
         }

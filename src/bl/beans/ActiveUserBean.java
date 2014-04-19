@@ -2,6 +2,7 @@ package bl.beans;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Transient;
 
 import java.util.Date;
 
@@ -22,10 +23,28 @@ public class ActiveUserBean extends Bean {
   private String latitude;
   private String longitude;
   private String precision;
-
+  @Transient
   private transient VolunteerBean volunteer;
+  private double distance=Integer.MAX_VALUE;
+  private String description="未知距离";
 
-  public String getUserId() {
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUserId() {
     return userId;
   }
 

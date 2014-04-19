@@ -3,6 +3,7 @@
  */
 package actions.backend;
 
+import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
 import bl.beans.VolunteerBean;
@@ -39,9 +40,18 @@ public class BackendVolunteerInterviewAction extends BackendVolunteerAction {
 
   @Override
   public TableInitVo getTableInit() {
-    TableInitVo init = super.getTableInit();
-    init.setDisableTools(true);
-    return init;
+      TableInitVo init = new TableInitVo();
+      init.getAoColumns().add(new TableHeaderVo("name", "志愿者").enableSearch());
+      init.getAoColumns().add(new TableHeaderVo("code", "工号").enableSearch());
+      init.getAoColumns().add(new TableHeaderVo("identityCard", "身份证").enableSearch());
+      init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
+      init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道"));
+      init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
+      init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
+      init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
+      init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
+      init.setDisableTools(true);
+      return init;
   }
 
   /**
@@ -53,4 +63,5 @@ public class BackendVolunteerInterviewAction extends BackendVolunteerAction {
     setVolunteer(volunteer);
     return SUCCESS;
   }
+
 }

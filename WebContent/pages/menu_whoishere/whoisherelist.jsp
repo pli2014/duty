@@ -60,13 +60,14 @@
                           <div style="color:gray;"><s:property value="#vol.volunteer.cellPhone"/></div>
                        </div>
                        <div style="float: right;padding-top: 30px;">
-                          <s:if test="#vol.status == '1'">
+                          <s:if test="#vol.status == 1">
                              <img src="${rootPath}/img/wechat.jpg"/>
                           </s:if>
                           <s:else>
                              <img src="${rootPath}/img/screen.jpg"/>
                           </s:else>
                        </div>
+                       <div style="color:gray;padding-top: 30px;float: right;margin-right:10px"><s:if test="#vol.description ==null || #vol.description ==''">未知距离</s:if><s:else><s:property value="#vol.description"/></s:else></div>
                     </div>
                 </div>
           </s:iterator>

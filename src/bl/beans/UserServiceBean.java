@@ -108,4 +108,23 @@ public class UserServiceBean extends Bean{
   private VolunteerBean userBean;
   @Transient
   private ServicePlaceBean servicePlaceBean;
+
+    private double distance=Integer.MAX_VALUE;
+    private String description="未知距离";
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
