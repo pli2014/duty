@@ -123,7 +123,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
       for (Object error : result.getErrors()) {
         addActionError(error.toString());
       }
-      return FAILURE;
+      return INPUT;
     }
     if (result.getMessages().size() > 0) {
       for (Object message : result.getMessages()) {
