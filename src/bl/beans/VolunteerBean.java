@@ -22,7 +22,7 @@ public class VolunteerBean extends Bean {
   
   private String code;
   private Integer registerFrom = REGISTER_HOSPITAL; // 1=hospital,2=wechat.
-  private Integer status = REGISTERED; // 0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
+  private Integer status = REGISTERED; // 0=已注册、1=已审核、2=已面试、3=审核不通过、4=面试不通过
   private Integer sex; // 1=Male,2=Female
   private Date birthDate;
   private String identityCard;

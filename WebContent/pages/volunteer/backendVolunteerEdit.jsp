@@ -50,13 +50,24 @@
          <div class="form-group has-error">
              <label class="col-lg-2 control-label">状态</label>
              <div class="col-lg-10">
-                <select name="volunteer.status" class="form-control">
-                  <option value="0" <s:if test="volunteer.status == 0">selected="selected"</s:if>>已注册</option>
-                  <option value="1" <s:if test="volunteer.status == 1">selected="selected"</s:if>>已审核</option>
-                  <option value="2" <s:if test="volunteer.status == 2">selected="selected"</s:if>>已面试</option>
-                  <option value="3" <s:if test="volunteer.status == 3">selected="selected"</s:if>>正在服务期</option>
-                  <option value="4" <s:if test="volunteer.status == 4">selected="selected"</s:if>>已注销</option>
-                </select>
+                <s:if test="volunteer.status==0">
+                    <input id="status" type="text" value="已注册" class="form-control" required="required"/>
+                </s:if>
+                <s:elseif test="volunteer.status==1">
+                    <input id="status" type="text" value="通过审核" class="form-control" required="required"/>
+                </s:elseif>
+                 <s:elseif test="volunteer.status==2">
+                     <input id="status" type="text" value="通过面试" class="form-control" required="required"/>
+                 </s:elseif>
+                 <s:elseif test="volunteer.status==3">
+                     <input id="status" type="text" value="未通过审核" class="form-control" required="required"/>
+                 </s:elseif>
+                 <s:elseif test="volunteer.status==4">
+                     <input id="status" type="text" value="未通过面试" class="form-control" required="required"/>
+                 </s:elseif>
+                 <s:else>
+                     <input id="status" type="text" value="未知状态" class="form-control" required="required"/>
+                 </s:else>
              </div>
          </div>
          <s:if test="volunteer.id.length() > 0">
@@ -141,9 +152,9 @@
              <div class="col-lg-offset-2 col-lg-10">
                  <button class="btn btn-info" type="submit">保存</button>
                  <s:if test="volunteer.id.length() > 0">
-                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='${rootPath}/backend/volunteer/resetPassword.action?id=${volunteer.id}'">重置密码</button>
                  </s:if>
-                 <button class="btn btn-info" type="button" onclick="window.location.href='backend/volunteer/index.action'">取消</button>
+                 <button class="btn btn-info" type="button" onclick="window.location.href='${rootPath}/backend/volunteer/index.action'">取消</button>
              </div>
          </div>
          
@@ -155,6 +166,8 @@
 	 <script type="text/javascript">
 	 $(document).ready(function() {
 	     $("form input[name='volunteer.name']").attr("readonly","readonly");
+         $("form input[name='volunteer.code']").attr("readonly","readonly");
+         $("form #status").attr("readonly","readonly");
 	 });
     </script>
   </s:if>

@@ -14,19 +14,19 @@ cellFormatter["sex"] = function ( data, type, full ) {
     } 
 }
 cellFormatter["status"] = function ( data, type, full ) {
-    //0=已注册、1=已审核、2=已面试、3=正在服务期、4=已注销
+    //0=已注册、1=已审核、2=已面试、3=审核不通过、4=面试不通过
     if(data == 0){
         return '已注册';
     }else if(data == 1){
-        return '已审核';
-    }else if(data = 2){
-       return '已面试';
+        return '通过审核';
+    }else if(data == 2){
+       return '通过面试';
     }else if(data == 3){
-        return '正在服务期';
+        return '未通过审核';
     }else if(data == 4){
-        return '已注销';
+        return '未通过面试';
     }else{
-       return '未知';
+       return '未知状态';
     } 
 }
 cellFormatter["registerFrom"] = function ( data, type, full ) {
