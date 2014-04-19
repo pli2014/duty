@@ -12,10 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LocationCache {
 
   private static ConcurrentHashMap<String, LocationEvent> dataMap = new ConcurrentHashMap<String, LocationEvent>();
-  private static List<String> keysList = new ArrayList<String>();
+  private static final long TIME_OUT_VALUE = 300000;
 
-  private static final long TIME_OUT_VALUE = 60000;
-  private LocationCache(){}
+    private static List<String> keysList = new ArrayList<String>();
+    private LocationCache(){}
 
   static {
     Thread thread = new Thread(new Runnable() {
