@@ -653,3 +653,7 @@ padding-right:5px;
 	text-align:right;
 	}
 
+input[readonly]{
+    cursor:not-allowed;
+    background-color:#eee;
+}
