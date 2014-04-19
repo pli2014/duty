@@ -120,6 +120,22 @@ $(document).ready(function() {
     $("#operationbutton").html(operationButtons.join("&nbsp;"));
     $(".btn.btn-success").click(function(event){event.stopPropagation();});
 
+    //获取来自Dashborad发送过来的URL上的参数，然后设置查询条件.
+    var foundSearch = false;
+    <s:iterator value="#parameters">
+    {
+      var searcher  = $(".form-horizontal.tasi-form [name='<s:property value="key"/>']");
+      searcher.val('<s:property value="value"/>');
+      if(searcher.length>0){
+          foundSearch = true;
+      }
+    }
+    </s:iterator>
+    if(foundSearch){
+        //打开查询搜索条件框
+        $('.form-horizontal.tasi-form .panel-heading').click();
+    }
+
     var tableUrl = "${actionPrex}/initTable.action?${addButtonParameter}";
     var param = {};
     $.getJSON( tableUrl, param, function (initParam) {
