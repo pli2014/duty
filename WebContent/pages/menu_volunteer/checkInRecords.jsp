@@ -52,6 +52,7 @@
                             </div>
                         </s:if>
                         <s:else>
+                          <s:if test="aub==null">
                             <div class="hosp-green"
                                  <s:if test="aub==null">onclick="jQuery('.hosp-green').removeClass('hosp-focus');jQuery(this).addClass('hosp-focus');"</s:if>>
                                 <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
@@ -60,6 +61,7 @@
                                     <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
                                 </form>
                             </div>
+                          </s:if>
                         </s:else>
                     </s:if>
                </s:iterator>
