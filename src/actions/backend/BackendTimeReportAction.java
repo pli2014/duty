@@ -38,6 +38,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
   List<ActiveTimeReportVo> activeTimeReportVos;
 
   private String name;
+  private String code;
   private String servicePlaceId;
   private boolean day = true;
   private boolean month = true;
@@ -64,6 +65,11 @@ public class BackendTimeReportAction extends BaseBackendAction{
     String[] names = filterMap.get("name");
     if(null != names && names.length > 0) {
       name = names[0];
+    }
+
+    String[] codes = filterMap.get("code");
+    if(null != codes && codes.length > 0) {
+      code = codes[0];
     }
 
     String[] servicePlaces = filterMap.get("servicePlaceId");
@@ -130,14 +136,27 @@ public class BackendTimeReportAction extends BaseBackendAction{
     List<String> labelList = new ArrayList<String>();
     List<String> yKeysList = new ArrayList<String>();
 
-    if(null != name && StringUtils.isNotEmpty(selectYearDate)) {
-      VolunteerBean volunteer = (VolunteerBean)volunteerBus.getLeafByName(name).getResponseData();
+    if((StringUtils.isNotEmpty(name) || StringUtils.isNotEmpty(code)) && StringUtils.isNotEmpty(selectYearDate)) {
+      VolunteerBean volunteer = null;
+      if(StringUtils.isNotEmpty(code)) {
+        volunteer = volunteerBus.getVolunteerBeanByCode(code);
+        if(null != volunteer) {
+          name = volunteer.getName();
+        }
+      }
+      if(null == volunteer && StringUtils.isNotEmpty(name)) {
+        volunteer = (VolunteerBean)volunteerBus.getLeafByName(name).getResponseData();
+        if(null != volunteer) {
+          code = "";
+        }
+      }
+
       if(null != volunteer) {
         SimpleDateFormat parsesdf = new SimpleDateFormat("yyyy-MM");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //set label
-        labelList.add(name);
-        yKeysList.add(name);
+        labelList.add(volunteer.getName());
+        yKeysList.add(volunteer.getName());
         //set ykeys
         Date yearDate = parsesdf.parse(selectYearDate);
         cal.setTime(yearDate);
@@ -157,7 +176,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
           Long value = valueMap.get(time);
           Map monthMap = new HashMap();
           monthMap.put("time", time);
-          monthMap.put(name, (value!=null?value:0l)/ 3600000);
+          monthMap.put(volunteer.getName(), (value!=null?value:0l)/ 3600000);
           dataList.add(monthMap);
           cal.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -182,12 +201,25 @@ public class BackendTimeReportAction extends BaseBackendAction{
     List<String> labelList = new ArrayList<String>();
     List<String> yKeysList = new ArrayList<String>();
 
-    if(null != name && selectYear > 0) {
-      VolunteerBean volunteer = (VolunteerBean)volunteerBus.getLeafByName(name).getResponseData();
+    if((StringUtils.isNotEmpty(name) || StringUtils.isNotEmpty(code)) && selectYear > 0) {
+      VolunteerBean volunteer = null;
+      if(StringUtils.isNotEmpty(code)) {
+        volunteer = volunteerBus.getVolunteerBeanByCode(code);
+        if(null != volunteer) {
+          name = volunteer.getName();
+        }
+      }
+      if(null == volunteer && StringUtils.isNotEmpty(name)) {
+        volunteer = (VolunteerBean)volunteerBus.getLeafByName(name).getResponseData();
+        if(null != volunteer) {
+          code = "";
+        }
+      }
       if(null != volunteer) {
+        name = volunteer.getName();
         //set label
-        labelList.add(name);
-        yKeysList.add(name);
+        labelList.add(volunteer.getName());
+        yKeysList.add(volunteer.getName());
         //set ykeys
         cal = initDate(cal);
         cal.set(Calendar.YEAR, selectYear);
@@ -206,7 +238,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
           Long value = valueMap.get(time);
           Map monthMap = new HashMap();
           monthMap.put("time", time);
-          monthMap.put(name, (value!=null?value:0l)/ 3600000);
+          monthMap.put(volunteer.getName(), (value!=null?value:0l)/ 3600000);
           dataList.add(monthMap);
           cal.add(Calendar.MONTH, 1);
         }
@@ -259,7 +291,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
   }
 
   public void setName(String name) {
-    this.name = name;
+    this.name = name.trim();
   }
 
   public boolean isDay() {
@@ -355,5 +387,13 @@ public class BackendTimeReportAction extends BaseBackendAction{
 
   public void setSelectYearDate(String selectYearDate) {
     this.selectYearDate = selectYearDate;
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code.trim();
   }
 }

@@ -280,7 +280,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 	public BusinessResult getLeafByName(String name) {
 		Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
 		BusinessResult br = new BusinessResult();
-		br.setResponseData(dc.find(this.clazz, "name", name).get());
+		br.setResponseData(dc.find(this.clazz, "name", name).filter("isDeleted", false).get());
 		return br;
 	}
 
