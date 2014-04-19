@@ -26,7 +26,7 @@ public class ActiveUserBean extends Bean {
   @Transient
   private transient VolunteerBean volunteer;
   private double distance=Integer.MAX_VALUE;
-  private String description="未知距离";
+  private String description="未知";
 
     public double getDistance() {
         return distance;
