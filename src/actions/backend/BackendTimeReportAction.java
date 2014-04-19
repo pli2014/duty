@@ -131,10 +131,16 @@ public class BackendTimeReportAction extends BaseBackendAction{
 
   public String getUserDailyReport() throws ParseException {
     Calendar cal = Calendar.getInstance();
+    SimpleDateFormat parsesdf = new SimpleDateFormat("yyyy-MM");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     List dataList = new ArrayList();
     List<String> labelList = new ArrayList<String>();
     List<String> yKeysList = new ArrayList<String>();
+
+    if(StringUtils.isEmpty(selectYearDate)) {
+      selectYearDate = parsesdf.format(new Date());
+    }
 
     if((StringUtils.isNotEmpty(name) || StringUtils.isNotEmpty(code)) && StringUtils.isNotEmpty(selectYearDate)) {
       VolunteerBean volunteer = null;
@@ -152,8 +158,6 @@ public class BackendTimeReportAction extends BaseBackendAction{
       }
 
       if(null != volunteer) {
-        SimpleDateFormat parsesdf = new SimpleDateFormat("yyyy-MM");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //set label
         labelList.add(volunteer.getName());
         yKeysList.add(volunteer.getName());
@@ -186,6 +190,10 @@ public class BackendTimeReportAction extends BaseBackendAction{
     jsonData = JSONArray.fromObject(dataList).toString();
     jsonLabels = JSONArray.fromObject(labelList).toString();
     jsonYKeys = JSONArray.fromObject(yKeysList).toString();
+
+    if(null != labelList && labelList.size() == 0) {
+      super.addActionMessage("没有查询到相关记录！");
+    }
     return SUCCESS;
   }
 
@@ -248,6 +256,11 @@ public class BackendTimeReportAction extends BaseBackendAction{
     jsonData = JSONArray.fromObject(dataList).toString();
     jsonLabels = JSONArray.fromObject(labelList).toString();
     jsonYKeys = JSONArray.fromObject(yKeysList).toString();
+
+    if(null != labelList && labelList.size() == 0) {
+      super.addActionMessage("没有查询到相关记录！");
+    }
+
     return SUCCESS;
   }
 

@@ -1,4 +1,9 @@
 <%@ include file="/pages/commonHeader.jsp"%>
+  <script type="text/javascript">
+      function selectMenu(menu) {
+          $("#"+menu)[0].click();
+      }
+  </script>
   <section id="container" >
 
       <!--sidebar start-->
@@ -23,7 +28,7 @@
                           <span>志愿者管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/volunteer/index.action">志愿者</a></li>
+                          <li><a id="volunteerManagement" href="backend/volunteer/index.action">志愿者</a></li>
                           <li><a  href="backend/volunteerVerify/index.action">审核</a></li>
                           <li><a  href="backend/volunteerInterview/index.action">面试</a></li>
                       </ul>
@@ -44,8 +49,8 @@
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a  href="backend/traincourse/index.action">培训课程</a></li>
-                          <li><a  href="backend/volunterTrainCourse/index.action">培训记录</a></li>
+                          <li><a id="courseManagement" href="backend/traincourse/index.action">培训课程</a></li>
+                          <li><a id="trainManagement" href="backend/volunterTrainCourse/index.action">培训记录</a></li>
                       </ul>
                   </li>
                   <li class="sub-menu">

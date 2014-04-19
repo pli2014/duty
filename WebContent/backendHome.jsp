@@ -12,37 +12,43 @@
 <!--state overview start-->
 <div class="row state-overview">
     <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol terques">
-                <i class="fa fa-user"></i>
-            </div>
-            <div class="value">
-                <h1 class="count"><s:property value="dashBoardBean.volunteerCount" default="0" /> </h1>
-                <p>志愿者</p>
-            </div>
-        </section>
+        <a href="javascript:selectMenu('volunteerManagement')">
+            <section class="panel">
+                <div class="symbol terques">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="value">
+                    <h1 class="count"><s:property value="dashBoardBean.volunteerCount" default="0" /> </h1>
+                    <p>志愿者</p>
+                </div>
+            </section>
+        </a>
     </div>
     <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol red">
-                <i class="fa fa-tags"></i>
-            </div>
-            <div class="value">
-                <h1 class=" count2"><s:property value="dashBoardBean.courseCount" default="0" /></h1>
-                <p>课程</p>
-            </div>
-        </section>
+        <a href="javascript:selectMenu('courseManagement')">
+            <section class="panel">
+                <div class="symbol red">
+                    <i class="fa fa-tags"></i>
+                </div>
+                <div class="value">
+                    <h1 class=" count2"><s:property value="dashBoardBean.courseCount" default="0" /></h1>
+                    <p>课程</p>
+                </div>
+            </section>
+        </a>
     </div>
     <div class="col-lg-3 col-sm-6">
-        <section class="panel">
-            <div class="symbol yellow">
-                <i class="fa fa-shopping-cart"></i>
-            </div>
-            <div class="value">
-                <h1 class=" count3"><s:property value="dashBoardBean.trainCount" default="0" /></h1>
-                <p>培训人次</p>
-            </div>
-        </section>
+        <a href="javascript:selectMenu('trainManagement')">
+            <section class="panel">
+                <div class="symbol yellow">
+                    <i class="fa fa-shopping-cart"></i>
+                </div>
+                <div class="value">
+                    <h1 class=" count3"><s:property value="dashBoardBean.trainCount" default="0" /></h1>
+                    <p>培训人次</p>
+                </div>
+            </section>
+        </a>
     </div>
     <div class="col-lg-3 col-sm-6">
         <section class="panel">
