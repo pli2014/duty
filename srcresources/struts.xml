@@ -159,7 +159,10 @@
             <result name="success">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
         <action name="checkInSubmit" class="actions.front.UserServiceAction" method="checkInSubmit">
-            <result name="success" type="redirectAction">getCheckInRecords</result>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/</param>
+                <param name="actionName">index</param>
+            </result>
             <result name="error">/pages/menu_volunteer/checkIn.jsp</result>
         </action>
         <action name="checkOut" class="actions.front.UserServiceAction" method="checkOut">

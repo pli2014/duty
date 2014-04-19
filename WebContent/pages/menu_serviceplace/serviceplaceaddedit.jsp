@@ -170,6 +170,13 @@
                             </div>
                         </div>
                     </s:if>
+                    <s:else>
+                        <script type="text/javascript">
+                            function checkForm(){
+                                return true;
+                            }
+                        </script>
+                    </s:else>
 
                     <div class="form-group has-success">
                         <label class="control-label col-lg-2 col-sm-3">地点描述</label>
