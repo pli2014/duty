@@ -133,7 +133,7 @@
     </header>
 
     <s:iterator value="activeVolunteers" var="bean">
-        <div class="panel-body boder" style="padding-top: 0px; padding-bottom: 0px;">
+        <div class="panel-body boder" style="position:relative; padding-top: 0px; padding-bottom: 0px;">
 
             <a class="task-thumb col-xs-4" href="#">
                 <img width="60px" height="50px" src="<s:property value='%{#bean.iconpath}'/>" class=""
@@ -143,13 +143,16 @@
                 <p style="padding: 0px"><s:property value='%{#bean.name}'/></p>
                 <%--<p style="padding: 0px"><s:property value="servicePlaceBean.name" /></p>--%>
                 <p style="padding: 0px"><s:property value='%{#bean.cellPhone}'/></p>
-                <p style="padding: 0px;"><s:date name="%{#bean.checkInTime}" format="yyyy/MM/dd HH:mm:ss"/></p>
+                <p style="padding: 0px;"><s:date name="%{#bean.checkInTime}" format="yyyy/MM/d  d HH:mm:ss"/></p>
             </div>
+
+            <p style="position: absolute; right:2px; top:0px;"><s:property value="%{#bean.description}" /> </p>
+
             <s:if test="#bean.status == 1">
-                <img style="float: right;" src="img/wechat.jpg">
+                <img style="position: absolute; right:2px; top:20px;" src="img/wechat.jpg">
             </s:if>
             <s:if test="#bean.status == 0">
-                <img style="float: right;" src="img/screen.jpg">
+                <img style="position: absolute; right:2px; top:20px;" src="img/screen.jpg">
             </s:if>
 
         </div>

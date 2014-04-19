@@ -179,6 +179,8 @@ public class WechatUserAction extends WechatBaseAuthAction {
         vo.setIconPath(vbean.getIconpath());
         vo.setStatus(userBean.getStatus());
         vo.setCheckInTime(userBean.getCheckInTime());
+        vo.setDistance(userBean.getDistance());
+        vo.setDescription(userBean.getDescription());
         activeVolunteers.add(vo);
       }
     }

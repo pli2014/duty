@@ -56,7 +56,7 @@
                         <label class="pull-left control-label" for="selectYear">年份</label>
 
                         <div class="col-lg-9 col-md-9 filter-component-column">
-                            <select class="form-control input-sm m-bot15" name="selectYear" id="selectYear">
+                            <select class="form-control input-sm" name="selectYear" id="selectYear">
                                 <s:iterator value="yearList" var="yearStr">
                                     <option value="<s:property value='%{#yearStr}'/>"
                                     <s:if test="selectYear == #yearStr">

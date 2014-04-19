@@ -12,6 +12,8 @@ public class ActiveVolunteerVo {
   private Date checkInTime;
   private String cellPhone;
   private String iconPath;
+  private double distance;
+  private String description;
 
   public String getIconPath() {
     return iconPath;
@@ -59,6 +61,22 @@ public class ActiveVolunteerVo {
 
   public void setCellPhone(String cellPhone) {
     this.cellPhone = cellPhone;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public double getDistance() {
+    return distance;
+  }
+
+  public void setDistance(double distance) {
+    this.distance = distance;
   }
 
 

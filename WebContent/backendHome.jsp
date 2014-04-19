@@ -12,7 +12,7 @@
 <!--state overview start-->
 <div class="row state-overview">
     <div class="col-lg-3 col-sm-6">
-        <a href="javascript:selectMenu('volunteerManagement')">
+        <a href="javascript:selectMenu('volunteerManagement','?status=2')">
             <section class="panel">
                 <div class="symbol terques">
                     <i class="fa fa-user"></i>

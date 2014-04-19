@@ -1,6 +1,9 @@
 <%@ include file="/pages/commonHeader.jsp"%>
   <script type="text/javascript">
-      function selectMenu(menu) {
+      function selectMenu(menu, parameter) {
+          if(null != parameter) {
+              $("#"+menu)[0].href = $("#"+menu)[0].href + parameter;
+          }
           $("#"+menu)[0].click();
       }
   </script>
