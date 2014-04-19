@@ -108,7 +108,11 @@ public class TableHeaderVo {
     return this;
   }
 
-  public String getSClass() {
+    public String[][] getSearchOptions() {
+        return searchOptions;
+    }
+
+    public String getSClass() {
     return sClass;
   }
 

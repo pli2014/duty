@@ -7,8 +7,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.VolunteerBusiness;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.bson.types.ObjectId;
 
 import util.StringUtil;
@@ -32,7 +36,9 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   /**
    * 
    */
-  private static final long serialVersionUID = -5222876000116738224L;
+  private final VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+
+    private static final long serialVersionUID = -5222876000116738224L;
   private static Logger log = LoggerFactory.getLogger(BackendUserAction.class);
 
   private BackendUserBean user;
@@ -109,6 +115,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();
       if (userTmp != null && StringUtil.toMD5(user.getPassword()).equals(userTmp.getPassword())) {
         getSession().setAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID, userTmp);
+        volunteerBus.updateVolunteerStatus(ServletActionContext.getRequest());
         return SUCCESS;
       } else {
         addActionError("用户名或者密码错误");
