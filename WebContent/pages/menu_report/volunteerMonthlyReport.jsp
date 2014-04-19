@@ -100,6 +100,7 @@
                             <header class="panel-heading">
                             </header>
                             <div class="panel-body">
+                                <%@ include file="../strutsMessage.jsp"%>
                                 <div id="graph" class="graph"></div>
                             </div>
                         </section>

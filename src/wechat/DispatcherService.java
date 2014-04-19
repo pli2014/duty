@@ -31,6 +31,7 @@ public class DispatcherService {
   private static final String MSG_TYPE_EVENT = "event";
   private static final String EVENT_TYPE_SUBSCRIBE = "subscribe";
   private static final String EVENT_TYPE_UNSUBSCRIBE = "unsubscribe";
+  private static final String EVENT_TYPE_LOCATION = "LOCATION";
   private static final String EVENT_TYPE_CLICK = "CLICK";
 
   private MessageHandler handler = new DefaultMessageHandler();
@@ -57,8 +58,10 @@ public class DispatcherService {
         request = new SubscribeEvent();
       } else if(EVENT_TYPE_UNSUBSCRIBE.equals(event)) {
         request = new UnSubscribeEvent();
-      }else if(EVENT_TYPE_CLICK.equals(event)) {
+      } else if(EVENT_TYPE_CLICK.equals(event)) {
         request = new ClickEvent();
+      } else if(EVENT_TYPE_LOCATION.equals(event)) {
+        request = new LocationEvent();
       }
     }
 

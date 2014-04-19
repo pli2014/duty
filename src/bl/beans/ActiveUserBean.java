@@ -19,6 +19,9 @@ public class ActiveUserBean extends Bean {
   private int status = 0;   //-1:离线, 0:普通签入, 1:微信签入
   private Date checkInTime;
   private Date checkOutTime;
+  private String latitude;
+  private String longitude;
+  private String precision;
 
   private transient VolunteerBean volunteer;
 
@@ -69,5 +72,30 @@ public class ActiveUserBean extends Bean {
   public void setVolunteer(VolunteerBean volunteer) {
     this.volunteer = volunteer;
   }
+
+  public String getPrecision() {
+    return precision;
+  }
+
+  public void setPrecision(String precision) {
+    this.precision = precision;
+  }
+
+  public String getLatitude() {
+    return latitude;
+  }
+
+  public void setLatitude(String latitude) {
+    this.latitude = latitude;
+  }
+
+  public String getLongitude() {
+    return longitude;
+  }
+
+  public void setLongitude(String longitude) {
+    this.longitude = longitude;
+  }
+
 
 }

@@ -21,6 +21,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
+import wechat.request.LocationEvent;
+import wechat.utils.LocationCache;
 
 /**
  * Created by wangronghua on 14-3-15.
@@ -189,16 +191,26 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     return this.checkIn(userId, servicePlaceId, false);
   }
   public BusinessResult checkIn(String userId, String servicePlaceId, boolean isWechat) {
-
-    ActiveUserBean bean = new ActiveUserBean();
-    bean.set_id(ObjectId.get());
-    bean.setUserId(userId);
-    bean.setServicePlaceId(servicePlaceId);
-    bean.setCheckInTime(new Date());
-    if(isWechat){
-      bean.setStatus(ActiveUserBean.STATUS_WECHAT);
+    VolunteerBean volunteer = (VolunteerBean)userBus.getLeaf(userId).getResponseData();
+    if(null != volunteer) {
+      ActiveUserBean bean = new ActiveUserBean();
+      bean.set_id(ObjectId.get());
+      bean.setUserId(userId);
+      bean.setServicePlaceId(servicePlaceId);
+      bean.setCheckInTime(new Date());
+      if(isWechat){
+        bean.setStatus(ActiveUserBean.STATUS_WECHAT);
+        if(null != volunteer.getOpenID()) {
+          LocationEvent event = LocationCache.getLocation(volunteer.getOpenID());
+          if(null != event) {
+            bean.setLatitude(event.getLatitude());
+            bean.setLongitude(event.getLongitude());
+            bean.setPrecision(event.getPrecision());
+          }
+        }
+      }
+      this.createLeaf(bean);
     }
-    this.createLeaf(bean);
     return new BusinessResult();
   }
 
