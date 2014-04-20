@@ -278,14 +278,14 @@ public class UserServiceAction extends BaseFrontAction {
       if (servicePlaceBean.getArea() == ServicePlaceBean.AREA_IN && servicePlaceBean.getType() == ServicePlaceBean.TYPE_OUT) {
         Map<String, String> filter = new HashMap();
         filter.put("parentid", servicePlaceBean.getId());
-        Set<String> sorted = new HashSet();
-        sorted.add("distance");
-        servicePlaceBean.setChildren(sp.queryDataByCondition(filter, sorted));
+        servicePlaceBean.setChildren(sp.queryDataByCondition(filter, null));
         if (servicePlaceBean.getChildren() != null) {
           filter = new HashMap();
+          Set<String> sorted = new HashSet();
+          sorted.add("distance");
           for (ServicePlaceBean child : servicePlaceBean.getChildren()) {
             filter.put("servicePlaceId", child.getId());
-            child.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, null));
+            child.setActiveUserBeanList(activeUserBus.queryDataByCondition(filter, sorted));
             servicePlaceBean.getActiveUserBeanList().addAll(child.getActiveUserBeanList());
           }
         }
@@ -299,7 +299,7 @@ public class UserServiceAction extends BaseFrontAction {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("servicePlaceId", this.servicePlaceId);
         Set<String> sorted = new HashSet();
-        sorted.add("-distance");
+        sorted.add("distance");
         List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.queryDataByCondition(map, sorted);
         for (ActiveUserBean ub : activeUserBeanList) {
           ub.setVolunteer((VolunteerBean) vb.getLeaf(ub.getUserId()).getResponseData());

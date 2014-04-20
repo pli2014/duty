@@ -208,6 +208,9 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
             bean.setLongitude(event.getLongitude());
             bean.setPrecision(event.getPrecision());
             ServicePlaceBean sp = (ServicePlaceBean) servicePlaceBus.getLeaf(servicePlaceId).getResponseData();
+            if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
+             sp = (ServicePlaceBean) servicePlaceBus.getLeaf(sp.getParentid()).getResponseData();
+            }
             if(sp!=null){
                 //计算距离和显示描述信息
                 double lat = Double.valueOf(bean.getLatitude());

@@ -39,7 +39,7 @@
 
         <s:iterator value="servicePlaces" var="parent">
            <s:if test="#parent.type==1 && #parent.area==0">
-                <div class="bg-title2"><s:property value="#parent.name"/></div><div style="clear:both"></div>
+                <div class="bg-title2" id="<s:property value="#parent.id"/>" style="display:none"><s:property value="#parent.name"/></div><div style="clear:both"></div>
                <s:iterator value="servicePlaces" var="us">
                     <s:if test="#us.type==0 && #parent.id==#us.parentid">
                         <s:if test="aub.servicePlaceId==#us.id">
@@ -50,8 +50,10 @@
                                     <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
                                 </form>
                             </div>
+                            <script>jQuery('#<s:property value="#parent.id"/>').css({display:''});</script>
                         </s:if>
                         <s:else>
+                          <s:if test="aub==null">
                             <div class="hosp-green"
                                  <s:if test="aub==null">onclick="jQuery('.hosp-green').removeClass('hosp-focus');jQuery(this).addClass('hosp-focus');"</s:if>>
                                 <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
@@ -59,7 +61,9 @@
                                 <form id="dataForm" action="userFront/checkInSubmit.action" method="post">
                                     <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
                                 </form>
+                                <script>jQuery('#<s:property value="#parent.id"/>').css({display:''});</script>
                             </div>
+                          </s:if>
                         </s:else>
                     </s:if>
                </s:iterator>

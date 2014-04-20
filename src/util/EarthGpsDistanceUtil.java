@@ -26,7 +26,7 @@ public class EarthGpsDistanceUtil {
     }
 
     public static void main(String[] args) {
-        double distnace = EarthGpsDistanceUtil.getDistance(30, 100, 30, 120);
+        double distnace = EarthGpsDistanceUtil.getDistance(31.936, 118.844, 32.063, 118.790);
         System.out.println(distnace);
     }
 }

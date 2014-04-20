@@ -63,7 +63,7 @@
             <div class="form-group">
                 <div class="col-lg-offset-2 col-lg-10">
                     <button class="btn btn-info" type="submit">保存</button>
-                    <button class="btn btn-info" type="button" onclick="window.location.href='${rootPath}/backend/volunteerVerify/index.action'">取消</button>
+                    <button class="btn btn-info" type="button" onclick="window.location.href='${rootPath}/backend/volunteerInterview/index.action'">取消</button>
                 </div>
             </div>
         </form>
