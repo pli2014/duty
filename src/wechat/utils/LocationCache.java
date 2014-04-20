@@ -1,6 +1,9 @@
 package wechat.utils;
 
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
+import com.sun.javafx.tools.packager.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wechat.request.LocationEvent;
 
 import java.util.*;
@@ -10,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by wangronghua on 14-4-19.
  */
 public class LocationCache {
+  private static Logger log = LoggerFactory.getLogger(LocationCache.class);
 
   private static ConcurrentHashMap<String, LocationEvent> dataMap = new ConcurrentHashMap<String, LocationEvent>();
   private static final long TIME_OUT_VALUE = 300000;
@@ -37,6 +41,7 @@ public class LocationCache {
               }
 
               for(String key : keysList) {
+                log.info("Clear location for wechat user({})", key);
                 dataMap.remove(key);
               }
               keysList.clear();
@@ -52,6 +57,9 @@ public class LocationCache {
   }
 
   public static void putLocation(LocationEvent locationEvent) {
+    log.info("Save location for wechat user({}), Latitude:{}, Longitude:{}, Precision:{}",
+        locationEvent.getFromUserName(), locationEvent.getLatitude(),
+        locationEvent.getLongitude(), locationEvent.getPrecision());
     synchronized (keysList) {
       dataMap.put(locationEvent.getFromUserName(), locationEvent);
     }

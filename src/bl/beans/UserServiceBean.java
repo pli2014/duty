@@ -92,6 +92,30 @@ public class UserServiceBean extends Bean{
     this.precision = precision;
   }
 
+  public String getCheckOutLatitude() {
+    return checkOutLatitude;
+  }
+
+  public void setCheckOutLatitude(String checkOutLatitude) {
+    this.checkOutLatitude = checkOutLatitude;
+  }
+
+  public String getCheckOutLongitude() {
+    return checkOutLongitude;
+  }
+
+  public void setCheckOutLongitude(String checkOutLongitude) {
+    this.checkOutLongitude = checkOutLongitude;
+  }
+
+  public String getCheckOutPrecision() {
+    return checkOutPrecision;
+  }
+
+  public void setCheckOutPrecision(String checkOutPrecision) {
+    this.checkOutPrecision = checkOutPrecision;
+  }
+
   @Indexed
   private String userId;
   @Indexed
@@ -101,6 +125,10 @@ public class UserServiceBean extends Bean{
   private String latitude;
   private String longitude;
   private String precision;
+  private String checkOutLatitude;
+
+  private String checkOutLongitude;
+  private String checkOutPrecision;
   private Date checkInTime;
   private Date checkOutTime;
 

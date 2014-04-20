@@ -229,10 +229,19 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
   public BusinessResult checkOut(String userId) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
     ActiveUserBean activeUserBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userId).getResponseData();
-
     if (null != activeUserBean) {
+      VolunteerBean volunteer = (VolunteerBean)userBus.getLeaf(userId).getResponseData();
+
       UserServiceBean usBean = new UserServiceBean();
       PropertyUtils.copyProperties(usBean, activeUserBean);
+      if(null != volunteer.getOpenID()) {
+        LocationEvent event = LocationCache.getLocation(volunteer.getOpenID());
+        if(null != event) {
+          usBean.setCheckOutLatitude(event.getLatitude());
+          usBean.setCheckOutLongitude(event.getLongitude());
+          usBean.setCheckOutPrecision(event.getPrecision());
+        }
+      }
       usBean.set_id(ObjectId.get());
       usBean.setCheckOutTime(new Date());
       this.createLeaf(usBean);

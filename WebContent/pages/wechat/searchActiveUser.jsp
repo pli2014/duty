@@ -163,7 +163,6 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-
                 <s:iterator value="places" var="servicePlace">
                     <section class="panel" style="margin-bottom: 0px;">
                         <header class="panel-heading">
