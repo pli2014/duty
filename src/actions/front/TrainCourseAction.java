@@ -95,7 +95,7 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
     if (volunteerTrainCourseList != null && volunteerTrainCourseList.size() > 0) {
       String[] trainCourseId = new String[volunteerTrainCourseList.size()];
       for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
-        trainCourseId[i] = new ObjectId(volunteerTrainCourseList.get(i).getTraincourseId());
+        trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
       }
       allTraincourseModel.getFilter().put("_id_nin", trainCourseId);
     }
