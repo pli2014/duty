@@ -1,7 +1,5 @@
 package wechat.utils;
 
-import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry;
-import com.sun.javafx.tools.packager.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wechat.request.LocationEvent;

@@ -76,47 +76,12 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
   @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
-    init.getAoColumns().add(new TableHeaderVo("volunteer.name", "志愿者").enableSearch());
-    init.getAoColumns().add(new TableHeaderVo("trainCourse.name", "课程名称").enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("volunteerName", "志愿者").enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("traincourseName", "课程名称").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态"));
+    init.getAoColumns().add(new TableHeaderVo("createTime", "培训时间"));
+
     return init;
-  }
-
-  @Override
-  public String queryTable() throws Exception {
-    TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
-    VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
-
-    long count = getBusiness().getCount(getModel());
-    TableDataVo table = getBusiness().query(getModel());
-
-    List<VolunteerTrainCourseBean> volunteerTrainCourseList = table.getAaData();
-    BusinessResult result;
-    if (volunteerTrainCourseList != null) {
-      for (VolunteerTrainCourseBean volunteerTrainCourseBean : volunteerTrainCourseList) {
-        if (volunteerTrainCourseBean.getTraincourseId() != null) {
-          result = trainCourseBusiness.getLeaf(volunteerTrainCourseBean.getTraincourseId().toString());
-          if (result != null && result.getResponseData() != null) {
-            volunteerTrainCourseBean.setTrainCourse((TrainCourseBean) result.getResponseData());
-          }
-        }
-        if (volunteerTrainCourseBean.getVolunteerId() != null) {
-          result = volunteerBusiness.getLeaf(volunteerTrainCourseBean.getVolunteerId().toString());
-          if (result != null && result.getResponseData() != null) {
-            volunteerTrainCourseBean.setVolunteer((VolunteerBean) result.getResponseData());
-          }
-        }
-      }
-    }
-
-    table.setsEcho(getModel().getSEcho());
-    table.setiTotalDisplayRecords(count);
-    table.setiTotalRecords(count);
-
-    // json
-    JSONObject jsonObject = JSONObject.fromObject(table);
-    writeJson(jsonObject);
-    return null;
   }
 
   @Override
