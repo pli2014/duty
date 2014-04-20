@@ -1,6 +1,7 @@
 package actions.backend;
 
 import bl.beans.SourceCodeBean;
+import bl.beans.SystemSettingBean;
 import bl.beans.VolunteerBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
@@ -8,6 +9,7 @@ import bl.mongobus.SourceCodeBusiness;
 import bl.mongobus.VolunteerBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import common.Constants;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,17 +119,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
         this.arrayList = (ArrayList<VolunteerBean>) ActionContext.getContext().getSession().get("UPLOADEXCEL");
         if (this.arrayList != null) {
             for (VolunteerBean vb : this.arrayList) {
-                VolunteerBean found = VOLBUS.getVolunteerBeanByCode(vb.getCode());
-                if (found != null) {
-                    VolunteerBean cloneBean = (VolunteerBean) found.clone();
-                    cloneBean.setName(vb.getName());
-                    cloneBean.setOccupation(vb.getOccupation());
-                    cloneBean.setCellPhone(vb.getCellPhone());
-                    cloneBean.setStatus(vb.getStatus());
-                    VOLBUS.updateLeaf(found, cloneBean);
-                } else {
-                    VOLBUS.createLeaf(vb);
-                }
+                VOLBUS.createLeaf(vb);
             }
             VOLBUS.updateVolunteerStatus(this.request);
         }
@@ -155,7 +147,8 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
             for (SourceCodeBean scb : listSource) {
                 setSource.add(scb.getCode());
             }
-            String defaultPassword = StringUtil.toMD5("123456");
+            SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+            String defaultPassword = StringUtil.toMD5(systemSetting.getDefaultPassword());
             for (int rowNum = rowStart; rowNum < rowEnd; rowNum++) {
                 Row row = sheet.getRow(rowNum);
                 int lastColumn = row.getLastCellNum();
@@ -197,10 +190,15 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                         newVb.setCellPhone(cellPhone);
                         newVb.setOccupation(cellSource);
                         newVb.setPassword(defaultPassword);
-                        newVb.setStatus(VolunteerBean.VIERFIED);
+                        newVb.setStatus(VolunteerBean.REGISTERED);
                         //validation data.
                         if (setSource.contains(cellSource)) {
-                            this.arrayList.add(newVb);
+                            VolunteerBean found = VOLBUS.getVolunteerBeanByCode(cellCode);
+                            if (found != null) {
+                                this.arrayListError.add(new Object[]{newVb, "系统已经存在此志愿者信息"});
+                            }else{
+                                this.arrayList.add(newVb);
+                            }
                         } else {
                             this.arrayListError.add(new Object[]{newVb, "不存在的来源编码,请参考系统管理->来源编码"});
                         }

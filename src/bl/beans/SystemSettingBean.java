@@ -16,6 +16,15 @@ public class SystemSettingBean extends Bean {
     private String apptoken;
     private String domainname;
     private boolean debugMode = false;
+    private String defaultPassword = "123456";
+
+    public String getDefaultPassword() {
+        return defaultPassword;
+    }
+
+    public void setDefaultPassword(String defaultPassword) {
+        this.defaultPassword = defaultPassword;
+    }
 
     public boolean isDebugMode() {
       return debugMode;

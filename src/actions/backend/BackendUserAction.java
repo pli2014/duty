@@ -3,30 +3,28 @@
  */
 package actions.backend;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import bl.beans.BackendUserBean;
+import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.BackendUserBusiness;
 import bl.mongobus.VolunteerBusiness;
+import com.opensymphony.xwork2.ActionContext;
+import common.Constants;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.bson.types.ObjectId;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import util.StringUtil;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import webapps.WebappsConstants;
-import actions.BaseTableAction;
-import bl.beans.BackendUserBean;
-import bl.beans.VolunteerBean;
-import bl.mongobus.BackendUserBusiness;
 
-import com.opensymphony.xwork2.ActionContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author gudong
@@ -187,7 +185,8 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   public String resetPassword() {
     user = (BackendUserBean) getBusiness().getLeaf(getId()).getResponseData();
     if (user != null) {
-      user.setPassword(StringUtil.toMD5(user.getName()));
+      SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+      user.setPassword(StringUtil.toMD5(systemSetting.getDefaultPassword()));
       getBusiness().updateLeaf(user, user);
       addActionMessage("密码重置成功！");
     } else {

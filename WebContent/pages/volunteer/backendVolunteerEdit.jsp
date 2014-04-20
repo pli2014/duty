@@ -51,19 +51,24 @@
              <label class="col-lg-2 control-label">状态</label>
              <div class="col-lg-10">
                 <s:if test="volunteer.status==0">
-                    <input id="status" type="text" value="已注册" class="form-control" required="required"/>
+                    <input id="status" type="text" value="已注册"  class="form-control" required="required"/>
+                    <input name="volunteer.status" value="0" type="hidden"/>
                 </s:if>
                 <s:elseif test="volunteer.status==1">
                     <input id="status" type="text" value="通过审核" class="form-control" required="required"/>
+                    <input name="volunteer.status" value="1" type="hidden"/>
                 </s:elseif>
                  <s:elseif test="volunteer.status==2">
                      <input id="status" type="text" value="通过面试" class="form-control" required="required"/>
+                     <input name="volunteer.status" value="2" type="hidden"/>
                  </s:elseif>
                  <s:elseif test="volunteer.status==3">
                      <input id="status" type="text" value="未通过审核" class="form-control" required="required"/>
+                     <input name="volunteer.status" value="3" type="hidden"/>
                  </s:elseif>
                  <s:elseif test="volunteer.status==4">
                      <input id="status" type="text" value="未通过面试" class="form-control" required="required"/>
+                     <input name="volunteer.status" value="4" type="hidden"/>
                  </s:elseif>
                  <s:else>
                      <input id="status" type="text" value="未知状态" class="form-control" required="required"/>

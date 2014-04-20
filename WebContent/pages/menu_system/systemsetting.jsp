@@ -26,7 +26,12 @@
                 <%--<input name="systemSetting.maptoken" type="text" class="form-control" value="${systemSetting.maptoken}"/>--%>
             <%--</div>--%>
         <%--</div>--%>
-
+        <div class="form-group has-success">
+            <label class="control-label col-lg-2">缺省密码</label>
+            <div class="col-lg-10">
+                <input name="systemSetting.defaultPassword" type="text" class="form-control" value="${systemSetting.defaultPassword}"/>
+            </div>
+        </div>
         <div class="form-group has-success">
             <label class="col-lg-2 control-label">百度地图序列号</label>
             <div class="col-lg-10">

@@ -4,9 +4,12 @@
 package actions.backend;
 
 import bl.beans.SourceCodeBean;
+import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SourceCodeBusiness;
+import com.opensymphony.xwork2.ActionContext;
+import common.Constants;
 import net.sf.json.JSONArray;
 import util.ServerContext;
 import util.StringUtil;
@@ -158,7 +161,8 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   public String resetPassword() {
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     if (volunteer != null) {
-      volunteer.setPassword(StringUtil.toMD5(volunteer.getCode()));
+      SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+      volunteer.setPassword(StringUtil.toMD5(systemSetting.getDefaultPassword()));
       getBusiness().updateLeaf(volunteer, volunteer);
       addActionMessage("密码重置成功！");
     } else {
