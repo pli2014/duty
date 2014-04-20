@@ -93,7 +93,7 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
     filter.put("volunteerId", getLoginedVolunteer().getId());
     List<VolunteerTrainCourseBean> volunteerTrainCourseList = volunteerCourseBusiness.queryDataByCondition(filter, null);
     if (volunteerTrainCourseList != null && volunteerTrainCourseList.size() > 0) {
-      String[] trainCourseId = new String[volunteerTrainCourseList.size()];
+      ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList.size()];
       for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
         trainCourseId[i] = new ObjectId(volunteerTrainCourseList.get(i).getTraincourseId());
       }

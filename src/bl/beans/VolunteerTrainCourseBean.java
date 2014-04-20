@@ -6,6 +6,7 @@ package bl.beans;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * @author gudong
@@ -14,8 +15,10 @@ import org.mongodb.morphia.annotations.Entity;
 @Entity(value = "volunteer_traincourse")
 public class VolunteerTrainCourseBean extends Bean {
   private String volunteerId;
+  @Indexed
   private String volunteerName;
   private String traincourseId;
+  @Indexed
   private String traincourseName;
   private transient VolunteerBean volunteer;
   private transient TrainCourseBean trainCourse;
