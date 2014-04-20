@@ -213,7 +213,7 @@
                         data: {image:canvas.toDataURL("image/png"),code:window.figureNumber},
                         success : function(data, status) {
                              jQuery("#personicon").attr("src",data+"?time="+new Date().getTime());
-                             jQuery("#iconpath").val(data);
+                             jQuery("#iconpath").val(data+"?time="+new Date().getTime());
                         },
                         error: function(){
 
