@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.TrainCourseServicePlaceBusiness;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +29,10 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  * @since $Date:2013-03-20$
  */
 public class BackendVolunterTrainCourseAction extends BaseBackendAction<VolunteerTrainCourseBusiness> {
+
+  private static final VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+  private static final TrainCourseBusiness tcBus = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
+
   private VolunteerTrainCourseBean volunteerTrainCourse;
   private List<TrainCourseBean> trainCourseList;
   private String volunteerId;
@@ -136,18 +143,24 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
   public String save() throws Exception {
     trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
     if (StringUtils.isNotBlank(traincourseId) && StringUtils.isNotBlank(volunteerId)) {
+      volunteerTrainCourse.setTraincourseId(traincourseId);
+      volunteerTrainCourse.setVolunteerId(volunteerId);
+      VolunteerBean volunteer = (VolunteerBean)volunteerBus.getLeaf(volunteerId).getResponseData();
+      TrainCourseBean tcBean = (TrainCourseBean)tcBus.getLeaf(traincourseId).getResponseData();
+      if(null != volunteer) {
+        volunteerTrainCourse.setVolunteerName(volunteer.getName());
+      }
+      if(null != tcBean) {
+        volunteerTrainCourse.setTraincourseName(tcBean.getName());
+      }
       if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
         if (getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) != null) {
           addActionError("该志愿者已经添加了该培训教程!");
           return FAILURE;
         }
         volunteerTrainCourse.set_id(ObjectId.get());
-        volunteerTrainCourse.setTraincourseId(traincourseId);
-        volunteerTrainCourse.setVolunteerId(volunteerId);
         getBusiness().createLeaf(volunteerTrainCourse);
       } else {
-        volunteerTrainCourse.setTraincourseId(traincourseId);
-        volunteerTrainCourse.setVolunteerId(volunteerId);
         getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
       }
       return SUCCESS;
