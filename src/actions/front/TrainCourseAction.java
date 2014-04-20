@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.UserServiceBusiness;
 import org.bson.types.ObjectId;
 
 import vo.table.TableDataVo;
@@ -20,8 +23,8 @@ import bl.mongobus.VolunteerTrainCourseBusiness;
  * Created by peter on 14-3-14.
  */
 public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
-  private TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
-  private VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
+  private static final TrainCourseBusiness trainCourseBusiness = (TrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSE);
+  private static final VolunteerTrainCourseBusiness volunteerCourseBusiness = (VolunteerTrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
   private List<VolunteerTrainCourseBean> myTraincourse;
   private List<TrainCourseBean> allTraincourse;
 
@@ -87,12 +90,12 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
 
     // add not in filter
     Map filter = new HashMap();
-    filter.put("volunteerId", getLoginedVolunteer().get_id());
+    filter.put("volunteerId", getLoginedVolunteer().getId());
     List<VolunteerTrainCourseBean> volunteerTrainCourseList = volunteerCourseBusiness.queryDataByCondition(filter, null);
     if (volunteerTrainCourseList != null && volunteerTrainCourseList.size() > 0) {
       ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList.size()];
       for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
-        trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
+        trainCourseId[i] = new ObjectId(volunteerTrainCourseList.get(i).getTraincourseId());
       }
       allTraincourseModel.getFilter().put("_id_nin", trainCourseId);
     }
@@ -103,7 +106,7 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
     TableQueryVo myTraincourseModel = new TableQueryVo();
     myTraincourseModel.setIDisplayStart(start);
     myTraincourseModel.setIDisplayLength(length);
-    myTraincourseModel.getFilter().put("volunteerId", getLoginedVolunteer().get_id());
+    myTraincourseModel.getFilter().put("volunteerId", getLoginedVolunteer().getId());
 
     myTraincourse = volunteerCourseBusiness.query(myTraincourseModel).getAaData();
     long myCount = volunteerCourseBusiness.getCount(myTraincourseModel);
@@ -148,13 +151,13 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
       for (String trainCourseId : trainCourseIds) {
         if (trainCourseId == null)
           continue;
-        filterMap.put("volunteerId", volunteer.get_id());
+        filterMap.put("volunteerId", volunteer.getId());
         filterMap.put("traincourseId", new ObjectId(trainCourseId));
         List list = volunteerCourseBusiness.queryDataByCondition(filterMap, null);
         if (list.size() == 0) {
           volunteerTrainCourseBean = new VolunteerTrainCourseBean();
-          volunteerTrainCourseBean.setVolunteerId(volunteer.get_id());
-          volunteerTrainCourseBean.setTraincourseId(new ObjectId(trainCourseId));
+          volunteerTrainCourseBean.setVolunteerId(volunteer.getId());
+          volunteerTrainCourseBean.setTraincourseId(trainCourseId);
           volunteerCourseBusiness.createLeaf(volunteerTrainCourseBean);
         }
       }
