@@ -13,25 +13,43 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity(value = "volunteer_traincourse")
 public class VolunteerTrainCourseBean extends Bean {
-  private ObjectId volunteerId;
-  private ObjectId traincourseId;
+  private String volunteerId;
+  private String volunteerName;
+  private String traincourseId;
+  private String traincourseName;
   private transient VolunteerBean volunteer;
   private transient TrainCourseBean trainCourse;
   private Integer status = 0; // 0=未通过,1=通过
 
-  public ObjectId getVolunteerId() {
+    public String getVolunteerName() {
+        return volunteerName;
+    }
+
+    public void setVolunteerName(String volunteerName) {
+        this.volunteerName = volunteerName;
+    }
+
+    public String getTraincourseName() {
+        return traincourseName;
+    }
+
+    public void setTraincourseName(String traincourseName) {
+        this.traincourseName = traincourseName;
+    }
+
+    public String getVolunteerId() {
     return volunteerId;
   }
 
-  public void setVolunteerId(ObjectId volunteerId) {
+  public void setVolunteerId(String volunteerId) {
     this.volunteerId = volunteerId;
   }
 
-  public ObjectId getTraincourseId() {
+  public String getTraincourseId() {
     return traincourseId;
   }
 
-  public void setTraincourseId(ObjectId traincourseId) {
+  public void setTraincourseId(String traincourseId) {
     this.traincourseId = traincourseId;
   }
 

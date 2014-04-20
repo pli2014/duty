@@ -265,7 +265,7 @@ $(document).ready(function() {
                 <s:iterator value="tableInit.aoColumns" var="column">
                 <s:if test="%{#column.isbSearchable()==true}">
                 if($('#${column.mData}').val() != ''){
-                    aoData.push( { "name": "filter['${column.mData}']", "value": $('#${column.mData}').val() } );
+                    aoData.push( { "name": "filter['${column.mData}']", "value": $('[name="${column.mData}"]').val() } );
                 }
                 </s:if>
                 </s:iterator>
