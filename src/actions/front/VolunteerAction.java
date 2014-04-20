@@ -172,6 +172,7 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
       for (Object message : result.getMessages()) {
         addActionMessage(message.toString());
       }
+      getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, volunteer);
       return SUCCESS;
     }
     return SUCCESS;
