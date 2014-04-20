@@ -314,14 +314,14 @@ window.actionPrex = "${actionPrex}";
             return year + "-" + month + "-" + day;
         }
         else {
-            return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;
+            return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s;
         }
     };
 
     //格式化createTime  modifyTime
     cellFormatter["modifyTime"]=cellFormatter["createTime"] = function ( data, type, full ) {
         if(data!=null){
-            return formatDateTime(data.time,true);
+            return formatDateTime(data.time,false);
         }else{
             return "";
         }
