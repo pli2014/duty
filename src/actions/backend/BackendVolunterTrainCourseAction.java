@@ -85,20 +85,6 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
   }
 
   @Override
-  public String queryTable() throws Exception {
-      long count = getBusiness().getCount(getModel());
-      TableDataVo table = getBusiness().query(getModel());
-      table.setsEcho(getModel().getSEcho());
-      table.setiTotalDisplayRecords(count);
-      table.setiTotalRecords(count);
-
-      // json
-      JSONObject jsonObject = JSONObject.fromObject(table);
-      writeJson(jsonObject);
-      return null;
-  }
-
-  @Override
   public String add() {
     if (volunteerId != null) {
       VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
