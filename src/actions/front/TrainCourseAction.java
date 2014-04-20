@@ -155,9 +155,12 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
         filterMap.put("traincourseId", new ObjectId(trainCourseId));
         List list = volunteerCourseBusiness.queryDataByCondition(filterMap, null);
         if (list.size() == 0) {
+         TrainCourseBean tb = (TrainCourseBean)trainCourseBusiness.getLeaf(trainCourseId).getResponseData();
           volunteerTrainCourseBean = new VolunteerTrainCourseBean();
           volunteerTrainCourseBean.setVolunteerId(volunteer.getId());
           volunteerTrainCourseBean.setTraincourseId(trainCourseId);
+          volunteerTrainCourseBean.setVolunteerName(volunteer.getName());
+          volunteerTrainCourseBean.setTraincourseName(tb.getName());
           volunteerCourseBusiness.createLeaf(volunteerTrainCourseBean);
         }
       }
