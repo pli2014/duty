@@ -1,19 +1,15 @@
 package actions;
 
-import bl.beans.TemplateBean;
-import bl.common.BusinessResult;
-import bl.constants.BusTieConstant;
-import bl.instancepool.SingleBusinessPoolManager;
-import bl.mongobus.FormBusiness;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.struts2.ServletActionContext;
-import sun.misc.BASE64Decoder;
 import util.ServerContext;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -84,10 +80,10 @@ public class HeadJpgAction {
     }
 
     public static boolean decodeBase64Img(String imgStr, String imgFilePath) {
-        BASE64Decoder decoder = new BASE64Decoder();
+        Base64 decoder = new Base64();
         try {
             // Base64解码
-            byte[] bytes = decoder.decodeBuffer(imgStr);
+            byte[] bytes = decoder.decode(imgStr);
             // 生成jpeg图片
             OutputStream out = new FileOutputStream(imgFilePath);
             out.write(bytes);

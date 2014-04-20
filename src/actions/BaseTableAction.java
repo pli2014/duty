@@ -3,20 +3,19 @@
  */
 package actions;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
+import bl.common.TableBusinessInterface;
+import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import vo.table.TableDataVo;
-import vo.table.TableHeaderVo;
-import vo.table.TableInitVo;
-import vo.table.TableQueryVo;
-import bl.common.TableBusinessInterface;
-
-import com.opensymphony.xwork2.ModelDriven;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vo.table.TableDataVo;
+import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 /**
  * Base Table Action
@@ -121,7 +120,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
     config.setExcludes(new String[] { "searchOptions" });
     TableInitVo ti = getTableInit();
     JSONObject jsonObject = JSONObject.fromObject(ti, config);
-    writeJson(jsonObject);
+    writeJson(jsonObject.toString());
     return null;
   }
 
@@ -140,7 +139,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
 
     // json
     JSONObject jsonObject = JSONObject.fromObject(table);
-    writeJson(jsonObject);
+    writeJson(jsonObject.toString());
     return null;
   }
 
@@ -150,7 +149,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    * @throws Exception
    */
   public String add() throws Exception {
-    return SUCCESS;
+    return ActionSupport.SUCCESS;
   }
 
   /**
@@ -159,7 +158,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    * @throws Exception
    */
   public String edit() throws Exception {
-    return SUCCESS;
+    return ActionSupport.SUCCESS;
   }
 
   /**
@@ -168,7 +167,7 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    * @throws Exception
    */
   public String delete() throws Exception {
-    return SUCCESS;
+    return ActionSupport.SUCCESS;
   }
 
   /**
@@ -177,6 +176,6 @@ public abstract class BaseTableAction<B extends TableBusinessInterface> extends 
    * @throws Exception
    */
   public String save() throws Exception {
-    return SUCCESS;
+    return ActionSupport.SUCCESS;
   }
 }
