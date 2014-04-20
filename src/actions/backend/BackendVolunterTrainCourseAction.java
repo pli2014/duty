@@ -4,21 +4,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import bl.constants.BusTieConstant;
-import bl.instancepool.SingleBusinessPoolManager;
-import bl.mongobus.TrainCourseServicePlaceBusiness;
-import net.sf.json.JSONObject;
-
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
-import vo.table.TableDataVo;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;
 import bl.beans.VolunteerTrainCourseBean;
 import bl.common.BusinessResult;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.TrainCourseBusiness;
 import bl.mongobus.VolunteerBusiness;
 import bl.mongobus.VolunteerTrainCourseBusiness;
@@ -161,7 +157,8 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
         volunteerTrainCourse.set_id(ObjectId.get());
         getBusiness().createLeaf(volunteerTrainCourse);
       } else {
-        getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
+        VolunteerTrainCourseBean origBean =  (VolunteerTrainCourseBean)getBusiness().getLeaf(volunteerTrainCourse.getId()).getResponseData();
+        getBusiness().updateLeaf(origBean, volunteerTrainCourse);
       }
       return SUCCESS;
     } else {
