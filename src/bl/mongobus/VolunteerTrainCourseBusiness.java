@@ -11,13 +11,18 @@ import java.util.Map;
 import bl.beans.TrainCourseBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
+import dao.MongoDBConnectionFactory;
 import org.bson.types.ObjectId;
 
 import bl.beans.VolunteerTrainCourseBean;
 import bl.common.BeanContext;
 
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.management.Query;
 
 /**
  * @author gudong
@@ -41,8 +46,8 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
   public VolunteerTrainCourseBean getVolunteerTrainCourseBean(String volunteerId, String traincourseId) {
     Map filter = new HashMap();
     filter.put("isDeleted_!=", true);
-    filter.put("volunteerId", new ObjectId(volunteerId));
-    filter.put("trainCourseId", new ObjectId(traincourseId));
+    filter.put("volunteerId_=", volunteerId);
+    filter.put("trainCourseId_=", traincourseId);
     List list = super.queryDataByCondition(filter, null);
     if (list == null || list.size() == 0) {
       return null;
@@ -56,16 +61,34 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
 
     Map filter = new HashMap();
     filter.put("isDeleted_!=", true);
-    filter.put("volunteerId", new ObjectId(volunteerId));
+    filter.put("volunteerId_=", volunteerId);
     List<VolunteerTrainCourseBean> list = super.queryDataByCondition(filter, null);
     for(VolunteerTrainCourseBean bean: list) {
       if(bean.getStatus() == 1) {
-        TrainCourseBean courseBean = (TrainCourseBean)tcb.getLeaf(bean.getTraincourseId().toString()).getResponseData();
+        TrainCourseBean courseBean = (TrainCourseBean)tcb.getLeaf(bean.getTraincourseId()).getResponseData();
         if(courseBean != null && !courseBean.getIsDeleted()) {
           resultList.add(courseBean);
         }
       }
     }
     return resultList;
+  }
+
+  public void updateVolunteerName(String volunteerId, String volunteerName){
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    UpdateOperations<VolunteerTrainCourseBean> ops
+        = dc.createUpdateOperations(VolunteerTrainCourseBean.class).set("volunteerName", volunteerName);
+    org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
+    query.filter("volunteerId", volunteerId);
+    dc.update(query, ops);
+  }
+
+  public void updateCourseName(String courseId, String courseName) {
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    UpdateOperations<VolunteerTrainCourseBean> ops
+        = dc.createUpdateOperations(VolunteerTrainCourseBean.class).set("courseName", courseName);
+    org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
+    query.filter("courseId", courseId);
+    dc.update(query, ops);
   }
 }

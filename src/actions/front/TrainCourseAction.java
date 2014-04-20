@@ -90,7 +90,7 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
     filter.put("volunteerId", getLoginedVolunteer().get_id());
     List<VolunteerTrainCourseBean> volunteerTrainCourseList = volunteerCourseBusiness.queryDataByCondition(filter, null);
     if (volunteerTrainCourseList != null && volunteerTrainCourseList.size() > 0) {
-      ObjectId[] trainCourseId = new ObjectId[volunteerTrainCourseList.size()];
+      String[] trainCourseId = new String[volunteerTrainCourseList.size()];
       for (int i = 0; i < volunteerTrainCourseList.size(); i++) {
         trainCourseId[i] = volunteerTrainCourseList.get(i).getTraincourseId();
       }
@@ -153,8 +153,8 @@ public class TrainCourseAction extends BaseFrontAction<TrainCourseBusiness> {
         List list = volunteerCourseBusiness.queryDataByCondition(filterMap, null);
         if (list.size() == 0) {
           volunteerTrainCourseBean = new VolunteerTrainCourseBean();
-          volunteerTrainCourseBean.setVolunteerId(volunteer.get_id());
-          volunteerTrainCourseBean.setTraincourseId(new ObjectId(trainCourseId));
+          volunteerTrainCourseBean.setVolunteerId(volunteer.getId());
+          volunteerTrainCourseBean.setTraincourseId(trainCourseId);
           volunteerCourseBusiness.createLeaf(volunteerTrainCourseBean);
         }
       }

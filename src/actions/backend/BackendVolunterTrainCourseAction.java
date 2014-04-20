@@ -142,13 +142,13 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
     BusinessResult result;
     if (volunteerTrainCourse != null && volunteerTrainCourse.getTraincourseId() != null) {
-      result = trainCourseBusiness.getLeaf(volunteerTrainCourse.getTraincourseId().toString());
+      result = trainCourseBusiness.getLeaf(volunteerTrainCourse.getTraincourseId());
       if (result != null && result.getResponseData() != null) {
         volunteerTrainCourse.setTrainCourse((TrainCourseBean) result.getResponseData());
       }
     }
     if (volunteerTrainCourse.getVolunteerId() != null) {
-      result = volunteerBusiness.getLeaf(volunteerTrainCourse.getVolunteerId().toString());
+      result = volunteerBusiness.getLeaf(volunteerTrainCourse.getVolunteerId());
       if (result != null && result.getResponseData() != null) {
         volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
       }
@@ -177,12 +177,12 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
           return FAILURE;
         }
         volunteerTrainCourse.set_id(ObjectId.get());
-        volunteerTrainCourse.setTraincourseId(new ObjectId(traincourseId));
-        volunteerTrainCourse.setVolunteerId(new ObjectId(volunteerId));
+        volunteerTrainCourse.setTraincourseId(traincourseId);
+        volunteerTrainCourse.setVolunteerId(volunteerId);
         getBusiness().createLeaf(volunteerTrainCourse);
       } else {
-        volunteerTrainCourse.setTraincourseId(new ObjectId(traincourseId));
-        volunteerTrainCourse.setVolunteerId(new ObjectId(volunteerId));
+        volunteerTrainCourse.setTraincourseId(traincourseId);
+        volunteerTrainCourse.setVolunteerId(volunteerId);
         getBusiness().updateLeaf(volunteerTrainCourse, volunteerTrainCourse);
       }
       return SUCCESS;

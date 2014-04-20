@@ -43,7 +43,7 @@ public class WechatTrainCourseAction extends WechatBaseAuthAction {
     VolunteerTrainCourseBusiness volunteerCourseBusiness = new VolunteerTrainCourseBusiness();
 
     Map filter = new HashMap();
-    filter.put("volunteerId", volunteer.get_id());
+    filter.put("volunteerId_=", volunteer.getId());
     filter.put("isDeleted_!=", true);
 
     myTrainCourseList = volunteerCourseBusiness.queryDataByCondition(filter, null);
@@ -52,7 +52,7 @@ public class WechatTrainCourseAction extends WechatBaseAuthAction {
     if (myTrainCourseList != null) {
       for (VolunteerTrainCourseBean volunteerTrainCourseBean : myTrainCourseList) {
         if (volunteerTrainCourseBean.getTraincourseId() != null) {
-          result = trainCourseBusiness.getLeaf(volunteerTrainCourseBean.getTraincourseId().toString());
+          result = trainCourseBusiness.getLeaf(volunteerTrainCourseBean.getTraincourseId());
           if (result != null && result.getResponseData() != null) {
             volunteerTrainCourseBean.setTrainCourse((TrainCourseBean) result.getResponseData());
           }

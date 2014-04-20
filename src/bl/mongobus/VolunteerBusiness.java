@@ -11,6 +11,8 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -32,6 +34,9 @@ import org.slf4j.LoggerFactory;
  */
 public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, VolunteerBean> {
   private static Logger log = LoggerFactory.getLogger(VolunteerBusiness.class);
+
+  private static final VolunteerTrainCourseBusiness vtcb
+      = (VolunteerTrainCourseBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
 
   public VolunteerBusiness() {
     this.dbName = "form";
@@ -117,7 +122,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       volunteer.setPassword(origUser.getPassword());
       try {
         BeanUtils.copyProperties(origUser, volunteer);
-        return updateLeaf(request,origUser);
+        result = updateLeaf(request,origUser);
       } catch (IllegalAccessException e) {
         e.printStackTrace();
         result.addError(e);
@@ -181,6 +186,14 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     dataVo.setiTotalDisplayRecords(count);
     dataVo.setiTotalRecords(count);
     return dataVo;
+  }
+
+  @Override
+  public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
+    BusinessResult result = super.updateLeaf(origBean, newBean);
+    VolunteerBean bean = (VolunteerBean)newBean;
+    vtcb.updateVolunteerName(bean.getId(), bean.getName());
+    return result;
   }
 
   public void updateVolunteerStatus(HttpServletRequest request) {

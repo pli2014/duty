@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bl.common.BusinessResult;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
@@ -23,8 +26,19 @@ public class TrainCourseBusiness extends
 	private static Logger LOG = LoggerFactory
 			.getLogger(TrainCourseBusiness.class);
 
-	public TrainCourseBusiness() {
+
+  private static final VolunteerTrainCourseBusiness vtcb
+      = (VolunteerTrainCourseBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
+
+  public TrainCourseBusiness() {
 		this.clazz = TrainCourseBean.class;
 	}
 
+  @Override
+  public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
+    BusinessResult result = super.updateLeaf(origBean, newBean);
+    TrainCourseBean bean = (TrainCourseBean)newBean;
+    vtcb.updateCourseName(bean.getId(), bean.getName());
+    return result;
+  }
 }
