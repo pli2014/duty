@@ -27,11 +27,11 @@ public class UserServiceBean extends Bean{
     this.servicePlaceId = servicePlaceId;
   }
 
-  public String getCheckInMethod() {
+  public int getCheckInMethod() {
     return checkInMethod;
   }
 
-  public void setCheckInMethod(String checkInMethod) {
+  public void setCheckInMethod(int checkInMethod) {
     this.checkInMethod = checkInMethod;
   }
 
@@ -118,9 +118,12 @@ public class UserServiceBean extends Bean{
 
   @Indexed
   private String userId;
+  private String userName;
+  private String userCode;
   @Indexed
   private String servicePlaceId;
-  private String checkInMethod; //0:普通签入, 1:微信签入
+  private String servicePlaceName;
+  private int checkInMethod = 0; //0:普通签入, 1:微信签入
 
   private String latitude;
   private String longitude;
@@ -139,6 +142,49 @@ public class UserServiceBean extends Bean{
 
     private double distance=Integer.MAX_VALUE;
     private String description="未知距离";
+
+    private double checkOutDistance=Integer.MAX_VALUE;
+    private String checkOutDescription="未知距离";
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getServicePlaceName() {
+        return servicePlaceName;
+    }
+
+    public void setServicePlaceName(String servicePlaceName) {
+        this.servicePlaceName = servicePlaceName;
+    }
+
+    public double getCheckOutDistance() {
+        return checkOutDistance;
+    }
+
+    public void setCheckOutDistance(double checkOutDistance) {
+        this.checkOutDistance = checkOutDistance;
+    }
+
+    public String getCheckOutDescription() {
+        return checkOutDescription;
+    }
+
+    public void setCheckOutDescription(String checkOutDescription) {
+        this.checkOutDescription = checkOutDescription;
+    }
 
     public double getDistance() {
         return distance;

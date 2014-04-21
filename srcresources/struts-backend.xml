@@ -232,6 +232,14 @@
             <result name="success">/pages/menu_report/serviceMonthlyReport.jsp</result>
         </action>
     </package>
+
+    <package name="userservice" namespace="/backend/userservice" extends="default-backend">
+        <action name="index" class="actions.backend.BackendUserServiceAction" method="index">
+            <result name="input">/pages/table/tableIndex.jsp</result>
+        </action>
+        <action name="initTable" class="actions.backend.BackendUserServiceAction" method="initTable"/>
+        <action name="queryTable" class="actions.backend.BackendUserServiceAction" method="queryTable"/>
+    </package>
     
     <package name="volunterTrainCourse" namespace="/backend/volunterTrainCourse" extends="default-backend">
         <action name="index" class="actions.backend.BackendVolunterTrainCourseAction" method="index"/>

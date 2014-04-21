@@ -20,8 +20,25 @@ public class TableHeaderVo {
   private boolean bSortable = false;
   private boolean bSearchable = false;
   private boolean bVisible = true;
-  
-  // // additional properties
+  private String suffixed = "";
+
+    public String getSuffixed() {
+        return suffixed;
+    }
+
+    public void setSuffixed(String suffixed) {
+        this.suffixed = suffixed;
+    }
+
+    public String getsClass() {
+        return sClass;
+    }
+
+    public void setsClass(String sClass) {
+        this.sClass = sClass;
+    }
+
+    // // additional properties
   private String[][] searchOptions = null; // map html select element, like [["1","2"]["Male","Female"]]
   
   public TableHeaderVo(String mData, String sTitle) {
