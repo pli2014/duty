@@ -189,11 +189,14 @@
     </package>
 
     <package name="traincourse" namespace="/backend/traincourse" extends="default-backend">
-        <action name="index" class="actions.backend.BackendTrainCourseAction" method="index"/>
+        <action name="index" class="actions.backend.BackendTrainCourseAction" method="index">
+            <result name="input">/pages/table/tableIndex.jsp</result>
+        </action>
         <action name="initTable" class="actions.backend.BackendTrainCourseAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendTrainCourseAction" method="queryTable"/>
 
         <action name="delete" class="actions.backend.BackendTrainCourseAction" method="delete">
+            <result name="input" type="chain">/backend/traincourse/index.action</result>
             <result name="success" type="redirectAction"><param name="actionName">index</param></result>
         </action>
         <action name="add" class="actions.backend.BackendTrainCourseAction" method="add">

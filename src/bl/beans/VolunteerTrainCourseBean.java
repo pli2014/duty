@@ -13,9 +13,11 @@ import org.mongodb.morphia.annotations.Indexed;
  */
 @Entity(value = "volunteer_traincourse")
 public class VolunteerTrainCourseBean extends Bean {
+  @Indexed
   private String volunteerId;
   @Indexed
   private String volunteerName;
+  @Indexed
   private String traincourseId;
   @Indexed
   private String traincourseName;

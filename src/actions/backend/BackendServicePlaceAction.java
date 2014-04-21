@@ -1,11 +1,13 @@
 package actions.backend;
 
 import bl.beans.ServicePlaceBean;
+import bl.beans.TrainCourseServicePlaceBean;
 import bl.constants.BusTieConstant;
 import bl.exceptions.MiServerException;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ServicePlaceBusiness;
 
+import bl.mongobus.TrainCourseServicePlaceBusiness;
 import com.opensymphony.xwork2.ActionSupport;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -28,6 +30,8 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
     List<ServicePlaceBean> servicePlaces = null;
     ServicePlaceBean servicePlace = null;
     ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+    private static final TrainCourseServicePlaceBusiness tcspBus = (TrainCourseServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_TRAINCOURSESERVICEPLACE);
+
     private int type = 0;
     private String[] serviceicons = null;
 
@@ -72,6 +76,14 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
             List<ServicePlaceBean> list = sp.queryDataByCondition(filterMap,null);
             if(list.size()>0){
                 addActionError("该地图地点被院内地点引用，请先解除关联关系");
+            }
+            filterMap = new HashMap<String, String>();
+            filterMap.put("servicePlaceId",this.getId());
+            List<TrainCourseServicePlaceBean> listService = tcspBus.queryDataByCondition(filterMap, null);
+            if(listService.size()>0){
+                addActionError("该地图地点被培训课程引用，请先解除关联关系");
+            }
+            if(this.hasErrors()){
                 return ActionSupport.ERROR;
             }
             sp.deleteLeaf(this.getId());

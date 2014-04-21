@@ -61,10 +61,8 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
   }
 
   public String delete() {
-    if (getIds() != null) {
-      for (String id : getIds()) {
-        getBusiness().deleteLeaf(id);
-      }
+    if (getId() != null) {
+        getBusiness().deleteLeaf(getId());
     }
     return ActionSupport.SUCCESS;
   }
