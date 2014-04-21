@@ -56,11 +56,7 @@ public class UserServiceAction extends BaseFrontAction {
     if (null != user) {
       userServices = (List<UserServiceBean>) userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
-      /*
-       * if (aub != null) { ServicePlaceBean spb = (ServicePlaceBean) sp.getLeaf(aub.getServicePlaceId()).getResponseData(); if (spb != null)
-       * super.addActionMessage("你现在在这里服务:" + spb.getName()); }
-       */
-      servicePlaces = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+      servicePlaces = (List<ServicePlaceBean>) userServiceBus.getAvailableServicePlaces(user.getId());
     }
     return SUCCESS;
   }

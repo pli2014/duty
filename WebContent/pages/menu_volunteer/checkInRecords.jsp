@@ -46,11 +46,11 @@
                             <div class="hosp-green hosp-focus">
                                 <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
                                 <div class="plase-font"><s:property value="#us.name"/></div>
-                                <form id="dataForm" action="userFront/checkOut.action" method="post">
+                                <form action="userFront/checkOut.action" method="post">
                                     <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
                                 </form>
                             </div>
-                            <script>jQuery('#<s:property value="#parent.id"/>').css({display:''});</script>
+                            <script>jQuery('#'+'<s:property value="#parent.id"/>').css({display:''});</script>
                         </s:if>
                         <s:else>
                           <s:if test="aub==null">
@@ -58,10 +58,10 @@
                                  <s:if test="aub==null">onclick="jQuery('.hosp-green').removeClass('hosp-focus');jQuery(this).addClass('hosp-focus');"</s:if>>
                                 <div class="plase-img"><img src="<s:property value="#us.serviceicon"/>"></div>
                                 <div class="plase-font"><s:property value="#us.name"/></div>
-                                <form id="dataForm" action="userFront/checkInSubmit.action" method="post">
+                                <form action="userFront/checkInSubmit.action" method="post">
                                     <input type="hidden" name="servicePlaceId" value="<s:property value="#us.id"/>"/>
                                 </form>
-                                <script>jQuery('#<s:property value="#parent.id"/>').css({display:''});</script>
+                                <script>jQuery('#'+'<s:property value="#parent.id"/>').css({display:''});</script>
                             </div>
                           </s:if>
                         </s:else>
