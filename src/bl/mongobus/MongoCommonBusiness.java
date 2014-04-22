@@ -1,15 +1,9 @@
 package bl.mongobus;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.regex.Pattern;
-
+import bl.beans.Bean;
+import bl.beans.VolunteerTrainCourseBean;
+import bl.common.*;
+import dao.MongoDBConnectionFactory;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -17,24 +11,14 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
-
-import vo.table.TableDataVo;
-import vo.table.TableQueryVo;
-import bl.beans.Bean;
-import bl.beans.VolunteerBean;
-import bl.beans.VolunteerTrainCourseBean;
-import bl.common.BeanContext;
-import bl.common.BusinessInterface;
-import bl.common.BusinessResult;
-import bl.common.SpecPaginationContext;
-import bl.common.TableBusinessInterface;
-import bl.exceptions.MiServerException;
-
-import com.mongodb.WriteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vo.table.TableDataVo;
+import vo.table.TableQueryVo;
 
-import dao.MongoDBConnectionFactory;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class MongoCommonBusiness<F, L> implements BusinessInterface,
 		TableBusinessInterface {
@@ -224,7 +208,14 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 							token = token.replace("lt", "<").replace("gt", ">")
 									.replace("eq", "=");
 							try {
-								BeanUtils.setProperty(obj, splits[0], value);
+                                if(PropertyUtils.getPropertyType(obj, splits[0]) == Date.class){
+                                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                                    //特殊设置，由于前台的传来的数据都是name=[0,1,2..]形式
+                                    String[] array = (String[]) value;
+                                    BeanUtils.setProperty(obj, splits[0], df.parse(array[0]));
+                                }else{
+                                    BeanUtils.setProperty(obj, splits[0], value);
+                                }
 								query = query.filter(splits[0] + " " + token,
 										PropertyUtils.getProperty(obj,
 												splits[0]));
