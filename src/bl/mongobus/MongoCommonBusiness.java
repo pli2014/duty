@@ -11,6 +11,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
+
+import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vo.table.TableDataVo;
@@ -208,14 +210,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 							token = token.replace("lt", "<").replace("gt", ">")
 									.replace("eq", "=");
 							try {
-                                if(PropertyUtils.getPropertyType(obj, splits[0]) == Date.class){
-                                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                                    //特殊设置，由于前台的传来的数据都是name=[0,1,2..]形式
-                                    String[] array = (String[]) value;
-                                    BeanUtils.setProperty(obj, splits[0], df.parse(array[0]));
-                                }else{
-                                    BeanUtils.setProperty(obj, splits[0], value);
-                                }
+								BeanUtils.setProperty(obj, splits[0], value);
 								query = query.filter(splits[0] + " " + token,
 										PropertyUtils.getProperty(obj,
 												splits[0]));
@@ -329,6 +324,15 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 				sortedMappingMongo, null);
 		return dc.getCount(query);
 	}
+
+  public void updateRecordsByCondition(String targetColumn, Object targetValue, String conditionName, Object conditionValue){
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    UpdateOperations<L> ops
+        = dc.createUpdateOperations(this.clazz).set(targetColumn, targetValue);
+    org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
+    query.filter(conditionName, conditionValue);
+    dc.update(query, ops);
+  }
 
 	public static void main(String[] args) {
 		MongoDBConnectionFactory.initDb();

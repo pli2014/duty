@@ -66,9 +66,9 @@
                     <tr>
                       <td>${myTrainCourse.trainCourse.name}</td>
                       <td>
-                         <s:if test="myTrainCourse.trainCourse.status == 1">
+                         <s:if test="#myTrainCourse.trainCourse.status == 1">
                             通过
-                           </s:if>
+                         </s:if>
                          <s:else>
                            未通过
                          </s:else>  
@@ -81,7 +81,7 @@
 		</section>
 		<div class="panel-body">
 			<button type="button" class="btn btn-info btn-block"
-				onclick="custom_close()">取消</button>
+				onclick="custom_close()">返回微信</button>
 		</div>
 	</section>
 </body>
