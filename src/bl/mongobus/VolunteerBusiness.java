@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import bl.beans.ActiveUserBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import org.apache.commons.beanutils.BeanUtils;
@@ -37,6 +38,10 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
 
   private static final VolunteerTrainCourseBusiness vtcb
       = (VolunteerTrainCourseBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEERTRAINCOURSE);
+  private static final UserServiceBusiness usb
+      = (UserServiceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
+  private static final ActiveUserBusiness aub
+      = (ActiveUserBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
   public VolunteerBusiness() {
     this.dbName = "form";
@@ -65,8 +70,8 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
   /**
    * 通过身份证号码获取志愿者
    * 
-   * @param code
-   *          工号
+   * @param identityCard
+   *          身份证号码
    * @return
    */
   public VolunteerBean getVolunteerBeanByIdentityCard(String identityCard) {
@@ -193,12 +198,17 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     BusinessResult result = super.updateLeaf(origBean, newBean);
     VolunteerBean bean = (VolunteerBean)newBean;
     vtcb.updateVolunteerName(bean.getId(), bean.getName());
+    usb.updateVolunteerByVolunteerId(bean.getId(), bean.getCode(), bean.getName());
     return result;
   }
 
-  public void updateVolunteerStatus(HttpServletRequest request) {
-    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
-    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
+  @Override
+  public BusinessResult deleteLeaf(String objectId) {
+    BusinessResult result = super.deleteLeaf(objectId);
+    vtcb.deleteRecordsByVolunteerId(objectId);
+    usb.deleteRecordsByVolunteerId(objectId);
+    aub.deleteRecordsByVolunteerId(objectId);
+    return result;
   }
 
   public BusinessResult updateLeaf(HttpServletRequest request, BeanContext newBean) {
@@ -214,8 +224,13 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
   }
 
   public BusinessResult deleteLeaf(HttpServletRequest request, String objectId) {
-    BusinessResult result = super.deleteLeaf(objectId);
+    BusinessResult result = deleteLeaf(objectId);
     updateVolunteerStatus(request);
     return result;
+  }
+
+  public void updateVolunteerStatus(HttpServletRequest request) {
+    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
+    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
   }
 }

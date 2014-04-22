@@ -53,4 +53,8 @@ public class ActiveUserBusiness extends MongoCommonBusiness<BeanContext, ActiveU
     }
     return resultMap;
   }
+
+  public void deleteRecordsByVolunteerId(String volunteerId){
+    super.updateRecordsByCondition("isDeleted", true, "userId", volunteerId);
+  }
 }

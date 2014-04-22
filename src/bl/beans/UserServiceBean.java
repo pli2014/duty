@@ -129,7 +129,6 @@ public class UserServiceBean extends Bean{
   private String longitude;
   private String precision;
   private String checkOutLatitude;
-
   private String checkOutLongitude;
   private String checkOutPrecision;
   private Date checkInTime;

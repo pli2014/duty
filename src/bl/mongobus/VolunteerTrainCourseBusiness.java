@@ -86,4 +86,8 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
     query.filter("traincourseId", courseId);
     dc.update(query, ops);
   }
+
+  public void deleteRecordsByVolunteerId(String volunteerId){
+    super.updateRecordsByCondition("isDeleted", true, "volunteerId", volunteerId);
+  }
 }

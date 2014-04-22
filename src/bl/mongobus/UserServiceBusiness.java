@@ -231,19 +231,49 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     ActiveUserBean activeUserBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userId).getResponseData();
     if (null != activeUserBean) {
       VolunteerBean volunteer = (VolunteerBean)userBus.getLeaf(userId).getResponseData();
+      ServicePlaceBean sp =
+          (ServicePlaceBean) servicePlaceBus.getLeaf(activeUserBean.getServicePlaceId()).getResponseData();
 
       UserServiceBean usBean = new UserServiceBean();
       PropertyUtils.copyProperties(usBean, activeUserBean);
+      usBean.setCheckInMethod(activeUserBean.getStatus());
+      usBean.setUserCode(volunteer.getCode());
+      usBean.setUserName(volunteer.getName());
+      if(null != sp) {
+        usBean.setServicePlaceName(sp.getName());
+      }
       if(null != volunteer.getOpenID()) {
         LocationEvent event = LocationCache.getLocation(volunteer.getOpenID());
         if(null != event) {
           usBean.setCheckOutLatitude(event.getLatitude());
           usBean.setCheckOutLongitude(event.getLongitude());
           usBean.setCheckOutPrecision(event.getPrecision());
+          if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
+            sp = (ServicePlaceBean) servicePlaceBus.getLeaf(sp.getParentid()).getResponseData();
+          }
+          if(sp!=null){
+            //计算距离和显示描述信息
+            double lat = Double.valueOf(event.getLatitude());
+            double loi = Double.valueOf(event.getLongitude());
+            double distance = EarthGpsDistanceUtil.getDistance(lat, loi, sp.getLatitude(), sp.getLongitude());
+            usBean.setCheckOutDistance(distance);
+            usBean.setCheckOutDescription("附近大约" + distance + "公里");
+          }
         }
       }
       usBean.set_id(ObjectId.get());
-      usBean.setCheckOutTime(new Date());
+      Calendar cal = Calendar.getInstance();
+      Date checkOutTime = cal.getTime();
+      usBean.setCheckOutTime(checkOutTime);
+
+      cal.set(Calendar.HOUR_OF_DAY, 0);
+      cal.set(Calendar.MINUTE, 0);
+      cal.set(Calendar.SECOND, 0);
+      cal.set(Calendar.MILLISECOND, 0);
+      // 如果签出，签入不在同一天，则设置记录为异常记录，置delete flag为true
+      if(cal.after(usBean.getCheckInTime())) {
+        usBean.setIsDeleted(true);
+      }
       this.createLeaf(usBean);
 
       activeUserBus.deleteLeaf(activeUserBean.getId(), true);
@@ -349,5 +379,18 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     }
 
     return resultMap;
+  }
+
+  public void deleteRecordsByVolunteerId(String volunteerId){
+    super.updateRecordsByCondition("isDeleted", true, "userId", volunteerId);
+  }
+
+  public void updateVolunteerByVolunteerId(String volunteerId, String code, String name){
+    super.updateRecordsByCondition("userCode", code, "userId", volunteerId);
+    super.updateRecordsByCondition("userName", name, "userId", volunteerId);
+  }
+
+  public void updateServicePlaceNameByServicePlaceId(String servicePlaceId, String name){
+    super.updateRecordsByCondition("servicePlaceName", name, "servicePlaceId", servicePlaceId);
   }
 }

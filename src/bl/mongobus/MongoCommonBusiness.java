@@ -18,6 +18,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 
+import org.mongodb.morphia.query.UpdateOperations;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
 import bl.beans.Bean;
@@ -338,6 +339,15 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 				sortedMappingMongo, null);
 		return dc.getCount(query);
 	}
+
+  public void updateRecordsByCondition(String targetColumn, Object targetValue, String conditionName, Object conditionValue){
+    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    UpdateOperations<L> ops
+        = dc.createUpdateOperations(this.clazz).set(targetColumn, targetValue);
+    org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
+    query.filter(conditionName, conditionValue);
+    dc.update(query, ops);
+  }
 
 	public static void main(String[] args) {
 		MongoDBConnectionFactory.initDb();

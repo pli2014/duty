@@ -20,6 +20,8 @@ import java.util.*;
 public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, ServicePlaceBean> {
     private static Logger LOG = LoggerFactory.getLogger(ServicePlaceBusiness.class);
     ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
+    private static final UserServiceBusiness usb
+            = (UserServiceBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
 
     public ServicePlaceBusiness() {
         this.clazz = ServicePlaceBean.class;
@@ -69,7 +71,10 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
         if (exists.size() > 1 || (exists.size() == 1 && !exists.get(0).getId().equals(sp.getId()))) {
             throw new MiServerException.Conflicted("已经存在的服务地点名称或者编码");
         }
-        return super.updateLeaf(origBean, newBean);
+        BusinessResult result = super.updateLeaf(origBean, newBean);
+
+        usb.updateServicePlaceNameByServicePlaceId(((ServicePlaceBean) newBean).getId(), ((ServicePlaceBean) newBean).getName());
+        return result;
     }
 
   /**
