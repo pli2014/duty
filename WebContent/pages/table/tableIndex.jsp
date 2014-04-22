@@ -199,7 +199,8 @@ $(document).ready(function() {
 
                     var nCloneTd = document.createElement( 'td' );
                     nCloneTd.innerHTML = '<img class="operation" src="jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
-                    nCloneTd.className = "center";
+                    //nCloneTd.className = "center";
+                    $(nCloneTd).css("width","50px");
                     $('#${tableId} tbody tr').each( function (i) {
                         this.insertBefore(  nCloneTd.cloneNode( true ) , this.childNodes[0] );
                     } );
@@ -295,6 +296,7 @@ $(document).ready(function() {
                     "success": function(result,status,response){
                         // Do whatever additional processing you want on the callback, then tell DataTables
                         fnCallback(result);
+                        $('#${tableId}').css("width","100%");
                     }
                 } );
                 //========method two END==================

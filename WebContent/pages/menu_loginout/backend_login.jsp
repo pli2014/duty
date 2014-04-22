@@ -35,12 +35,6 @@
         <div class="login-wrap">
             <input type="text" name="user.name" class="form-control" placeholder="用户名" autofocus required="required">
             <input type="password" name="user.password" class="form-control" placeholder="密码" required="required">
-            <label class="checkbox">
-                <input type="checkbox" value="remember-me"> 记住我
-                <span class="pull-right">
-                    
-                </span>
-            </label>
             <button class="btn btn-lg btn-login btn-block" type="submit">登录</button>
         </div> 
       </form>
