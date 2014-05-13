@@ -93,7 +93,7 @@
                                 <s:iterator value="serviceicons" var="iconpath">
                                 <div class="col-xs-3" style="margin:5px">
                                     <input name="servicePlace.serviceicon" type="radio" value="${iconpath}">
-                                    <img src="${iconpath}" style="width:100px;height:80px"/>
+                                    <img src="${iconpath}" style="width:100px;height:80px;background:#0671DE"/>
                                  </div>
                                 </s:iterator>
                                 <script>

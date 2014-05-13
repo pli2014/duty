@@ -29,16 +29,21 @@
                 </header>
                 <div class="panel-body" id="panelbody" style="display: none">
                     <div class="form-group">
+                        <s:set id="counter" value="0"/>
                         <s:iterator value="tableInit.aoColumns" var="column">
                             <s:if test="%{#column.isbSearchable()==true}">
+                                <s:set id="counter" value="%{#counter+1}"/>
+                                <s:if test="#counter % 3 ==1">
+                                <div class="col-lg-12" style="height: 40px;">
+                                </s:if>
                                 <s:if test="#column.searchOptions==null">
-                                    <label class="col-lg-1 control-label">${column.sTitle}</label>
+                                    <label class="col-lg-2 control-label">${column.sTitle}</label>
                                     <div class="col-lg-2">
                                         <input id="${column.mData}" type="text" class="form-control" value="" name="${column.mData}">
                                     </div>
                                 </s:if>
                                 <s:else>
-                                    <label class="col-lg-1 control-label">${column.sTitle}</label>
+                                    <label class="col-lg-2 control-label">${column.sTitle}</label>
                                     <div class="col-lg-2">
                                         <select id="${column.mData}" type="text" class="form-control" value="" name="${column.mData}">
                                             <option value="">&nbsp;</option>
@@ -48,8 +53,14 @@
                                         </select>
                                     </div>
                                 </s:else>
+                                <s:if test="#counter % 3 ==0">
+                                    </div>
+                                </s:if>
                             </s:if>
                         </s:iterator>
+                        <s:if test="#counter % 3 !=0">
+                            </div>
+                        </s:if>
                         <a class="btn btn-success pull-right" style="margin-right:15px;margin-top: 15px;" onclick="$('#errorarea').html('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
                             <i class="fa fa-check"></i>
                             查询
@@ -124,11 +135,11 @@ $(document).ready(function() {
     var foundSearch = false;
     <s:iterator value="#parameters">
     {
-      var searcher  = $(".form-horizontal.tasi-form [name='<s:property value="key"/>']");
-      searcher.val('<s:property value="value"/>');
-      if(searcher.length>0){
-          foundSearch = true;
-      }
+        var searcher  = $(".form-horizontal.tasi-form [name='<s:property value="key"/>']");
+        searcher.val('<s:property value="value"/>');
+        if(searcher.length>0){
+            foundSearch = true;
+        }
     }
     </s:iterator>
     if(foundSearch){
@@ -143,9 +154,13 @@ $(document).ready(function() {
             $('#tableTools').css('display','none');
         }
         idName = initParam.idName;
+        var columns = [];
         for(var i=0;i<initParam.aoColumns.length ; i++){
             if(typeof cellFormatter[initParam.aoColumns[i].mData] == "function"){
                 initParam.aoColumns[i].mRender = cellFormatter[initParam.aoColumns[i].mData];
+            }
+            if(initParam.aoColumns[i].hiddenColumn != true){
+                columns.push(initParam.aoColumns[i]);
             }
         }
         /*
@@ -156,7 +171,7 @@ $(document).ready(function() {
             "bServerSide": initParam.bServerSide,
             "iDisplayLength":initParam.iDisplayLength,
             "aLengthMenu": initParam.aLengthMenu,
-            "aoColumns": initParam.aoColumns,
+            "aoColumns": columns,
             "sAjaxSource": "${actionPrex}/queryTable.action?${addButtonParameter}",
             //"sDom": '<"H"lT><"clear">rt<"F"ip>',
             "sDom": 'rt<"F"ip>',
@@ -184,7 +199,8 @@ $(document).ready(function() {
 
                     var nCloneTd = document.createElement( 'td' );
                     nCloneTd.innerHTML = '<img class="operation" src="jslib/flatlab/assets/advanced-datatable/examples/examples_support/details_open.png">';
-                    nCloneTd.className = "center";
+                    //nCloneTd.className = "center";
+                    $(nCloneTd).css("width","50px");
                     $('#${tableId} tbody tr').each( function (i) {
                         this.insertBefore(  nCloneTd.cloneNode( true ) , this.childNodes[0] );
                     } );
@@ -216,13 +232,15 @@ $(document).ready(function() {
                         $(thObj).css({width:''+totalOptions*40+'px'});
                     } );
                 }
-                $('#${tableId} tbody tr').each( function (i) {
-                    var nCloneTd = document.createElement( 'td' );
-                    $(this).append(nCloneTd);
-                    for(var p in options){
-                        $(nCloneTd).append(options[p].html);
-                    }
-                });
+                if(totalOptions > 0){
+                    $('#${tableId} tbody tr').each( function (i) {
+                        var nCloneTd = document.createElement( 'td' );
+                        $(this).append(nCloneTd);
+                        for(var p in options){
+                            $(nCloneTd).append(options[p].html);
+                        }
+                    });
+                }
             },
             "fnServerData": function ( sSource, aoData, fnCallback, oSettings ) {
                 /* //======= method one===========
@@ -265,7 +283,7 @@ $(document).ready(function() {
                 <s:iterator value="tableInit.aoColumns" var="column">
                 <s:if test="%{#column.isbSearchable()==true}">
                 if($('#${column.mData}').val() != ''){
-                    aoData.push( { "name": "filter['${column.mData}']", "value": $('[name="${column.mData}"]').val() } );
+                    aoData.push( { "name": "filter['${column.mData}']", "value": $('#${column.mData}').val() } );
                 }
                 </s:if>
                 </s:iterator>
@@ -278,6 +296,7 @@ $(document).ready(function() {
                     "success": function(result,status,response){
                         // Do whatever additional processing you want on the callback, then tell DataTables
                         fnCallback(result);
+                        $('#${tableId}').css("width","100%");
                     }
                 } );
                 //========method two END==================

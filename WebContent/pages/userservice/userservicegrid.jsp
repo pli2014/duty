@@ -21,4 +21,13 @@
             return "";
         }
     }
+    $(".form-horizontal.tasi-form [name='checkInTime_gteq']").attr("data-date-format","yyyy-mm-dd");
+    $(".form-horizontal.tasi-form [name='checkInTime_gteq']").datepicker();
+    $(".form-horizontal.tasi-form [name='checkInTime_lteq']").attr("data-date-format","yyyy-mm-dd");
+    $(".form-horizontal.tasi-form [name='checkInTime_lteq']").datepicker();
+    //没有CRUD操作
+    operationButtons = [];
+
+    //没有操作按钮
+    options=[];
 </script>

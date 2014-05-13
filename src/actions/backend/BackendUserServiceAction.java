@@ -1,15 +1,20 @@
 package actions.backend;
 
 import bl.mongobus.UserServiceBusiness;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
 import vo.table.TableQueryVo;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by peter on 06-04-21.
  */
 public class BackendUserServiceAction extends BaseBackendAction<UserServiceBusiness> {
-
+    protected static Logger LOG = LoggerFactory.getLogger(BackendUserServiceAction.class);
     @Override
     public String getActionPrex() {
         return getRequest().getContextPath() + "/backend/userservice";
@@ -32,6 +37,14 @@ public class BackendUserServiceAction extends BaseBackendAction<UserServiceBusin
         init.getAoColumns().add(new TableHeaderVo("userCode", "工号").enableSearch());
         init.getAoColumns().add(new TableHeaderVo("checkInMethod", "签到方式"));
         init.getAoColumns().add(new TableHeaderVo("servicePlaceName", "服务地点").enableSearch());
+        init.getAoColumns().add(new TableHeaderVo("checkInTime_gteq", "起始时间").setHiddenColumn(true).enableSearch());
+        init.getAoColumns().add(new TableHeaderVo("checkInTime_lteq", "结束时间").setHiddenColumn(true).enableSearch());
+        init.getAoColumns().add(new TableHeaderVo("description", "签入位置信息",false));
+        init.getAoColumns().add(new TableHeaderVo("checkOutDescription", "签出位置信息",false));
+        init.getAoColumns().add(new TableHeaderVo("latitude", "签入纬度",false));
+        init.getAoColumns().add(new TableHeaderVo("longitude", "签入经度",false));
+        init.getAoColumns().add(new TableHeaderVo("checkOutLatitude", "签出纬度",false));
+        init.getAoColumns().add(new TableHeaderVo("checkOutLongitude", "签出经度",false));
         init.getAoColumns().add(new TableHeaderVo("checkInTime", "签入时间"));
         init.getAoColumns().add(new TableHeaderVo("checkOutTime", "签出时间"));
         return init;
