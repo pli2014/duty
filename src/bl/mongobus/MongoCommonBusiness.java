@@ -57,7 +57,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public BusinessResult getLeaf(String objectId) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Object object = dc.find(this.clazz, "_id", new ObjectId(objectId))
                 .get();
         BusinessResult br = new BusinessResult();
@@ -67,7 +67,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public BusinessResult deleteLeaf(String objectId) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         BusinessResult br = new BusinessResult();
         Bean obj = (Bean)this.getLeaf(objectId).getResponseData();
         if (obj != null) {
@@ -82,7 +82,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
     public BusinessResult deleteLeaf(String objectId, boolean realDelete) {
         BusinessResult br = new BusinessResult();
         if(realDelete) {
-            Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+            Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
             Object object = dc.find(this.clazz, "_id", new ObjectId(objectId))
                     .get();
             dc.delete(object);
@@ -94,7 +94,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         BusinessResult br = new BusinessResult();
         ((Bean) newBean).setCreateTime(((Bean) origBean).getCreateTime());
         ((Bean) newBean).setModifyTime(new Date(System.currentTimeMillis()));
@@ -105,7 +105,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public BusinessResult getAllLeaves() {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         List<L> list = dc.find(this.clazz, "isDeleted", false).asList();
         BusinessResult br = new BusinessResult();
         br.setResponseData(list);
@@ -114,7 +114,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public void deleteByCondition(Map filter) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query<L> query = this.constructQuery(filter, null, null);
         dc.delete(query);
     }
@@ -192,7 +192,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
      */
     private Query<L> constructQuery(Map filter, Set<String> sorted,
                                     SpecPaginationContext spc) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query query = dc.createQuery(this.clazz);
         if (filter != null && !filter.isEmpty()) {
             Iterator<String> iterator = filter.keySet().iterator();
@@ -280,7 +280,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public BusinessResult getLeafByName(String name) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         BusinessResult br = new BusinessResult();
         br.setResponseData(dc.find(this.clazz, "name", name).filter("isDeleted", false).get());
         return br;
@@ -288,7 +288,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public TableDataVo query(TableQueryVo queryParam) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Set<String> sortedMappingMongo = new HashSet<String>();
         LinkedHashMap<String, String> lhm = queryParam.getSort();
         if (lhm != null) {
@@ -318,7 +318,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public long getCount(TableQueryVo queryParam) {
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
 
         Set<String> sortedMappingMongo = new HashSet<String>();
         LinkedHashMap<String, String> lhm = queryParam.getSort();
@@ -342,7 +342,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 	}
 
   public void updateRecordsByCondition(String targetColumn, Object targetValue, String conditionName, Object conditionValue){
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     UpdateOperations<L> ops
         = dc.createUpdateOperations(this.clazz).set(targetColumn, targetValue);
     org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
@@ -355,7 +355,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
         MongoCommonBusiness<BeanContext, VolunteerTrainCourseBean> mc = new MongoCommonBusiness<BeanContext, VolunteerTrainCourseBean>();
         mc.clazz = VolunteerTrainCourseBean.class;
 
-        Datastore dc = MongoDBConnectionFactory.getDatastore(mc.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(mc.getDBName());
         Query query = dc.createQuery(mc.clazz);
         query.filter("_id nin", new ObjectId[] { ObjectId.get() });
         System.out.println(dc.getCount(query));
