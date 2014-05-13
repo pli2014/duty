@@ -27,7 +27,7 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
   private static Logger log = LoggerFactory.getLogger(VolunteerTrainCourseBusiness.class);
 
   public VolunteerTrainCourseBusiness() {
-    this.dbName = "form";
+    //this.dbName = "form";
     this.clazz = VolunteerTrainCourseBean.class;
   }
 
@@ -70,7 +70,7 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
   }
 
   public void updateVolunteerName(String volunteerId, String volunteerName){
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     UpdateOperations<VolunteerTrainCourseBean> ops
         = dc.createUpdateOperations(VolunteerTrainCourseBean.class).set("volunteerName", volunteerName);
     org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
@@ -79,7 +79,7 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
   }
 
   public void updateCourseName(String courseId, String courseName) {
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     UpdateOperations<VolunteerTrainCourseBean> ops
         = dc.createUpdateOperations(VolunteerTrainCourseBean.class).set("traincourseName", courseName);
     org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);

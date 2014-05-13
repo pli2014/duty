@@ -46,7 +46,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
   public BusinessResult getOrderedLeavesByUserId(String userId, int size) {
 
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     BusinessResult br = new BusinessResult();
 
     List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).order("-checkOutTime").limit(size).asList();
@@ -72,7 +72,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   }
 
   public List<UserServiceBean> queryUserServices(List<String> userIdList, List<String> serviceIdList, Date start, Date end) {
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     Query query = dc.createQuery(this.clazz);
     if (null != userIdList && userIdList.size() > 0) {
       query = query.filter("userId in", userIdList);
@@ -143,7 +143,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
   }
 
   public double getVolunteerServiceHours(String volunnteerId, Calendar startCalendar, Calendar endCalendar) {
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     Query query = dc.createQuery(this.clazz);
 
     query = query.filter("userId =", volunnteerId);
@@ -168,7 +168,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
 
   public BusinessResult getLeavesByUserId(String userId) {
     BusinessResult br = new BusinessResult();
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
 
     List<UserServiceBean> beanList = dc.find(this.clazz, "userId", userId).asList();
 

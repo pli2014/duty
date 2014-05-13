@@ -30,7 +30,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
     @Override
     public BusinessResult createLeaf(BeanContext genLeafBean) {
         ServicePlaceBean sp = (ServicePlaceBean) genLeafBean;
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query<ServicePlaceBean> query = dc.createQuery(this.clazz);
         if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
             query.filter("isDeleted", false).filter("parentid",sp.getParentid()).or(
@@ -54,7 +54,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
     @Override
     public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
         ServicePlaceBean sp = (ServicePlaceBean) newBean;
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query<ServicePlaceBean> query = dc.createQuery(this.clazz);
         if(sp.getParentid()!=null && !sp.getParentid().isEmpty()){
             query.filter("isDeleted", false).filter("parentid",sp.getParentid()).or(

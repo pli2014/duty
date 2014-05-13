@@ -8,6 +8,7 @@ import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SourceCodeBusiness;
+import bl.mongobus.SystemSettingBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import common.Constants;
 import net.sf.json.JSONArray;
@@ -36,6 +37,9 @@ import java.util.List;
 public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness> {
   private static Logger log = LoggerFactory.getLogger(BackendVolunteerAction.class);
   protected static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+  private static SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
+
+
   protected List<SourceCodeBean> listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
   private VolunteerBean volunteer;
 
@@ -162,7 +166,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   public String resetPassword() {
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     if (volunteer != null) {
-      SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+      SystemSettingBean systemSetting = ssb.getLeaf();
       volunteer.setPassword(StringUtil.toMD5(systemSetting.getDefaultPassword()));
       getBusiness().updateLeaf(volunteer, volunteer);
       addActionMessage("密码重置成功！");

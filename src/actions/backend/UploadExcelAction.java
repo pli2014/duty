@@ -6,6 +6,7 @@ import bl.beans.VolunteerBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SourceCodeBusiness;
+import bl.mongobus.SystemSettingBusiness;
 import bl.mongobus.VolunteerBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -32,6 +33,7 @@ import java.util.Set;
 public class UploadExcelAction extends ActionSupport implements ServletRequestAware {
     private static VolunteerBusiness VOLBUS = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
     private static SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
+    private static SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
 
     private static Logger LOG = LoggerFactory.getLogger(UploadExcelAction.class);
     private List<SourceCodeBean> listSource = null;
@@ -147,7 +149,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
             for (SourceCodeBean scb : listSource) {
                 setSource.add(scb.getCode());
             }
-            SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+            SystemSettingBean systemSetting = ssb.getLeaf();
             String defaultPassword = StringUtil.toMD5(systemSetting.getDefaultPassword());
             for (int rowNum = rowStart; rowNum < rowEnd; rowNum++) {
                 Row row = sheet.getRow(rowNum);

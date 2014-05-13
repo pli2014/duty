@@ -34,6 +34,11 @@ public class ServerContext {
         }
     }
 
+    public static String getDBFlag(String key) {
+      String result = getValue(key);
+      return "".equals(result) ? "form" : result;
+    }
+
     public static boolean isWechatLocalDebug() {
         if (null != prop) {
             return "true".equals(getValue("wechat.debug.local"));

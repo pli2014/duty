@@ -17,7 +17,7 @@ public class PatientBusiness extends MongoCommonBusiness<BeanContext, PatientBea
   private static Logger log = LoggerFactory.getLogger(PatientBusiness.class);
 
   public PatientBusiness() {
-    this.dbName = "form";
+    //this.dbName = "form";
     this.clazz = PatientBean.class;
   }
 

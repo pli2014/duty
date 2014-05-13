@@ -32,6 +32,9 @@ public class MenuUtils {
     if(null != resultMap && (Integer)(resultMap.get(Constants.ERR_CODE)) == 0) {
       return true;
     }
+    if(null != resultMap.get(Constants.ERR_CODE)) {
+      LOG.error("Error while getting token from server, errcode:{};{}", String.valueOf(resultMap.get(Constants.ERR_CODE)), String.valueOf(resultMap.get(Constants.ERR_CODE)));
+    }
     return false;
   }
 
@@ -48,7 +51,12 @@ public class MenuUtils {
   public static boolean create(WechatMenu menu) {
     if(null != menu) {
       String jsonMenu = menu.toJson();
-      return create(new ByteArrayInputStream(jsonMenu.getBytes()));
+      try {
+        return create(new ByteArrayInputStream(jsonMenu.getBytes("UTF-8")));
+      } catch(UnsupportedEncodingException e){
+        LOG.error(e.getMessage());
+        return false;
+      }
     } else {
       LOG.error("Menu object is null!");
       return false;

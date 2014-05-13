@@ -44,7 +44,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
       = (ActiveUserBusiness)SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
 
   public VolunteerBusiness() {
-    this.dbName = "form";
+    //this.dbName = "form";
     this.clazz = VolunteerBean.class;
   }
 

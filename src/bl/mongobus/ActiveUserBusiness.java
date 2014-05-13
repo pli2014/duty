@@ -24,14 +24,14 @@ public class ActiveUserBusiness extends MongoCommonBusiness<BeanContext, ActiveU
   }
 
   public BusinessResult getActiveUserByUserId(String userId) {
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     BusinessResult br = new BusinessResult();
     br.setResponseData(dc.find(this.clazz, "userId", userId).get());
     return br;
   }
 
   public BusinessResult getActiveUsersByServicePlace(String servicePlaceId) {
-    Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+    Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     BusinessResult br = new BusinessResult();
     br.setResponseData(dc.find(this.clazz, "servicePlaceId", servicePlaceId).order("distance").asList());
     return br;

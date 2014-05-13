@@ -8,6 +8,7 @@ import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.BackendUserBusiness;
+import bl.mongobus.SystemSettingBusiness;
 import bl.mongobus.VolunteerBusiness;
 import com.opensymphony.xwork2.ActionContext;
 import common.Constants;
@@ -17,6 +18,7 @@ import org.apache.struts2.ServletActionContext;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.ServerContext;
 import util.StringUtil;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
@@ -35,8 +37,9 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
    * 
    */
   private final VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+  private final SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
 
-    private static final long serialVersionUID = -5222876000116738224L;
+  private static final long serialVersionUID = -5222876000116738224L;
   private static Logger log = LoggerFactory.getLogger(BackendUserAction.class);
 
   private BackendUserBean user;
@@ -109,6 +112,18 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
    * @return
    */
   public String login() {
+    StringBuffer url = getRequest().getRequestURL();
+    int start = url.indexOf("http://");
+    if( start != -1) {
+      start = start + 7;
+    }
+    int end = url.length() - getRequest().getRequestURI().length();
+    if(end > url.indexOf(":")) {
+      end = url.lastIndexOf(":");
+    }
+    String contextUrl = url.substring(start, end);
+    String dbFlag = ServerContext.getDBFlag(contextUrl);
+    getRequest().getSession().setAttribute(WebappsConstants.USER_DB_FLAG, dbFlag);
     if (user != null) {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();
       if (userTmp != null && StringUtil.toMD5(user.getPassword()).equals(userTmp.getPassword())) {
@@ -185,7 +200,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
   public String resetPassword() {
     user = (BackendUserBean) getBusiness().getLeaf(getId()).getResponseData();
     if (user != null) {
-      SystemSettingBean systemSetting = (SystemSettingBean) ActionContext.getContext().getApplication().get(Constants.GLOBALSETTING);
+      SystemSettingBean systemSetting = ssb.getLeaf();
       user.setPassword(StringUtil.toMD5(systemSetting.getDefaultPassword()));
       getBusiness().updateLeaf(user, user);
       addActionMessage("密码重置成功！");

@@ -25,7 +25,7 @@ public class SourceCodeBusiness extends MongoCommonBusiness<BeanContext, SourceC
     @Override
     public BusinessResult createLeaf(BeanContext genLeafBean) {
         SourceCodeBean sp = (SourceCodeBean) genLeafBean;
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query<SourceCodeBean> query = dc.createQuery(this.clazz);
         query.filter("isDeleted", false).or(
                 query.criteria("name").equal(sp.getName()),
@@ -42,7 +42,7 @@ public class SourceCodeBusiness extends MongoCommonBusiness<BeanContext, SourceC
     @Override
     public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
         SourceCodeBean sp = (SourceCodeBean) newBean;
-        Datastore dc = MongoDBConnectionFactory.getDatastore(this.dbName);
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Query<SourceCodeBean> query = dc.createQuery(this.clazz);
         query.filter("isDeleted", false).or(
                 query.criteria("name").equal(sp.getName()),

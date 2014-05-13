@@ -35,8 +35,8 @@ public class WebInitListener implements ServletContextListener {
     MongoDBConnectionFactory.initDb();
 
     // init Global Setting
-    Object global = SystemSettingAction.init();
-    sce.getServletContext().setAttribute(Constants.GLOBALSETTING, global);
+    //Object global = SystemSettingAction.init();
+    //sce.getServletContext().setAttribute(Constants.GLOBALSETTING, global);
     VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
     sce.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, volunteerBusiness.getUnVerifiedVolunteers());
     sce.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, volunteerBusiness.getUnInterviewedVolunteers());
