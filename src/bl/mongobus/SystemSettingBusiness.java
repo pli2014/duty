@@ -7,6 +7,7 @@ import bl.common.BusinessResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import util.ServerContext;
+import util.DBUtils;
 import wechat.utils.Constants;
 
 import java.util.List;
@@ -36,32 +37,33 @@ public class SystemSettingBusiness extends MongoCommonBusiness<BeanContext, Syst
     public void loadServerContext(){
       List<SystemSettingBean> ssBean = (List<SystemSettingBean>) this.getAllLeaves().getResponseData();
       if( ssBean!= null && ssBean.size() > 0) {
+        String prefix = DBUtils.getDBFlag();
         SystemSettingBean setting = ssBean.get(0);
         String appID = setting.getAppID();
         if(null != appID) {
-          ServerContext.putValue(Constants.APP_ID, appID);
+          ServerContext.putValue(prefix + Constants.APP_ID, appID);
         }
 
         String appsecret = setting.getAppsecret();
         if(null != appsecret) {
-          ServerContext.putValue(Constants.APP_SECRET, appsecret);
+          ServerContext.putValue(prefix + Constants.APP_SECRET, appsecret);
         }
 
         String apptoken = setting.getApptoken();
         if(null != apptoken) {
-          ServerContext.putValue(Constants.APP_TOKEN, apptoken);
+          ServerContext.putValue(prefix + Constants.APP_TOKEN, apptoken);
         }
 
         String domainname = setting.getDomainname();
         if(null != domainname) {
-          ServerContext.putValue(Constants.DOMAIN_NAME, domainname);
+          ServerContext.putValue(prefix + Constants.DOMAIN_NAME, domainname);
         }
 
         boolean debugMode = setting.isDebugMode();
         if(debugMode) {
-          ServerContext.putValue(Constants.WECHAT_DEBUG, "true");
+          ServerContext.putValue(prefix + Constants.WECHAT_DEBUG, "true");
         } else {
-          ServerContext.putValue(Constants.WECHAT_DEBUG, "false");
+          ServerContext.putValue(prefix + Constants.WECHAT_DEBUG, "false");
         }
       }
     }

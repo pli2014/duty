@@ -14,6 +14,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
+import util.DBUtils;
+import util.MultiTenancyManager;
 import util.ServerContext;
 import util.StringUtil;
 import webapps.WebappsConstants;
@@ -75,37 +77,59 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
    * @return
    */
   public String login() {
-    if (volunteer != null) {
-      VolunteerBean userTmp = getBusiness().getVolunteerBeanByCode(volunteer.getCode());
-      if (userTmp != null) {
-        if (userTmp.getStatus().intValue() == VolunteerBean.REGISTERED) {
-          addActionError("你的账号还没通过审核，请耐心等待");
-          return FAILURE;
-        } else {
-          if (StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
-            getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
-            return SUCCESS;
-          } else if (volunteer.getPassword().equals(userTmp.getPassword())) {
-            // 这是通过指纹的方式拿到MD5密码然后登陆，类似于token
-            getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
-            return SUCCESS;
+    StringBuffer url = getRequest().getRequestURL();
+    int start = url.indexOf("http://");
+    if( start != -1) {
+      start = start + 7;
+    }
+    int end = url.length() - getRequest().getRequestURI().length();
+    if(end > url.indexOf(":")) {
+      end = url.lastIndexOf(":");
+    }
+    String contextUrl = url.substring(start, end);
+    String dbFlag = MultiTenancyManager.getDBFlagByDomainName(contextUrl);
+    getRequest().getSession().setAttribute(WebappsConstants.USER_DB_FLAG, dbFlag);
+    DBUtils.setDBFlag(dbFlag);
+    try {
+      if (volunteer != null) {
+
+        VolunteerBean userTmp = getBusiness().getVolunteerBeanByCode(volunteer.getCode());
+        if (userTmp != null) {
+          if (userTmp.getStatus().intValue() == VolunteerBean.REGISTERED) {
+            addActionError("你的账号还没通过审核，请耐心等待");
+            return FAILURE;
+          } else {
+            if (StringUtil.toMD5(volunteer.getPassword()).equals(userTmp.getPassword())) {
+              getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+              return SUCCESS;
+            } else if (volunteer.getPassword().equals(userTmp.getPassword())) {
+              // 这是通过指纹的方式拿到MD5密码然后登陆，类似于token
+              getSession().setAttribute(WebappsConstants.LOGIN_USER_SESSION_ID, userTmp);
+              return SUCCESS;
+            }
           }
         }
+        addActionError("密码错误");
+        return FAILURE;
+      } else {
+        List<VolunteerBean> volunteers = (List<VolunteerBean>) getBusiness().getAllLeaves().getResponseData();
+        String[][] vols = new String[volunteers.size()][2];
+        int i = 0;
+        for (VolunteerBean vt : volunteers) {
+          vols[i][0] = vt.getCode();
+          vols[i][1] = vt.getPassword();
+          i++;
+        }
+        this.volunteerCodes = vols;
+        return FAILURE;
       }
-      addActionError("密码错误");
+    } catch (Exception e) {
+      LOG.error(e.getMessage());
       return FAILURE;
-    } else {
-      List<VolunteerBean> volunteers = (List<VolunteerBean>) getBusiness().getAllLeaves().getResponseData();
-      String[][] vols = new String[volunteers.size()][2];
-      int i = 0;
-      for (VolunteerBean vt : volunteers) {
-        vols[i][0] = vt.getCode();
-        vols[i][1] = vt.getPassword();
-        i++;
-      }
-      this.volunteerCodes = vols;
-      return FAILURE;
+    } finally {
+      DBUtils.removeDBFlag();
     }
+
   }
 
   /**

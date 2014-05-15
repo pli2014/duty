@@ -18,6 +18,7 @@ import org.apache.struts2.ServletActionContext;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.MultiTenancyManager;
 import util.ServerContext;
 import util.StringUtil;
 import vo.table.TableHeaderVo;
@@ -122,7 +123,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
       end = url.lastIndexOf(":");
     }
     String contextUrl = url.substring(start, end);
-    String dbFlag = ServerContext.getDBFlag(contextUrl);
+    String dbFlag = MultiTenancyManager.getDBFlagByDomainName(contextUrl);
     getRequest().getSession().setAttribute(WebappsConstants.USER_DB_FLAG, dbFlag);
     if (user != null) {
       BackendUserBean userTmp = (BackendUserBean) getBusiness().getLeafByName(user.getName()).getResponseData();

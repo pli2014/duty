@@ -2,6 +2,7 @@ package wechat.menu;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.DBUtils;
 import util.ServerContext;
 import wechat.access.AccessTokenManager;
 import wechat.utils.Constants;
@@ -20,15 +21,15 @@ public class MenuUtils {
   protected final static Logger LOG = LoggerFactory.getLogger(HttpClientHelper.class);
 
   public static String getRedirectUrl(String url) throws UnsupportedEncodingException {
-    return ServerContext.getValue("domainname") + "/wechat/redirect.action?url=" + URLEncoder.encode(url, "UTF-8");
+    return ServerContext.getDomainName() + "/wechat/redirect.action?url=" + URLEncoder.encode(url, "UTF-8");
   }
 
   public static String getOAuthUrl(String url) throws UnsupportedEncodingException {
-    return URLManager.getUrl_OAuthRedirect(ServerContext.getValue("domainname") + url, ServerContext.getValue("appID"));
+    return URLManager.getUrl_OAuthRedirect(ServerContext.getDomainName() + url, ServerContext.getAppID());
   }
 
   public static boolean create(InputStream in) {
-    Map resultMap = HttpClientHelper.post(URLManager.getUrl_MenuCreate(AccessTokenManager.getToken()), in);
+    Map resultMap = HttpClientHelper.post(URLManager.getUrl_MenuCreate(AccessTokenManager.getToken(DBUtils.getDBFlag())), in);
     if(null != resultMap && (Integer)(resultMap.get(Constants.ERR_CODE)) == 0) {
       return true;
     }

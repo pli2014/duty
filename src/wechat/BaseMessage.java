@@ -93,4 +93,13 @@ public class BaseMessage {
     MsgType = msgType;
   }
 
+  public void setDbFlag(String dbFlag) {
+    this.dbFlag = dbFlag;
+  }
+
+  public String getDbFlag() {
+    return dbFlag;
+  }
+
+  private transient String dbFlag;
 }

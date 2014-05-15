@@ -2,6 +2,7 @@ package wechat.message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.DBUtils;
 import util.ServerContext;
 import wechat.BaseEvent;
 import wechat.BaseMessage;
@@ -36,12 +37,15 @@ public class SubscribeEventHandler implements EventHandler {
   @Override
   public void handle(BaseMessage message) {
     try {
-      String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
+      DBUtils.setDBFlag(message.getDbFlag());
+      String url = ServerContext.getDomainName() + "/wechat/userBinding.action";
       ServiceMessage response = new TextServiceMessage(message.getFromUserName(),
-          String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo")));
-      ServiceMessageUtils.sendMessage(response);
+          String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getAppID(), "snsapi_userinfo")));
+      ServiceMessageUtils.sendMessage(message.getDbFlag(), response);
     } catch (UnsupportedEncodingException e) {
       LOG.error(e.getMessage());
+    } finally {
+      DBUtils.removeDBFlag();
     }
   }
 }

@@ -7,6 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import util.ServerContext;
+import util.DBUtils;
 import wechat.access.AccessValidator;
 import wechat.message.MessageBus;
 import wechat.utils.Constants;
@@ -44,15 +45,23 @@ public class WechatServlet extends HttpServlet {
     if(signature == null || timestamp == null || nonce == null) {
       return;
     }
-    // 随机字符串
-    String echostr = request.getParameter("echostr");
-    PrintWriter out = response.getWriter();
-    // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-    AccessValidator validator = new AccessValidator(signature, ServerContext.getValue(Constants.APP_TOKEN), timestamp, nonce);
-    if (validator.validate()) {
-      out.print(echostr);
+
+    this.parseDBFlag(request);
+    try {
+      // 随机字符串
+      String echostr = request.getParameter("echostr");
+      PrintWriter out = response.getWriter();
+      // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
+      AccessValidator validator = new AccessValidator(signature, ServerContext.getAppToken(), timestamp, nonce);
+      if (validator.validate()) {
+        out.print(echostr);
+      }
+      out.close();
+    } catch (Exception e) {
+      LOG.error(e.getMessage());
+    } finally {
+      DBUtils.removeDBFlag();
     }
-    out.close();
   }
 
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -70,8 +79,11 @@ public class WechatServlet extends HttpServlet {
     if(signature == null || timestamp == null || nonce == null) {
       return;
     }
+
+    this.parseDBFlag(request);
+
     // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
-    AccessValidator validator = new AccessValidator(signature, ServerContext.getValue(Constants.APP_TOKEN), timestamp, nonce);
+    AccessValidator validator = new AccessValidator(signature, ServerContext.getAppToken(), timestamp, nonce);
     if (validator.validate()) {
       try {
         Map rMap = parseXml(request);
@@ -84,6 +96,8 @@ public class WechatServlet extends HttpServlet {
         out.close();
       } catch (DocumentException e) {
         LOG.error(e.getMessage());
+      } finally {
+        DBUtils.removeDBFlag();
       }
     }
   }
@@ -111,6 +125,22 @@ public class WechatServlet extends HttpServlet {
 
     return map;
   }
+
+  public void parseDBFlag(HttpServletRequest request) {
+    StringBuffer url = request.getRequestURL();
+    int start = url.indexOf("http://");
+    if( start != -1) {
+      start = start + 7;
+    }
+    int end = url.length() - request.getRequestURI().length();
+    if(end > url.indexOf(":")) {
+      end = url.lastIndexOf(":");
+    }
+    String contextUrl = url.substring(start, end);
+    String dbFlag = ServerContext.getDBFlag(contextUrl);
+    DBUtils.setDBFlag(dbFlag);
+  }
+
 
   @Override
   public void destroy() {

@@ -22,8 +22,8 @@
 <body>
 
 <%
-    String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
-    String redirectUrl = URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo");
+    String url = ServerContext.getDomainName() + "/wechat/userBinding.action";
+    String redirectUrl = URLManager.getUrl_OAuthRedirect(url, ServerContext.getAppID(), "snsapi_userinfo");
 %>
 <section class="panel">
     <div class="panel-body">

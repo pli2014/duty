@@ -8,6 +8,7 @@ import wechat.utils.Constants;
 import wechat.HttpClientHelper;
 import wechat.utils.URLManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,32 +17,38 @@ import java.util.Map;
 public class AccessTokenManager {
   protected final static Logger LOG = LoggerFactory.getLogger(AccessTokenManager.class);
 
-  private static String TOKEN = "";
-  private static long EXPIRE_TIMESTAMP = 0;
+  private static Map<String, Token> tokenMap = new HashMap<String, Token>();
 
-  public synchronized static String getToken() {
-    String url = URLManager.getUrl_Accesstoken(ServerContext.getValue(Constants.APP_ID), ServerContext.getValue(Constants.APP_SECRET)) ;
-    if(EXPIRE_TIMESTAMP > System.currentTimeMillis()) {
-      return TOKEN;
+  public synchronized static String getToken(String dbFlag) {
+    Token token = tokenMap.get(dbFlag);
+    if(null != token) {
+      if(token.getExpireTimestamp() > System.currentTimeMillis()) {
+        return token.getToken();
+      }
+    } else {
+      token = new Token(null, 0l);
+      tokenMap.put(dbFlag, token);
     }
+    String url = URLManager.getUrl_Accesstoken(ServerContext.getAppID(), ServerContext.getAppSecret()) ;
+
     Map resultMap = HttpClientHelper.get(url);
     if(null != resultMap.get(Constants.ERR_CODE)) {
       LOG.error("Error while getting token from server, errcode:{};{}", String.valueOf(resultMap.get(Constants.ERR_CODE)), String.valueOf(resultMap.get(Constants.ERR_CODE)));
     } else if(null != resultMap.get(Constants.ACCESS_TOKEN)){
-      TOKEN = (String)resultMap.get(Constants.ACCESS_TOKEN);
+      token.setToken((String) resultMap.get(Constants.ACCESS_TOKEN));
       Integer expires = (Integer)resultMap.get(Constants.EXPIRES_IN);
       if(null != expires) {
-        EXPIRE_TIMESTAMP = System.currentTimeMillis() + (expires - 1000) * 1000;
+        token.setExpireTimestamp(System.currentTimeMillis() + (expires - 1000) * 1000);
       } else {
-        EXPIRE_TIMESTAMP = 0;
+        token.setExpireTimestamp(0);
       }
     }
-    return TOKEN;
+    return token.getToken();
   }
 
   public synchronized static AccessToken getAccessToken(String code) {
     AccessToken token = null;
-    String url = URLManager.getUrl_OAuthAccesstoken(ServerContext.getValue(Constants.APP_ID), ServerContext.getValue(Constants.APP_SECRET), code);
+    String url = URLManager.getUrl_OAuthAccesstoken(ServerContext.getAppID(), ServerContext.getAppSecret(), code);
     String resultString = HttpClientHelper.getResponseAsJSONString(url);
     JSONObject object = JSONObject.fromObject(resultString);
     if(null != object.get(Constants.ERR_CODE)) {
@@ -51,4 +58,32 @@ public class AccessTokenManager {
     }
     return token;
   }
+}
+
+class Token{
+  private String token;
+  private long expireTimestamp;
+
+  public Token(String token, long timestamp) {
+    this.token = token;
+    this.expireTimestamp = timestamp;
+  }
+
+  public long getExpireTimestamp() {
+    return expireTimestamp;
+  }
+
+  public void setExpireTimestamp(long expireTimestamp) {
+    this.expireTimestamp = expireTimestamp;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
+  }
+
+
 }

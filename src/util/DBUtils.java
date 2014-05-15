@@ -3,7 +3,7 @@ package util;
 /**
  * Created by wangronghua on 14-5-13.
  */
-public class UserUtils {
+public class DBUtils {
 
   private static ThreadLocal<String> threadLocal = new ThreadLocal<String>();
 

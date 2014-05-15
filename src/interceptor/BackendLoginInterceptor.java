@@ -4,7 +4,7 @@
  */
 package interceptor;
 
-import util.UserUtils;
+import util.DBUtils;
 import util.WrappedRuntimeException;
 import webapps.WebappsConstants;
 import bl.exceptions.MiServerException;
@@ -29,7 +29,7 @@ public class BackendLoginInterceptor extends AbstractInterceptor {
       return "backend_tologin";
     }
     String dbFlag = (String)ActionContext.getContext().getSession().get(WebappsConstants.USER_DB_FLAG);
-    UserUtils.setDBFlag(dbFlag);
+    DBUtils.setDBFlag(dbFlag);
     String result;
     try {
       result = invocation.invoke();
@@ -45,7 +45,7 @@ public class BackendLoginInterceptor extends AbstractInterceptor {
         throw new WrappedRuntimeException(e);
       }
     } finally {
-      UserUtils.removeDBFlag();
+      DBUtils.removeDBFlag();
     }
     return result;
   }

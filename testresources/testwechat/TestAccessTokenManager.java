@@ -12,7 +12,7 @@ public class TestAccessTokenManager{
   public static void main(String[] args) throws FileNotFoundException {
     FileInputStream f = new FileInputStream(new File("/Users/wangronghua/workspace/duty/srcresources/server.properties"));
     ServerContext.init(f);
-    System.out.println(AccessTokenManager.getToken());
+    System.out.println(AccessTokenManager.getToken("form"));
   }
 
 }

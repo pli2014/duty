@@ -55,8 +55,8 @@ public class HeadJpgAction {
         if (image != null) {
 
             try {
-                String realstorepngdirectory = ServerContext.getValue("realstorepngdirectory");
-                String vitualstorepngdirectory = ServerContext.getValue("vitualstorepngdirectory");
+                String realstorepngdirectory = ServerContext.getRealPngDir();
+                String vitualstorepngdirectory = ServerContext.getVirtualPngDir();
                 String requestPath = null;
                 if (Files.notExists(Paths.get(realstorepngdirectory))) {
                     Files.createDirectories(Paths.get(realstorepngdirectory));

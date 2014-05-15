@@ -15,7 +15,7 @@ import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import util.UserUtils;
+import util.DBUtils;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
 
@@ -38,7 +38,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
     }
 
   public String getDBName() {
-    String dbFlag = UserUtils.getDBFlag();
+    String dbFlag = DBUtils.getDBFlag();
     if(!org.apache.commons.lang.StringUtils.isNotEmpty(dbFlag)) {
       dbFlag = "form";
     }

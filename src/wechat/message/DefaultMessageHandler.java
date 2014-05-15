@@ -115,9 +115,9 @@ public class DefaultMessageHandler implements MessageHandler {
         text = "您当月服务" + hoursForMonth + "小时，当年服务" + hoursForYear + "小时.";
       } else {
         String content = "对不起，您还未绑定志愿者账号! 你可以在此处绑定横渡志愿者服务平台: <a href='%s'>点击这里</a>";
-        String url = ServerContext.getValue("domainname") + "/wechat/userBinding.action";
+        String url = ServerContext.getDomainName() + "/wechat/userBinding.action";
         try {
-          text = String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getValue("appID"), "snsapi_userinfo"));
+          text = String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getAppID(), "snsapi_userinfo"));
         } catch (UnsupportedEncodingException e) {
           logger.error("Exception happened while getUrl_OAuthRedirect:{}", e);
         }

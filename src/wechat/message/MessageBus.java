@@ -2,6 +2,7 @@ package wechat.message;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.DBUtils;
 import wechat.BaseMessage;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class MessageBus {
   }
 
   public boolean add(BaseMessage message) {
+    message.setDbFlag(DBUtils.getDBFlag());
     return queue.offer(message);
   }
 

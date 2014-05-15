@@ -24,8 +24,8 @@ public class WechatRedirect extends BaseAction {
 
   public String redirect() {
     try {
-      url = URLManager.getUrl_OAuthRedirect(ServerContext.getValue("domainname") +
-                        URLDecoder.decode(getRequest().getParameter("url"), "UTF-8"), ServerContext.getValue("appID"));
+      url = URLManager.getUrl_OAuthRedirect(ServerContext.getDomainName() +
+                        URLDecoder.decode(getRequest().getParameter("url"), "UTF-8"), ServerContext.getAppID());
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }

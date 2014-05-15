@@ -4,7 +4,7 @@
  */
 package interceptor;
 
-import util.UserUtils;
+import util.DBUtils;
 import util.WrappedRuntimeException;
 import webapps.WebappsConstants;
 import bl.exceptions.MiServerException;
@@ -30,7 +30,7 @@ public class LoginInterceptor extends AbstractInterceptor {
     }
 
     String dbFlag = (String)ActionContext.getContext().getSession().get(WebappsConstants.USER_DB_FLAG);
-    UserUtils.setDBFlag(dbFlag);
+    DBUtils.setDBFlag(dbFlag);
     String result;
     try {
       result = invocation.invoke();
@@ -46,7 +46,7 @@ public class LoginInterceptor extends AbstractInterceptor {
         throw new WrappedRuntimeException(e);
       }
     } finally {
-      UserUtils.removeDBFlag();
+      DBUtils.removeDBFlag();
     }
     return result;
   }
