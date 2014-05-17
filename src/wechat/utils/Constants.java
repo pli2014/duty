@@ -16,6 +16,9 @@ public class Constants {
   public static final String APP_SECRET = "appsecret";
   public static final String DOMAIN_NAME = "domainname";
   public static final String WECHAT_DEBUG = "wechat.debug.local";
+  public static final String CITY = "city";
+  public static final String MAP_TOKEN = "maptoken";
+  public static final String INTRODUCTION = "introduction";
 
 
   public static final String MSG_TYPE = "MsgType";
