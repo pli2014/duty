@@ -119,8 +119,9 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
       start = start + 7;
     }
     int end = url.length() - getRequest().getRequestURI().length();
-    if(end > url.indexOf(":")) {
-      end = url.lastIndexOf(":");
+    int couldBeEnd = url.lastIndexOf(":");
+    if(couldBeEnd > start && end > couldBeEnd) {
+      end = couldBeEnd;
     }
     String contextUrl = url.substring(start, end);
     String dbFlag = MultiTenancyManager.getDBFlagByDomainName(contextUrl);
