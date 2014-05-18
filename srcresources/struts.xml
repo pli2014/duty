@@ -190,7 +190,6 @@
 
     <package name="uploadpng" namespace="/personpicture" extends="default">
         <action name="uploadpngdata" class="actions.HeadJpgAction" method="uploadPersonPicture">
-            <interceptor-ref name="noLoginStack"></interceptor-ref>
         </action>
     </package>
 
