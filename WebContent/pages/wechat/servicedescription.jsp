@@ -32,7 +32,7 @@
 
     <div style="width:100%;height:100%;;padding:15px">
      <p>
-         ${applicationScope.GLOBALCONF.introduction}
+         <s:property value="@util.ServerContext@getValue(@util.DBUtils@getDBFlag()+@wechat.utils.Constants@INTRODUCTION)" escapeHtml="false"/>
      </p>
     </div>
 </section>

@@ -7,7 +7,7 @@ import org.mongodb.morphia.annotations.Entity;
  */
 @Entity(value = "systemsetting")
 public class SystemSettingBean extends Bean {
-    private String maptoken="URs4GQ1uMjGhGK4kfub7lXUt";
+    private String maptoken="YLVPteLNu0BakMGSb3GIkTBr";
     private String city="南京";
     private String introduction;
 

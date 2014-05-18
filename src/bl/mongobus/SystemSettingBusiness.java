@@ -65,6 +65,22 @@ public class SystemSettingBusiness extends MongoCommonBusiness<BeanContext, Syst
         } else {
           ServerContext.putValue(prefix + Constants.WECHAT_DEBUG, "false");
         }
+
+          String city = setting.getCity();
+          if(null != city) {
+              ServerContext.putValue(prefix + Constants.CITY, city);
+          }
+
+          String map_token = setting.getMaptoken();
+          if(null != map_token) {
+              ServerContext.putValue(prefix + Constants.MAP_TOKEN, map_token);
+          }
+
+          String introduction = setting.getIntroduction();
+          if(null != introduction) {
+              ServerContext.putValue(prefix + Constants.INTRODUCTION, introduction);
+          }
+
       }
     }
 }

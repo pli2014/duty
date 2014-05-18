@@ -3,12 +3,12 @@
   Date: 14-3-18
   Time: 上午7:08
 --%>
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=${applicationScope.GLOBALCONF.maptoken}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=<s:property value="@util.ServerContext@getValue(@util.DBUtils@getDBFlag()+@wechat.utils.Constants@MAP_TOKEN)"/>"></script>
 <div style="clear:both;"></div>
 <div id="allmap"></div>
 <script type="text/javascript">
       try{
-        window.city = "${applicationScope.GLOBALCONF.city}";
+        window.city = "<s:property value="@util.ServerContext@getValue(@util.DBUtils@getDBFlag()+@wechat.utils.Constants@CITY)"/>";
         // 百度地图API功能
         var map = new BMap.Map("allmap");
         var contextMenu = new BMap.ContextMenu();
