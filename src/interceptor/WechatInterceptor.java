@@ -42,7 +42,7 @@ public class WechatInterceptor extends AbstractInterceptor {
       start = start + 7;
     }
     int end = url.length() - request.getRequestURI().length();
-    if(end > url.indexOf(":")) {
+    if(url.indexOf(":") > start && end > url.indexOf(":")) {
       end = url.lastIndexOf(":");
     }
     String contextUrl = url.substring(start, end);

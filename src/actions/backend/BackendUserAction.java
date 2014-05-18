@@ -119,7 +119,7 @@ public class BackendUserAction extends BaseBackendAction<BackendUserBusiness> {
       start = start + 7;
     }
     int end = url.length() - getRequest().getRequestURI().length();
-    if(end > url.indexOf(":")) {
+    if(url.indexOf(":") > start && end > url.indexOf(":")) {
       end = url.lastIndexOf(":");
     }
     String contextUrl = url.substring(start, end);
