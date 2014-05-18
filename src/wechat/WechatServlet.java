@@ -6,6 +6,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import util.MultiTenancyManager;
 import util.ServerContext;
 import util.DBUtils;
 import wechat.access.AccessValidator;
@@ -138,7 +139,7 @@ public class WechatServlet extends HttpServlet {
       end = couldBeEnd;
     }
     String contextUrl = url.substring(start, end);
-    String dbFlag = ServerContext.getDBFlag(contextUrl);
+    String dbFlag = MultiTenancyManager.getDBFlagByDomainName(contextUrl);
     DBUtils.setDBFlag(dbFlag);
   }
 
