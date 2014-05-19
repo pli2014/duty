@@ -40,7 +40,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   private static SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
 
 
-  protected List<SourceCodeBean> listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+  protected List<SourceCodeBean> listSource;
   private VolunteerBean volunteer;
 
   public List<SourceCodeBean> getListSource() {
@@ -122,11 +122,14 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
    * @throws Exception
    */
   public String index() throws Exception {
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     return INDEX_SUCCESS;
   }
 
   @Override
   public String save() throws Exception {
+
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     BusinessResult result = getBusiness().save(getRequest(), volunteer);
     if (result.getErrors().size() > 0) {
       for (Object error : result.getErrors()) {
@@ -145,6 +148,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String edit() throws Exception {
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
     return SUCCESS;
   }
@@ -178,6 +182,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   @Override
   public String add() {
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     volunteer = new VolunteerBean();
     return SUCCESS;
   }

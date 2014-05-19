@@ -176,6 +176,7 @@
             <interceptor name="multiselect" class="org.apache.struts2.interceptor.MultiselectInterceptor" />
             <interceptor name="loginInterceptor" class="interceptor.LoginInterceptor"/>
             <interceptor name="bakcendLoginInterceptor" class="interceptor.BackendLoginInterceptor"/>
+            <interceptor name="dbFlagInterceptor" class="interceptor.DBFlagInterceptor" />
             <!-- Basic stack -->
             <interceptor-stack name="basicStack">
                 <interceptor-ref name="exception"/>
@@ -273,6 +274,7 @@
                  associated with requests that should not be validated.
                  -->
             <interceptor-stack name="_defaultStack">
+                <interceptor-ref name="dbFlagInterceptor" />
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="miserverexceptioninterceptor"/>
                 <interceptor-ref name="alias"/>
