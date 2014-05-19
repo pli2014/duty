@@ -6,8 +6,13 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import actions.SystemSettingAction;
+import bl.constants.BusTieConstant;
+import bl.instancepool.SingleBusinessPoolManager;
+import bl.mongobus.SystemSettingBusiness;
 import bl.mongobus.VolunteerBusiness;
 import common.Constants;
+import util.DBUtils;
+import util.MultiTenancyManager;
 import util.ServerContext;
 
 import org.slf4j.Logger;
@@ -41,8 +46,25 @@ public class WebInitListener implements ServletContextListener {
     sce.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, volunteerBusiness.getUnVerifiedVolunteers());
     sce.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, volunteerBusiness.getUnInterviewedVolunteers());
     sce.getServletContext().setAttribute("rootPath", sce.getServletContext().getContextPath());
-  }
 
+    // init db flag data by server.properties
+      String[] dbFlags = MultiTenancyManager.getDBFlags();
+      for(String dbFlag : dbFlags) {
+          loadServerContext(dbFlag);
+      }
+  }
+    private static void loadServerContext(String dbFlag) {
+        SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
+        String tempFlag = DBUtils.getDBFlag();
+        DBUtils.setDBFlag(dbFlag);
+        /**load system setting from mongo db**/
+        ssb.loadServerContext();
+        if(null != tempFlag) {
+            DBUtils.setDBFlag(tempFlag);
+        } else {
+            DBUtils.removeDBFlag();
+        }
+    }
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
     LOG.info("destroy dynamic form war");

@@ -141,8 +141,11 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
             int rowEnd = Math.min(5000,sheet.getLastRowNum());
             int code = -1;
             int name = -1;
+            int gender = -1;
             int source = -1;
             int phone = -1;
+            int identityCard = -1;
+            int email = -1;
             int foundHeaderRow = 0;
             this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
             Set<String> setSource = new HashSet<String>();
@@ -169,30 +172,50 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                                 } else if (cellValue.equals("姓名")) {
                                     name = cell.getColumnIndex();
                                     foundHeaderRow = row.getRowNum();
-                                } else if (cellValue.equals("来源")) {
+                                } else if (cellValue.equals("性别")) {
+                                    gender = cell.getColumnIndex();
+                                    foundHeaderRow = row.getRowNum();
+                                }
+                                else if (cellValue.equals("来源")) {
                                     source = cell.getColumnIndex();
                                     foundHeaderRow = row.getRowNum();
                                 } else if (cellValue.equals("联系电话")) {
                                     phone = cell.getColumnIndex();
                                     foundHeaderRow = row.getRowNum();
+                                } else if (cellValue.equals("身份证")) {
+                                    identityCard = cell.getColumnIndex();
+                                    foundHeaderRow = row.getRowNum();
+                                } else if (cellValue.equals("邮箱")) {
+                                    email = cell.getColumnIndex();
+                                    foundHeaderRow = row.getRowNum();
                                 }
                             }
                         }
                     }
-                } else if (code != -1 || name != -1 || source != -1 || phone != -1) {
+                } else if (code != -1) {
                     //表头信息处理完毕
                     if (row.getCell(code, Row.RETURN_BLANK_AS_NULL) != null) {
                         String cellCode = cellConvert(row.getCell(code, Row.RETURN_BLANK_AS_NULL));
                         String cellName = cellConvert(row.getCell(name, Row.RETURN_BLANK_AS_NULL));
+                        String cellGender = cellConvert(row.getCell(gender, Row.RETURN_BLANK_AS_NULL));
                         String cellSource = cellConvert(row.getCell(source, Row.RETURN_BLANK_AS_NULL));
                         String cellPhone = cellConvert(row.getCell(phone, Row.RETURN_BLANK_AS_NULL));
+                        String cellIdentityCard = cellConvert(row.getCell(identityCard, Row.RETURN_BLANK_AS_NULL));
+                        String cellEmail = cellConvert(row.getCell(email, Row.RETURN_BLANK_AS_NULL));
                         VolunteerBean newVb = new VolunteerBean();
                         newVb.setCode(cellCode);
                         newVb.setName(cellName);
+                        try {
+                            newVb.setSex(Integer.valueOf(cellGender));
+                        } catch (Exception e) {
+                            newVb.setSex(1);
+                        }
                         newVb.setCellPhone(cellPhone);
                         newVb.setOccupation(cellSource);
                         newVb.setPassword(defaultPassword);
                         newVb.setStatus(VolunteerBean.REGISTERED);
+                        newVb.setIdentityCard(cellIdentityCard);
+                        newVb.setEmail(cellEmail);
                         //validation data.
                         if (setSource.contains(cellSource)) {
                             VolunteerBean found = VOLBUS.getVolunteerBeanByCode(cellCode);
