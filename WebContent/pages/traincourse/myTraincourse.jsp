@@ -48,7 +48,7 @@ a {
             <div class="bg-user">
                 <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
                 <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
-                                              height="50" onerror="this.src='img/volunteer.png';"/></div>
+                                              height="50" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'"/></div>
             </div>
 		</div>
         <div class="bg-right2">

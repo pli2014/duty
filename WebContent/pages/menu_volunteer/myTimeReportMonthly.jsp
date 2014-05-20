@@ -42,7 +42,7 @@
             </div>
             <div class="bg-top">我的工时</div>
             <div class="bg-username">${volunteer.name}</div>
-            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'" width="50" height="50" /></div>
         </div>
         <div class="bg-right2">
             <div class="bg-title2" style="font-size:30px"></div>

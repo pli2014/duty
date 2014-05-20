@@ -31,7 +31,7 @@
         <div class="bg-top">谁在这里</div>
         <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
         <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
-                                      height="50" onerror="this.src='img/volunteer.png';"/></div>
+                                      height="50" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'"/></div>
      </div>
      
      <div class="bg-center2">
@@ -52,7 +52,7 @@
         <div class="bg-right2" style="width: 500px;">    
           <s:iterator value="servicePlaceBean.activeUserBeanList" var="vol">
                 <div class="person-train2">
-                    <div class="person-train-left2"><img src="<s:property value="#vol.volunteer.iconpath"/>" onerror="this.src='img/volunteer.png';"/></div>
+                    <div class="person-train-left2"><img src="<s:property value="#vol.volunteer.iconpath"/>" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'"/></div>
                     <div class="person-train-right2">
                        <div style="padding-left:10px; float: left;">
                           <div style="font-size: large;color: blue;"><s:property value="#vol.volunteer.name"/></div>
