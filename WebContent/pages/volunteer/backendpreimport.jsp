@@ -15,6 +15,11 @@
     </header>
     <%@include file="../strutsMessage.jsp" %>
     <form id="excelfile" class="form-horizontal tasi-form">
+        <div class="col-lg-offset-2 col-lg-10">
+            <button class="btn btn-info" type="button" onclick="window.location.href='../../backend/volunteer/batchimportsave.action'">确认导入</button>
+            <button class="btn btn-info" type="button" onclick="window.location.href='../../backend/volunteer/batchimportview.action'">重新导入</button>
+        </div>
+
         <label style="color:green;font-size:20px">合法的批量导入信息列表 (<s:property value="arrayList.size"/>)</label>
 
         <div class="form-group has-success">
@@ -52,7 +57,7 @@
             </table>
         </div>
 
-        <label style="color:red;font-size:20px">错误的批量导入信息列表 (<s:property value="errors.size"/>)</label>
+        <label style="color:red;font-size:20px">错误的批量导入信息列表 (<s:property value="arrayListError.size"/>)</label>
 
         <div class="form-group has-success">
             <table class="table">

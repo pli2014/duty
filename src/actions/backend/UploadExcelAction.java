@@ -245,6 +245,9 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
 
     private String cellConvert(Cell cell) {
         String cellValue = "";
+        if(cell==null){
+            return cellValue;
+        }
         switch (cell.getCellType()) {
             case Cell.CELL_TYPE_STRING:
                 cellValue = cell.getRichStringCellValue().getString();
