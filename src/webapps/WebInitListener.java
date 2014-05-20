@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
+import util.VolunteerCountCache;
 
 public class WebInitListener implements ServletContextListener {
   protected static Logger LOG = LoggerFactory.getLogger(WebInitListener.class);
@@ -37,9 +38,10 @@ public class WebInitListener implements ServletContextListener {
     // init Global Setting
     //Object global = SystemSettingAction.init();
     //sce.getServletContext().setAttribute(Constants.GLOBALSETTING, global);
-    VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
-    sce.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, volunteerBusiness.getUnVerifiedVolunteers());
-    sce.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, volunteerBusiness.getUnInterviewedVolunteers());
+//    VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
+//    VolunteerCountCache.set(volunteerBusiness.getUnVerifiedVolunteers(), volunteerBusiness.getUnInterviewedVolunteers());
+//    sce.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, volunteerBusiness.getUnVerifiedVolunteers());
+//    sce.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, volunteerBusiness.getUnInterviewedVolunteers());
     sce.getServletContext().setAttribute("rootPath", sce.getServletContext().getContextPath());
   }
 

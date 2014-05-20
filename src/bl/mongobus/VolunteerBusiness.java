@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 
 import util.StringUtil;
+import util.VolunteerCountCache;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
 import webapps.WebappsConstants;
@@ -230,7 +231,8 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
   }
 
   public void updateVolunteerStatus(HttpServletRequest request) {
-    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
-    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
+    VolunteerCountCache.set(getUnVerifiedVolunteers(), getUnInterviewedVolunteers());
+//    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
+//    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
   }
 }

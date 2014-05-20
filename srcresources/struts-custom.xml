@@ -274,7 +274,6 @@
                  associated with requests that should not be validated.
                  -->
             <interceptor-stack name="_defaultStack">
-                <interceptor-ref name="dbFlagInterceptor" />
                 <interceptor-ref name="exception"/>
                 <interceptor-ref name="miserverexceptioninterceptor"/>
                 <interceptor-ref name="alias"/>
@@ -306,16 +305,19 @@
                  applications that still refer to the defaultStack by the
                  old name -->
             <interceptor-stack name="defaultStack">
+                <interceptor-ref name="dbFlagInterceptor" />
                 <interceptor-ref name="loginInterceptor"/>
                 <interceptor-ref name="_defaultStack"/>
             </interceptor-stack>
             
             <interceptor-stack name="bakcendDefaultStack">
+                <interceptor-ref name="dbFlagInterceptor" />
                 <interceptor-ref name="bakcendLoginInterceptor"/>
                 <interceptor-ref name="_defaultStack"/>
             </interceptor-stack>
             
             <interceptor-stack name="noLoginStack">
+                <interceptor-ref name="dbFlagInterceptor" />
                 <interceptor-ref name="_defaultStack"/>
             </interceptor-stack>
 

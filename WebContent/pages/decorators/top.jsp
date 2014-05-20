@@ -21,15 +21,15 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
                             <i class="fa fa-bell-o"></i>
                             <span class="badge bg-success">
-                            <s:property value="#application.unVerifiedVolunnteer.getiTotalRecords()"/> 
+                            <s:property value="#request.unVerifiedVolunnteer.getiTotalRecords()"/>
                              </span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-green"></div>
                             <li>
-                                <p class="green">你有 <s:property value="#application.unVerifiedVolunnteer.getiTotalRecords()"/> 个志愿者未审核</p>
+                                <p class="green">你有 <s:property value="#request.unVerifiedVolunnteer.getiTotalRecords()"/> 个志愿者未审核</p>
                             </li>
-                            <s:iterator value="#application.unVerifiedVolunnteer.aaData" var="item">
+                            <s:iterator value="#request.unVerifiedVolunnteer.aaData" var="item">
                                <li>
                                 <a href="backend/volunteerVerify/index.action">
                                     <span class="label label-warning"><i class="fa fa-bell"></i></span>
@@ -38,7 +38,7 @@
                                 </a>
                               </li>
                             </s:iterator>
-                            <s:if test="#application.unVerifiedVolunnteer.getiTotalRecords() > #application.unVerifiedVolunnteer.aaData.size()">
+                            <s:if test="#request.unVerifiedVolunnteer.getiTotalRecords() > #request.unVerifiedVolunnteer.aaData.size()">
                                <li>
                                 <a href="backend/volunteerVerify/index.action">查看所有未审核的志愿者</a>
                                </li>
@@ -49,15 +49,15 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="">
                             <i class="fa fa-bell-o"></i>
                             <span class="badge bg-warning">
-                            <s:property value="#application.unInterviewedVolunnteer.getiTotalRecords()"/>
+                            <s:property value="#request.unInterviewedVolunnteer.getiTotalRecords()"/>
                             </span>
                         </a>
                         <ul class="dropdown-menu extended notification">
                             <div class="notify-arrow notify-arrow-yellow"></div>
                             <li>
-                                <p class="yellow">你有 <s:property value="#application.unInterviewedVolunnteer.getiTotalRecords()"/> 个志愿者未面试</p>
+                                <p class="yellow">你有 <s:property value="#request.unInterviewedVolunnteer.getiTotalRecords()"/> 个志愿者未面试</p>
                             </li>
-                            <s:iterator value="#application.unInterviewedVolunnteer.aaData" var="item">
+                            <s:iterator value="#request.unInterviewedVolunnteer.aaData" var="item">
                               <li>
                                 <a href="backend/volunteerInterview/index.action">
                                     <span class="label label-warning"><i class="fa fa-bell"></i></span>
@@ -66,7 +66,7 @@
                                 </a>
                               </li>
                             </s:iterator>
-                            <s:if test="#application.unInterviewedVolunnteer.getiTotalRecords() > #application.unInterviewedVolunnteer.aaData.size()">
+                            <s:if test="#request.unInterviewedVolunnteer.getiTotalRecords() > #request.unInterviewedVolunnteer.aaData.size()">
                                <li>
                                 <a href="backend/volunteerInterview/index.action">查看所有未面试的志愿者</a>
                                </li>
