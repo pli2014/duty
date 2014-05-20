@@ -9,7 +9,7 @@
     <title>我的工时</title>
     <script language="javascript" type="text/javascript">
         window.onload=function (){
-            setInterval("document.getElementById('time').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+            setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
         }
 
         function dailyReport(yearMonth) {
@@ -42,7 +42,11 @@
             </div>
             <div class="bg-top">我的工时</div>
             <div class="bg-username">${volunteer.name}</div>
-            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';" width="50" height="50" /></div>
+            <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'" width="50" height="50" /></div>
+        </div>
+        <div class="bg-right2">
+            <div class="bg-title2" style="font-size:30px"></div>
+            <div class="bg-time" id="timewatcher">加载当前时间</div>
         </div>
         <div class="bg-center">
             <div class="bg-title3">

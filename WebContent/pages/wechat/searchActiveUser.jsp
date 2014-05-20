@@ -137,7 +137,7 @@
 
             <a class="task-thumb col-xs-4" href="#">
                 <img width="60px" height="50px" src="<s:property value='%{#bean.iconpath}'/>" class=""
-                     onerror="this.src='img/volunteer.png'" style="margin-right: 10px; width: 60px; height: 50px; position: static;" disable="">
+                     onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'" style="margin-right: 10px; width: 60px; height: 50px; position: static;" disable="">
             </a>
             <div class="task-thumb-details" style="margin: 0 0 0 0;">
                 <p style="padding: 0px"><s:property value='%{#bean.name}'/></p>

@@ -47,7 +47,7 @@
 
     <div class="bg-left">
         <div class="face">
-            <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='img/volunteer.png';">
+            <img id="personicon" src="${volunteer.iconpath}" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'">
         </div>
         <div id="cameraDialog">
 

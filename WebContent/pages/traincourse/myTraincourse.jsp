@@ -16,7 +16,11 @@ a {
 }
 </style>
 <script type="text/javascript">
-  function receive(){
+    window.onload=function (){
+        setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+    }
+
+    function receive(){
     var selectedRows = $('.selected');
     if(selectedRows.length == 0){
        alert("请选择要培训的课程!");
@@ -44,10 +48,13 @@ a {
             <div class="bg-user">
                 <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
                 <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
-                                              height="50" onerror="this.src='img/volunteer.png';"/></div>
+                                              height="50" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'"/></div>
             </div>
 		</div>
-
+        <div class="bg-right2">
+            <div class="bg-title2" style="font-size:30px"></div>
+            <div class="bg-time" id="timewatcher">加载当前时间</div>
+        </div>
 		<div class="bg-left3">
 			<div class="bg-title3">已接受的培训</div>
 			<s:iterator value="myTraincourse" var="item">
