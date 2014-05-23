@@ -267,6 +267,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                 break;
             default:
         }
+        cellValue = cellValue.trim().replaceAll("\n","");
         return cellValue;
     }
 
