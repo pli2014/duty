@@ -18,7 +18,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class SubscribeEventHandler implements EventHandler {
 
-  String content = "你可以在此处绑定横渡志愿者服务平台: <a href='%s'>点击这里</a>";
+  String content = "你可以在此处绑定志愿者服务平台: <a href='%s'>点击这里</a>";
   protected final static Logger LOG = LoggerFactory.getLogger(SubscribeEventHandler.class);
 
   @Override

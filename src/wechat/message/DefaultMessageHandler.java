@@ -82,7 +82,7 @@ public class DefaultMessageHandler implements MessageHandler {
     response.setToUserName(event.getFromUserName());
     response.setFromUserName(event.getToUserName());
     response.setCreateTime(System.currentTimeMillis() / 1000);
-    response.setContent("欢迎使用横渡志愿者服务平台！");
+    response.setContent("欢迎使用志愿者服务平台！");
     return response;
   }
 
@@ -114,7 +114,7 @@ public class DefaultMessageHandler implements MessageHandler {
         double hoursForYear = userServiceBus.getServicedHoursForCurrentMonth(volunteer.getId());
         text = "您当月服务" + hoursForMonth + "小时，当年服务" + hoursForYear + "小时.";
       } else {
-        String content = "对不起，您还未绑定志愿者账号! 你可以在此处绑定横渡志愿者服务平台: <a href='%s'>点击这里</a>";
+        String content = "对不起，您还未绑定志愿者账号! 你可以在此处绑定志愿者服务平台: <a href='%s'>点击这里</a>";
         String url = ServerContext.getDomainName() + "/wechat/userBinding.action";
         try {
           text = String.format(content, URLManager.getUrl_OAuthRedirect(url, ServerContext.getAppID(), "snsapi_userinfo"));
