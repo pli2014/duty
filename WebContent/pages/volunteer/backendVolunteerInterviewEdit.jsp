@@ -48,9 +48,16 @@
                 </div>
             </div>
             <div class="form-group has-error">
-                <label class="col-lg-2 control-label">身份证号</label>
+                <label class="col-lg-2 control-label">证件类型</label>
                 <div class="col-lg-10">
-                    <input type="text" class="form-control" placeholder="请输入身份证号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
+                    <s:select id="identityType" disabled="true" cssClass="form-control" list="#{'-1':'其他','0':'身份证','1':'护照','2':'港澳台'}" listKey="key" listValue="value" name="volunteer.identityType" value="%{volunteer.identityType}"/>
+                    <input type="hidden" name="volunteer.identityType" value="${volunteer.identityType}"/>
+                </div>
+            </div>
+            <div class="form-group has-error">
+                <label class="col-lg-2 control-label">证件号</label>
+                <div class="col-lg-10">
+                    <input type="text" class="form-control" placeholder="请输入证件号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
                 </div>
             </div>
             <div class="form-group has-error">
@@ -77,6 +84,7 @@
             $("form input[name='volunteer.code']").attr("readonly","readonly");
             $("form input[name='volunteer.identityCard']").attr("readonly","readonly");
             $("form input[name='volunteer.cellPhone']").attr("readonly","readonly");
+            $("form input[name='volunteer.identityType']").attr("readonly","readonly");
         });
     </script>
 </s:if>

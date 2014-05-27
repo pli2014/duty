@@ -14,7 +14,7 @@
 				}, 
 				'volunteer.identityCard':{ 
 				   required:true, 
-                   idCardNo:true 
+                   idCardNo:false
 				}, 
 				'volunteer.cellPhone':{ 
 				   required:true, 
@@ -32,8 +32,8 @@
                     required: "请输入密码"
                 },
                 'volunteer.identityCard': {
-                    required: "请输入身份证号",
-                    idCardNo: "请输入正确的身份证号"
+                    required: "请输入证件号",
+                    idCardNo: "请输入正确的证件号"
                 },
                 confirm_password: {
                     required: "请再次输入密码",
