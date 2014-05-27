@@ -14,7 +14,7 @@
 				}, 
 				'volunteer.identityCard':{ 
 				   required:true, 
-                   idCardNo:false
+                   idCardNo:true
 				}, 
 				'volunteer.cellPhone':{ 
 				   required:true, 

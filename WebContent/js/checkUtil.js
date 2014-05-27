@@ -1,8 +1,12 @@
 $(document).ready(function() {
    // 身份证号码验证 
-    jQuery.validator.addMethod("idCardNo", function(value, element) { 
-      return this.optional(element) || idCardNoUtil.checkIdCardNo(value);     
-    }); 
+    jQuery.validator.addMethod("idCardNo", function(value, element) {
+        if(jQuery("#identityType").val()=="0"){
+            return this.optional(element) || idCardNoUtil.checkIdCardNo(value);
+        }else{
+            return true;
+        }
+    });
      
     
     // 手机号码验证 
