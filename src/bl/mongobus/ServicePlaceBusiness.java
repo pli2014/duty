@@ -130,7 +130,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
             }
           }
           if(null != parentVo) {
-            parentVo.getSelections().add(new ServicePlaceVo(bean.getId(), bean.getName(), countMap.get(bean.getId())));
+            parentVo.getSelections().add(new ServicePlaceVo(bean.getId(), bean.getName(), countMap.get(bean.getId()), bean.getServiceicon()));
           }
         }
       }
@@ -148,5 +148,18 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
       return resultList;
     }
 
+    public List<ServicePlaceBean> getAllWithoutParent() {
+      List<ServicePlaceBean> resultList = new ArrayList<ServicePlaceBean>();
+      List<ServicePlaceBean> servicePlaceBeans = (List<ServicePlaceBean>)this.getAllLeaves().getResponseData();
+      if(null != servicePlaceBeans) {
+        for(ServicePlaceBean bean: servicePlaceBeans) {
+          if(bean.getArea() == ServicePlaceBean.AREA_IN && bean.getParentid() == null) {
+            continue;
+          }
+          resultList.add(bean);
+        }
+      }
+      return resultList;
+    }
 
 }

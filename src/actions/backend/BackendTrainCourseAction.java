@@ -68,12 +68,12 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
   }
 
   public String add() {
-    servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+    servicePlaceBeans = sp.getAllWithoutParent();
     return ActionSupport.SUCCESS;
   }
 
   public String edit() {
-    servicePlaceBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
+    servicePlaceBeans = sp.getAllWithoutParent();
     String id = this.getId();
     if (id != null) {
       this.trainCourse = (TrainCourseBean) this.tc.getLeaf(id).getResponseData();
