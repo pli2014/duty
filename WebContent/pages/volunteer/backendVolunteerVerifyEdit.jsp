@@ -27,10 +27,10 @@
              <div class="col-lg-10">
                  <input name="volunteer.id" type="hidden" value="${volunteer.id}"/>
                  <input name="volunteer.registerFrom" type="hidden" value="${volunteer.registerFrom}"/>
-                 <input type="text" placeholder="志愿者名" name="volunteer.name" class="form-control" 
+                 <input type="text" placeholder="志愿者名" name="volunteer.name" class="form-control"
                         required="required" value="${volunteer.name}"/>
              </div>
-         </div> 
+         </div>
          <div class="form-group has-error">
              <label class="col-lg-2 control-label">工号</label>
              <div class="col-lg-10">
@@ -48,9 +48,15 @@
              </div>
          </div>
          <div class="form-group has-error">
-             <label class="col-lg-2 control-label">身份证号</label>
+             <label class="col-lg-2 control-label">证件类型</label>
              <div class="col-lg-10">
-                 <input type="text" class="form-control" placeholder="请输入身份证号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
+                 <s:select id="identityType" cssClass="form-control" list="#{'-1':'其他','0':'身份证','1':'护照','2':'港澳台'}" listKey="key" listValue="value" name="volunteer.identityType" value="%{volunteer.identityType}"/>
+             </div>
+         </div>
+         <div class="form-group has-error">
+             <label class="col-lg-2 control-label">证件号</label>
+             <div class="col-lg-10">
+                 <input type="text" class="form-control" placeholder="请输入证件号" name="volunteer.identityCard" value="${volunteer.identityCard}" required="required"/>
              </div>
          </div>
 

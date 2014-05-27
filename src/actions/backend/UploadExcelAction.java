@@ -145,6 +145,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
             int source = -1;
             int phone = -1;
             int identityCard = -1;
+            int identityType = -1;
             int email = -1;
             int foundHeaderRow = 0;
             this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
@@ -182,7 +183,10 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                                 } else if (cellValue.equals("联系电话")) {
                                     phone = cell.getColumnIndex();
                                     foundHeaderRow = row.getRowNum();
-                                } else if (cellValue.equals("身份证")) {
+                                } else if (cellValue.equals("证件类型")) {
+                                    identityType = cell.getColumnIndex();
+                                    foundHeaderRow = row.getRowNum();
+                                } else if (cellValue.equals("证件号")) {
                                     identityCard = cell.getColumnIndex();
                                     foundHeaderRow = row.getRowNum();
                                 } else if (cellValue.equals("邮箱")) {
@@ -200,6 +204,7 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                         String cellGender = cellConvert(row.getCell(gender, Row.RETURN_BLANK_AS_NULL));
                         String cellSource = cellConvert(row.getCell(source, Row.RETURN_BLANK_AS_NULL));
                         String cellPhone = cellConvert(row.getCell(phone, Row.RETURN_BLANK_AS_NULL));
+                        String cellIdentityType = cellConvert(row.getCell(identityType, Row.RETURN_BLANK_AS_NULL));
                         String cellIdentityCard = cellConvert(row.getCell(identityCard, Row.RETURN_BLANK_AS_NULL));
                         String cellEmail = cellConvert(row.getCell(email, Row.RETURN_BLANK_AS_NULL));
                         VolunteerBean newVb = new VolunteerBean();
@@ -213,7 +218,13 @@ public class UploadExcelAction extends ActionSupport implements ServletRequestAw
                         newVb.setCellPhone(cellPhone);
                         newVb.setOccupation(cellSource);
                         newVb.setPassword(defaultPassword);
-                        newVb.setStatus(VolunteerBean.REGISTERED);
+                        newVb.setStatus(VolunteerBean.INTERVIEWED);
+                        try {
+                            newVb.setIdentityType(Integer.valueOf(cellIdentityType));
+                        } catch (Exception e) {
+                            //默认为其他证件类型
+                            newVb.setIdentityType(-1);
+                        }
                         newVb.setIdentityCard(cellIdentityCard);
                         newVb.setEmail(cellEmail);
                         //validation data.

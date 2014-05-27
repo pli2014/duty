@@ -93,7 +93,11 @@
                             <s:select name="volunteer.occupation" list="listSource" listKey="code" listValue="name"/></td>
                     </tr>
                     <tr>
-                        <td><span class="required">*</span>身份证号<span class="bg-tishi"></span><br />
+                        <td><span class="required">*</span>证件类型<span class="bg-tishi"></span><br />
+                            <s:select id="identityType" cssClass="zc-input" list="#{'-1':'其他','0':'身份证','1':'护照','2':'港澳台'}" listKey="key" listValue="value" name="volunteer.identityType" value="%{volunteer.identityType}"/>
+                    </tr>
+                    <tr>
+                        <td><span class="required">*</span>证件号<span class="bg-tishi"></span><br />
                             <input type="text" name="volunteer.identityCard" id="identityCard" value="${volunteer.identityCard}" class="zc-input" required="required"/></td>
                     </tr>
                     <tr>

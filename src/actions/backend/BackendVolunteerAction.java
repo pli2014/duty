@@ -104,7 +104,7 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("name", "志愿者").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("code", "工号").enableSearch());
-    init.getAoColumns().add(new TableHeaderVo("identityCard", "身份证").enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("identityCard", "证件号").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("status", "状态").enableSearch().
     addSearchOptions(new String[][] { { "0", "1", "2", "3", "4"}, { "已注册", "通过审核", "通过面试" , "未通过审核", "未通过面试"} }));
     init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));

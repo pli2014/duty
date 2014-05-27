@@ -26,7 +26,8 @@
                     <th>性别</th>
                     <th>来源</th>
                     <th>联系电话</th>
-                    <th>身份证</th>
+                    <th>证件类型</th>
+                    <th>证件号</th>
                     <th>邮箱</th>
                 </tr>
                 </thead>
@@ -44,6 +45,7 @@
                             </s:iterator>
                         </td>
                         <td><s:property value="cellPhone"/></td>
+                        <td><s:property value="identityType"/></td>
                         <td><s:property value="identityCard"/></td>
                         <td><s:property value="email"/></td>
                     </tr>

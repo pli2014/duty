@@ -97,7 +97,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     if (StringUtils.isBlank(volunteer.getId())) {
       VolunteerBean volunteerTmp = getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
       if (volunteerTmp != null && volunteerTmp.getIsDeleted() != true) {
-        result.addError("身份证号码已经被注册");
+        result.addError("证件号已经被注册");
         return result;
       }
       if(volunteer.getCode()!=null && !volunteer.getCode().isEmpty()){
@@ -114,7 +114,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     } else {
       VolunteerBean volunteerTmp = getVolunteerBeanByIdentityCard(volunteer.getIdentityCard());
       if (volunteerTmp != null && !volunteerTmp.getId().equals(volunteer.getId()) && volunteerTmp.getIsDeleted() != true) {
-        result.addError("身份证号码已经被注册");
+        result.addError("证件号已经被注册");
         return result;
       }
       

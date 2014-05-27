@@ -26,6 +26,7 @@ public class VolunteerBean extends Bean {
   private Integer sex; // 1=Male,2=Female
   private Date birthDate;
   private String identityCard;
+  private Integer identityType = 0 ; // -1 其他， 0 身份证 1 护照 2 港澳台
   private String education;
   private String politics;
   private String occupation;
@@ -40,6 +41,14 @@ public class VolunteerBean extends Bean {
   private String wechat;
   private String iconpath;
   private String fingerpath;
+
+    public Integer getIdentityType() {
+        return identityType;
+    }
+
+    public void setIdentityType(Integer identityType) {
+        this.identityType = identityType;
+    }
 
     public String getFingerpath() {
         return fingerpath;
