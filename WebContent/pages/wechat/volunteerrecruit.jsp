@@ -49,7 +49,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-xs-4  control-label" >身份证号码</label>
+            <label class="col-xs-4  control-label" >证件号</label>
+            <div class="col-xs-8">
+                <p class="form-control-static"><s:select id="identityType" list="#{'-1':'其他','0':'身份证','1':'护照','2':'港澳台'}" listKey="key" listValue="value" name="register.identityType" value="%{register.identityType}"/></p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-4  control-label" >证件号</label>
             <div class="col-xs-8">
                 <p class="form-control-static"><input class="form-control" type="text" name="register.identityCard" value=""/></p>
             </div>
@@ -81,8 +88,8 @@
                             required: "请输入姓名"
                         },
                         'register.identityCard': {
-                            required: "请输入身份证号",
-                            idCardNo: "请输入正确的身份证号"
+                            required: "请输入证件号",
+                            idCardNo: "请输入正确的证件号"
                         },
                         'volunteer.cellPhone': {
                             required: "请输入手机",
