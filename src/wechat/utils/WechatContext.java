@@ -1,5 +1,6 @@
 package wechat.utils;
 
+import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SystemSettingBusiness;
@@ -21,6 +22,15 @@ public class WechatContext {
     MessageBus.get().addHandler(new SubscribeEventHandler());
     MessageBus.get().addHandler(new UnSubscriberEventHandler());
     MessageBus.get().addHandler(new LocationEventHandler());
+  }
+
+  public static String getWelcomeMsg() {
+    String result = "欢迎使用志愿者服务平台!";
+    SystemSettingBean bean = ssb.getLeaf();
+    if(null != bean) {
+      result = bean.getWelcomeMsg();
+    }
+    return result;
   }
 
 }

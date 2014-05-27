@@ -77,6 +77,13 @@
         </div>
 
         <div class="form-group has-success">
+            <label class="control-label col-lg-2">欢迎词</label>
+            <div class="col-lg-10">
+                <input name="systemSetting.welcomeMsg" type="text" class="form-control" value="${systemSetting.welcomeMsg}"/>
+            </div>
+        </div>
+
+        <div class="form-group has-success">
             <label class="control-label col-lg-2">服务介绍</label>
             <div class="col-lg-10">
                 <textarea class="form-control" name="systemSetting.introduction" rows="20">${systemSetting.introduction}</textarea>
