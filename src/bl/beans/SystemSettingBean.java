@@ -18,6 +18,8 @@ public class SystemSettingBean extends Bean {
     private boolean debugMode = false;
     private String defaultPassword = "123456";
 
+    private String welcomeMsg = "欢迎使用志愿者服务平台!";
+
     public String getDefaultPassword() {
         return defaultPassword;
     }
@@ -90,4 +92,13 @@ public class SystemSettingBean extends Bean {
     public void setCity(String city) {
         this.city = city;
     }
+
+    public String getWelcomeMsg() {
+      return welcomeMsg;
+    }
+
+    public void setWelcomeMsg(String welcomeMsg) {
+      this.welcomeMsg = welcomeMsg;
+    }
+
 }

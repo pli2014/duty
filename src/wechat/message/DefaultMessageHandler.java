@@ -17,6 +17,7 @@ import wechat.servicemessage.ServiceMessage;
 import wechat.servicemessage.ServiceMessageUtils;
 import wechat.servicemessage.TextServiceMessage;
 import wechat.utils.URLManager;
+import wechat.utils.WechatContext;
 
 import java.io.UnsupportedEncodingException;
 
@@ -82,7 +83,7 @@ public class DefaultMessageHandler implements MessageHandler {
     response.setToUserName(event.getFromUserName());
     response.setFromUserName(event.getToUserName());
     response.setCreateTime(System.currentTimeMillis() / 1000);
-    response.setContent("欢迎使用志愿者服务平台！");
+    response.setContent(WechatContext.getWelcomeMsg());
     return response;
   }
 
