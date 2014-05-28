@@ -1,14 +1,5 @@
 package actions.backend;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.bson.types.ObjectId;
-
-import vo.table.TableHeaderVo;
-import vo.table.TableInitVo;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;
 import bl.beans.VolunteerTrainCourseBean;
@@ -18,6 +9,14 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.TrainCourseBusiness;
 import bl.mongobus.VolunteerBusiness;
 import bl.mongobus.VolunteerTrainCourseBusiness;
+import org.apache.commons.lang3.StringUtils;
+import org.bson.types.ObjectId;
+import vo.table.TableHeaderVo;
+import vo.table.TableInitVo;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -89,34 +88,24 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String add() {
-    if (volunteerId != null) {
-      VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
-      BusinessResult result = volunteerBusiness.getLeaf(volunteerId);
-      if (result != null && result.getResponseData() != null) {
-        volunteerTrainCourse = new VolunteerTrainCourseBean();
-        volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
-      }
-    }
     Map filter = new HashMap();
     filter.put("isDeleted_!=", true);
-    trainCourseList = new TrainCourseBusiness().queryDataByCondition(filter, null);
+    trainCourseList = tcBus.queryDataByCondition(filter, null);
     return SUCCESS;
   }
 
   @Override
   public String edit() throws Exception {
     volunteerTrainCourse = (VolunteerTrainCourseBean) getBusiness().getLeaf(getId()).getResponseData();
-    TrainCourseBusiness trainCourseBusiness = new TrainCourseBusiness();
-    VolunteerBusiness volunteerBusiness = new VolunteerBusiness();
     BusinessResult result;
     if (volunteerTrainCourse != null && volunteerTrainCourse.getTraincourseId() != null) {
-      result = trainCourseBusiness.getLeaf(volunteerTrainCourse.getTraincourseId());
+      result = tcBus.getLeaf(volunteerTrainCourse.getTraincourseId());
       if (result != null && result.getResponseData() != null) {
         volunteerTrainCourse.setTrainCourse((TrainCourseBean) result.getResponseData());
       }
     }
     if (volunteerTrainCourse.getVolunteerId() != null) {
-      result = volunteerBusiness.getLeaf(volunteerTrainCourse.getVolunteerId());
+      result = volunteerBus.getLeaf(volunteerTrainCourse.getVolunteerId());
       if (result != null && result.getResponseData() != null) {
         volunteerTrainCourse.setVolunteer((VolunteerBean) result.getResponseData());
       }
@@ -137,29 +126,37 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
 
   @Override
   public String save() throws Exception {
-    trainCourseList = new TrainCourseBusiness().queryDataByCondition(null, null);
     if (StringUtils.isNotBlank(traincourseId) && StringUtils.isNotBlank(volunteerId)) {
-      volunteerTrainCourse.setTraincourseId(traincourseId);
-      volunteerTrainCourse.setVolunteerId(volunteerId);
-      VolunteerBean volunteer = (VolunteerBean)volunteerBus.getLeaf(volunteerId).getResponseData();
-      TrainCourseBean tcBean = (TrainCourseBean)tcBus.getLeaf(traincourseId).getResponseData();
-      if(null != volunteer) {
-        volunteerTrainCourse.setVolunteerName(volunteer.getName());
-      }
-      if(null != tcBean) {
-        volunteerTrainCourse.setTraincourseName(tcBean.getName());
-      }
-      if (StringUtils.isBlank(volunteerTrainCourse.getId())) {
-        if (getBusiness().getVolunteerTrainCourseBean(volunteerId, traincourseId) != null) {
-          addActionError("该志愿者已经添加了该培训教程!");
-          return FAILURE;
+      String[] volunteerIdSplit = volunteerId.split(",");
+        for (String vid : volunteerIdSplit) {
+            vid = vid.trim();
+            VolunteerTrainCourseBean vtc = null;
+            boolean update = false;
+            vtc = getBusiness().getVolunteerTrainCourseBean(vid, traincourseId);
+            if (vtc != null) {
+                update = true;
+                vtc.setStatus(volunteerTrainCourse.getStatus());
+            } else {
+                vtc = new VolunteerTrainCourseBean();
+            }
+
+            vtc.setTraincourseId(traincourseId);
+            vtc.setVolunteerId(vid);
+            VolunteerBean volunteer = (VolunteerBean) volunteerBus.getLeaf(vid).getResponseData();
+            TrainCourseBean tcBean = (TrainCourseBean) tcBus.getLeaf(traincourseId).getResponseData();
+            if (null != volunteer) {
+                vtc.setVolunteerName(volunteer.getName());
+            }
+            if (null != tcBean) {
+                vtc.setTraincourseName(tcBean.getName());
+            }
+            if (update) {
+                getBusiness().updateLeaf(vtc, vtc);
+            } else {
+                vtc.set_id(ObjectId.get());
+                getBusiness().createLeaf(vtc);
+            }
         }
-        volunteerTrainCourse.set_id(ObjectId.get());
-        getBusiness().createLeaf(volunteerTrainCourse);
-      } else {
-        VolunteerTrainCourseBean origBean =  (VolunteerTrainCourseBean)getBusiness().getLeaf(volunteerTrainCourse.getId()).getResponseData();
-        getBusiness().updateLeaf(origBean, volunteerTrainCourse);
-      }
       return SUCCESS;
     } else {
       addActionError("志愿者或者培训课程不能为空!");

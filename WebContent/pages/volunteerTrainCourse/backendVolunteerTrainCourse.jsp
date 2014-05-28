@@ -50,11 +50,20 @@
                     <input type="button" class="btn btn-success" onclick="queryVolunteer()" value="查询" >
                     <div style="clear: both;"></div>
                 </s:else>
-                <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;">
-                  <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
-                    <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
-                  </s:if>
-                </select>
+                <s:if test="%{#request['struts.request_uri'].contains('edit.action')}">
+                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;">
+                        <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
+                         <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
+                        </s:if>
+                    </select>
+                </s:if>
+                <s:else>
+                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;height:300px" multiple="multiple" size="200">
+                        <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
+                            <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
+                        </s:if>
+                    </select>
+                </s:else>
             </div>
         </div>
 
