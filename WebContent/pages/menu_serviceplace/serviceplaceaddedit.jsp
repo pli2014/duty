@@ -32,7 +32,7 @@
                                         rules: {
                                             "servicePlace.name":{
                                                 required:true,
-                                                maxlength: 8
+                                                maxlength: 15
                                             },
                                             "servicePlace.sequence": {
                                                 required:true,
@@ -53,7 +53,7 @@
                                             },
                                             "servicePlace.name":{
                                                 required:"请输入地点名称",
-                                                maxlength: "地点名称最多8个文字"
+                                                maxlength: "地点名称最多15个字"
                                             },
                                             "servicePlace.code":{
                                                 required:"请输入地点编码",
