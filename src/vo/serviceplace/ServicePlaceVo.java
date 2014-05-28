@@ -9,7 +9,10 @@ public class ServicePlaceVo {
 
   private String id;
   private String name;
+
+  private String serviceicon;
   private int count;
+
 
   public ServicePlaceVo() {
 
@@ -18,6 +21,15 @@ public class ServicePlaceVo {
   public ServicePlaceVo(String id, String name, Integer count) {
     this.id = id;
     this.name = name;
+    if(null != count) {
+      this.count = count;
+    }
+  }
+
+  public ServicePlaceVo(String id, String name, Integer count, String serviceicon) {
+    this.id = id;
+    this.name = name;
+    this.serviceicon = serviceicon;
     if(null != count) {
       this.count = count;
     }
@@ -57,5 +69,13 @@ public class ServicePlaceVo {
     this.count = count;
   }
 
+
+  public String getServiceicon() {
+    return serviceicon;
+  }
+
+  public void setServiceicon(String serviceicon) {
+    this.serviceicon = serviceicon;
+  }
 
 }

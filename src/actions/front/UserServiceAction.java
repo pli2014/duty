@@ -9,6 +9,7 @@ import vo.NameValueVo;
 import vo.report.DailyTimeReportVo;
 import vo.report.MonthlyTimeReportVo;
 import vo.report.YearlyTimeReportVo;
+import vo.serviceplace.ServicePlaceVo;
 import webapps.WebappsConstants;
 import bl.beans.ActiveUserBean;
 import bl.beans.ServicePlaceBean;
@@ -48,6 +49,8 @@ public class UserServiceAction extends BaseFrontAction {
   private List<VolunteerBean> volunteerBeans = null;
   private ServicePlaceBean servicePlaceBean = null;
 
+  private List<ServicePlaceVo> places = null;
+
   ActiveUserBean aub = null;
   HashMap<ServicePlaceBean, HashSet<VolunteerBean>> servicePlaceVolunteer = null;
 
@@ -57,6 +60,8 @@ public class UserServiceAction extends BaseFrontAction {
       userServices = (List<UserServiceBean>) userServiceBus.getOrderedLeavesByUserId(user.getId(), 10).getResponseData();
       aub = (ActiveUserBean) activeUserBus.getActiveUserByUserId(user.getId()).getResponseData();
       servicePlaces = (List<ServicePlaceBean>) userServiceBus.getAvailableServicePlaces(user.getId());
+      List<ServicePlaceBean> allPlaceBeans = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
+      places = sp.getFormattedPlaces(allPlaceBeans, servicePlaces);
     }
     return SUCCESS;
   }
@@ -64,6 +69,8 @@ public class UserServiceAction extends BaseFrontAction {
   public String checkIn() {
     VolunteerBean user = (VolunteerBean) getSession().getAttribute(WebappsConstants.LOGIN_USER_SESSION_ID);
     servicePlaces = userServiceBus.getAvailableServicePlaces(user.getId());
+    List<ServicePlaceBean> allPlaceBeans = (List<ServicePlaceBean>)sp.getAllLeaves().getResponseData();
+    places = sp.getFormattedPlaces(allPlaceBeans, servicePlaces);
     return SUCCESS;
   }
 
@@ -442,4 +449,12 @@ public class UserServiceAction extends BaseFrontAction {
     this.outServicePlaces = outServicePlaces;
   }
 
+
+  public List<ServicePlaceVo> getPlaces() {
+    return places;
+  }
+
+  public void setPlaces(List<ServicePlaceVo> places) {
+    this.places = places;
+  }
 }
