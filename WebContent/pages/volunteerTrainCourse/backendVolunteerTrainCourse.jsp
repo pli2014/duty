@@ -51,14 +51,14 @@
                     <div style="clear: both;"></div>
                 </s:else>
                 <s:if test="%{#request['struts.request_uri'].contains('edit.action')}">
-                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;">
+                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15">
                         <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
                          <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
                         </s:if>
                     </select>
                 </s:if>
                 <s:else>
-                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style="width: 200px;height:300px" multiple="multiple" size="200">
+                    <select id="volunteerIdSelect" name="volunteerId" class="form-control input-lg m-bot15" style=";height:300px" multiple="multiple" size="200">
                         <s:if test="volunteerTrainCourse.id.length() > 0 || volunteerId.length() > 0">
                             <option value="${volunteerTrainCourse.volunteer.id}">${volunteerTrainCourse.volunteer.name}</option>
                         </s:if>
@@ -122,7 +122,7 @@
            }
            for(var i=0; i < volunteerArray.length;i++){
                var optionObj =document.createElement( 'option' );
-               optionObj.text = volunteerArray[i].name;
+               optionObj.text = "姓名:"+volunteerArray[i].name+"  工号:"+volunteerArray[i].code+"  证件号:"+volunteerArray[i].identityCard;
                optionObj.value = volunteerArray[i].id;
                volunteerSelect.add(optionObj);
            }
