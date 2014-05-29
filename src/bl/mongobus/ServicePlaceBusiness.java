@@ -38,7 +38,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
                     query.criteria("code").equal(sp.getCode())
             );
         }else{
-            query.filter("isDeleted", false).or(
+            query.filter("isDeleted", false).filter("type",1).or(
                     query.criteria("name").equal(sp.getName()),
                     query.criteria("code").equal(sp.getCode())
             );
@@ -62,7 +62,7 @@ public class ServicePlaceBusiness extends MongoCommonBusiness<BeanContext, Servi
                     query.criteria("code").equal(sp.getCode())
             );
         }else{
-            query.filter("isDeleted", false).or(
+            query.filter("isDeleted", false).filter("type",1).or(
                     query.criteria("name").equal(sp.getName()),
                     query.criteria("code").equal(sp.getCode())
             );
