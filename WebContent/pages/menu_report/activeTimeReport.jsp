@@ -59,6 +59,34 @@
             });
         }
 
+        function exportData() {
+            var url = "backend/report/exportActiveTimeReport.action?1=1";
+            var query = new Object();
+            if($("#name").val()) {
+//                query.name = $("#name").val();
+                url = url + "&name=" + $("#name").val();
+            }
+            if($("#code").val()) {
+//                query.code = $("#code").val();
+                url = url + "&code=" + $("#code").val();
+            }
+            if($("#servicePlaceId").val()) {
+//                query.servicePlaceId = $("#servicePlaceId").val();
+                url = url + "&servicePlaceId=" + $("#servicePlaceId").val();
+            }
+            window.location.href = url;
+//            $.ajax( {
+//                "type": "post",
+//                "url": "backend/report/exportActiveTimeReport.action",
+//                "async": true,
+//                "dataType": "json",
+//                "data": query,
+//                "success": function(resp) {
+//                    alert("export!");
+//                }
+//            });
+        }
+
         $(document).ready(function(){
             $("#activeTimeTable").dataTable({
                 "bSort": false,
@@ -180,9 +208,14 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-2">
+                    <div class="col-lg-1 col-md-1">
                         <button class="btn btn-success pull-right" type="submit">
                             查询
+                        </button>
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <button class="btn btn-success pull-right" type="button" onclick="exportData()">
+                            导出
                         </button>
                     </div>
                 </div>

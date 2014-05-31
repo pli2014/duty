@@ -219,6 +219,10 @@
         </action>
         <action name="activeTimeReportData" class="actions.backend.BackendTimeReportAction" method="getActiveReportData">
         </action>
+
+        <action name="exportActiveTimeReport" class="actions.backend.BackendTimeReportAction" method="export">
+        </action>
+
         <action name="volunteerDailyReport" class="actions.backend.BackendTimeReportAction" method="getUserDailyReport">
             <result name="success">/pages/menu_report/volunteerDailyReport.jsp</result>
         </action>

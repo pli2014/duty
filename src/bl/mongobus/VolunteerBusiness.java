@@ -235,4 +235,17 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
 //    request.getServletContext().setAttribute(WebappsConstants.UNVERIFIED_VOLUNTEER_KEY, getUnVerifiedVolunteers());
 //    request.getServletContext().setAttribute(WebappsConstants.UNINTERVIEWED_VOLUNTEER_KEY, getUnInterviewedVolunteers());
   }
+
+  public List<VolunteerBean> queryVolunteers(String name, String code) {
+    Map filter = new HashMap();
+    if(org.apache.commons.lang.StringUtils.isNotEmpty(name)) {
+      filter.put("name_=", name);
+    }
+    if(org.apache.commons.lang.StringUtils.isNotEmpty(code)) {
+      filter.put("code_=", code);
+    }
+    filter.put("isDeleted_=", false);
+    List<VolunteerBean> result = super.queryDataByCondition(filter, null);
+    return result;
+  }
 }

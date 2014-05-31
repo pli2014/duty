@@ -5,6 +5,7 @@ package vo.report;
  */
 public class ActiveTimeReportVo {
   private String name;
+  private String code;
   private int dayHours;
   private int monthHours;
   private int yearHours;
@@ -16,6 +17,14 @@ public class ActiveTimeReportVo {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
   }
 
   public int getDayHours() {

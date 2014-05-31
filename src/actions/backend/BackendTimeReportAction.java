@@ -1,5 +1,8 @@
 package actions.backend;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +17,12 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.struts2.ServletActionContext;
 import vo.report.ActiveTimeReportVo;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
@@ -25,6 +34,8 @@ import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.UserServiceBusiness;
 import bl.mongobus.VolunteerBusiness;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by wangronghua on 14-3-16.
@@ -96,6 +107,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
     for(VolunteerBean bean: beanList) {
       ActiveTimeReportVo vo = new ActiveTimeReportVo();
       vo.setName(bean.getName());
+      vo.setCode(bean.getCode());
       Map hourMap = beanMap.get(bean.getId());
       if(null != hourMap) {
         Long dayHours = (Long)hourMap.get(Calendar.DAY_OF_MONTH);
@@ -262,6 +274,85 @@ public class BackendTimeReportAction extends BaseBackendAction{
     }
 
     return SUCCESS;
+  }
+
+  public String export() throws IOException {
+    List<ActiveTimeReportVo> result = new ArrayList<ActiveTimeReportVo>();
+
+    List<String> serviceIdList = new ArrayList<String>();
+    if(StringUtils.isNotEmpty(servicePlaceId)) {
+      serviceIdList.add(servicePlaceId);
+    }
+
+    List<VolunteerBean> beanList = (List<VolunteerBean>)volunteerBus.queryVolunteers(name, code);
+
+    List<String> idList = new ArrayList<String>();
+    for(VolunteerBean bean: beanList) {
+      idList.add(bean.getId());
+    }
+
+    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.getLeavesByUserIds(idList, serviceIdList));
+
+    for(VolunteerBean bean: beanList) {
+      ActiveTimeReportVo vo = new ActiveTimeReportVo();
+      vo.setName(bean.getName());
+      vo.setCode(bean.getCode());
+      Map hourMap = beanMap.get(bean.getId());
+      if(null != hourMap) {
+        Long dayHours = (Long)hourMap.get(Calendar.DAY_OF_MONTH);
+        Long monthHours = (Long)hourMap.get(Calendar.MONTH);
+        Long yearHours = (Long)hourMap.get(Calendar.YEAR);
+        Long totalHours = (Long)hourMap.get(Calendar.ALL_STYLES);
+        vo.setDayHours((int)(dayHours!=null?dayHours:0l)/3600000);
+        vo.setMonthHours((int) (monthHours != null ? monthHours : 0l) / 3600000);
+        vo.setYearHours((int) (yearHours != null ? yearHours : 0l) /3600000);
+        vo.setTotalHours((int) (totalHours != null ? totalHours : 0l) / 3600000);
+      }
+      result.add(vo);
+    }
+
+    HttpServletResponse response = ServletActionContext.getResponse();
+    response.setContentType("application/msexcel;charset=UTF-8");  //两种方法都可以
+    String fileName = "ActiveTimeReport.xls";
+    response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+
+    //客户端不缓存
+    response.addHeader("Pargam", "no-cache");
+    response.addHeader("Cache-Control", "no-cache");
+
+    HSSFWorkbook workbook = exportExcel(result);
+    workbook.write(response.getOutputStream());
+
+    response.getOutputStream().flush();
+    response.getOutputStream().close();
+    return null;
+  }
+
+  private HSSFWorkbook exportExcel(List<ActiveTimeReportVo> list) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    HSSFWorkbook book = new HSSFWorkbook();
+
+    Sheet sheet = book.createSheet("工时统计" + sdf.format(new Date()));
+    Row row = sheet.createRow(0);
+    row.createCell(0).setCellValue("用户名");
+    row.createCell(1).setCellValue("工号");
+    row.createCell(2).setCellValue("当日累计工时");
+    row.createCell(3).setCellValue("当月累计工时");
+    row.createCell(4).setCellValue("当年累计工时");
+    row.createCell(5).setCellValue("总累计工时");
+    CellStyle sty = book.createCellStyle();
+    int index = 1;
+    for (ActiveTimeReportVo vo : list) {
+      row = sheet.createRow(index);
+      row.createCell(0).setCellValue(vo.getName());
+      row.createCell(1).setCellValue(vo.getCode());
+      row.createCell(2).setCellValue(vo.getDayHours());
+      row.createCell(3).setCellValue(vo.getMonthHours());
+      row.createCell(4).setCellValue(vo.getYearHours());
+      row.createCell(5).setCellValue(vo.getTotalHours());
+      index ++;
+    }
+    return book;
   }
 
   private Map<String, Long> formatData(List<UserServiceBean> beanList, SimpleDateFormat sdf){
