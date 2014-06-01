@@ -114,12 +114,20 @@ public class VolunteerAction extends BaseFrontAction<VolunteerBusiness> {
         return FAILURE;
       } else {
         List<VolunteerBean> volunteers = (List<VolunteerBean>) getBusiness().getAllLeaves().getResponseData();
-        String[][] vols = new String[volunteers.size()][2];
+        int k = 0;
+        for (VolunteerBean vt : volunteers) {
+            if(vt.getFingerpath()!=null){
+                k++;
+            }
+        }
+        String[][] vols = new String[k][2];
         int i = 0;
         for (VolunteerBean vt : volunteers) {
-          vols[i][0] = vt.getCode();
-          vols[i][1] = vt.getPassword();
-          i++;
+          if(vt.getFingerpath()!=null){
+              vols[i][0] = vt.getCode();
+              vols[i][1] = vt.getPassword();
+              i++;
+          }
         }
         this.volunteerCodes = vols;
         return FAILURE;

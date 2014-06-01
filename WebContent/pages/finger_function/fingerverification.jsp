@@ -69,20 +69,26 @@
         //验证阶段
         if(result){
             var ref = false;
-            for(var i=0;i<window.figureNumber.length;i++){
-              var localpath = window.localFingerPath + (window.figureNumber[i].code)+".tpl";
-              try{
-              var ref = fingerEng.VerRegFingerFile(localpath,ATemplate,false, false);
-              if(ref){
-                  callBackSubmit(window.figureNumber[i].code,window.figureNumber[i].md5);
-                  printMessage("找到匹配员工("+window.figureNumber[i].code+")对应的指纹");
-                  break;
-              }
-              }catch(error){ printMessage("找不到匹配的指纹,错误消息："+ error);}
-            }
-            if(!ref){
-                printMessage("系统中没有找到合适匹配的指纹，请联系系统管理员");
-            }
+            //三次尝试
+           for(var j=0;j<3;j++){
+                for(var i=0;i<window.figureNumber.length;i++){
+                  var localpath = window.localFingerPath + (window.figureNumber[i].code)+".tpl";
+                  try{
+                  var ref = fingerEng.VerRegFingerFile(localpath,ATemplate,false, false);
+                  if(ref){
+                      callBackSubmit(window.figureNumber[i].code,window.figureNumber[i].md5);
+                      printMessage("找到匹配员工("+window.figureNumber[i].code+")对应的指纹");
+                      break;
+                  }
+                  }catch(error){ printMessage("找不到匹配的指纹,错误消息："+ error);}
+                }
+                if(!ref){
+                    printMessage("系统中没有找到合适匹配的指纹，请联系系统管理员");
+                }else{
+                    //找到指纹匹配
+                    break;
+                }
+           }
         }else{
             printMessage("指纹质量不好");
             beginVerify();
