@@ -47,9 +47,19 @@ public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
       init.getAoColumns().add(new TableHeaderVo("name", "志愿者").enableSearch());
       init.getAoColumns().add(new TableHeaderVo("code", "工号").enableSearch());
       init.getAoColumns().add(new TableHeaderVo("identityCard", "证件号").enableSearch());
-      init.getAoColumns().add(new TableHeaderVo("occupation", "来源"));
-      init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道"));
-      init.getAoColumns().add(new TableHeaderVo("sex", "性别").hidePhone());
+      List<SourceCodeBean> sourceList = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
+      String[][] sources = new String[2][sourceList.size()];
+      if (sourceList.size()>0) {
+          for (int i = 0; i < sourceList.size(); i++) {
+              sources[0][i] = sourceList.get(i).getCode();
+              sources[1][i] = sourceList.get(i).getName();
+          }
+      } else {
+          sources = null;
+      }
+      init.getAoColumns().add(new TableHeaderVo("occupation", "来源").addSearchOptions(sources));
+      init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道").addSearchOptions(new String[][] { { "1", "2"}, { "医院", "微信"}}));
+      init.getAoColumns().add(new TableHeaderVo("sex", "性别").addSearchOptions(new String[][] { { "1", "2"}, { "男", "女"}}));
       init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
       init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
       init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));

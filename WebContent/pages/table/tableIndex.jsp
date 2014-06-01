@@ -66,8 +66,9 @@
                             查询
                         </a>
                     </div>
-                </div>
             </section>
+        </form>
+        <form id="exportForm" action="${actionPrex}/exportTable.action" method="post">
         </form>
         <div id="errorarea"><%@include file="../strutsMessage.jsp"%></div>
         <div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
@@ -124,6 +125,7 @@ function fnFormatDetails ( oTable, nTr ){
 
 var operationButtons = [
     '<a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}"><i class="fa fa-plus"></i> 添加 </a>'
+
 ];
 
 $(document).ready(function() {
@@ -288,21 +290,38 @@ $(document).ready(function() {
                 </s:if>
                 </s:iterator>
 
-                oSettings.jqXHR = $.ajax( {
-                    "dataType": 'json',
-                    "type": "POST",
-                    "url": sSource,
-                    "data": aoData,
-                    "success": function(result,status,response){
-                        // Do whatever additional processing you want on the callback, then tell DataTables
-                        fnCallback(result);
-                        $('#${tableId}').css("width","100%");
+                if(typeof window.export!='undefined' && window.export==true){
+                    window.export = false;
+                    var form = $("#exportForm");
+                    //removed all hidden element in this exportForm.
+                    form.empty();
+                    for(var i =0;i< aoData.length;i++){
+                        var hiddenElement = $("<input>");
+                        hiddenElement.attr("type","hidden");
+                        hiddenElement.attr("name",aoData[i].name);
+                        hiddenElement.attr("value",aoData[i].value);
+                        form.append(hiddenElement);
                     }
-                } );
-                //========method two END==================
+                    this.oApi._fnProcessingDisplay(oSettings,false);
+                    form.submit();
+                }else{
+                    oSettings.jqXHR = $.ajax( {
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": function(result,status,response){
+                            // Do whatever additional processing you want on the callback, then tell DataTables
+                            fnCallback(result);
+                            $('#${tableId}').css("width","100%");
+                        }
+                    } );
+                    //========method two END==================
+                }
             }
         });
     } );
+
 } );
 <s:if test="#session['backendSessionUser'].name=='admin'">
 window.admin = true;
@@ -318,6 +337,9 @@ window.actionPrex = "${actionPrex}";
 </s:if>
 
 <script>
+    <s:if test="#session['backendSessionUser'].name=='admin'">
+       operationButtons.push('<a class="btn btn-success" onclick=\'window.export=true;$("#${tableId}").dataTable()._fnAjaxUpdate()\'><i class="fa fa-plus"></i> 批量导出 </a>');
+    </s:if>
 
     // 格式化js时间
     var formatDateTime = function (obj, IsMi) {

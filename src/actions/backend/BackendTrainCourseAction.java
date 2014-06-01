@@ -152,7 +152,8 @@ public class BackendTrainCourseAction extends BaseBackendAction<TrainCourseBusin
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("name", "课程名称").enableSearch());
-    init.getAoColumns().add(new TableHeaderVo("status", "状态"));
+    //0 –创建 1-开始 （只有状态为1，志愿者才可以看见）,2 结束
+    init.getAoColumns().add(new TableHeaderVo("status", "状态").addSearchOptions(new String[][] { { "0", "1" ,"2"}, { "创建", "开始", "结束"}}));
     return init;
   }
 

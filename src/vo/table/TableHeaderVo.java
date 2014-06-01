@@ -5,6 +5,9 @@ package vo.table;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Table Header, map property <b>Column</b> of <b>dataTable</b>
  * 
@@ -153,5 +156,25 @@ public class TableHeaderVo {
     this.sClass = "hidden-phone";
     return this;
   }
-  
+
+    public String convertValue(Object rawValue) {
+        /**
+         * 由于searchOptions是为了前台下拉框使用的，所以在导出EXCEL数据的时候，可以根据此做值的转化为显示名称，为excel提供友好结果
+         * searchOptions数据结构是二位数组，第一纬度：数值 第二纬度：显示名称
+         **/
+        if (rawValue == null) {
+            return "";
+        } else if (rawValue instanceof Date) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            return sdf.format(rawValue);
+        } else if (this.searchOptions != null && rawValue != null) {
+            for (int i = 0; i < this.searchOptions[0].length; i++) {
+                if (this.searchOptions[0][i].equals(String.valueOf(rawValue))) {
+                    return this.searchOptions[1][i];
+                }
+            }
+
+        }
+        return rawValue.toString();
+    }
 }

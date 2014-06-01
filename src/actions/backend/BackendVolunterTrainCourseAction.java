@@ -80,7 +80,8 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     TableInitVo init = new TableInitVo();
     init.getAoColumns().add(new TableHeaderVo("volunteerName", "志愿者").enableSearch());
     init.getAoColumns().add(new TableHeaderVo("traincourseName", "课程名称").enableSearch());
-    init.getAoColumns().add(new TableHeaderVo("status", "状态"));
+    //0=未通过,1=通过
+    init.getAoColumns().add(new TableHeaderVo("status", "状态").addSearchOptions(new String[][] { { "0", "1"}, { "未通过", "通过"}}));
     init.getAoColumns().add(new TableHeaderVo("createTime", "培训时间"));
 
     return init;

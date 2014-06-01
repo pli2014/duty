@@ -57,6 +57,7 @@
         <action name="index" class="actions.backend.BackendUserAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendUserAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendUserAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendUserAction" method="exportTable"/>
 		<action name="add" class="actions.backend.BackendUserAction" method="add">
 		   <result name="success">/pages/user/backendUserEdit.jsp</result>
 		</action>
@@ -86,6 +87,7 @@
         <action name="index" class="actions.backend.BackendVolunteerAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendVolunteerAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendVolunteerAction" method="exportTable"/>
 		<action name="add" class="actions.backend.BackendVolunteerAction" method="add">
 		   <result name="success">/pages/volunteer/backendVolunteerEdit.jsp</result>
 		</action>
@@ -123,6 +125,7 @@
         </action>
         <action name="initTable" class="actions.backend.SourceCodeAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.SourceCodeAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.SourceCodeAction" method="exportTable"/>
 
         <action name="delete" class="actions.backend.SourceCodeAction" method="delete">
             <result name="success" type="chain"><param name="actionName">index</param></result>
@@ -143,6 +146,7 @@
         <action name="index" class="actions.backend.BackendVolunteerVerifyAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendVolunteerVerifyAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerVerifyAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendVolunteerVerifyAction" method="exportTable"/>
 		<action name="verify" class="actions.backend.BackendVolunteerVerifyAction" method="verify">
 		  <result name="success">/pages/volunteer/backendVolunteerVerifyEdit.jsp</result>
 		</action>
@@ -156,6 +160,7 @@
         <action name="index" class="actions.backend.BackendVolunteerInterviewAction" method="index"/>
 		<action name="initTable" class="actions.backend.BackendVolunteerInterviewAction" method="initTable"/>
 		<action name="queryTable" class="actions.backend.BackendVolunteerInterviewAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendVolunteerInterviewAction" method="exportTable"/>
 		<action name="interview" class="actions.backend.BackendVolunteerInterviewAction" method="interview">
 		  <result name="success">/pages/volunteer/backendVolunteerInterviewEdit.jsp</result>
 		</action>
@@ -171,6 +176,7 @@
         </action>
         <action name="initTable" class="actions.backend.BackendServicePlaceAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendServicePlaceAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendServicePlaceAction" method="exportTable"/>
 
         <action name="delete" class="actions.backend.BackendServicePlaceAction" method="servicePlaceDelete">
             <result name="error" type="chain">/serviceplace/index.action?type=${type}</result>
@@ -194,6 +200,7 @@
         </action>
         <action name="initTable" class="actions.backend.BackendTrainCourseAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendTrainCourseAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendTrainCourseAction" method="exportTable"/>
 
         <action name="delete" class="actions.backend.BackendTrainCourseAction" method="delete">
             <result name="input" type="chain">/backend/traincourse/index.action</result>
@@ -243,12 +250,15 @@
         </action>
         <action name="initTable" class="actions.backend.BackendUserServiceAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendUserServiceAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendUserServiceAction" method="exportTable"/>
     </package>
     
     <package name="volunterTrainCourse" namespace="/backend/volunterTrainCourse" extends="default-backend">
         <action name="index" class="actions.backend.BackendVolunterTrainCourseAction" method="index"/>
         <action name="initTable" class="actions.backend.BackendVolunterTrainCourseAction" method="initTable"/>
         <action name="queryTable" class="actions.backend.BackendVolunterTrainCourseAction" method="queryTable"/>
+        <action name="exportTable" class="actions.backend.BackendVolunterTrainCourseAction" method="exportTable"/>
+
         <action name="add" class="actions.backend.BackendVolunterTrainCourseAction" method="add">
             <result name="success">/pages/volunteerTrainCourse/backendVolunteerTrainCourse.jsp</result>
         </action>

@@ -35,7 +35,8 @@ public class BackendUserServiceAction extends BaseBackendAction<UserServiceBusin
         TableInitVo init = new TableInitVo();
         init.getAoColumns().add(new TableHeaderVo("userName", "志愿者").enableSearch());
         init.getAoColumns().add(new TableHeaderVo("userCode", "工号").enableSearch());
-        init.getAoColumns().add(new TableHeaderVo("checkInMethod", "签到方式"));
+        //0:普通签入, 1:微信签入
+        init.getAoColumns().add(new TableHeaderVo("checkInMethod", "签到方式").addSearchOptions(new String[][]{{"0","1"},{"普通签入","微信签入"}}));
         init.getAoColumns().add(new TableHeaderVo("servicePlaceName", "服务地点").enableSearch());
         init.getAoColumns().add(new TableHeaderVo("checkInTime_gteq", "起始时间").setHiddenColumn(true).enableSearch());
         init.getAoColumns().add(new TableHeaderVo("checkInTime_lteq", "结束时间").setHiddenColumn(true).enableSearch());

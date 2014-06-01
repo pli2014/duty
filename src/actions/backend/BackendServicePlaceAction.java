@@ -181,7 +181,16 @@ public class BackendServicePlaceAction extends BaseBackendAction<ServicePlaceBus
             filterMap.put("type_=", "1");
             filterMap.put("isDeleted", "false");
             this.innerHospital = sp.queryDataByCondition(filterMap,null);
-            init.getAoColumns().add(new TableHeaderVo("parentid", "地图地点"));
+            String[][] hospital = new String[2][this.innerHospital.size()];
+            if (this.innerHospital.size()>0) {
+                for (int i = 0; i < this.innerHospital.size(); i++) {
+                    hospital[0][i] = this.innerHospital.get(i).getId();
+                    hospital[1][i] = this.innerHospital.get(i).getName();
+                }
+            } else {
+                hospital = null;
+            }
+            init.getAoColumns().add(new TableHeaderVo("parentid", "地图地点").addSearchOptions(hospital));
         }
         return init;
     }
