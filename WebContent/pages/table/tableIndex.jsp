@@ -34,7 +34,7 @@
                             <s:if test="%{#column.isbSearchable()==true}">
                                 <s:set id="counter" value="%{#counter+1}"/>
                                 <s:if test="#counter % 3 ==1">
-                                <div class="col-lg-12" style="height: 40px;">
+                                    <div class="col-lg-12" style="height: 40px;">
                                 </s:if>
                                 <s:if test="#column.searchOptions==null">
                                     <label class="col-lg-2 control-label">${column.sTitle}</label>
@@ -59,23 +59,24 @@
                             </s:if>
                         </s:iterator>
                         <s:if test="#counter % 3 !=0">
-                            </div>
-                        </s:if>
-                        <a class="btn btn-success pull-right" style="margin-right:15px;margin-top: 15px;" onclick="$('#errorarea').html('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
-                            <i class="fa fa-check"></i>
-                            查询
-                        </a>
                     </div>
-            </section>
-        </form>
-        <form id="exportForm" action="${actionPrex}/exportTable.action" method="post">
-        </form>
-        <div id="errorarea"><%@include file="../strutsMessage.jsp"%></div>
-        <div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
-            <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
-        </div>
-
+                    </s:if>
+                    <a class="btn btn-success pull-right" style="margin-right:15px;margin-top: 15px;" onclick="$('#errorarea').html('');$('#${tableId}').dataTable()._fnAjaxUpdate()">
+                        <i class="fa fa-check"></i>
+                        查询
+                    </a>
+                </div>
     </div>
+</section>
+</form>
+<div id="errorarea"><%@include file="../strutsMessage.jsp"%></div>
+<form id="exportForm" action="${actionPrex}/exportTable.action" method="post">
+</form>
+<div class="adv-table dataTables_wrapper form-inline" style="padding:12px">
+    <table  id="${tableId}"   class="table table-striped table-advance table-hover display  table-bordered"> </table>
+</div>
+
+</div>
 </section>
 <!-- page end-->
 
@@ -84,6 +85,7 @@ var idName;
 var tableId = "${tableId}";
 var actionPrex = "${actionPrex}";
 var cellFormatter = {};
+window.exportExcel = false;
 /*ALL OPTIONS*/
 var options = {
     'edit':{
@@ -125,7 +127,6 @@ function fnFormatDetails ( oTable, nTr ){
 
 var operationButtons = [
     '<a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}"><i class="fa fa-plus"></i> 添加 </a>'
-
 ];
 
 $(document).ready(function() {
@@ -289,9 +290,8 @@ $(document).ready(function() {
                 }
                 </s:if>
                 </s:iterator>
-
-                if(typeof window.export!='undefined' && window.export==true){
-                    window.export = false;
+                if(window.exportExcel==true){
+                    window.exportExcel = false;
                     var form = $("#exportForm");
                     //removed all hidden element in this exportForm.
                     form.empty();
@@ -316,12 +316,11 @@ $(document).ready(function() {
                             $('#${tableId}').css("width","100%");
                         }
                     } );
-                    //========method two END==================
                 }
+                //========method two END==================
             }
         });
     } );
-
 } );
 <s:if test="#session['backendSessionUser'].name=='admin'">
 window.admin = true;
@@ -338,9 +337,8 @@ window.actionPrex = "${actionPrex}";
 
 <script>
     <s:if test="#session['backendSessionUser'].name=='admin'">
-       operationButtons.push('<a class="btn btn-success" onclick=\'window.export=true;$("#${tableId}").dataTable()._fnAjaxUpdate()\'><i class="fa fa-plus"></i> 批量导出 </a>');
+    operationButtons.push('<a class="btn btn-success" onclick=\'window.exportExcel=true;$("#${tableId}").dataTable()._fnAjaxUpdate()\'><i class="fa fa-plus"></i> 批量导出 </a>');
     </s:if>
-
     // 格式化js时间
     var formatDateTime = function (obj, IsMi) {
         var myDate = new Date(obj);
