@@ -198,7 +198,7 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
   public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
     BusinessResult result = super.updateLeaf(origBean, newBean);
     VolunteerBean bean = (VolunteerBean)newBean;
-    vtcb.updateVolunteerName(bean.getId(), bean.getName());
+    vtcb.updateVolunteerNameAndCode(bean.getId(), bean.getName(), bean.getCode());
     usb.updateVolunteerByVolunteerId(bean.getId(), bean.getCode(), bean.getName());
     return result;
   }

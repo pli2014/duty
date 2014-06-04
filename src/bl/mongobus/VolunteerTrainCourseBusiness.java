@@ -69,10 +69,12 @@ public class VolunteerTrainCourseBusiness extends MongoCommonBusiness<BeanContex
     return resultList;
   }
 
-  public void updateVolunteerName(String volunteerId, String volunteerName){
+  public void updateVolunteerNameAndCode(String volunteerId, String volunteerName, String volunteerCode){
     Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     UpdateOperations<VolunteerTrainCourseBean> ops
-        = dc.createUpdateOperations(VolunteerTrainCourseBean.class).set("volunteerName", volunteerName);
+        = dc.createUpdateOperations(VolunteerTrainCourseBean.class)
+                .set("volunteerName", volunteerName)
+                .set("volunteerCode", volunteerCode);
     org.mongodb.morphia.query.Query query = dc.createQuery(this.clazz);
     query.filter("volunteerId", volunteerId);
     dc.update(query, ops);
