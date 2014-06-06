@@ -18,6 +18,8 @@ public class VolunteerTrainCourseBean extends Bean {
   @Indexed
   private String volunteerName;
   @Indexed
+  private String volunteerCode;
+  @Indexed
   private String traincourseId;
   @Indexed
   private String traincourseName;
@@ -81,4 +83,12 @@ public class VolunteerTrainCourseBean extends Bean {
     this.status = status;
   }
 
+
+  public String getVolunteerCode() {
+    return volunteerCode;
+  }
+
+  public void setVolunteerCode(String volunteerCode) {
+    this.volunteerCode = volunteerCode;
+  }
 }
