@@ -15,16 +15,18 @@
     <constant name="struts.xwork.chaining.copyMessages" value="true"/>
 
     <package name="default" namespace="/" extends="struts-default" >
-        <default-action-ref name="index" />
+        <default-action-ref name="welcome"></default-action-ref>
         <global-results>
             <result name="error">/pages/generalError.jsp</result>
             <result name="tableIndex">/pages/table/tableIndex.jsp</result>
-            <result name="tologin" type="redirect">/html/welcome.jsp</result>
+            <result name="tologin">/html/welcome.jsp</result>
         </global-results>
         <global-exception-mappings>
             <exception-mapping exception="java.lang.Exception" result="error" />
         </global-exception-mappings>
-
+        <action name="welcome">
+            <result name="success">/html/welcome.jsp</result>
+        </action>
         <action name="login" class="actions.front.VolunteerAction" method="login">
             <interceptor-ref name="noLoginStack"></interceptor-ref>
             <result name="success" type="redirectAction">

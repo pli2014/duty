@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<%@ include file="../pages/frontHeader.jsp"%>
+<%@ include file="/pages/frontHeader.jsp"%>
 <title>首页</title>
 <style>
     a img{border:none}
@@ -10,7 +10,7 @@
 <body>
 	<div class="home">
 		<div class="leftimg">
-			<img src="img/volunteer.jpg" width="400" height="300" />
+			<img src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png' width="400" height="300" />
 		</div>
         <a href='login.action'>
 		<div class="nav-banner1">
