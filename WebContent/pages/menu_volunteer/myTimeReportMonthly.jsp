@@ -77,7 +77,7 @@
             </div>
             <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[5].name'/>')">
                 <div class="time-font"><s:property value="monthValues.valueList[5].value"/></div>
-                <div class="month-font">5月</div>
+                <div class="month-font">6月</div>
             </div>
             <div class="time-bule" onclick="dailyReport('<s:property value='monthValues.valueList[6].name'/>')">
                 <div class="time-font"><s:property value="monthValues.valueList[6].value"/></div>
