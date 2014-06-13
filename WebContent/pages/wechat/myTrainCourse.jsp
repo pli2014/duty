@@ -66,7 +66,7 @@
                     <tr>
                       <td>${myTrainCourse.trainCourse.name}</td>
                       <td>
-                         <s:if test="#myTrainCourse.trainCourse.status == 1">
+                         <s:if test="#myTrainCourse.status == 1">
                             通过
                          </s:if>
                          <s:else>

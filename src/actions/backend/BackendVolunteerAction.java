@@ -179,7 +179,8 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
    * @return
    */
   public String resetPassword() {
-    volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    this.volunteer = (VolunteerBean) getBusiness().getLeaf(getId()).getResponseData();
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     if (volunteer != null) {
       SystemSettingBean systemSetting = ssb.getLeaf();
       volunteer.setPassword(StringUtil.toMD5(systemSetting.getDefaultPassword()));
