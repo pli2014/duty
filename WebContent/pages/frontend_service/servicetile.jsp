@@ -25,7 +25,7 @@
         </div>
         <div style="clear:both"></div>
 		<div class="bg-volu">
-			<img src="img/volun2.jpg" width="410" height="200" />
+			<img src="person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png" width="410" height="200" />
 		</div>
         <a href="volunteer/edit.action?id=${sessionUser.id}">
 		<div class="bg-blue">
