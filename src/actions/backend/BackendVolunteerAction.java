@@ -118,9 +118,13 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
       } else {
           sources = null;
       }
-    init.getAoColumns().add(new TableHeaderVo("occupation", "来源").addSearchOptions(sources));
+    init.getAoColumns().add(new TableHeaderVo("occupation", "来源").addSearchOptions(sources).enableSearch());
     init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道").addSearchOptions(new String[][] { { "1", "2"}, { "医院", "微信"}}));
     init.getAoColumns().add(new TableHeaderVo("sex", "性别").addSearchOptions(new String[][] { { "1", "2"}, { "男", "女"}}));
+
+    init.getAoColumns().add(new TableHeaderVo("iconpath", "图像").setHiddenColumn(true).enableSearch().addSearchOptions(new String[][] { { "null", "!null"}, { "没有", "有"}}));
+    init.getAoColumns().add(new TableHeaderVo("fingerpath", "指纹").setHiddenColumn(true).enableSearch().addSearchOptions(new String[][] { { "null", "!null"}, { "没有", "有"}}));
+
     init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
     init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
     init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));

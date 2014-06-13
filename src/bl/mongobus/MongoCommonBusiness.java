@@ -249,9 +249,16 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
                              * is be considered as a wildcard match.
                              */
                             if (judgeValue instanceof String) {
-                                Pattern pattern = Pattern.compile("^.*"
-                                        + judgeValue + ".*$");
-                                query = query.filter(key, pattern);
+                                if(judgeValue != null && judgeValue.equals("null")){
+                                    query = query.filter(key, null);
+                                }else if(judgeValue != null && judgeValue.equals("!null")){
+                                    query = query.filter(key+" !=", null);
+                                    query = query.filter(key+" !=", "");
+                                }else{
+                                    Pattern pattern = Pattern.compile("^.*"
+                                            + judgeValue + ".*$");
+                                    query = query.filter(key, pattern);
+                                }
                             } else {
                                 query = query.filter(key, judgeValue);
                             }
@@ -305,8 +312,13 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
                 }
             }
         }
+        long count = this.getCount(queryParam);
+        int startCounter = queryParam.getIDisplayStart();
+        if(queryParam.getIDisplayStart()>count){
+            startCounter = 0;
+        }
         SpecPaginationContext spc = new SpecPaginationContext();
-        spc.setLimitOffset(queryParam.getIDisplayStart());
+        spc.setLimitOffset(startCounter);
         spc.setLimitSize(queryParam.getIDisplayLength());
         List<L> dataRecord = queryDataByCondition(queryParam.getFilter(),
                 sortedMappingMongo, spc);

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ include file="../commonHeader.jsp"%>
+<script type="application/javascript">
+    jQuery.fn.dataTableExt.oPagination.iFullNumbersShowPages=20;
+</script>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +11,10 @@
     <meta name="author" content="Mosaddek">
     <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <link rel="shortcut icon" href="img/favicon.png">
-
+    <style type="text/css">
+        .dataTables_info{width:25%}
+        .paging_full_numbers{width:70%}
+    </style>
     <title>Data Table</title>
 </head>
 <body>
@@ -81,6 +87,7 @@
 <!-- page end-->
 
 <script type="text/javascript">
+jQuery.fn.dataTableExt.oPagination.iFullNumbersShowPages = 12;
 var idName;
 var tableId = "${tableId}";
 var actionPrex = "${actionPrex}";
@@ -129,6 +136,8 @@ var operationButtons = [
     '<a class="btn btn-success" href="${actionPrex}/add.action?${addButtonParameter}"><i class="fa fa-plus"></i> 添加 </a>'
 ];
 
+
+
 $(document).ready(function() {
     //intial opration button
     $("#operationbutton").html(operationButtons.join("&nbsp;"));
@@ -152,6 +161,7 @@ $(document).ready(function() {
 
     var tableUrl = "${actionPrex}/initTable.action?${addButtonParameter}";
     var param = {};
+
     $.getJSON( tableUrl, param, function (initParam) {
         if(initParam.disableTools){
             $('#tableTools').css('display','none');
@@ -169,11 +179,14 @@ $(document).ready(function() {
         /*
          * Initialse DataTables, with no sorting on the 'details' column
          */
+
         var oTable = $('#${tableId}').dataTable( {
             "bProcessing": initParam.bProcessing,
             "bServerSide": initParam.bServerSide,
             "iDisplayLength":initParam.iDisplayLength,
             "aLengthMenu": initParam.aLengthMenu,
+            "bStateSave": true, //save state that keep page in cookie.
+            "sPaginationType":'full_numbers',
             "aoColumns": columns,
             "sAjaxSource": "${actionPrex}/queryTable.action?${addButtonParameter}",
             //"sDom": '<"H"lT><"clear">rt<"F"ip>',
@@ -181,7 +194,9 @@ $(document).ready(function() {
             "oLanguage": {
                 "oPaginate": {
                     "sPrevious": "上一页",
-                    "sNext":"下一页"
+                    "sNext":"下一页",
+                    "sLast":"末页",
+                    "sFirst":"首页"
                 },
                 "sLengthMenu": "每页显示 _MENU_ 条",
                 "sZeroRecords": "无数据",
