@@ -28,15 +28,26 @@ public class WebInitListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent sce) {
     LOG.info("init dynamic form war");
 
-    LOG.info("init server.properties file");
-    ServerContext.init(WebInitListener.class.getResourceAsStream("/server.properties"));
-
-    LOG.info("init /etc/db.properties file");
     try {
+      LOG.info("init server.properties file");
+      ServerContext.init(WebInitListener.class.getResourceAsStream("/server.properties"));
+    } catch (Exception e) {
+      LOG.error("Reading file has some exception {}", e.getMessage());
+    }
+    try {
+      LOG.info("init /etc/db.properties file");
       ServerContext.init(new FileInputStream("/etc/db.properties"));
     } catch (Exception e) {
       LOG.error("Reading file has some exception {}", e.getMessage());
     }
+
+    try {
+      LOG.info("init C:\\vzhiyuan\\server.properties file");
+      ServerContext.init(new FileInputStream("C:\\vzhiyuan\\server.properties"));
+    } catch (Exception e) {
+      LOG.error("Reading file has some exception {}", e.getMessage());
+    }
+
     LOG.info("init MongoDB");
     MongoDBConnectionFactory.initDb();
 

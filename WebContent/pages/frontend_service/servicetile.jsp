@@ -18,7 +18,7 @@
 		<div class="bg-user">
             <div class="bg-username"><s:property value="#session['sessionUser'].name"/></div>
             <div class="bg-touxiang"><img src="<s:property value="#session['sessionUser'].iconpath"/>" width="50"
-                                          height="50" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'"/></div>
+                                          height="50" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer_small.png'"/></div>
 		</div>
         <div class="bg-right2">
             <div class="bg-time" id="timewatcher" style="float:right;color:white;font-size:20px">加载当前时间</div>
