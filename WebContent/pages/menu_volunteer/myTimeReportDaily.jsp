@@ -11,14 +11,10 @@
     <link href="css/train.css" rel="stylesheet">
     <title>我的日工时</title>
 
-    <style type="text/css">
-        .mt15 {
-            margin-top: 15px;
-        }
-
-    </style>
-
     <script type="text/javascript">
+        window.onload=function (){
+            setInterval("document.getElementById('timewatcher').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+        }
 
         function handlePrev(yearMonth) {
             //year = year - 1;
@@ -42,6 +38,10 @@
             <div class="bg-top">我的日工时</div>
             <div class="bg-username">${volunteer.name}</div>
             <div class="bg-touxiang"><img src="${volunteer.iconpath}" onerror="this.src='person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png'" width="50" height="50" /></div>
+        </div>
+        <div class="bg-right2">
+            <div class="bg-title2" style="font-size:30px"></div>
+            <div class="bg-time" id="timewatcher">加载当前时间</div>
         </div>
         <div class="bg-center">
 

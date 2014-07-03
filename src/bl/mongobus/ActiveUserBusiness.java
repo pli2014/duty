@@ -33,7 +33,8 @@ public class ActiveUserBusiness extends MongoCommonBusiness<BeanContext, ActiveU
   public BusinessResult getActiveUsersByServicePlace(String servicePlaceId) {
     Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
     BusinessResult br = new BusinessResult();
-    br.setResponseData(dc.find(this.clazz, "servicePlaceId", servicePlaceId).order("distance").asList());
+    br.setResponseData(dc.find(this.clazz, "servicePlaceId", servicePlaceId)
+        .filter("isDeleted", false).order("distance").asList());
     return br;
   }
 
