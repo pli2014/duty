@@ -10,6 +10,66 @@
 <head>
     <link href="css/train.css" rel="stylesheet">
     <title>我的日工时</title>
+    <style type="text/css">
+
+
+        .time-train2{
+            width:700px;
+            float:left;
+            margin-top:15px;
+            margin-right:10px;
+        }
+
+
+        .time-train-right2{
+            width:420px;
+            height:60px;
+            background:#FFF;
+            float:left;
+            color:#666666;
+            font-family:"黑体","宋体" !important;
+        }
+        .time-date{
+            width:250px;
+            height:60px;
+            background:#0671DE;
+            font-family:"黑体","宋体" !important;
+            font-size:24px;
+            font-weight:bold;
+            color:#FFF;
+            float:left;
+            line-height:60px;
+            text-align:center;
+            border-right:2px solid #C6C1C0;
+            margin-right:5px;
+
+        }
+        .time-num{
+            width:160px;
+            height:60px;
+            float:left;
+            line-height:60px;
+            padding-left:30px;
+            text-align:right;
+            font-family:"黑体","宋体" !important;
+            font-size:24px;
+            font-weight:bold;
+            margin-right:10px;
+
+        }
+        .time-phone{
+            width:160px;
+            height:60px;
+            float:left;
+            line-height:60px;
+
+            text-align:left;
+            padding-right:5px;
+            font-family:"黑体","宋体" !important;
+            font-size:24px;
+            font-weight:bold;
+        }
+    </style>
 
     <script type="text/javascript">
         window.onload=function (){
@@ -51,27 +111,18 @@
             </div>
             <div class="bg-time"> <div class="time-next" style="cursor: pointer;" onclick="handleNext('<s:property value="yearMonth" />')"></div></div>
 
-
-            <section class="container">
-                <section class="panel">
-                    <div class="panel-body col-xs-6">
-                        <s:include value="../strutsMessage.jsp"/>
-                        <s:iterator value="dayValues.valueList" var="valueBean">
-                            <div class="row state-overview">
-                                <section class="panel">
-                                    <div class="symbol terques">
-                                        <h4><s:property value="%{#valueBean.name}"/></h4>
-                                    </div>
-                                    <div class="value">
-                                        <h1 class="count"><s:property value="%{#valueBean.value}"/></h1>
-                                        <p>小时</p>
-                                    </div>
-                                </section>
-                            </div>
-                        </s:iterator>
+            <div style="float: left;">
+                <s:include value="../strutsMessage.jsp"/>
+            </div>
+            <s:iterator value="dayValues.valueList" var="valueBean">
+                <div class="time-train2">
+                    <div class="time-date"><s:property value="%{#valueBean.name}"/></div>
+                    <div class="time-train-right2">
+                        <div class="time-num"><s:property value="%{#valueBean.value}"/></div>
+                        <div  class="time-phone">小时</div>
                     </div>
-                </section>
-            </section>
+                </div>
+            </s:iterator>
         </div>
     </div>
 
