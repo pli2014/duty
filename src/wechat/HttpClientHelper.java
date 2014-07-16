@@ -41,12 +41,12 @@ public class HttpClientHelper {
       JSONObject object = JSONObject.fromObject(resultStr);
       resultMap = (Map)JSONObject.toBean(object, Map.class);
     } catch (IOException e) {
-      LOG.error(e.getMessage());
+      LOG.error("",e);
     } finally {
       try {
         httpclient.close();
       } catch (IOException e) {
-        LOG.error(e.getMessage());
+        LOG.error("",e);
       }
     }
     return resultMap;
@@ -60,12 +60,13 @@ public class HttpClientHelper {
       HttpResponse response = httpclient.execute(httpget);
       resultStr = EntityUtils.toString(response.getEntity(), "UTF-8");
     } catch (IOException e) {
-      LOG.error(e.getMessage());
+      LOG.error("URL request error:{}", url);
+      LOG.error("",e);
     } finally {
       try {
         httpclient.close();
       } catch (IOException e) {
-        LOG.error(e.getMessage());
+        LOG.error("",e);
       }
     }
     return resultStr;
@@ -84,12 +85,12 @@ public class HttpClientHelper {
       JSONObject object = JSONObject.fromObject(resultStr);
       resultMap = (Map)JSONObject.toBean(object, Map.class);
     } catch (IOException e) {
-      LOG.error(e.getMessage());
+      LOG.error("",e);
     } finally {
       try {
         client.close();
       } catch (IOException e) {
-        LOG.error(e.getMessage());
+        LOG.error("",e);
       }
       return resultMap;
     }
@@ -110,14 +111,14 @@ public class HttpClientHelper {
       JSONObject object = JSONObject.fromObject(resultStr);
       resultMap = (Map)JSONObject.toBean(object, Map.class);
     } catch (UnsupportedEncodingException e) {
-      LOG.error(e.getMessage());
+      LOG.error("",e);
     } catch (IOException e) {
-      LOG.error(e.getMessage());
+      LOG.error("",e);
     } finally {
       try {
         client.close();
       } catch (IOException e) {
-        LOG.error(e.getMessage());
+        LOG.error("",e);
       }
       return resultMap;
     }

@@ -28,6 +28,10 @@ public class WebInitListener implements ServletContextListener {
   public void contextInitialized(ServletContextEvent sce) {
     LOG.info("init dynamic form war");
 
+    LOG.error("Before seting SNI, {}",System.getProperty("jsse.enableSNIExtension"));
+    System.setProperty("jsse.enableSNIExtension", "false");
+    LOG.error("After seting SNI, {}",System.getProperty("jsse.enableSNIExtension"));
+
     try {
       LOG.info("init server.properties file");
       ServerContext.init(WebInitListener.class.getResourceAsStream("/server.properties"));
