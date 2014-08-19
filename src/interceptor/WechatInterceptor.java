@@ -71,13 +71,12 @@ public class WechatInterceptor extends AbstractInterceptor {
           }
           if(null != code) {
             AccessToken token = AccessTokenManager.getAccessToken(code);
-            UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
-            if (null != info) {
-              openID = info.getOpenid();
-              wechatUser = info.getNickname();
-            } else {
-              action.addActionError("发生未知错误，获取用户授权失败！");
-              return "message";
+            if(null != token) {
+                openID = token.getOpenid();
+                UserInfo info = UerManager.getUserInfo(token.getAccess_token(), token.getOpenid());
+                if (null != info) {
+                    wechatUser = info.getNickname();
+                }
             }
           }
         }
@@ -90,7 +89,7 @@ public class WechatInterceptor extends AbstractInterceptor {
           VolunteerBean volunteer;
           VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
           volunteer = vb.getVolunteerBeanByOpenID(action.getOpenID());
-          if(null != volunteer) {
+          if(null != volunteer && volunteer.getStatus() == 2) {
             action.setVolunteer(volunteer);
             if(null == wechatUser) {
               wechatUser = volunteer.getWechat();

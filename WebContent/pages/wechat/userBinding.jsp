@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-4  control-label" for="userName">身份证号</label>
+                    <label class="col-xs-4  control-label" for="userName">证件号</label>
                     <div class="col-xs-8">
                         <input class="form-control" id="identityCardNumber" name="identityCardNumber" value="<s:property value='identityCardNumber'/>">
                     </div>

@@ -11,6 +11,7 @@ import bl.mongobus.ActiveUserBusiness;
 import bl.mongobus.SequenceUidGenerator;
 import bl.mongobus.ServicePlaceBusiness;
 import bl.mongobus.VolunteerBusiness;
+import org.apache.commons.lang.StringUtils;
 import util.ServerContext;
 import util.StringUtil;
 import vo.ActiveVolunteerVo;
@@ -24,247 +25,257 @@ import wechat.user.UserInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by wangronghua on 14-3-19.
  */
 public class WechatUserAction extends WechatBaseAuthAction {
 
-  private String userName;
-  private String identityCardNumber;
-  private String password;
+    private String userName;
+    private String identityCardNumber;
+    private String password;
 
-  private String servicePlaceId;
-  private String servicePlaceName;
-  private ServicePlaceBean servicePlaceBean;
-  private List<ServicePlaceVo> places;
-  private List<ActiveVolunteerVo> activeVolunteers;
+    private String servicePlaceId;
+    private String servicePlaceName;
+    private ServicePlaceBean servicePlaceBean;
+    private List<ServicePlaceVo> places;
+    private List<ActiveVolunteerVo> activeVolunteers;
 
-  private UserInfo user;
-  private VolunteerBean vol;
+    private UserInfo user;
+    private VolunteerBean vol;
 
-  public VolunteerBean getVol() {
-    return vol;
-  }
-
-  public void setVol(VolunteerBean vol) {
-    this.vol = vol;
-  }
-
-  public UserInfo getUser() {
-    return user;
-  }
-
-  public void setUser(UserInfo user) {
-    this.user = user;
-  }
-
-  VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
-  ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
-  ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
-
-  public String binding() {
-    if(volunteer != null) {
-      //means we already have the volunteer binding to the wechat user, go to the release process
-      return "releaseBinding";
+    public VolunteerBean getVol() {
+        return vol;
     }
-    return SUCCESS;
-  }
 
-  public String releaseBinding() {
-    if(volunteer != null) {
-      volunteer.setOpenID(null);
-      volunteer.setWechat(null);
-      vb.updateLeaf(volunteer, volunteer);
+    public void setVol(VolunteerBean vol) {
+        this.vol = vol;
     }
-    return SUCCESS;
-  }
 
-  /**
-   * 
-   * @return
-   */
-  public String myInfo() {
-    if(null == volunteer) {
-      return "redirectBinding";
+    public UserInfo getUser() {
+        return user;
     }
-    return SUCCESS;
-  }
 
-  /**
-   * 
-   * @return
-   */
-  public String myHonor() {
-    addActionMessage("该功能暂未开放！");
-    return SUCCESS;
-  }
-
-  /**
-   * 
-   * @return
-   */
-  public String save() {
-    if (vol == null || StringUtils.isBlank(vol.getId())) {
-      addActionMessage("用户不存在, 保存失败!");
-    } else {
-      VolunteerBean volTmp = (VolunteerBean) vb.getLeaf(vol.getId()).getResponseData();
-      if (volTmp == null) {
-        addActionMessage("获取用户失败, 保存失败!");
-      } else {
-        volTmp.setCellPhone(vol.getCellPhone());
-        vb.updateLeaf(volTmp, volTmp);
-        addActionMessage("保存成功!");
-      }
+    public void setUser(UserInfo user) {
+        this.user = user;
     }
-    return SUCCESS;
-  }
 
-  public String register() {
-    if (vol != null) {
-      vol.setWechat(getWechatUser());
-      BusinessResult result = vb.save(getRequest(), vol);
-      if (result.getErrors().size() > 0) {
-        for (Object error : result.getErrors()) {
-          addActionError(error.toString());
+    VolunteerBusiness vb = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+    ServicePlaceBusiness sp = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
+    ActiveUserBusiness activeUserBus = (ActiveUserBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_ACTIVEUSER);
+
+    public String binding() {
+        if(volunteer != null) {
+            //means we already have the volunteer binding to the wechat user, go to the release process
+            return "releaseBinding";
         }
-        return FAILURE;
-      }
-      return SUCCESS;
-    } else {
-      vol = new VolunteerBean();
-      return FAILURE;
+        return SUCCESS;
     }
-  }
 
-  public String bindingSubmit() {
-    VolunteerBean userTmp = vb.getVolunteerBeanByCode(userName);
-    if (userTmp != null && password != null && identityCardNumber != null && StringUtil.toMD5(password).equals(userTmp.getPassword())
-        && identityCardNumber.equals(userTmp.getIdentityCard())) {
-      userTmp.setOpenID(openID);
-      userTmp.setWechat(wechatUser);
-      vb.updateLeaf(userTmp, userTmp);
-      return SUCCESS;
-    } else {
-      super.addActionError("你输入的信息有误，请重新输入！");
-      return ERROR;
+    public String releaseBinding() {
+        if(volunteer != null) {
+            volunteer.setOpenID(null);
+            volunteer.setWechat(null);
+            vb.updateLeaf(volunteer, volunteer);
+        }
+        return SUCCESS;
     }
-  }
 
-  public String searchActiveUser() {
-    if (null == volunteer) {
-      return "redirectBinding";
+    /**
+     *
+     * @return
+     */
+    public String myInfo() {
+        if(null == volunteer) {
+            return "redirectBinding";
+        }
+        return SUCCESS;
     }
-    List<ServicePlaceBean> placeBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
 
-    places = sp.getFormattedPlaces(placeBeans, placeBeans);
-
-    if (null == servicePlaceId) {
-      ActiveUserBean userBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(volunteer.getId()).getResponseData();
-      if (null != userBean) {
-        servicePlaceId = userBean.getServicePlaceId();
-      }
+    /**
+     *
+     * @return
+     */
+    public String myHonor() {
+        addActionMessage("该功能暂未开放！");
+        return SUCCESS;
     }
-    if (null != servicePlaceId) {
-      servicePlaceBean = (ServicePlaceBean) sp.getLeaf(servicePlaceId).getResponseData();
-      List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.getActiveUsersByServicePlace(servicePlaceId).getResponseData();
-      activeVolunteers = new ArrayList<ActiveVolunteerVo>(activeUserBeanList.size());
-      for (ActiveUserBean userBean : activeUserBeanList) {
-        VolunteerBean vbean = (VolunteerBean) vb.getLeaf(userBean.getUserId()).getResponseData();
-        ActiveVolunteerVo vo = new ActiveVolunteerVo();
-        vo.setId(vbean.getId());
-        vo.setName(vbean.getName());
-        vo.setCellPhone(vbean.getCellPhone());
-        vo.setIconPath(vbean.getIconpath());
-        vo.setStatus(userBean.getStatus());
-        vo.setCheckInTime(userBean.getCheckInTime());
-        vo.setDistance(userBean.getDistance());
-        vo.setDescription(userBean.getDescription());
-        activeVolunteers.add(vo);
-      }
+
+    /**
+     *
+     * @return
+     */
+    public String save() {
+        if (vol == null || StringUtils.isBlank(vol.getId())) {
+            addActionMessage("用户不存在, 保存失败!");
+        } else {
+            VolunteerBean volTmp = (VolunteerBean) vb.getLeaf(vol.getId()).getResponseData();
+            if (volTmp == null) {
+                addActionMessage("获取用户失败, 保存失败!");
+            } else {
+                volTmp.setCellPhone(vol.getCellPhone());
+                vb.updateLeaf(volTmp, volTmp);
+                addActionMessage("保存成功!");
+            }
+        }
+        return SUCCESS;
     }
-    return SUCCESS;
-  }
 
-  public String getWechatUser() {
-    return wechatUser;
-  }
+    public String register() {
+        if (vol != null) {
+            vol.setWechat(getWechatUser());
+            BusinessResult result = vb.save(getRequest(), vol);
+            if (result.getErrors().size() > 0) {
+                for (Object error : result.getErrors()) {
+                    addActionError(error.toString());
+                }
+                return FAILURE;
+            }
+            return SUCCESS;
+        } else {
+            vol = new VolunteerBean();
+            return FAILURE;
+        }
+    }
 
-  public void setWechatUser(String wechatUser) {
-    this.wechatUser = wechatUser;
-  }
+    public String bindingSubmit() {
+        if(StringUtils.isEmpty(userName)) {
+            super.addActionError("用户名不能为空！");
+        }
+        else if(StringUtils.isEmpty(password)) {
+            super.addActionError("密码不能为空！");
+        }
+        else if(StringUtils.isEmpty(identityCardNumber)) {
+            super.addActionError("身份证号不能为空！");
+        }
+        else {
+            VolunteerBean userTmp = vb.getVolunteerBeanByCode(userName);
+            if (userTmp != null && userTmp.getStatus() == 2 && StringUtil.toMD5(password).equals(userTmp.getPassword())
+                && identityCardNumber.equals(userTmp.getIdentityCard())) {
+                userTmp.setOpenID(openID);
+                userTmp.setWechat(wechatUser);
+                vb.updateLeaf(userTmp, userTmp);
+                return SUCCESS;
+            } else {
+                super.addActionError("对不起，您输入的用户信息有误！");
+            }
+        }
+        return ERROR;
+    }
 
-  public String getUserName() {
-    return userName;
-  }
+    public String searchActiveUser() {
+        if (null == volunteer) {
+            return "redirectBinding";
+        }
+        List<ServicePlaceBean> placeBeans = (List<ServicePlaceBean>) sp.getAllLeaves().getResponseData();
 
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
+        places = sp.getFormattedPlaces(placeBeans, placeBeans);
 
-  public String getIdentityCardNumber() {
-    return identityCardNumber;
-  }
+        if (null == servicePlaceId) {
+            ActiveUserBean userBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(volunteer.getId()).getResponseData();
+            if (null != userBean) {
+                servicePlaceId = userBean.getServicePlaceId();
+            }
+        }
+        if (null != servicePlaceId) {
+            servicePlaceBean = (ServicePlaceBean) sp.getLeaf(servicePlaceId).getResponseData();
+            List<ActiveUserBean> activeUserBeanList = (List<ActiveUserBean>) activeUserBus.getActiveUsersByServicePlace(servicePlaceId).getResponseData();
+            activeVolunteers = new ArrayList<ActiveVolunteerVo>(activeUserBeanList.size());
+            for (ActiveUserBean userBean : activeUserBeanList) {
+                VolunteerBean vbean = (VolunteerBean) vb.getLeaf(userBean.getUserId()).getResponseData();
+                ActiveVolunteerVo vo = new ActiveVolunteerVo();
+                vo.setId(vbean.getId());
+                vo.setName(vbean.getName());
+                vo.setCellPhone(vbean.getCellPhone());
+                vo.setIconPath(vbean.getIconpath());
+                vo.setStatus(userBean.getStatus());
+                vo.setCheckInTime(userBean.getCheckInTime());
+                vo.setDistance(userBean.getDistance());
+                vo.setDescription(userBean.getDescription());
+                activeVolunteers.add(vo);
+            }
+        }
+        return SUCCESS;
+    }
 
-  public void setIdentityCardNumber(String identityCardNumber) {
-    this.identityCardNumber = identityCardNumber;
-  }
+    public String getWechatUser() {
+        return wechatUser;
+    }
 
-  public String getOpenID() {
-    return openID;
-  }
+    public void setWechatUser(String wechatUser) {
+        this.wechatUser = wechatUser;
+    }
 
-  public void setOpenID(String openID) {
-    this.openID = openID;
-  }
+    public String getUserName() {
+        return userName;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public String getIdentityCardNumber() {
+        return identityCardNumber;
+    }
 
-  public List<ServicePlaceVo> getPlaces() {
-    return places;
-  }
+    public void setIdentityCardNumber(String identityCardNumber) {
+        this.identityCardNumber = identityCardNumber;
+    }
 
-  public void setPlaces(List<ServicePlaceVo> places) {
-    this.places = places;
-  }
+    public String getOpenID() {
+        return openID;
+    }
 
-  public String getServicePlaceId() {
-    return servicePlaceId;
-  }
+    public void setOpenID(String openID) {
+        this.openID = openID;
+    }
 
-  public void setServicePlaceId(String servicePlaceId) {
-    this.servicePlaceId = servicePlaceId;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public List<ActiveVolunteerVo> getActiveVolunteers() {
-    return activeVolunteers;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public void setActiveVolunteers(List<ActiveVolunteerVo> activeVolunteers) {
-    this.activeVolunteers = activeVolunteers;
-  }
+    public List<ServicePlaceVo> getPlaces() {
+        return places;
+    }
 
-  public ServicePlaceBean getServicePlaceBean() {
-    return servicePlaceBean;
-  }
+    public void setPlaces(List<ServicePlaceVo> places) {
+        this.places = places;
+    }
 
-  public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
-    this.servicePlaceBean = servicePlaceBean;
-  }
+    public String getServicePlaceId() {
+        return servicePlaceId;
+    }
 
-  public String getServicePlaceName() {
-    return servicePlaceName;
-  }
+    public void setServicePlaceId(String servicePlaceId) {
+        this.servicePlaceId = servicePlaceId;
+    }
 
-  public void setServicePlaceName(String servicePlaceName) {
-    this.servicePlaceName = servicePlaceName;
-  }
+    public List<ActiveVolunteerVo> getActiveVolunteers() {
+        return activeVolunteers;
+    }
+
+    public void setActiveVolunteers(List<ActiveVolunteerVo> activeVolunteers) {
+        this.activeVolunteers = activeVolunteers;
+    }
+
+    public ServicePlaceBean getServicePlaceBean() {
+        return servicePlaceBean;
+    }
+
+    public void setServicePlaceBean(ServicePlaceBean servicePlaceBean) {
+        this.servicePlaceBean = servicePlaceBean;
+    }
+
+    public String getServicePlaceName() {
+        return servicePlaceName;
+    }
+
+    public void setServicePlaceName(String servicePlaceName) {
+        this.servicePlaceName = servicePlaceName;
+    }
 
 }
