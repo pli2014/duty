@@ -12,7 +12,7 @@ $(document).ready(function() {
     // 手机号码验证 
     jQuery.validator.addMethod("cellPhone", function(value, element) { 
       var length = value.length; 
-      return this.optional(element) || (length == 11 && /^(1[3|5|8|4][0-9])\d{8}$/.test(value)); 
+      return this.optional(element) || (length == 11 && /^(1[3|5|8|4|7][0-9])\d{8}$/.test(value)); 
     }); 
 });
 
