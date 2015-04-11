@@ -1,0 +1,8 @@
+1,改变server.xml如下
+<Host name="localhost" appBase="webapps" unpackWARs="true" autoDeploy="true" deployOnStartup="false">
+<Context path="/person/" docBase="C:\\data\\img" />
+<Context path="/serviceplace/" docBase="C:\\data\\serviceplace" />
+</Host>
+2,idea集成部署的时候，需要设置出 Deployed Application configuration in Tomcat Instance.
+
+
