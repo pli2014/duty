@@ -7,5 +7,10 @@ cellFormatter["status"] = function ( data, type, full ) {
         return '通过';
     }else{
        return '未知';
-    } 
+    }
 }
+
+$(".form-horizontal.tasi-form [name='createTime_gteq']").attr("data-date-format","yyyy-mm-dd");
+$(".form-horizontal.tasi-form [name='createTime_gteq']").datepicker();
+$(".form-horizontal.tasi-form [name='createTime_lteq']").attr("data-date-format","yyyy-mm-dd");
+$(".form-horizontal.tasi-form [name='createTime_lteq']").datepicker();

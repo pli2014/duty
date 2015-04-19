@@ -1,5 +1,6 @@
 package actions.backend;
 
+import bl.beans.BackendUserBean;
 import bl.beans.TrainCourseBean;
 import bl.beans.VolunteerBean;
 import bl.beans.VolunteerTrainCourseBean;
@@ -13,7 +14,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import vo.table.TableHeaderVo;
 import vo.table.TableInitVo;
+import vo.table.TableQueryVo;
+import webapps.WebappsConstants;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +80,17 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     return getRequest().getContextPath() + "/js/volunterTrainCourse.js";
   }
 
+    @Override
+    public TableQueryVo getModel() {
+        TableQueryVo model = super.getModel();
+        model.getSort().put("createTime", "desc");
+        BackendUserBean sessionUser = (BackendUserBean) getSession().getAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID);
+        if(!sessionUser.getName().equals("admin") && sessionUser.isOnlySeeNewUser()){
+            model.getFilter().put("status", 0);
+        }
+        return model;
+    }
+
   @Override
   public TableInitVo getTableInit() {
     TableInitVo init = new TableInitVo();
@@ -84,6 +100,8 @@ public class BackendVolunterTrainCourseAction extends BaseBackendAction<Voluntee
     //0=未通过,1=通过
     init.getAoColumns().add(new TableHeaderVo("status", "状态").addSearchOptions(new String[][] { { "0", "1"}, { "未通过", "通过"}}).enableSearch());
     init.getAoColumns().add(new TableHeaderVo("createTime", "培训时间"));
+    init.getAoColumns().add(new TableHeaderVo("createTime_gteq", "培训时间").setHiddenColumn(true).enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("createTime_lteq", "培训时间").setHiddenColumn(true).enableSearch());
 
     return init;
   }

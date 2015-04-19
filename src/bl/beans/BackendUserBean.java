@@ -16,7 +16,18 @@ public class BackendUserBean extends Bean {
   private String password;
   private Integer type = 0; // 1=admin
 
-  public String getPassword() {
+    //默认是打开的,设置后，此用户只可以看到新注册
+    private boolean onlySeeNewUser = true;
+
+    public boolean isOnlySeeNewUser() {
+        return onlySeeNewUser;
+    }
+
+    public void setOnlySeeNewUser(boolean onlySeeNewUser) {
+        this.onlySeeNewUser = onlySeeNewUser;
+    }
+
+    public String getPassword() {
     return password;
   }
 

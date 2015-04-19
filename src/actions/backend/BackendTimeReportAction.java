@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bl.beans.SourceCodeBean;
+import bl.mongobus.SourceCodeBusiness;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -23,6 +25,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.struts2.ServletActionContext;
+import util.StringUtil;
 import vo.report.ActiveTimeReportVo;
 import vo.table.TableDataVo;
 import vo.table.TableQueryVo;
@@ -44,10 +47,11 @@ public class BackendTimeReportAction extends BaseBackendAction{
   ServicePlaceBusiness servicePlaceBus = (ServicePlaceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SERVICEPLACE);
   UserServiceBusiness userServiceBus = (UserServiceBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_USERSERVICE);
   VolunteerBusiness volunteerBus = (VolunteerBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_VOLUNTEER);
+  SourceCodeBusiness SOURBUS = (SourceCodeBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SOURCECODE);
 
   List<ServicePlaceBean> servicePlaces = null;
   List<ActiveTimeReportVo> activeTimeReportVos;
-
+  protected List<SourceCodeBean> listSource;
   private String name;
   private String code;
   private String servicePlaceId;
@@ -62,10 +66,47 @@ public class BackendTimeReportAction extends BaseBackendAction{
   private String jsonData;
   private String jsonLabels;
   private String jsonYKeys;
+  private String occupation;
 
+  //增加范围查询时间--activeTimeReport.action
+  private String startDate;
+  private String endDate;
 
-  public String getActiveReport(){
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public List<SourceCodeBean> getListSource() {
+        return listSource;
+    }
+
+    public void setListSource(List<SourceCodeBean> listSource) {
+        this.listSource = listSource;
+    }
+
+    public String getActiveReport(){
     servicePlaces = (List<ServicePlaceBean>)servicePlaceBus.getAllLeaves().getResponseData();
+    this.listSource = (List<SourceCodeBean>) SOURBUS.getAllLeaves().getResponseData();
     return SUCCESS;
   }
 
@@ -83,6 +124,20 @@ public class BackendTimeReportAction extends BaseBackendAction{
       code = codes[0];
     }
 
+      String[] occupations = filterMap.get("occupation");
+      if(null != occupations && occupations.length > 0) {
+          occupation = occupations[0];
+      }
+
+      String[] startDates = filterMap.get("startDate");
+      if(null != startDates && startDates.length > 0) {
+          startDate = startDates[0];
+      }
+      String[] endDates = filterMap.get("endDate");
+      if(null != endDates && endDates.length > 0) {
+          endDate = endDates[0];
+      }
+
     String[] servicePlaces = filterMap.get("servicePlaceId");
 
     List<String> serviceIdList = new ArrayList<String>();
@@ -99,12 +154,30 @@ public class BackendTimeReportAction extends BaseBackendAction{
 
     List<VolunteerBean> beanList = (List<VolunteerBean>)volunteerBus.query(getModel()).getAaData();
     List<String> idList = new ArrayList<String>();
+      List<VolunteerBean> newVolunteerBean = new ArrayList<VolunteerBean>();
     for(VolunteerBean bean: beanList) {
-      idList.add(bean.getId());
+      if(StringUtils.isNotEmpty(occupation)){
+          //增加来源筛选
+          if(occupation.equals(bean.getOccupation())){
+              idList.add(bean.getId());
+              newVolunteerBean.add(bean);
+          }
+      }else{
+          idList.add(bean.getId());
+          newVolunteerBean.add(bean);
+      }
     }
-    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.getLeavesByUserIds(idList, serviceIdList));
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date newStartDate = null;
+      Date newEndDate = null;
+      try {
+          newStartDate = sdf.parse(this.startDate);
+          newEndDate = sdf.parse(this.endDate);
+      } catch (Exception e) {
+      }
+    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.queryUserServices(idList, serviceIdList,newStartDate,newEndDate));
 
-    for(VolunteerBean bean: beanList) {
+    for(VolunteerBean bean: newVolunteerBean) {
       ActiveTimeReportVo vo = new ActiveTimeReportVo();
       vo.setName(bean.getName());
       vo.setCode(bean.getCode());
@@ -287,13 +360,30 @@ public class BackendTimeReportAction extends BaseBackendAction{
     List<VolunteerBean> beanList = (List<VolunteerBean>)volunteerBus.queryVolunteers(name, code);
 
     List<String> idList = new ArrayList<String>();
+      List<VolunteerBean> newVolunteerBean = new ArrayList<VolunteerBean>();
     for(VolunteerBean bean: beanList) {
-      idList.add(bean.getId());
+        if(StringUtils.isNotEmpty(occupation)){
+            //增加来源筛选
+            if(occupation.equals(bean.getOccupation())){
+                idList.add(bean.getId());
+                newVolunteerBean.add(bean);
+            }
+        }else{
+            idList.add(bean.getId());
+            newVolunteerBean.add(bean);
+        }
     }
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date newStartDate = null;
+      Date newEndDate = null;
+      try {
+          newStartDate = sdf.parse(this.startDate);
+          newEndDate = sdf.parse(this.endDate);
+      } catch (Exception e) {
+      }
+     Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.queryUserServices(idList, serviceIdList, newStartDate, newEndDate));
 
-    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.getLeavesByUserIds(idList, serviceIdList));
-
-    for(VolunteerBean bean: beanList) {
+    for(VolunteerBean bean: newVolunteerBean) {
       ActiveTimeReportVo vo = new ActiveTimeReportVo();
       vo.setName(bean.getName());
       vo.setCode(bean.getCode());

@@ -137,7 +137,7 @@
                 </table>
             </div>
             <div class="bg-btn">
-                <input class="Infor-btn" type="submit" value="修改"/>
+                <input class="Infor-btn" type="submit" value="保存"/>
                 <input class="Infor-btn" type="button" value="修改密码" onclick="window.location.href='volunteer/changePassword.action'" style="cursor: pointer;"/>
                 <input class="Infor-btn" type="button" value="取消" onclick="window.location.href='index.action'" />
             </div>

@@ -63,7 +63,8 @@ public class BackendVolunteerVerifyAction extends BackendVolunteerAction {
       init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
       init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
       init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
-    init.setDisableTools(true);
+      init.getAoColumns().add(new TableHeaderVo("createTime", "注册时间"));
+      init.setDisableTools(true);
     return init;
   }
 

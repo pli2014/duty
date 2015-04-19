@@ -69,6 +69,8 @@ public interface BusinessInterface<F extends BeanContext, L extends BeanContext>
 
 
     public List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted);
+    public long countDataByCondition(Map<String,String> filter);
+
 
     public abstract List<L> queryDataByCondition(Map<String,String> filter, Set<String> sorted, SpecPaginationContext spc);
 

@@ -19,9 +19,30 @@ public class DashBoardBean {
   private long newUnbindingCount;
   private long newBindingCount;
 
+    //已经培训的人数
+    private long alwaysTrainCount;
+    //未培训的人数
+    private long noTrainCount;
+
   private String monthlyWorkingHours;
 
-  public long getNewBindingCount() {
+    public long getAlwaysTrainCount() {
+        return alwaysTrainCount;
+    }
+
+    public void setAlwaysTrainCount(long alwaysTrainCount) {
+        this.alwaysTrainCount = alwaysTrainCount;
+    }
+
+    public long getNoTrainCount() {
+        return noTrainCount;
+    }
+
+    public void setNoTrainCount(long noTrainCount) {
+        this.noTrainCount = noTrainCount;
+    }
+
+    public long getNewBindingCount() {
     return newBindingCount;
   }
 

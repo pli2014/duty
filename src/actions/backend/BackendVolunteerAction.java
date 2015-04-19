@@ -3,6 +3,7 @@
  */
 package actions.backend;
 
+import bl.beans.BackendUserBean;
 import bl.beans.SourceCodeBean;
 import bl.beans.SystemSettingBean;
 import bl.constants.BusTieConstant;
@@ -28,6 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,7 +98,11 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
   public TableQueryVo getModel() {
     TableQueryVo model = super.getModel();
     model.getSort().remove("name");
-    model.getSort().put("code", "desc");
+    model.getSort().put("modifyTime", "desc");
+    BackendUserBean sessionUser = (BackendUserBean) getSession().getAttribute(WebappsConstants.LOGIN_BACKEND_USER_SESSION_ID);
+    if(!sessionUser.getName().equals("admin") && sessionUser.isOnlySeeNewUser()){
+        model.getFilter().put("status in", new int[]{0,1});
+    }
     return model;
   }
 
@@ -119,16 +126,29 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
           sources = null;
       }
     init.getAoColumns().add(new TableHeaderVo("occupation", "来源").addSearchOptions(sources).enableSearch());
-    init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道").addSearchOptions(new String[][] { { "1", "2"}, { "医院", "微信"}}));
-    init.getAoColumns().add(new TableHeaderVo("sex", "性别").addSearchOptions(new String[][] { { "1", "2"}, { "男", "女"}}));
+    init.getAoColumns().add(new TableHeaderVo("registerFrom", "渠道").addSearchOptions(new String[][] { { "1", "2"}, { "医院", "微信"}}).enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("sex", "性别").addSearchOptions(new String[][]{{"1", "2"}, {"男", "女"}}));
 
     init.getAoColumns().add(new TableHeaderVo("iconpath", "图像").setHiddenColumn(true).enableSearch().addSearchOptions(new String[][] { { "null", "!null"}, { "没有", "有"}}));
     init.getAoColumns().add(new TableHeaderVo("fingerpath", "指纹").setHiddenColumn(true).enableSearch().addSearchOptions(new String[][] { { "null", "!null"}, { "没有", "有"}}));
 
+
     init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
-    init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
+    init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false).addSearchOptions(new String[][]{{"null", "!null"}, {"没有", "有"}}).enableSearch());
     init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
-    return init;
+      init.getAoColumns().add(new TableHeaderVo("trainCounter_eq", "培训记录(=)", false).setHiddenColumn(true).enableSearch());
+      init.getAoColumns().add(new TableHeaderVo("trainCounter_gt", "培训记录(>)", false).setHiddenColumn(true).enableSearch());
+      init.getAoColumns().add(new TableHeaderVo("trainCounter", "培训记录"));
+    init.getAoColumns().add(new TableHeaderVo("createTime_gteq", "注册时间").setHiddenColumn(true).enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("createTime_lteq", "注册时间").setHiddenColumn(true).enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("modifyTime_gteq", "更新时间").setHiddenColumn(true).enableSearch());
+    init.getAoColumns().add(new TableHeaderVo("modifyTime_lteq", "更新时间").setHiddenColumn(true).enableSearch());
+
+    init.getAoColumns().add(new TableHeaderVo("createTime", "注册时间"));
+    init.getAoColumns().add(new TableHeaderVo("modifyTime", "更新时间"));
+
+
+      return init;
   }
 
   /**
@@ -205,6 +225,8 @@ public class BackendVolunteerAction extends BaseBackendAction<VolunteerBusiness>
 
   public String search() {
     TableQueryVo param = new TableQueryVo();
+    //通过面试的人，才有资格进行培训记录
+    param.getFilter().put("status",2);
     param.getFilter().put("name", volunteer.getName());
     param.setIDisplayLength(5000);
     param.setIDisplayStart(0);

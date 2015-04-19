@@ -174,7 +174,19 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
         }
         filter.put("isDeleted_!=", true);
         Query query = this.constructQuery(filter, sorted, spc);
-        return query.asList();
+        List list = query.asList();
+        return list == null ? new ArrayList<L>() : list;
+    }
+
+    @Override
+    public long countDataByCondition(Map filter) {
+        Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
+        if (null == filter) {
+            filter = new HashMap();
+        }
+        filter.put("isDeleted_!=", true);
+        Query query = this.constructQuery(filter, null, null);
+        return dc.getCount(query);
     }
 
     @Override
@@ -214,7 +226,10 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
  * name =",etc.
  */
                         String[] splits = key.split("_");
-                        if (splits.length == 2) {
+                        //表明是 !=, in等标准的mongoDB的操作
+                        if(key.indexOf(" ")!=-1){
+                            query = query.filter(key, value);
+                        }else if (splits.length == 2) {
                             String token = splits[1];
                             token = token.replace("lt", "<").replace("gt", ">")
                                     .replace("eq", "=");
@@ -250,7 +265,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
                              */
                             if (judgeValue instanceof String) {
                                 if(judgeValue != null && judgeValue.equals("null")){
-                                    query = query.filter(key, null);
+                                    query = query.filter(key+" in", new String[]{"",null});
                                 }else if(judgeValue != null && judgeValue.equals("!null")){
                                     query = query.filter(key+" !=", null);
                                     query = query.filter(key+" !=", "");
@@ -295,6 +310,10 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
 
     @Override
     public TableDataVo query(TableQueryVo queryParam) {
+        return query(queryParam,true);
+    }
+    //autoStaredPage 开关设置，解决前端查询对应的currentPage和最后的结果数不一致
+    public TableDataVo query(TableQueryVo queryParam, boolean autoStaredPage) {
         Datastore dc = MongoDBConnectionFactory.getDatastore(getDBName());
         Set<String> sortedMappingMongo = new HashSet<String>();
         LinkedHashMap<String, String> lhm = queryParam.getSort();
@@ -314,7 +333,7 @@ public class MongoCommonBusiness<F, L> implements BusinessInterface,
         }
         long count = this.getCount(queryParam);
         int startCounter = queryParam.getIDisplayStart();
-        if(queryParam.getIDisplayStart()>count){
+        if(queryParam.getIDisplayStart()>count && autoStaredPage){
             startCounter = 0;
         }
         SpecPaginationContext spc = new SpecPaginationContext();

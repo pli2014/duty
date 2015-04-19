@@ -26,8 +26,17 @@ public class BackendDashBoardAction extends BaseAction{
 
   private DashBoardBean dashBoardBean = new DashBoardBean();
   private List<VolunteerBean> volunteerBeanList;
+  private String firtDayOfMonth = "";
 
-  public String getAllData() {
+    public String getFirtDayOfMonth() {
+        return firtDayOfMonth;
+    }
+
+    public void setFirtDayOfMonth(String firtDayOfMonth) {
+        this.firtDayOfMonth = firtDayOfMonth;
+    }
+
+    public String getAllData() {
     dashBoardBean = new DashBoardBean();
     volunteerBeanList = (List<VolunteerBean>)volunteerBus.getAllLeaves().getResponseData();
 
@@ -37,6 +46,13 @@ public class BackendDashBoardAction extends BaseAction{
     dashBoardBean.setTrainCount(getTrainCount());
     dashBoardBean.setCourseCount(getCourseCount());
 
+      // 获取前月的第一天
+      Calendar cal = Calendar.getInstance();
+      cal = Calendar.getInstance();
+      cal.add(Calendar.MONTH, 0);
+      cal.set(Calendar.DAY_OF_MONTH, 1);
+      SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+      firtDayOfMonth = format.format(cal.getTime());
     return SUCCESS;
   }
 
@@ -58,10 +74,19 @@ public class BackendDashBoardAction extends BaseAction{
     long registerClient = 0;
     long registerWechat = 0;
 
+      long alwaysTrainCount = 0;
+      long noTrainCount = 0;
+
     if(null != volunteerBeanList) {
       for(VolunteerBean bean : volunteerBeanList) {
         if(bean.getStatus() == VolunteerBean.INTERVIEWED && bean.getIsDeleted() == false) {
           volunteerCount ++ ;
+
+            if (bean.getTrainCounter() == 0) {
+                noTrainCount++;
+            } else {
+                alwaysTrainCount++;
+            }
 
           if(StringUtils.isNotEmpty(bean.getWechat())) {
             bindingCount ++;
@@ -90,6 +115,8 @@ public class BackendDashBoardAction extends BaseAction{
     dashBoardBean.setNewUnbindingCount(newUnbindingCount);
     dashBoardBean.setRegisterByClient(registerClient);
     dashBoardBean.setRegisterByWechat(registerWechat);
+    dashBoardBean.setAlwaysTrainCount(alwaysTrainCount);
+    dashBoardBean.setNoTrainCount(noTrainCount);
   }
 
   private long getCourseCount() {

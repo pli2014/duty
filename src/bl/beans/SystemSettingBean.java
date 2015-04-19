@@ -19,6 +19,26 @@ public class SystemSettingBean extends Bean {
     private String defaultPassword = "123456";
 
     private String welcomeMsg = "欢迎使用志愿者服务平台!";
+    //每10分钟计算一次，系统缺省
+    private String calculatorTrainCounter="0 0/10 * * * ?";
+    //下午6点到第二天5点，每10分钟触发，自动签出签到的用户，系统缺省
+    private String autoSignOut="0 0/10 18-5 * * ?";
+
+    public String getCalculatorTrainCounter() {
+        return calculatorTrainCounter;
+    }
+
+    public void setCalculatorTrainCounter(String calculatorTrainCounter) {
+        this.calculatorTrainCounter = calculatorTrainCounter;
+    }
+
+    public String getAutoSignOut() {
+        return autoSignOut;
+    }
+
+    public void setAutoSignOut(String autoSignOut) {
+        this.autoSignOut = autoSignOut;
+    }
 
     public String getDefaultPassword() {
         return defaultPassword;

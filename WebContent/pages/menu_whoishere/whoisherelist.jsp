@@ -59,7 +59,8 @@
                           <div style="color:black;"><s:property value="#vol.volunteer.code"/></div>
                           <div style="color:gray;"><s:property value="#vol.volunteer.cellPhone"/></div>
                        </div>
-                       <div style="float: right;padding-top: 30px;">
+                        <div style="color:red;float: left;padding-top: 30px;">签到：<s:date name="#vol.createTime" format="yyyy年MM月dd日HH:mm:ss" /></div>
+                        <div style="float: right;padding-top: 30px;">
                           <s:if test="#vol.status == 1">
                              <img src="${rootPath}/img/wechat.jpg"/>
                           </s:if>

@@ -54,7 +54,7 @@
       <!--common script for all pages-->
       <script src="jslib/flatlab/assets/advanced-datatable/extras/TableTools/media/js/ZeroClipboard.js" type="text/javascript" charset="utf-8" ></script>
       <script src="jslib/flatlab/assets/advanced-datatable/extras/TableTools/media/js/TableTools.js" type="text/javascript" charset="utf-8" ></script>
-      <script src="jslib/flatlab/assets/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript" charset="utf-8" ></script>
+      <script src="jslib/flatlab/assets/bootstrap-datepicker/js/bootstrap-datepicker.js?version=20150418" type="text/javascript" charset="utf-8" ></script>
       <script src="jslib/flatlab/js/jquery.validate.min.js" type="text/javascript"></script>
       <decorator:head/>
   </head>

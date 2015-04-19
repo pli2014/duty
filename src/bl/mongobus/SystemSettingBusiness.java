@@ -1,11 +1,12 @@
 package bl.mongobus;
 
+import actions.backend.BackendAutoSignOutJob;
+import actions.backend.BackendTrainRecordJob;
 import bl.beans.SystemSettingBean;
-import bl.beans.VolunteerBean;
 import bl.common.BeanContext;
-import bl.common.BusinessResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.QuartzManager;
 import util.ServerContext;
 import util.DBUtils;
 import wechat.utils.Constants;
@@ -80,6 +81,11 @@ public class SystemSettingBusiness extends MongoCommonBusiness<BeanContext, Syst
           if(null != introduction) {
               ServerContext.putValue(prefix + Constants.INTRODUCTION, introduction);
           }
+
+          //调度任务启动
+          QuartzManager.addOrModifyJob("BackendTrainRecordJob", BackendTrainRecordJob.class, setting.getCalculatorTrainCounter());
+          QuartzManager.addOrModifyJob("BackendAutoSignOutJob", BackendAutoSignOutJob.class, setting.getAutoSignOut());
+
 
       }
     }

@@ -44,6 +44,15 @@
             if($("#code").val()) {
                 aoData.push( { "name": "filter['code']", "value": $("#code").val() } );
             }
+            if($("#occupation").val()) {
+                aoData.push( { "name": "filter['occupation']", "value": $("#occupation").val() } );
+            }
+            if($("#startDate").val()) {
+                aoData.push( { "name": "filter['startDate']", "value": $("#startDate").val() } );
+            }
+            if($("#endDate").val()) {
+                aoData.push( { "name": "filter['endDate']", "value": $("#endDate").val() } );
+            }
             if($("#servicePlaceId").val()) {
                 aoData.push( { "name": "filter['servicePlaceId']", "value": $("#servicePlaceId").val() } );
             }
@@ -70,6 +79,15 @@
 //                query.code = $("#code").val();
                 url = url + "&code=" + $("#code").val();
             }
+            if($("#occupation").val()) {
+                url = url + "&occupation=" + $("#occupation").val();
+            }
+            if($("#startDate").val()) {
+                url = url + "&startDate=" + $("#startDate").val();
+            }
+            if($("#endDate").val()) {
+                url = url + "&endDate=" + $("#endDate").val();
+            }
             if($("#servicePlaceId").val()) {
 //                query.servicePlaceId = $("#servicePlaceId").val();
                 url = url + "&servicePlaceId=" + $("#servicePlaceId").val();
@@ -88,6 +106,12 @@
         }
 
         $(document).ready(function(){
+
+            $("#startDate").attr("data-date-format","yyyy-mm-dd");
+            $("#startDate").datepicker();
+            $("#endDate").attr("data-date-format","yyyy-mm-dd");
+            $("#endDate").datepicker();
+
             $("#activeTimeTable").dataTable({
                 "bSort": false,
                 "bFilter": false,
@@ -176,7 +200,24 @@
                             <input type="text" value="<s:property value='code'/>" placeholder="工号" class="form-control input-sm filter-component" name="code" id="code">
                         </div>
                     </div>
-
+                    <div class="col-lg-2 col-md-2 filter-column">
+                        <label class="pull-left control-label">来源</label>
+                        <div class="col-lg-10">
+                            <s:select id="occupation" name="occupation" headerKey="" headerValue="" list="listSource" listKey="code" listValue="name" value="%{occupation}" cssClass="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 filter-column">
+                        <label class="pull-left control-label">时间</label>
+                        <div class="col-lg-10">
+                            <input type="text" value="<s:property value='startDate'/>" placeholder="签到区间起始" class="form-control input-sm filter-component" name="startDate" id="startDate">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 filter-column">
+                        <label class="pull-left control-label">时间</label>
+                        <div class="col-lg-10">
+                            <input type="text" value="<s:property value='endDate'/>" placeholder="签到区间结束" class="form-control input-sm filter-component" name="endDate" id="endDate">
+                        </div>
+                    </div>
                     <div class="col-lg-4 col-md-4 filter-column">
                         <label class="pull-left control-label" >范围</label>
 

@@ -194,6 +194,12 @@ public class VolunteerBusiness extends MongoCommonBusiness<BeanContext, Voluntee
     return dataVo;
   }
 
+    public BusinessResult updateLeafSimple(BeanContext origBean, BeanContext newBean) {
+        BusinessResult result = super.updateLeaf(origBean, newBean);
+        VolunteerBean bean = (VolunteerBean) newBean;
+        return result;
+    }
+
   @Override
   public BusinessResult updateLeaf(BeanContext origBean, BeanContext newBean) {
     BusinessResult result = super.updateLeaf(origBean, newBean);

@@ -227,7 +227,7 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
     return new BusinessResult();
   }
 
-  public BusinessResult checkOut(String userId) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+  public BusinessResult checkOut(String userId){
     ActiveUserBean activeUserBean = (ActiveUserBean) activeUserBus.getActiveUserByUserId(userId).getResponseData();
     if (null != activeUserBean) {
       VolunteerBean volunteer = (VolunteerBean)userBus.getLeaf(userId).getResponseData();
@@ -235,7 +235,11 @@ public class UserServiceBusiness extends MongoCommonBusiness<BeanContext, UserSe
           (ServicePlaceBean) servicePlaceBus.getLeaf(activeUserBean.getServicePlaceId()).getResponseData();
 
       UserServiceBean usBean = new UserServiceBean();
-      PropertyUtils.copyProperties(usBean, activeUserBean);
+        try {
+            PropertyUtils.copyProperties(usBean, activeUserBean);
+        } catch (Exception e) {
+            LOG.error("error", e);
+        }
       usBean.setCheckInMethod(activeUserBean.getStatus());
       usBean.setUserCode(volunteer.getCode());
       usBean.setUserName(volunteer.getName());

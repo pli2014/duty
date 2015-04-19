@@ -63,6 +63,7 @@ public class BackendVolunteerInterviewAction extends BackendVolunteerAction {
       init.getAoColumns().add(new TableHeaderVo("cellPhone", "手机", false));
       init.getAoColumns().add(new TableHeaderVo("wechat", "微信", false));
       init.getAoColumns().add(new TableHeaderVo("email", "邮箱", false));
+      init.getAoColumns().add(new TableHeaderVo("modifyTime", "审核时间"));
       init.setDisableTools(true);
       return init;
   }

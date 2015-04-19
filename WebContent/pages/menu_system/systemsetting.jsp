@@ -46,6 +46,18 @@
             </div>
         </div>
         <div class="form-group has-success">
+            <label class="control-label col-lg-2">计算志愿者培训调度</label>
+            <div class="col-lg-10">
+                <input name="systemSetting.calculatorTrainCounter" type="text" class="form-control" value="${systemSetting.calculatorTrainCounter}"/>
+            </div>
+        </div>
+        <div class="form-group has-success">
+            <label class="control-label col-lg-2">自动签出时间调度</label>
+            <div class="col-lg-10">
+                <input name="systemSetting.autoSignOut" type="text" class="form-control" value="${systemSetting.autoSignOut}"/>
+            </div>
+        </div>
+        <div class="form-group has-success">
             <label class="control-label col-lg-2">微信配置</label>
             <div class="col-lg-10">
                 <div class="row">

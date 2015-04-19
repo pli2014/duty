@@ -6,20 +6,18 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import actions.SystemSettingAction;
+import actions.backend.BackendTrainRecordJob;
 import bl.constants.BusTieConstant;
 import bl.instancepool.SingleBusinessPoolManager;
 import bl.mongobus.SystemSettingBusiness;
 import bl.mongobus.VolunteerBusiness;
 import common.Constants;
-import util.DBUtils;
-import util.MultiTenancyManager;
-import util.ServerContext;
+import util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import dao.MongoDBConnectionFactory;
-import util.VolunteerCountCache;
 
 public class WebInitListener implements ServletContextListener {
   protected static Logger LOG = LoggerFactory.getLogger(WebInitListener.class);
@@ -69,24 +67,20 @@ public class WebInitListener implements ServletContextListener {
       for(String dbFlag : dbFlags) {
           loadServerContext(dbFlag);
       }
+
   }
     private static void loadServerContext(String dbFlag) {
         SystemSettingBusiness ssb = (SystemSettingBusiness) SingleBusinessPoolManager.getBusObj(BusTieConstant.BUS_CPATH_SYSTEMSETTING);
-        String tempFlag = DBUtils.getDBFlag();
         DBUtils.setDBFlag(dbFlag);
         /**load system setting from mongo db**/
         ssb.loadServerContext();
-        if(null != tempFlag) {
-            DBUtils.setDBFlag(tempFlag);
-        } else {
-            DBUtils.removeDBFlag();
-        }
     }
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
     LOG.info("destroy dynamic form war");
     LOG.info("disconnect conection of MongoDB");
     MongoDBConnectionFactory.destroy();
+    QuartzManager.stopScheduler();
   }
 
 }

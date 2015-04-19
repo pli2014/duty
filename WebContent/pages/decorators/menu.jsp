@@ -36,6 +36,7 @@
                           <li><a  href="backend/volunteerInterview/index.action">面试</a></li>
                       </ul>
                   </li>
+                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-gavel"></i>
@@ -46,16 +47,20 @@
                           <li><a  href="backend/serviceplace/index.action?type=1">地图地点</a></li>
                       </ul>
                   </li>
+                  </s:if>
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-volume-up"></i>
                           <span>培训管理</span>
                       </a>
                       <ul class="sub">
-                          <li><a id="courseManagement" href="backend/traincourse/index.action">培训课程</a></li>
+                          <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
+                            <li><a id="courseManagement" href="backend/traincourse/index.action">培训课程</a></li>
+                          </s:if>
                           <li><a id="trainManagement" href="backend/volunterTrainCourse/index.action">培训记录</a></li>
                       </ul>
                   </li>
+                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                   <li class="sub-menu">
                       <a href="javascript:;">
                           <i class="fa fa-clock-o"></i>
@@ -71,7 +76,6 @@
                           <%--<li><a  href="boxed_page.html">工时排名</a></li>--%>
                       </ul>
                   </li>
-                  <s:if test="#session.backendSessionUser != null && #session.backendSessionUser.name == 'admin'">
                       <li class="sub-menu">
                           <a href="javascript:;">
                               <i class="fa fa-cogs"></i>

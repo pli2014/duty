@@ -8,7 +8,9 @@
         cellFormatter["name"] = function ( data, type, full ) {
             return '<img disable style="margin-right:10px" class="volunteerimg" src="'+full.iconpath+'" width="60px" height="50px" onerror="this.src=\'person/img/<s:property value="@util.DBUtils@getDBFlag()"/>/volunteer.png\'"/><div>' + data+ '</div>';
         }
-
+        cellFormatter["trainCounter"] = function ( data, type, full ) {
+            return '<a href="javascript:selectMenu(\'trainManagement\',\'?volunteerCode='+full.code+'\')">' + data+ '</a>';
+        }
         cellFormatter["occupation"] = function ( data, type, full ) {
            <s:iterator value="listSource">
                if(data =='<s:property value="code"/>'){
@@ -28,4 +30,13 @@
                window.location = "${rootPath}/backend/volunterTrainCourse/add.action?volunteerId=" + selectRowData[idName];
            }
         }
+
+        $(".form-horizontal.tasi-form [name='createTime_gteq']").attr("data-date-format","yyyy-mm-dd");
+        $(".form-horizontal.tasi-form [name='createTime_gteq']").datepicker();
+        $(".form-horizontal.tasi-form [name='createTime_lteq']").attr("data-date-format","yyyy-mm-dd");
+        $(".form-horizontal.tasi-form [name='createTime_lteq']").datepicker();
+        $(".form-horizontal.tasi-form [name='modifyTime_gteq']").attr("data-date-format","yyyy-mm-dd");
+        $(".form-horizontal.tasi-form [name='modifyTime_gteq']").datepicker();
+        $(".form-horizontal.tasi-form [name='modifyTime_lteq']").attr("data-date-format","yyyy-mm-dd");
+        $(".form-horizontal.tasi-form [name='modifyTime_lteq']").datepicker();
     </script>

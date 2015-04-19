@@ -6,7 +6,7 @@ import org.mongodb.morphia.annotations.Entity;
 
 /**
  * @author gudong
- * 
+ *
  */
 @Entity(value = "volunteer")
 public class VolunteerBean extends Bean {
@@ -15,11 +15,11 @@ public class VolunteerBean extends Bean {
   public static final int INTERVIEWED = 2;
   public static final int SERVICED = 3;
   public static final int LOGOUTED = 4;
-  
+
   public static final int REGISTER_HOSPITAL = 1;
   public static final int REGISTER_WECHAT = 2;
-  
-  
+
+
   private String code;
   private Integer registerFrom = REGISTER_HOSPITAL; // 1=hospital,2=wechat.
   private Integer status = REGISTERED; // 0=已注册、1=已审核、2=已面试、3=审核不通过、4=面试不通过
@@ -41,6 +41,22 @@ public class VolunteerBean extends Bean {
   private String wechat;
   private String iconpath;
   private String fingerpath;
+    /**
+     * 培训此时，根据培训记录读取，通过定时任务做 @
+     * 由于MongoDB对应关联表非常不好实现，即使使用
+     * DBRef (关联查询失效)或者 Embeded 方式（提倡的）
+     * 通常还可以采用，Map-Reduce搬移数据到统计表，进行。
+     * 此处，用最经济的方式 定时统计计算。
+     */
+  private long trainCounter;
+
+    public long getTrainCounter() {
+        return trainCounter;
+    }
+
+    public void setTrainCounter(long trainCounter) {
+        this.trainCounter = trainCounter;
+    }
 
     public Integer getIdentityType() {
         return identityType;

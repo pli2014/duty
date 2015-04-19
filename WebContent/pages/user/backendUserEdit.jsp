@@ -53,13 +53,20 @@
               </div>
 
               <div class="form-group has-error">
-                <label for="confirm_password" class="control-label col-lg-2">再次输入密码</label>
+                <label class="control-label col-lg-2">再次输入密码</label>
                <div class="col-lg-10">
                    <input class="form-control "  name="confirm_password" type="password" placeholder="请再次输入密码"  required="required"/>
                </div>
               </div>
             </s:else>
-
+             <s:if test="user.name!='admin'">
+             <div class="form-group has-error">
+                 <label for="onlySeeNewUser" class="control-label col-lg-2">仅仅看新注册志愿者</label>
+                 <div class="col-lg-10">
+                     <s:checkbox name="user.onlySeeNewUser" id="onlySeeNewUser"/>
+                 </div>
+             </div>
+             </s:if>
              <div class="form-group">
                  <div class="col-lg-offset-2 col-lg-10">
                      <button class="btn btn-info" type="submit">保存</button>
