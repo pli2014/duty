@@ -47,12 +47,6 @@
             if($("#occupation").val()) {
                 aoData.push( { "name": "filter['occupation']", "value": $("#occupation").val() } );
             }
-            if($("#startDate").val()) {
-                aoData.push( { "name": "filter['startDate']", "value": $("#startDate").val() } );
-            }
-            if($("#endDate").val()) {
-                aoData.push( { "name": "filter['endDate']", "value": $("#endDate").val() } );
-            }
             if($("#servicePlaceId").val()) {
                 aoData.push( { "name": "filter['servicePlaceId']", "value": $("#servicePlaceId").val() } );
             }
@@ -167,11 +161,10 @@
                 <input type="hidden" id="day" name="day" value="<s:property value='day'/>">
                 <input type="hidden" id="month" name="month" value="<s:property value='year'/>">
                 <input type="hidden" id="year" name="year" value="<s:property value='year'/>">
-                <div class="row mt15">
-                    <div class="col-lg-2 col-md-2 filter-column">
+                <div class="row">
+                    <div class="col-lg-4 filter-column">
                         <label class="pull-left control-label" for="servicePlaceId">地点</label>
-
-                        <div class="col-lg-9 col-md-9 filter-component-column">
+                        <div class="col-lg-6">
                             <select class="form-control input-sm m-bot15" name="servicePlaceId" id="servicePlaceId">
                                 <option value="">请选择</option>
                                 <s:iterator value="servicePlaces" var="bean">
@@ -185,37 +178,24 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-2 col-md-2 filter-column">
+                    <div class="col-lg-4 filter-column">
                         <label class="pull-left control-label" for="name">姓名</label>
-
-                        <div class="col-lg-9 col-md-9 filter-component-column">
+                        <div class="col-lg-6">
                             <input type="text" value="<s:property value='name'/>" placeholder="姓名" class="form-control input-sm filter-component" name="name" id="name">
                         </div>
                     </div>
-
-                    <div class="col-lg-2 col-md-2 filter-column">
+                    <div class="col-lg-4 filter-column">
                         <label class="pull-left control-label" for="code">工号</label>
-
-                        <div class="col-lg-9 col-md-9 filter-component-column">
-                            <input type="text" value="<s:property value='code'/>" placeholder="工号" class="form-control input-sm filter-component" name="code" id="code">
+                        <div class="col-lg-6">
+                          <input type="text" value="<s:property value='code'/>" placeholder="工号" class="form-control input-sm filter-component" name="code" id="code">
                         </div>
                     </div>
-                    <div class="col-lg-2 col-md-2 filter-column">
+                  </div>
+                <div class="row">
+                    <div class="col-lg-4 filter-column">
                         <label class="pull-left control-label">来源</label>
-                        <div class="col-lg-10">
-                            <s:select id="occupation" name="occupation" headerKey="" headerValue="" list="listSource" listKey="code" listValue="name" value="%{occupation}" cssClass="form-control"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 filter-column">
-                        <label class="pull-left control-label">时间</label>
-                        <div class="col-lg-10">
-                            <input type="text" value="<s:property value='startDate'/>" placeholder="签到区间起始" class="form-control input-sm filter-component" name="startDate" id="startDate">
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 filter-column">
-                        <label class="pull-left control-label">时间</label>
-                        <div class="col-lg-10">
-                            <input type="text" value="<s:property value='endDate'/>" placeholder="签到区间结束" class="form-control input-sm filter-component" name="endDate" id="endDate">
+                        <div class="col-lg-6">
+                         <s:select id="occupation" name="occupation" headerKey="" headerValue="" list="listSource" listKey="code" listValue="name" value="%{occupation}" cssClass="form-control"/>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 filter-column">
@@ -248,7 +228,6 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="col-lg-1 col-md-1">
                         <button class="btn btn-success pull-right" type="submit">
                             查询

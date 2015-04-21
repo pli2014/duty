@@ -129,15 +129,6 @@ public class BackendTimeReportAction extends BaseBackendAction{
           occupation = occupations[0];
       }
 
-      String[] startDates = filterMap.get("startDate");
-      if(null != startDates && startDates.length > 0) {
-          startDate = startDates[0];
-      }
-      String[] endDates = filterMap.get("endDate");
-      if(null != endDates && endDates.length > 0) {
-          endDate = endDates[0];
-      }
-
     String[] servicePlaces = filterMap.get("servicePlaceId");
 
     List<String> serviceIdList = new ArrayList<String>();
@@ -167,15 +158,7 @@ public class BackendTimeReportAction extends BaseBackendAction{
           newVolunteerBean.add(bean);
       }
     }
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-      Date newStartDate = null;
-      Date newEndDate = null;
-      try {
-          newStartDate = sdf.parse(this.startDate);
-          newEndDate = sdf.parse(this.endDate);
-      } catch (Exception e) {
-      }
-    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.queryUserServices(idList, serviceIdList,newStartDate,newEndDate));
+    Map<String, Map> beanMap = userServiceBus.statisticTime(userServiceBus.getLeavesByUserIds(idList, serviceIdList));
 
     for(VolunteerBean bean: newVolunteerBean) {
       ActiveTimeReportVo vo = new ActiveTimeReportVo();
